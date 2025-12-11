@@ -1,0 +1,28 @@
+<h2>User Management</h2>
+
+<a href="{% url 'add_user' %}" class="btn">➕ Add User</a>
+
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Created</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for u in users %}
+    <tr>
+        <td>{{ u.full_name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.role.name }}</td>
+        <td>{{ u.is_active }}</td>
+        <td>{{ u.created_at }}</td>
+        <td>
+            <a href="{% url 'edit_user' u.id %}">✏ Edit</a> |
+            <a href="{% url 'delete_user' u.id %}" onclick="return confirm('Delete user?')">🗑 Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

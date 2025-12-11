@@ -1,0 +1,351 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}"/>
+   
+</head>
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBv1qbMwANXehUvUuj7jLYDFVVfq_SWUg2g49l3SmLWskDtYHpHJ_8WvJwsx9a2FRubRslmWVa_i5P7tT8w3--UoztcwCpbKLOazTabnBD2N_fY6OQ7FRlKs_zlUcTkD7KY9w-hiqblxryxB10EyToaRWquh2M4i_rDvKfif1kGdDqLVYibrW5HsihGpGcxNNJEB8c7BL9lRSrGdRbSOnvY4eHzXRrkhgnIo7Q7R9Ra_WPzsy-VPqL4V_-_ekNly4XBYSN8gI28pPAs");'></div>
+                <div class="user-info">
+                    <h1>Admin Platform</h1>
+                    <p>admin@school.com</p>
+                </div>
+            </div>
+
+            <nav>
+                <a class="nav-link active" href="#">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </a>
+                 <a class="nav-link" href="{% url 'user_list' %}">
+                    <span class="material-symbols-outlined">group</span>
+                    Users
+                </a>
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">school</span>
+                    Schools
+                </a>
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">school</span>
+                    Attendance
+                </a>
+                 <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">school</span>
+                    Sessions
+                </a>
+               
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">assessment</span>
+                    Reports
+                </a>
+            </nav>
+
+            <div class="nav-section">
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+                <a class="nav-link" href="{% url 'logout' %}">
+                    <span class="material-symbols-outlined">logout</span>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <div class="search-bar">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" placeholder="Search schools, students, sessions...">
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <div class="avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC0jjUPR-JlHhMmVqjLrNciv_GrH-GGxukazycOJ-G1ea5q_0gqnBBLELsbUiv4npEAg182OovFX3gyeUkVTFYV0Fsr_0Xuklbj47scNQHfvHq4oUwuNPdCGXNZzi72wwNVRekw6UXHK4OPLQSWIEmV79-nmBE8jffHTJUT59-vbbFulzzsJdKsfT_CewqYzITCYabwILjc0Ce2JfvIOaZga4Gr6BC87xrEY59OjRtaOp_wC0SgF5su3H1IBS_Oi0Wvk8Ubff5hhPK2");'></div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <h2 class="section-title">Dashboard Overview</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <p class="stat-label">Active Schools</p>
+                        <p class="stat-value">124</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">Active Facilitators</p>
+                        <p class="stat-value">86</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">Pending Validations</p>
+                        <p class="stat-value">15</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">Enrolled Students</p>
+                        <p class="stat-value">2,450</p>
+                    </div>
+                </div>
+
+                <h3 class="section-title" style="margin-top: 2rem;">Quick Actions</h3>
+                <div class="actions-grid">
+                  <button id="openCreateUserModal" class="action-btn btn-primary" type="button">
+    <span class="material-symbols-outlined">person_add</span> Create New User
+</button>
+
+                    <button class="action-btn">
+                        <span class="material-symbols-outlined">add_business</span> Add New School
+                    </button>
+                    <button class="action-btn">
+                        <span class="material-symbols-outlined">upload_file</span> Import CSV
+                    </button>
+                    <button class="action-btn">
+                        <span class="material-symbols-outlined">bar_chart</span> View Reports
+                    </button>
+                </div>
+                <!-- CREATE USER MODAL -->
+<div id="createUserModal" class="modal" style="display:none;">
+  <div class="modal-backdrop"></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="createUserTitle">
+    <button id="closeCreateUser" class="modal-close" aria-label="Close">&times;</button>
+
+    <h3 id="createUserTitle">Create New User</h3>
+
+    <form id="createUserForm" method="POST" action="{% url 'create-ajax' %}">
+      {% csrf_token %}
+      <div class="form-row">
+        <label>Full Name</label>
+        <input type="text" name="full_name" required />
+      </div>
+
+      <div class="form-row">
+        <label>Email</label>
+        <input type="email" name="email" required />
+      </div>
+
+      <div class="form-row">
+        <label>Password</label>
+        <input type="password" name="password" required />
+      </div>
+
+      <div class="form-row">
+        <label>Role</label>
+        <select name="role" required>
+          {% for r in roles %}
+            <option value="{{ r.id }}">{{ r.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <button type="submit" class="btn-primary">Create</button>
+        <button type="button" id="cancelCreateUser">Cancel</button>
+      </div>
+
+      <div id="createUserMessage" style="margin-top:.8rem;color:crimson;display:none;"></div>
+    </form>
+  </div>
+</div>
+
+<!-- Minimal modal CSS (add to your admin_dashboard.css) -->
+<style>
+    .form-row select {
+    width: 100%;
+    padding: 8px;
+    height: 42px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.modal { position:fixed; inset:0; z-index:1200; display:flex; align-items:center; justify-content:center; }
+.modal-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.45); }
+.modal-panel {  position:relative; z-index:1300; background:#fff; padding:20px; width:420px; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.2);max-height: 90vh;
+    overflow-y: auto; }
+.modal-close { position:absolute; right:12px; top:8px; background:none; border:0; font-size:20px; cursor:pointer; }
+.form-row { margin-bottom:10px; }
+.form-row input, .form-row select { width:100%; padding:8px; box-sizing:border-box; }
+</style>
+
+
+                <div class="bottom-grid">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>User Management</h3>
+                        </div>
+                        <div class="table-container">
+                        <table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for u in users %}
+        <tr>
+            <td>{{ u.full_name }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.role.name }}</td>
+
+            <td>
+                {% if u.is_active %}
+                    <span class="badge badge-active">Active</span>
+                {% else %}
+                    <span class="badge badge-pending">Inactive</span>
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="{% url 'edit_user' u.id %}">
+                    <span class="material-symbols-outlined" style="cursor:pointer;">edit</span>
+                </a>
+
+                <a href="{% url 'delete_user' u.id %}" 
+                   onclick="return confirm('Delete this user?')">
+                   <span class="material-symbols-outlined" style="cursor:pointer;">delete</span>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" style="text-align:center;">No users found</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Recent Activity</h3>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon text-blue">
+                                    <span class="material-symbols-outlined" style="font-size: 18px">add_business</span>
+                                </div>
+                                <div>
+                                    <p style="font-size: 0.875rem;"><strong>John</strong> added Northwood Academy.</p>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted);">2 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon text-green">
+                                    <span class="material-symbols-outlined" style="font-size: 18px">task_alt</span>
+                                </div>
+                                <div>
+                                    <p style="font-size: 0.875rem;">Session validated for <strong>Oakwood High</strong>.</p>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted);">5 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon text-purple">
+                                    <span class="material-symbols-outlined" style="font-size: 18px">person_add</span>
+                                </div>
+                                <div>
+                                    <p style="font-size: 0.875rem;">New user <strong>Emily</strong> created.</p>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted);">1 day ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    <script>
+// helper: get cookie value (for CSRF)
+function getCookie(name) {
+  let v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return v ? v.pop() : '';
+}
+
+const openBtn = document.getElementById('openCreateUserModal');
+const modal = document.getElementById('createUserModal');
+const closeBtn = document.getElementById('closeCreateUser');
+const cancelBtn = document.getElementById('cancelCreateUser');
+const form = document.getElementById('createUserForm');
+const msg = document.getElementById('createUserMessage');
+
+function showModal() { modal.style.display = 'flex'; msg.style.display='none'; }
+function hideModal() { modal.style.display = 'none'; form.reset(); }
+
+openBtn.addEventListener('click', showModal);
+closeBtn.addEventListener('click', hideModal);
+cancelBtn.addEventListener('click', hideModal);
+
+// AJAX submit
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  msg.style.display = 'none';
+
+  const url = form.getAttribute('action');
+  const formData = new FormData(form);
+
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Accept': 'application/json'
+    },
+    body: formData,
+    credentials: 'same-origin'
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      // insert new row at top of table body (adjust selector to your table)
+      const tbody = document.querySelector('.table-container table tbody') || document.querySelector('table tbody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${data.user.full_name}</td>
+        <td>${data.user.email}</td>
+        <td>${data.user.role_name}</td>
+        <td><span class="badge badge-active">Active</span></td>
+        <td>
+          <a href="/users/edit/${data.user.id}/"><span class="material-symbols-outlined">edit</span></a>
+          <a href="/users/delete/${data.user.id}/" onclick="return confirm('Delete this user?')">
+            <span class="material-symbols-outlined" style="color:red">delete</span>
+          </a>
+        </td>
+      `;
+      if (tbody) tbody.prepend(tr);
+
+      hideModal();
+    } else {
+      msg.textContent = data.error || 'Could not create user';
+      msg.style.display = 'block';
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    msg.textContent = 'Server error. Try again';
+    msg.style.display = 'block';
+  });
+});
+</script>
+
+
+</body>
+</html>
