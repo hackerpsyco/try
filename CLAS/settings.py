@@ -77,11 +77,15 @@ WSGI_APPLICATION = 'CLAS.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'class1',
-        'USER': 'postgres',
-        'PASSWORD': 'Code@111',
-        'HOST': 'localhost',
+        'NAME': 'neondb',
+        'USER': 'neondb_owner',
+        'PASSWORD': 'npg_ICyqflMD5ma7',
+        'HOST': 'ep-flat-water-aeh2db45-pooler.c-2.us-east-2.aws.neon.tech',
         'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+            'channel_binding': 'require',
+        },
     }
 }
 
