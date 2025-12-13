@@ -1,0 +1,17 @@
+# Core Django
+Django>=5.0,<5.2
+
+# PostgreSQL database adapter
+psycopg2-binary>=2.9.9
+
+# Image processing (for ImageField, uploads, etc.)
+Pillow>=10.3.0
+
+# Static files handling (important for Vercel/production)
+whitenoise>=6.7.0
+
+# Production WSGI server
+gunicorn>=22.0.0
+
+# Environment variable management (recommended)
+python-dotenv>=1.0.1
