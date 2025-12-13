@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'neondb',
         'USER': 'neondb_owner',
         'PASSWORD': 'npg_ICyqflMD5ma7',
-        'HOST': 'ep-flat-water-aeh2db45-pooler.c-2.us-east-2.aws.neon.tech',
+        'HOST': 'ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech',
         'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',
