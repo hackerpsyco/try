@@ -1,0 +1,18 @@
+<aside class="w-64 bg-gray-800 p-4 text-white min-h-screen">
+    <nav>
+        <ul>
+            <li class="mb-2">
+                <a href="{% url 'admin_dashboard' %}" class="block hover:bg-gray-700 px-2 py-1 rounded">Dashboard</a>
+            </li>
+            <li class="mb-2">
+                <a href="{% url 'user_list' %}" class="block hover:bg-gray-700 px-2 py-1 rounded">Users</a>
+            </li>
+            <li class="mb-2">
+                <a href="{% url 'school_list' %}" class="block hover:bg-gray-700 px-2 py-1 rounded">Schools</a>
+            </li>
+            <li class="mb-2">
+                <a href="{% url 'logout' %}" class="block hover:bg-gray-700 px-2 py-1 rounded">Logout</a>
+            </li>
+        </ul>
+    </nav>
+</aside>

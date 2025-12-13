@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import AddUserForm, EditUserForm
+from .forms import AddUserForm, EditUserForm, AddSchoolForm
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth import get_user_model
@@ -12,7 +12,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 from django.views.decorators.csrf import csrf_exempt
-from .models import User, Role  # adjust imports
+from .models import User, Role, School  # adjust imports
 
 @csrf_exempt  # remove this if you handle CSRF in headers correctly
 def create_user_ajax(request):
@@ -84,29 +84,29 @@ def login_view(request):
 
 @login_required
 def dashboard(request):
-    if request.user.role.id != 0:   # only admin
-        return redirect("no_permission")
-
-    users = User.objects.all().order_by("-created_at")
-    roles = Role.objects.all()
-
     role_name = request.user.role.name.upper()
     role_config = ROLE_CONFIG.get(role_name)
 
     if not role_config:
-        messages.error(request, "Invalid role configuration.")
-        return redirect("login")
+        messages.error(request, "Invalid role configuration or insufficient permissions.")
+        return redirect("no_permission")
 
     dashboard_template = role_config["template"]
+    context = {}
 
-    # FINAL WORKING RESPONSE (this is where your error was)
+    # Only fetch users and roles if it\"s the admin dashboard
+    if role_name == "ADMIN":
+        users = User.objects.all().order_by("-created_at")
+        roles = Role.objects.all()
+        context = {
+            "users": users,
+            "roles": roles,
+        }
+
     return render(
         request,
         dashboard_template,
-        {
-            "users": users,
-            "roles": roles,   # this line was inside the wrong place earlier
-        }
+        context
     )
 
 
@@ -118,10 +118,6 @@ def logout_view(request):
     messages.success(request, "You have successfully logged out.")
     return redirect("login")
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from .models import User
-from .forms import AddUserForm, EditUserForm
 
 def user_list(request):
     if request.user.role.id != 0:
@@ -169,3 +165,37 @@ def delete_user(request, user_id):
     user.delete()
     messages.success(request, "User deleted successfully!")
     return redirect("user_list")
+
+def no_permission(request):
+    return render(request, "no_permission.html")
+
+# New School Management Views
+@login_required
+def school_list(request):
+    # Ensure only Admin can access this view
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "You do not have permission to view schools.")
+        return redirect("no_permission")
+
+    schools = School.objects.all().order_by("-created_at")
+    context = {"schools": schools}
+    return render(request, "admin/school_list.html", context)
+
+@login_required
+def add_school(request):
+    # Ensure only Admin can access this view
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "You do not have permission to add schools.")
+        return redirect("no_permission")
+
+    if request.method == "POST":
+        form = AddSchoolForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "School added successfully!")
+            return redirect("school_list")  # Redirect to the school list view
+    else:
+        form = AddSchoolForm()
+
+    context = {"form": form}
+    return render(request, "admin/add_school.html", context)
