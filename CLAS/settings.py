@@ -122,6 +122,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+<<<<<<< HEAD
 # ✅ UPDATED: The missing setting causing your error
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -131,6 +132,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
     BASE_DIR / "static", 
 ]
+=======
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
+>>>>>>> 0e84c2b (add admin)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
