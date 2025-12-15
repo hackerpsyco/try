@@ -1,0 +1,120 @@
+{% extends 'admin/shared/base.html' %}
+
+{% block content %}
+<div class="container-fluid ">
+
+  <!-- 🔹 TOP BAR -->
+  <div class="card mb-3 border-0 shadow-sm">
+    <div class="card-body">
+      <div class="row align-items-center g-3">
+
+        <!-- Title -->
+        <div class="col-lg-3 col-md-12">
+          <h4 class="fw-semibold mb-0">Schools List</h4>
+        </div>
+
+        <!-- Search -->
+        <div class="col-lg-4 col-md-6">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by area, status, class..."
+          >
+        </div>
+
+        <!-- Role Filter -->
+        <div class="col-lg-2 col-md-6">
+          <select class="form-select">
+            <option selected>All Roles</option>
+            <option>Admin</option>
+            <option>Supervisor</option>
+            <option>Facilitator</option>
+          </select>
+        </div>
+
+        <!-- Actions -->
+        <div class="col-lg-3 col-md-12 text-lg-end">
+          <div class="d-flex justify-content-lg-end gap-2">
+            <a href="{% url 'add_school' %}" class="btn btn-primary">
+              + Add School
+            </a>
+            <button class="btn btn-outline-primary">
+              Assign Facilitator
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 SCHOOL GRID -->
+  <div class="row g-4">
+
+<div class="container mt-4">
+    <div class="row g-4">
+        {% for school in schools %}
+        <!-- School Card -->
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-sm school-card">
+                <div class="card-body text-center d-flex flex-column">
+
+                    <!-- School Icon -->
+                    <div class="mb-3">
+                        <div class="rounded-circle bg-primary-subtle text-primary d-inline-flex align-items-center justify-content-center"
+                             style="width: 56px; height: 56px;">
+                            <i class="bi bi-mortarboard fs-4"></i>
+                        </div>
+                    </div>
+
+                    <!-- School Info -->
+                    <h6 class="fw-semibold mb-1">{{ school.name }}</h6>
+                    <span class="badge {% if school.status == 'active' %}bg-success-subtle text-success{% else %}bg-danger-subtle text-danger{% endif %} mb-2">
+                        {{ school.get_status_display }}
+                    </span>
+
+                    <div class="text-muted small mb-4">
+                        <div>👨‍🎓 Students: <strong>{{ school.enrolled_students }}</strong></div>
+                        <div>🧑‍🏫 Facilitators: <strong>{{ school.facilitators.count }}</strong></div>
+                        <div>🗓 Last Session: <strong>{{ school.last_session|date:"d M Y" }}</strong></div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="mt-auto d-flex justify-content-center gap-2">
+                        <a href="{% url 'class_view_by_school' school.id %}" class="btn btn-outline-primary btn-sm">
+                            Manage
+                        </a>
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm" data-bs-toggle="dropdown">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="#">Assign Facilitator</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="#">Deactivate</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">No schools found</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+    </div>
+
+    <!-- 👉 Duplicate card for other schools -->
+
+  </div>
+
+</div>
+{% endblock %}
