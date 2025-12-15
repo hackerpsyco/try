@@ -1,31 +1,41 @@
+{% extends 'admin/shared/base.html' %}
 
-{% extends 'admin/dashboard.html' %}
-
-
-
+{% block content %}
 <div class="container-fluid py-4">
 
   <!-- Header -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-bold mb-0">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold mb-0">
       {{ school.name }} <span class="text-muted fs-6">- School Detail</span>
     </h4>
+
     <button class="btn btn-outline-secondary btn-sm">
       <i class="bi bi-box-arrow-up"></i> Export CSV
     </button>
   </div>
 
-  <!-- School Info -->
-  <div class="card mb-4 shadow-sm border-0">
-    <div class="card-body">
-      <p class="mb-1"><strong>Address:</strong> {{ school.address }}</p>
-      <p class="mb-1"><strong>District:</strong> {{ school.district }}</p>
-      <p class="mb-0"><strong>Classes:</strong> {{ school.classes }}</p>
-    </div>
-  </div>
+  <!-- Tabs -->
+  <ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Overview</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Facilitators</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">classes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Students</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Sessions</a>
+    </li>
+   
+  </ul>
 
   <!-- Stats Cards -->
-  <div class="row g-3 mb-4">
+  <div class="row g-3 mb-2">
     <div class="col-md-3 col-sm-6">
       <div class="card shadow-sm border-0">
         <div class="card-body d-flex align-items-center gap-3">
@@ -75,40 +85,17 @@
     </div>
   </div>
 
+  </div>
+  <div class="justify-content-center ">
+  <div class="card shadow-sm border-0" style="max-width: 500px; width: 100%;">
+    <div class="card-body">
+      <p class="mb-1"><strong>Address:</strong> {{ school.address }}</p>
+      <p class="mb-1"><strong>District:</strong> {{ school.district }}</p>
+      <p class="mb-0"><strong>Classes:</strong> {{ school.classes }}</p>
+    </div>
+  </div>
 </div>
 
+</div>
 
-<h2 class="section-title">Schools</h2>
-
-<table class="table">
-<thead>
-<tr>
-<th>Name</th>
-<th>UDISE</th>
-<th>Block</th>
-<th>District</th>
-<th>Status</th>
-<th>Students</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-{% for school in schools %}
-<tr>
-<td>{{ school.name }}</td>
-<td>{{ school.udise }}</td>
-<td>{{ school.block }}</td>
-<td>{{ school.district }}</td>
-<td>{{ school.get_status_display }}</td>
-<td>{{ school.enrolled_students }}</td>
-<td>
-<a href="{% url 'edit_school' school.id %}" class="link">Edit</a>
-<a href="#" class="link danger">Delete</a> {# Placeholder for delete functionality #}
-</td>
-</tr>
-{% empty %}
-<tr><td colspan="7" class="empty">No schools found</td></tr>
-{% endfor %}
-</tbody>
-</table>
-
+{% endblock %}

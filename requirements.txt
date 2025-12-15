@@ -1,0 +1,29 @@
+# Core Django
+Django>=5.1,<5.2
+
+# PostgreSQL database adapter
+psycopg2-binary>=2.9.9
+
+# Image processing (for ImageField, uploads, etc.)
+Pillow>=10.3.0
+
+# Static files handling (important for production like Vercel, Heroku)
+whitenoise>=6.7.0
+
+# Production WSGI server
+gunicorn>=22.0.0
+
+# Environment variable management
+python-dotenv>=1.0.1
+
+# Optional but recommended for advanced security / auth
+django-environ>=0.10.0
+
+# Optional: Django extensions for dev & debug
+django-extensions>=3.4.0
+
+# Optional: CORS handling for APIs
+django-cors-headers>=4.0.0
+
+# Optional: Widget Tweaks for form rendering
+django-widget-tweaks>=1.4.12

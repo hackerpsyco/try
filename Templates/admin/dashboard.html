@@ -1,83 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}"/>
-   
-</head>
-<body>
+{% extends 'admin/shared/base.html' %}
 
-    <div class="wrapper">
-        <aside class="sidebar">
-            <div class="user-profile">
-                <div class="avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBv1qbMwANXehUvUuj7jLYDFVVfq_SWUg2g49l3SmLWskDtYHpHJ_8WvJwsx9a2FRubRslmWVa_i5P7tT8w3--UoztcwCpbKLOazTabnBD2N_fY6OQ7FRlKs_zlUcTkD7KY9w-hiqblxryxB10EyToaRWquh2M4i_rDvKfif1kGdDqLVYibrW5HsihGpGcxNNJEB8c7BL9lRSrGdRbSOnvY4eHzXRrkhgnIo7Q7R9Ra_WPzsy-VPqL4V_-_ekNly4XBYSN8gI28pPAs");'></div>
-                <div class="user-info">
-                    <h1>Admin Platform</h1>
-                    <p>admin@school.com</p>
-                </div>
-            </div>
-
-            <nav>
-                <a class="nav-link active" href="#">
-                    <span class="material-symbols-outlined">dashboard</span>
-                    Dashboard
-                </a>
-                 <a class="nav-link" href="{% url 'user_list' %}">
-                    <span class="material-symbols-outlined">group</span>
-                    Users
-                </a>
-                <a class="nav-link" href="#">
-                    <span class="material-symbols-outlined">school</span>
-                    Schools
-                </a>
-                <a class="nav-link" href="#">
-                    <span class="material-symbols-outlined">school</span>
-                    Attendance
-                </a>
-                 <a class="nav-link" href="#">
-                    <span class="material-symbols-outlined">school</span>
-                    Sessions
-                </a>
-               
-                <a class="nav-link" href="#">
-                    <span class="material-symbols-outlined">assessment</span>
-                    Reports
-                </a>
-            </nav>
-
-            <div class="nav-section">
-                <a class="nav-link" href="#">
-                    <span class="material-symbols-outlined">settings</span>
-                    Settings
-                </a>
-                <a class="nav-link" href="{% url 'logout' %}">
-                    <span class="material-symbols-outlined">logout</span>
-                    Logout
-                </a>
-            </div>
-        </aside>
-
-        <main class="main-content">
-            <header>
-                <div class="search-bar">
-                    <span class="material-symbols-outlined">search</span>
-                    <input type="text" placeholder="Search schools, students, sessions...">
-                </div>
-                <div class="header-actions">
-                    <button class="icon-btn">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </button>
-                    <div class="avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC0jjUPR-JlHhMmVqjLrNciv_GrH-GGxukazycOJ-G1ea5q_0gqnBBLELsbUiv4npEAg182OovFX3gyeUkVTFYV0Fsr_0Xuklbj47scNQHfvHq4oUwuNPdCGXNZzi72wwNVRekw6UXHK4OPLQSWIEmV79-nmBE8jffHTJUT59-vbbFulzzsJdKsfT_CewqYzITCYabwILjc0Ce2JfvIOaZga4Gr6BC87xrEY59OjRtaOp_wC0SgF5su3H1IBS_Oi0Wvk8Ubff5hhPK2");'></div>
-                </div>
-            </header>
-
-            <div class="content-area">
+{% block content %}
                 <h2 class="section-title">Dashboard Overview</h2>
                 
                 <div class="stats-grid">
@@ -105,9 +28,9 @@
     <span class="material-symbols-outlined">person_add</span> Create New User
 </button>
 
-                    <button class="action-btn" href="{% url 'add_school' %}">
-                        <span class="material-symbols-outlined">add_business</span> Add New School
-                    </button>
+                   <a href="{% url 'add_school' %}" class="action-btn">
+<span class="material-symbols-outlined">add_business</span> Add School
+</a>
                     <button class="action-btn">
                         <span class="material-symbols-outlined">upload_file</span> Import CSV
                     </button>
@@ -123,7 +46,7 @@
 
     <h3 id="createUserTitle">Create New User</h3>
 
-    <form id="createUserForm" method="POST" action="{% url 'create-ajax' %}">
+    <form id="createUserForm" method="POST" action="{% url 'create_user_ajax' %}">
       {% csrf_token %}
       <div class="form-row">
         <label>Full Name</label>
@@ -272,12 +195,10 @@
                 </div>
 
             </div>
-        </main>
-    </div>
     <script>
 // helper: get cookie value (for CSRF)
 function getCookie(name) {
-  let v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  let v = document.cookie.match('(^|;)\s*' + name + '\s*=\s*([^;]+)');
   return v ? v.pop() : '';
 }
 
@@ -345,7 +266,4 @@ form.addEventListener('submit', function(e){
   });
 });
 </script>
-
-
-</body>
-</html>
+{% endblock content %}

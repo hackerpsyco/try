@@ -1,0 +1,58 @@
+<aside class="sidebar">
+    <!-- User Profile -->
+    <div class="user-profile mb-4">
+        <div class="avatar"
+             style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBv1qbMwANXehUvUuj7jLYDFVVfq_SWUg2g49l3SmLWskDtYHpHJ_8WvJwsx9a2FRubRslmWVa_i5P7tT8w3--UoztcwCpbKLOazTabnBD2N_fY6OQ7FRlKs_zlUcTkD7KY9w-hiqblxryxB10EyToaRWquh2M4i_rDvKfif1kGdDqLVYibrW5HsihGpGcxNNJEB8c7BL9lRSrGdRbSOnvY4eHzXRrkhgnIo7Q7R9Ra_WPzsy-VPqL4V_-_ekNly4XBYSN8gI28pPAs');">
+        </div>
+        <div class="user-info">
+            <h1>Admin Platform</h1>
+            <p>{{ request.user.email }}</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav flex-column">
+        <a class="nav-link {% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}" href="{% url 'admin_dashboard' %}">
+            <span class="material-symbols-outlined">dashboard</span>
+            Dashboard
+        </a>
+
+        <a class="nav-link {% if request.resolver_match.url_name == 'users_view' %}active{% endif %}" href="{% url 'users_view' %}">
+            <span class="material-symbols-outlined">group</span>
+            Users
+        </a>
+
+        <a class="nav-link {% if request.resolver_match.url_name == 'school_list' %}active{% endif %}" href="{% url 'schools' %}">
+            <span class="material-symbols-outlined">school</span>
+            Schools
+        </a>
+
+        <a class="nav-link" href="#">
+            <span class="material-symbols-outlined">event</span>
+            Attendance
+        </a>
+
+        <a class="nav-link" href="#">
+            <span class="material-symbols-outlined">schedule</span>
+            Sessions
+        </a>
+
+        <a class="nav-link" href="#">
+            <span class="material-symbols-outlined">assessment</span>
+            Reports
+        </a>
+    </nav>
+
+    <!-- Bottom Navigation / Settings -->
+    <div class="nav-section mt-auto">
+        <a class="nav-link" href="#">
+            <span class="material-symbols-outlined">settings</span>
+            Settings
+        </a>
+
+        <a class="nav-link" href="{% url 'logout' %}">
+            <span class="material-symbols-outlined">logout</span>
+            Logout
+        </a>
+    </div>
+</aside>
