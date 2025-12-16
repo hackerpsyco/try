@@ -1,0 +1,63 @@
+{% extends 'admin/shared/base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if school %}
+        Add Class Section to {{ school.name }}
+    {% else %}
+        Add Class Section
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms /</span> Add Class Section</h4>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <h5 class="card-header">New Class Section</h5>
+                <div class="card-body">
+
+                    <!-- Display form non-field errors (like duplicate) -->
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                <div>{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Display field errors individually -->
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in field.errors %}
+                                    <div>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <form action="{% url 'class_section_add' school.id %}" method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="id_class_level" class="form-label">Class Level</label>
+                            {{ form.class_level }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_section" class="form-label">Section</label>
+                            {{ form.section }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add Class Section</button>
+                        <a href="{% url 'class_sections_list_by_school' school.id %}" class="btn btn-secondary">Cancel</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Role, School
+from .models import User, Role, School, ClassSection
 
 
 class AddUserForm(forms.ModelForm):
@@ -64,3 +64,15 @@ class EditSchoolForm(forms.ModelForm):
                 (forms.TextInput, forms.NumberInput, forms.EmailInput),
             ):
                 field.widget.attrs["placeholder"] = field.label
+
+
+class ClassSectionForm(forms.ModelForm):
+    class Meta:
+        model = ClassSection
+        fields = ["class_level", "section"]  # remove "school"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control"
+

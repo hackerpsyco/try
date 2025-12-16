@@ -6,8 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
-from .forms import AddUserForm, EditUserForm, AddSchoolForm
-from .models import User, Role, School
+from django.urls import reverse
+
+from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm
+from .models import User, Role, School, ClassSection
 
 User = get_user_model()
 
@@ -34,8 +36,8 @@ def login_view(request):
             role_name = user.role.name.upper()
             redirect_url = ROLE_CONFIG.get(role_name, {}).get("url", "/")
             return redirect(redirect_url)
-        else:
-            messages.error(request, "Invalid email or password.")
+
+        messages.error(request, "Invalid email or password.")
 
     return render(request, "auth/login.html")
 
@@ -80,7 +82,10 @@ def users_view(request):
 
     users = User.objects.all().order_by("-created_at")
     roles = Role.objects.all()
-    return render(request, "admin/users.html", {"users": users, "roles": roles})
+    return render(request, "admin/users/users.html", {
+        "users": users,
+        "roles": roles
+    })
 
 
 @login_required
@@ -100,7 +105,7 @@ def add_user(request):
     else:
         form = AddUserForm()
 
-    return render(request, "admin/add_user.html", {"form": form})
+    return render(request, "admin/users/add_user.html", {"form": form})
 
 
 @login_required
@@ -110,6 +115,7 @@ def edit_user(request, user_id):
         return redirect("no_permission")
 
     user = get_object_or_404(User, id=user_id)
+
     if request.method == "POST":
         form = EditUserForm(request.POST, instance=user)
         if form.is_valid():
@@ -119,7 +125,10 @@ def edit_user(request, user_id):
     else:
         form = EditUserForm(instance=user)
 
-    return render(request, "admin/edit_user.html", {"form": form, "user": user})
+    return render(request, "admin/users/edit_user.html", {
+        "form": form,
+        "user": user
+    })
 
 
 @login_required
@@ -134,7 +143,9 @@ def delete_user(request, user_id):
     return redirect("users_view")
 
 
-# AJAX user creation
+# -------------------------------
+# AJAX User Creation (NOT REMOVED)
+# -------------------------------
 @csrf_exempt
 def create_user_ajax(request):
     if request.method == "POST":
@@ -151,10 +162,20 @@ def create_user_ajax(request):
 
         try:
             role = Role.objects.get(id=role_id)
-            user = User.objects.create_user(email=email, password=password, full_name=full_name, role_id=role.id)
+            user = User.objects.create_user(
+                email=email,
+                password=password,
+                full_name=full_name,
+                role_id=role.id
+            )
             return JsonResponse({
                 "success": True,
-                "user": {"id": str(user.id), "full_name": user.full_name, "email": user.email, "role_name": role.name}
+                "user": {
+                    "id": str(user.id),
+                    "full_name": user.full_name,
+                    "email": user.email,
+                    "role_name": role.name
+                }
             })
         except Role.DoesNotExist:
             return JsonResponse({"success": False, "error": "Invalid role selected."})
@@ -170,7 +191,9 @@ def schools(request):
     if request.user.role.name.upper() != "ADMIN":
         messages.error(request, "You do not have permission to view schools.")
         return redirect("no_permission")
-    return render(request, "admin/schools.html", {"schools": School.objects.all().order_by("-created_at")})
+
+    schools = School.objects.all().order_by("-created_at")
+    return render(request, "admin/schools/list.html", {"schools": schools})
 
 
 @login_required
@@ -188,7 +211,7 @@ def add_school(request):
     else:
         form = AddSchoolForm()
 
-    return render(request, "admin/add_school.html", {"form": form})
+    return render(request, "admin/schools/add_school.html", {"form": form})
 
 
 @login_required
@@ -198,6 +221,7 @@ def edit_school(request, school_id):
         return redirect("no_permission")
 
     school = get_object_or_404(School, id=school_id)
+
     if request.method == "POST":
         form = AddSchoolForm(request.POST, instance=school)
         if form.is_valid():
@@ -207,8 +231,112 @@ def edit_school(request, school_id):
     else:
         form = AddSchoolForm(instance=school)
 
-    return render(request, "admin/edit_school.html", {"form": form, "school": school})
+    return render(request, "admin/schools/edit_school.html", {
+        "form": form,
+        "school": school
+    })
 
+
+@login_required
+def school_detail(request, school_id):
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "You do not have permission to view school details.")
+        return redirect("no_permission")
+
+    school = get_object_or_404(School, id=school_id)
+    classes = ClassSection.objects.filter(school=school).order_by("class_level", "section")
+
+    return render(request, "admin/schools/detail.html", {
+        "school": school,
+        "class_sections": classes
+    })
+
+
+# -------------------------------
+# Class Management Views
+# -------------------------------
+@login_required
+def class_sections_list(request, school_id=None):
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "You do not have permission to view classes.")
+        return redirect("no_permission")
+
+    if school_id:
+        school = get_object_or_404(School, id=school_id)
+        class_sections = ClassSection.objects.filter(
+            school=school
+        ).order_by("class_level", "section")
+    else:
+        school = None
+        class_sections = ClassSection.objects.all().order_by(
+            "school__name", "class_level", "section"
+        )
+
+    return render(request, "admin/classes/list.html", {
+        "school": school,
+        "class_sections": class_sections,
+        "schools": School.objects.all(),
+    })
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import ClassSectionForm
+from .models import School, ClassSection
+
+@login_required
+def class_section_add(request, school_id):
+    # Permission check
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "You do not have permission to add classes.")
+        return redirect("no_permission")
+
+    # Get the school
+    school = get_object_or_404(School, id=school_id)
+
+    if request.method == "POST":
+        form = ClassSectionForm(request.POST)
+        if form.is_valid():
+            class_level = form.cleaned_data["class_level"]
+            section = form.cleaned_data["section"]
+
+            # Check duplicate
+            if ClassSection.objects.filter(
+                school=school,
+                class_level=class_level,
+                section=section
+            ).exists():
+                # Add non-field error to show in template
+                form.add_error(None, f"Class {class_level} - {section} already exists for this school.")
+            else:
+                # Save new class section
+                class_section = form.save(commit=False)
+                class_section.school = school
+                class_section.save()
+                messages.success(request, "Class section added successfully!")
+                return redirect("class_sections_list_by_school", school_id=school.id)
+    else:
+        form = ClassSectionForm()
+
+    return render(request, "admin/classes/add.html", {
+        "form": form,
+        "school": school
+    })
+
+
+@login_required
+def class_section_delete(request, pk):
+    class_section = get_object_or_404(ClassSection, id=pk)
+    school_id = class_section.school.id
+
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "You do not have permission to delete classes.")
+        return redirect("no_permission")
+
+    if request.method == "POST" or request.method == "GET":
+        class_section.delete()
+        messages.success(request, "Class section deleted successfully!")
+        return redirect("class_sections_list_by_school", school_id=school_id)
 
 @login_required
 def class_view(request, school_id=None):
@@ -216,8 +344,10 @@ def class_view(request, school_id=None):
         messages.error(request, "You do not have permission to view classes.")
         return redirect("no_permission")
 
-    school = get_object_or_404(School, id=school_id) if school_id else None
-    return render(request, "admin/class.html", {"school": school})
+    if school_id:
+        return redirect("class_sections_list", school_id=school_id)
+
+    return redirect("class_sections_list")
 
 
 # -------------------------------

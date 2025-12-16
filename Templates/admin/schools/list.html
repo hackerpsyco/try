@@ -1,6 +1,6 @@
 {% extends 'admin/shared/base.html' %}
-
 {% block content %}
+
 <div class="container-fluid ">
 
   <!-- 🔹 TOP BAR -->
@@ -81,7 +81,7 @@
 
                     <!-- Actions -->
                     <div class="mt-auto d-flex justify-content-center gap-2">
-                        <a href="{% url 'class_view_by_school' school.id %}" class="btn btn-outline-primary btn-sm">
+                        <a href="{% url 'school_detail' school.id %}" class="btn btn-outline-primary btn-sm">
                             Manage
                         </a>
                         <div class="dropdown">
