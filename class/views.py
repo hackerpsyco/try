@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm
+from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm, AssignFacilitatorForm
 from .models import User, Role, School, ClassSection
 
 User = get_user_model()
@@ -193,7 +193,8 @@ def schools(request):
         return redirect("no_permission")
 
     schools = School.objects.all().order_by("-created_at")
-    return render(request, "admin/schools/list.html", {"schools": schools})
+    form = AssignFacilitatorForm()
+    return render(request, "admin/schools/list.html", {"schools": schools, "form": form})
 
 
 @login_required
@@ -355,3 +356,25 @@ def class_view(request, school_id=None):
 # -------------------------------
 def no_permission(request):
     return render(request, "no_permission.html")
+def edit_class_section(request, pk):
+    class_section = get_object_or_404(ClassSection, id=pk)
+    form = ClassSectionForm(request.POST or None, instance=class_section)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("class_sections_list")  # adjust as needed
+    return render(request, "admin/classes/edit_class_section.html", {"form": form, "class_section": class_section})
+
+
+def assign_facilitator(request):
+    if request.method == "POST":
+        form = AssignFacilitatorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Facilitator assigned successfully.")
+            return redirect("assign-facilitator")
+    else:
+        form = AssignFacilitatorForm()
+
+    return render(request, "admin/assign_facilitator.html", {
+        "form": form
+    })

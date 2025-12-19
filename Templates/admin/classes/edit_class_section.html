@@ -1,0 +1,56 @@
+{% extends 'admin/shared/base.html' %}
+{% load static %}
+
+{% block title %}Edit Class Section{% endblock %}
+
+{% block content %}
+<div class="container-fluid container-p-y">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Edit Class Section: {{ class_section.class_level }} - {{ class_section.section|default:"—" }}</h5>
+                </div>
+                <div class="card-body">
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-secondary" onclick="window.history.back();">
+                                <i class="bx bx-arrow-back me-1"></i> Back
+                            </button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bx bx-save me-1"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .btn i {
+        vertical-align: middle;
+    }
+</style>
+{% endblock %}

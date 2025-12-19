@@ -1,7 +1,7 @@
 {% extends 'admin/shared/base.html' %}
 {% block content %}
 
-<div class="container-fluid ">
+<div class="container-fluid">
 
   <!-- 🔹 TOP BAR -->
   <div class="card mb-3 border-0 shadow-sm">
@@ -15,11 +15,8 @@
 
         <!-- Search -->
         <div class="col-lg-4 col-md-6">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search by area, status, class..."
-          >
+          <input type="text" class="form-control"
+                 placeholder="Search by area, status, class...">
         </div>
 
         <!-- Role Filter -->
@@ -38,7 +35,9 @@
             <a href="{% url 'add_school' %}" class="btn btn-primary">
               + Add School
             </a>
-            <button class="btn btn-outline-primary">
+            <button class="btn btn-outline-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#assignFacilitatorModal">
               Assign Facilitator
             </button>
           </div>
@@ -50,71 +49,137 @@
 
   <!-- 🔹 SCHOOL GRID -->
   <div class="row g-4">
+    <div class="container mt-4">
+      <div class="row g-4">
 
-<div class="container mt-4">
-    <div class="row g-4">
         {% for school in schools %}
-        <!-- School Card -->
         <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="card h-100 border-0 shadow-sm school-card">
-                <div class="card-body text-center d-flex flex-column">
+          <div class="card h-100 border-0 shadow-sm school-card">
+            <div class="card-body text-center d-flex flex-column">
 
-                    <!-- School Icon -->
-                    <div class="mb-3">
-                        <div class="rounded-circle bg-primary-subtle text-primary d-inline-flex align-items-center justify-content-center"
-                             style="width: 56px; height: 56px;">
-                            <i class="bi bi-mortarboard fs-4"></i>
-                        </div>
-                    </div>
-
-                    <!-- School Info -->
-                    <h6 class="fw-semibold mb-1">{{ school.name }}</h6>
-                    <span class="badge {% if school.status == 'active' %}bg-success-subtle text-success{% else %}bg-danger-subtle text-danger{% endif %} mb-2">
-                        {{ school.get_status_display }}
-                    </span>
-
-                    <div class="text-muted small mb-4">
-                        <div>👨‍🎓 Students: <strong>{{ school.enrolled_students }}</strong></div>
-                        <div>🧑‍🏫 Facilitators: <strong>{{ school.facilitators.count }}</strong></div>
-                        <div>🗓 Last Session: <strong>{{ school.last_session|date:"d M Y" }}</strong></div>
-                    </div>
-
-                    <!-- Actions -->
-                    <div class="mt-auto d-flex justify-content-center gap-2">
-                        <a href="{% url 'school_detail' school.id %}" class="btn btn-outline-primary btn-sm">
-                            Manage
-                        </a>
-                        <div class="dropdown">
-                            <button class="btn btn-light btn-sm" data-bs-toggle="dropdown">
-                                <i class="bi bi-three-dots"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" href="#">Assign Facilitator</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item text-danger" href="#">Deactivate</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
+              <!-- Icon -->
+              <div class="mb-3">
+                <div class="rounded-circle bg-primary-subtle text-primary
+                            d-inline-flex align-items-center justify-content-center"
+                     style="width:56px;height:56px;">
+                  <i class="bi bi-mortarboard fs-4"></i>
                 </div>
+              </div>
+
+              <!-- Info -->
+              <h6 class="fw-semibold mb-1">{{ school.name }}</h6>
+
+              <span class="badge
+                {% if school.status == 'active' %}
+                  bg-success-subtle text-success
+                {% else %}
+                  bg-danger-subtle text-danger
+                {% endif %} mb-2">
+                {{ school.get_status_display }}
+              </span>
+
+              <div class="text-muted small mb-4">
+                <div>👨‍🎓 Students:
+                  <strong>{{ school.enrolled_students }}</strong>
+                </div>
+                <div>🧑‍🏫 Facilitators:
+                  <strong>{{ school.facilitators.count }}</strong>
+                </div>
+                <div>🗓 Last Session:
+                  <strong>{{ school.last_session|date:"d M Y" }}</strong>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="mt-auto d-flex justify-content-center gap-2">
+                <a href="{% url 'school_detail' school.id %}"
+                   class="btn btn-outline-primary btn-sm">
+                  Manage
+                </a>
+
+                <div class="dropdown">
+                  <button class="btn btn-light btn-sm"
+                          data-bs-toggle="dropdown">
+                    <i class="bi bi-three-dots"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item"
+                         data-bs-toggle="modal"
+                         data-bs-target="#assignFacilitatorModal">
+                        Assign Facilitator
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-danger" href="#">
+                        Deactivate
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
             </div>
+          </div>
         </div>
         {% empty %}
         <div class="col-12">
-            <div class="alert alert-info text-center">No schools found</div>
+          <div class="alert alert-info text-center">
+            No schools found
+          </div>
         </div>
         {% endfor %}
+
+      </div>
     </div>
-</div>
-
-    </div>
-
-    <!-- 👉 Duplicate card for other schools -->
-
   </div>
-
 </div>
+
+<!-- 🔹 ASSIGN FACILITATOR MODAL -->
+<div class="modal fade" id="assignFacilitatorModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+
+      <form method="post" action="{% url 'users_view' %}">
+        {% csrf_token %}
+
+        <div class="modal-header">
+          <h5 class="modal-title fw-semibold">
+            Assign Facilitator
+          </h5>
+          <button type="button" class="btn-close"
+                  data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label class="form-label">Facilitator</label>
+            {{ form.facilitator }}
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">School</label>
+            {{ form.school }}
+          </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light"
+                  data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">
+            Assign
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
 {% endblock %}

@@ -4,7 +4,7 @@ from .views import (
     users_view, add_user, edit_user, delete_user, create_user_ajax,
     schools, add_school, edit_school, school_detail,
     class_sections_list, class_section_add, class_section_delete,
-    no_permission
+    no_permission,edit_class_section, assign_facilitator
 )
 
 urlpatterns = [
@@ -56,6 +56,11 @@ urlpatterns = [
         class_section_add,
         name="class_section_add"
     ),
+    path(
+        "admin/classes/edit/<uuid:pk>/",
+        edit_class_section,
+        name="edit_class_section"
+        ),
       path(
         "admin/classes/delete/<uuid:pk>/",
         class_section_delete,
@@ -66,4 +71,5 @@ urlpatterns = [
     # No Permission
     # ----------------------
     path("no_permission/", no_permission, name="no_permission"),
+
 ]
