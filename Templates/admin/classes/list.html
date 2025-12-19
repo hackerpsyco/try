@@ -34,6 +34,9 @@
         <div class="col-md-4">
             <label class="form-label fw-semibold">Filter by School</label>
             <select id="schoolFilter" class="form-select">
+                <option value="{% url 'class_sections_list' %}"
+                    {% if not school %}selected{% endif %}>
+                    All Schools
                
                 {% for s in schools %}
                     <option value="{% url 'class_sections_list_by_school' s.id %}"
