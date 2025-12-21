@@ -1,0 +1,38 @@
+{% extends 'admin/shared/base.html' %}
+
+{% block title %}Import Students{% endblock %}
+
+{% block content %}
+<div class="container-fluid container-p-y">
+
+    <h4 class="fw-bold mb-3">
+        {{ school.name }} <span class="text-muted">/ Import Students</span>
+    </h4>
+
+    <div class="card p-4 col-md-6">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    Upload CSV / Excel
+                </label>
+                <input type="file" name="file" class="form-control" required>
+                <small class="text-muted">
+                    Accepted: .csv, .xlsx
+                </small>
+            </div>
+
+            <button class="btn btn-success">
+                <i class="bx bx-upload"></i> Import
+            </button>
+
+            <a href="{% url 'students_list' school.id %}"
+               class="btn btn-outline-secondary ms-2">
+                Cancel
+            </a>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

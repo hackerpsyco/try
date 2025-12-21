@@ -7,9 +7,11 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-
+import csv
+import openpyxl
 from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm, AssignFacilitatorForm
-from .models import User, Role, School, ClassSection
+from .models import User, Role, School, ClassSection, FacilitatorSchool,Student,Enrollment
+
 
 User = get_user_model()
 
@@ -377,4 +379,147 @@ def assign_facilitator(request):
 
     return render(request, "admin/assign_facilitator.html", {
         "form": form
+    })
+
+def students_list(request, school_id):
+    school = get_object_or_404(School, id=school_id)
+    class_sections = ClassSection.objects.filter(school=school)
+
+    class_section_id = request.GET.get("class_section")
+
+    enrollments = Enrollment.objects.filter(
+        school=school,
+        is_active=True
+    ).select_related("student", "class_section")
+
+    if class_section_id:
+        enrollments = enrollments.filter(class_section_id=class_section_id)
+
+    return render(request, "admin/students/students_list.html", {
+        "school": school,
+        "class_sections": class_sections,
+        "enrollments": enrollments,
+        "selected_class_section": class_section_id,
+    })
+def student_add(request, school_id):
+    school = get_object_or_404(School, id=school_id)
+    class_sections = ClassSection.objects.filter(school=school)
+
+    if request.method == "POST":
+        student = Student.objects.create(
+            enrollment_number=request.POST["enrollment_number"],
+            full_name=request.POST["full_name"],
+            gender=request.POST["gender"]
+        )
+
+        Enrollment.objects.create(
+            student=student,
+            school=school,
+            class_section_id=request.POST["class_section"],
+            start_date=request.POST["start_date"]
+        )
+
+        return redirect("students_list", school_id=school.id)
+
+    return render(request, "admin/students/student_add.html", {
+        "school": school,
+        "class_sections": class_sections,
+    })
+
+def student_edit(request, school_id, student_id):
+    school = get_object_or_404(School, id=school_id)
+    student = get_object_or_404(Student, id=student_id)
+    enrollment = get_object_or_404(
+        Enrollment,
+        student=student,
+        school=school,
+        is_active=True
+    )
+    class_sections = ClassSection.objects.filter(school=school)
+
+    if request.method == "POST":
+        student.enrollment_number = request.POST["enrollment_number"]
+        student.full_name = request.POST["full_name"]
+        student.gender = request.POST["gender"]
+        student.save()
+
+        enrollment.class_section_id = request.POST["class_section"]
+        enrollment.start_date = request.POST["start_date"]
+        enrollment.save()
+
+        return redirect("students_list", school_id=school.id)
+
+    return render(request, "admin/students/student_edit.html", {
+        "school": school,
+        "student": student,
+        "enrollment": enrollment,
+        "class_sections": class_sections,
+    })
+def student_delete(request, school_id, student_id):
+    if request.method == "POST":
+        student = get_object_or_404(Student, id=student_id)
+        student.delete()   # enrollment auto deletes (CASCADE)
+
+    return redirect("students_list", school_id=school_id)
+
+
+def student_import(request, school_id):
+    school = get_object_or_404(School, id=school_id)
+    class_sections = ClassSection.objects.filter(school=school)
+
+    if request.method == "POST":
+        file = request.FILES.get("file")
+
+        if not file:
+            messages.error(request, "Please upload a file")
+            return redirect(request.path)
+
+        ext = file.name.split(".")[-1].lower()
+
+        if ext == "csv":
+            rows = csv.DictReader(file.read().decode("utf-8").splitlines())
+
+        elif ext in ["xlsx", "xls"]:
+            wb = openpyxl.load_workbook(file)
+            sheet = wb.active
+            rows = []
+            headers = [cell.value for cell in sheet[1]]
+            for row in sheet.iter_rows(min_row=2, values_only=True):
+                rows.append(dict(zip(headers, row)))
+
+        else:
+            messages.error(request, "Unsupported file format")
+            return redirect(request.path)
+
+        for row in rows:
+            class_section = ClassSection.objects.filter(
+                school=school,
+                class_level=row["class_level"],
+                section=row["section"]
+            ).first()
+
+            if not class_section:
+                continue  # skip invalid rows
+
+            student, created = Student.objects.get_or_create(
+                enrollment_number=row["enrollment_number"],
+                defaults={
+                    "full_name": row["full_name"],
+                    "gender": row["gender"]
+                }
+            )
+
+            Enrollment.objects.get_or_create(
+                student=student,
+                school=school,
+                class_section=class_section,
+                defaults={"start_date": row["start_date"]}
+            )
+
+        messages.success(request, "Students imported successfully")
+        return redirect("students_list", school_id=school.id)
+
+    return render(request, "admin/students/student_import.html", {
+        "school": school,
+        "class_sections": class_sections
     })

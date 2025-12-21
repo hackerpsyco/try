@@ -4,7 +4,7 @@ from .views import (
     users_view, add_user, edit_user, delete_user, create_user_ajax,
     schools, add_school, edit_school, school_detail,
     class_sections_list, class_section_add, class_section_delete,
-    no_permission,edit_class_section, assign_facilitator
+    no_permission,edit_class_section, assign_facilitator,students_list, student_add, student_edit, student_delete, student_import
 )
 
 urlpatterns = [
@@ -66,6 +66,35 @@ urlpatterns = [
         class_section_delete,
         name="class_section_delete"
     ),
+
+    # students
+    path(
+        "admin/schools/<uuid:school_id>/students/",
+        students_list,
+        name="students_list"
+    ),
+    path(
+        "admin/schools/<uuid:school_id>/students/add/",
+        student_add,
+        name="student_add"
+    ),
+    path(
+    "admin/schools/<uuid:school_id>/students/<uuid:student_id>/edit/",
+    student_edit,
+    name="student_edit"
+),
+
+path(
+    "admin/schools/<uuid:school_id>/students/<uuid:student_id>/delete/",
+    student_delete,
+    name="student_delete"
+),
+path(
+    "admin/schools/<uuid:school_id>/students/import/",
+    student_import,
+    name="student_import"
+),
+
 
     # ----------------------
     # No Permission
