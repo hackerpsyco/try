@@ -11,6 +11,7 @@ import csv
 import openpyxl
 from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm, AssignFacilitatorForm
 from .models import User, Role, School, ClassSection, FacilitatorSchool,Student,Enrollment
+from datetime import date
 
 
 User = get_user_model()
@@ -401,22 +402,29 @@ def students_list(request, school_id):
         "enrollments": enrollments,
         "selected_class_section": class_section_id,
     })
+
+
 def student_add(request, school_id):
     school = get_object_or_404(School, id=school_id)
     class_sections = ClassSection.objects.filter(school=school)
 
     if request.method == "POST":
-        student = Student.objects.create(
+        student, _ = Student.objects.get_or_create(
             enrollment_number=request.POST["enrollment_number"],
-            full_name=request.POST["full_name"],
-            gender=request.POST["gender"]
+            defaults={
+                "full_name": request.POST["full_name"],
+                "gender": request.POST["gender"]
+            }
         )
 
-        Enrollment.objects.create(
+        Enrollment.objects.get_or_create(
             student=student,
             school=school,
             class_section_id=request.POST["class_section"],
-            start_date=request.POST["start_date"]
+            defaults={
+                "start_date": request.POST["start_date"],
+                "is_active": True
+            }
         )
 
         return redirect("students_list", school_id=school.id)
@@ -425,6 +433,7 @@ def student_add(request, school_id):
         "school": school,
         "class_sections": class_sections,
     })
+
 
 def student_edit(request, school_id, student_id):
     school = get_object_or_404(School, id=school_id)
@@ -455,12 +464,20 @@ def student_edit(request, school_id, student_id):
         "enrollment": enrollment,
         "class_sections": class_sections,
     })
+
 def student_delete(request, school_id, student_id):
     if request.method == "POST":
-        student = get_object_or_404(Student, id=student_id)
-        student.delete()   # enrollment auto deletes (CASCADE)
+        enrollment = get_object_or_404(
+            Enrollment,
+            student_id=student_id,
+            school_id=school_id,
+            is_active=True
+        )
+        enrollment.is_active = False
+        enrollment.save()
 
     return redirect("students_list", school_id=school_id)
+
 
 
 def student_import(request, school_id):
@@ -476,50 +493,88 @@ def student_import(request, school_id):
 
         ext = file.name.split(".")[-1].lower()
 
+        # ---------- READ FILE ----------
         if ext == "csv":
             rows = csv.DictReader(file.read().decode("utf-8").splitlines())
 
         elif ext in ["xlsx", "xls"]:
             wb = openpyxl.load_workbook(file)
             sheet = wb.active
+            headers = [str(cell.value).strip() for cell in sheet[1]]
             rows = []
-            headers = [cell.value for cell in sheet[1]]
-            for row in sheet.iter_rows(min_row=2, values_only=True):
-                rows.append(dict(zip(headers, row)))
-
+            for r in sheet.iter_rows(min_row=2, values_only=True):
+                rows.append(dict(zip(headers, r)))
         else:
             messages.error(request, "Unsupported file format")
             return redirect(request.path)
 
+        created_count = 0
+        skipped_count = 0
+
+        # ---------- PROCESS ROWS ----------
         for row in rows:
+            enrollment_no = str(row.get("enrollment_number", "")).strip()
+            full_name = str(row.get("full_name", "")).strip()
+            gender = str(row.get("gender", "")).strip()
+            class_level = str(row.get("class_level", "")).strip()
+            section = str(row.get("section", "")).strip()
+            start_date = row.get("start_date") or date.today()
+
+
+            # Basic validation
+            if not all([enrollment_no, full_name, gender, class_level, section]):
+                skipped_count += 1
+                continue
+
             class_section = ClassSection.objects.filter(
                 school=school,
-                class_level=row["class_level"],
-                section=row["section"]
+                class_level=class_level,
+                section=section
             ).first()
 
             if not class_section:
-                continue  # skip invalid rows
+                skipped_count += 1
+                continue
 
-            student, created = Student.objects.get_or_create(
-                enrollment_number=row["enrollment_number"],
+            student, _ = Student.objects.get_or_create(
+                enrollment_number=enrollment_no,
                 defaults={
-                    "full_name": row["full_name"],
-                    "gender": row["gender"]
+                    "full_name": full_name,
+                    "gender": gender
                 }
             )
 
-            Enrollment.objects.get_or_create(
+            enrollment, created = Enrollment.objects.get_or_create(
                 student=student,
                 school=school,
                 class_section=class_section,
-                defaults={"start_date": row["start_date"]}
+                defaults={
+                    "start_date": start_date,
+                    "is_active": True
+                }
             )
 
-        messages.success(request, "Students imported successfully")
+            if created:
+                created_count += 1
+
+        # ---------- USER FEEDBACK ----------
+        if created_count == 0:
+            messages.warning(
+                request,
+                f"No students imported. Skipped rows: {skipped_count}"
+            )
+        else:
+            messages.success(
+                request,
+                f"{created_count} students imported successfully "
+                f"(Skipped: {skipped_count})"
+            )
+
         return redirect("students_list", school_id=school.id)
 
     return render(request, "admin/students/student_import.html", {
         "school": school,
         "class_sections": class_sections
     })
+
+
