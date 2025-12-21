@@ -27,3 +27,8 @@ django-cors-headers>=4.0.0
 
 # Optional: Widget Tweaks for form rendering
 django-widget-tweaks>=1.4.12
+
+# openpyxl for Excel file handling
+openpyxl>=3.1.2
+
+
