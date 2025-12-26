@@ -1,0 +1,73 @@
+{% extends "Facilitator/shared/base.html" %}
+
+{% block content %}
+<h5 class="fw-bold mb-3">
+  {{ class_section.class_level }} - Today’s Session
+</h5>
+
+{% if planned_session %}
+<div class="card shadow-sm">
+  <div class="card-body">
+
+    <span class="badge bg-primary mb-2">
+      Day {{ planned_session.day_number }}
+    </span>
+
+    <h6 class="fw-semibold">
+      {{ planned_session.topic }}
+    </h6>
+
+    {% if video_id %}
+<div class="ratio ratio-16x9 my-3">
+  <iframe
+    src="https://www.youtube.com/embed/{{ video_id }}"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
+{% else %}
+<div class="alert alert-warning">
+  ⚠️ Video unavailable or embedding disabled
+</div>
+{% endif %}
+
+  
+
+    <div class="d-flex gap-2 mt-3">
+      <!-- Conducted -->
+      <form method="post" action="{% url 'start_session' planned_session.id %}">
+        {% csrf_token %}
+        <button class="btn btn-success btn-sm">
+          Conduct Session
+        </button>
+      </form>
+
+      <!-- Holiday -->
+      <form method="post" action="{% url 'start_session' planned_session.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="holiday">
+        <button class="btn btn-outline-danger btn-sm">
+          Mark Holiday
+        </button>
+      </form>
+
+      <!-- Cancel -->
+      <form method="post" action="{% url 'start_session' planned_session.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="cancelled">
+        <button class="btn btn-outline-secondary btn-sm">
+          Cancel
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+{% else %}
+<div class="alert alert-success">
+  🎉 All planned sessions completed
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "admin/shared/base.html" %}
+
+{% block content %}
+<div class="container-fluid py-3">
+
+<h5 class="fw-bold mb-3">
+    {% if is_edit %}Edit{% else %}Add{% endif %} Planned Session –
+    {{ class_section.class_level }} {{ class_section.section }}
+</h5>
+
+<form method="post" class="card shadow-sm p-4" style="max-width:600px;">
+{% csrf_token %}
+
+<div class="mb-3">
+  <label class="form-label">Topic</label>
+  <input type="text" name="topic" class="form-control"
+         value="{{ planned_session.topic|default:'' }}" required>
+</div>
+
+<div class="mb-3">
+  <label class="form-label">YouTube URL</label>
+  <input type="url" name="youtube_url" class="form-control"
+         value="{{ planned_session.youtube_url|default:'' }}" required>
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Description</label>
+  <textarea name="description" class="form-control">{{ planned_session.description|default:'' }}</textarea>
+</div>
+
+<button class="btn btn-primary">
+  {% if is_edit %}Update{% else %}Save{% endif %}
+</button>
+
+<a href="{% url 'admin_class_sessions' class_section.id %}"
+   class="btn btn-outline-secondary ms-2">
+  Cancel
+</a>
+
+</form>
+</div>
+{% endblock %}

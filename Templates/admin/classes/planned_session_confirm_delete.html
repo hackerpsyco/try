@@ -1,0 +1,34 @@
+{% extends "admin/shared/base.html" %}
+
+{% block content %}
+<div class="container-fluid py-3">
+
+<h5 class="fw-bold text-danger mb-3">
+    Delete Planned Session
+</h5>
+
+<div class="card shadow-sm p-4" style="max-width:500px;">
+  <p>
+    Are you sure you want to delete:
+  </p>
+
+  <p class="fw-semibold">
+    Day {{ planned_session.day_number }} –
+    {{ planned_session.topic }}
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger">
+      Yes, Delete
+    </button>
+
+    <a href="{% url 'admin_class_sessions' class_section.id %}"
+       class="btn btn-outline-secondary ms-2">
+      Cancel
+    </a>
+  </form>
+</div>
+
+</div>
+{% endblock %}

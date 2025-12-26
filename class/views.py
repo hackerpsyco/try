@@ -10,8 +10,12 @@ from django.urls import reverse
 import csv
 import openpyxl
 from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm, AssignFacilitatorForm
-from .models import User, Role, School, ClassSection, FacilitatorSchool,Student,Enrollment
+from .models import User, Role, School, ClassSection, FacilitatorSchool,Student,Enrollment,PlannedSession, ActualSession, Attendance
 from datetime import date
+from django.db.models import Max
+from django.db.models import Exists, OuterRef
+import re
+
 
 
 User = get_user_model()
@@ -575,6 +579,258 @@ def student_import(request, school_id):
     return render(request, "admin/students/student_import.html", {
         "school": school,
         "class_sections": class_sections
+    })
+
+
+    
+@login_required
+def sessions_view(request, class_section_id):
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+
+    planned_sessions = (
+        PlannedSession.objects
+        .filter(class_section=class_section)
+        .annotate(
+            is_conducted=Exists(
+                ActualSession.objects.filter(
+                    planned_session=OuterRef("pk"),
+                    status="conducted"
+                )
+            )
+        )
+        .order_by("day_number")
+    )
+
+    # ✅ next pending session (FIRST not conducted)
+    next_pending = next(
+        (ps for ps in planned_sessions if not ps.is_conducted),
+        None
+    )
+
+    return render(request, "admin/classes/class_sessions.html", {
+        "class_section": class_section,
+        "planned_sessions": planned_sessions,
+        "next_pending": next_pending,
+    })
+def extract_youtube_id(url):
+    if not url:
+        return None
+
+    patterns = [
+        r"youtu\.be\/([^?&]+)",
+        r"youtube\.com\/watch\?v=([^?&]+)",
+        r"youtube\.com\/shorts\/([^?&]+)",
+        r"youtube\.com\/embed\/([^?&]+)",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, url)
+        if match:
+            return match.group(1)
+    return None
+
+
+@login_required
+def today_session(request, class_section_id):
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+
+    planned_session = PlannedSession.objects.filter(
+        class_section=class_section,
+        is_active=True
+    ).exclude(
+        actual_sessions__status="conducted"
+    ).order_by("day_number").first()
+
+    video_id = None
+    if planned_session and planned_session.youtube_url:
+        video_id = extract_youtube_id(planned_session.youtube_url)
+
+    return render(request, "facilitator/today_session.html", {
+        "class_section": class_section,
+        "planned_session": planned_session,
+        "video_id": video_id,
+    })
+
+from django.utils import timezone
+
+@login_required
+def start_session(request, planned_session_id):
+    if request.user.role.name.upper() != "FACILITATOR":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    planned = get_object_or_404(PlannedSession, id=planned_session_id)
+
+    actual_session, _ = ActualSession.objects.get_or_create(
+        planned_session=planned,
+        date=timezone.now().date(),
+        defaults={
+            "facilitator": request.user,
+            "status": "conducted"
+        }
+    )
+
+    return redirect("mark_attendance", actual_session.id)
+
+
+    return redirect("mark_attendance", actual_session.id)
+@login_required
+def mark_attendance(request, actual_session_id):
+    if request.user.role.name.upper() != "FACILITATOR":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    session = get_object_or_404(ActualSession, id=actual_session_id)
+
+    enrollments = Enrollment.objects.filter(
+        class_section=session.planned_session.class_section,
+        is_active=True
+    ).select_related("student")
+
+    if request.method == "POST":
+        for enrollment in enrollments:
+            status = request.POST.get(str(enrollment.id))
+            if status:
+                Attendance.objects.update_or_create(
+                    actual_session=session,
+                    enrollment=enrollment,
+                    defaults={"status": status}
+                )
+
+        messages.success(request, "Attendance saved successfully.")
+        return redirect(
+            "class_attendance",
+            class_section_id=session.planned_session.class_section.id
+        )
+
+    return render(request, "facilitator/mark_attendance.html", {
+        "session": session,
+        "enrollments": enrollments
+    })
+
+
+@login_required
+def class_attendance(request, class_section_id):
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+
+    sessions = ActualSession.objects.filter(
+        planned_session__class_section=class_section
+    ).select_related("planned_session").order_by("-date")
+
+    return render(request, "admin/classes/class_attendance.html", {
+        "class_section": class_section,
+        "sessions": sessions
+    })
+
+
+@login_required
+def facilitator_classes(request):
+    if request.user.role.name.upper() != "FACILITATOR":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    # Schools assigned to facilitator
+    assigned_schools = FacilitatorSchool.objects.filter(
+        facilitator=request.user
+    ).select_related("school")
+
+    # All classes from those schools
+    class_sections = ClassSection.objects.filter(
+        school__in=[fs.school for fs in assigned_schools]
+    ).order_by("school__name", "class_level", "section")
+
+    return render(request, "facilitator/classes/list.html", {
+        "class_sections": class_sections
+    })
+@login_required
+def planned_session_create(request, class_section_id):
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+
+    if request.method == "POST":
+        topic = request.POST.get("topic")
+        youtube_url = request.POST.get("youtube_url")
+        description = request.POST.get("description", "")
+
+        last_day = PlannedSession.objects.filter(
+            class_section=class_section
+        ).aggregate(Max("day_number"))["day_number__max"] or 0
+
+        PlannedSession.objects.create(
+            class_section=class_section,
+            day_number=last_day + 1,
+            topic=topic,
+            youtube_url=youtube_url,
+            description=description
+        )
+
+        messages.success(request, "Planned session added.")
+        return redirect("admin_class_sessions", class_section.id)
+
+    return render(request, "admin/classes/planned_session_form.html", {
+        "class_section": class_section
+    })
+
+@login_required
+def planned_session_edit(request, session_id):
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    planned = get_object_or_404(PlannedSession, id=session_id)
+    class_section = planned.class_section
+
+    if request.method == "POST":
+        planned.topic = request.POST.get("topic")
+        planned.youtube_url = request.POST.get("youtube_url")
+        planned.description = request.POST.get("description", "")
+        planned.save()
+
+        messages.success(request, "Planned session updated.")
+        return redirect("admin_class_sessions", class_section.id)
+
+    return render(request, "admin/classes/planned_session_form.html", {
+        "class_section": class_section,
+        "planned_session": planned,
+        "is_edit": True
+    })
+@login_required
+def planned_session_delete(request, session_id):
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    planned = get_object_or_404(PlannedSession, id=session_id)
+    class_section = planned.class_section
+
+    # 🔒 Safety check: already conducted?
+    if planned.actual_sessions.filter(status="conducted").exists():
+        messages.error(
+            request,
+            "This session has already been conducted and cannot be deleted."
+        )
+        return redirect("admin_class_sessions", class_section.id)
+
+    if request.method == "POST":
+        planned.delete()
+        messages.success(request, "Planned session deleted.")
+        return redirect("admin_class_sessions", class_section.id)
+
+    # Optional confirm page
+    return render(request, "admin/classes/planned_session_confirm_delete.html", {
+        "planned_session": planned,
+        "class_section": class_section,
+        
     })
 
 

@@ -1,0 +1,32 @@
+{% extends 'admin/shared/base.html' %}
+{% load static %}
+
+{% block content %}
+<h5>{{ class_section.class_level }} - Attendance</h5>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Topic</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in sessions %}
+    <tr>
+      <td>{{ s.date }}</td>
+      <td>{{ s.planned_session.topic }}</td>
+      <td>{{ s.status }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3" class="text-center text-muted">
+        No sessions conducted yet.
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

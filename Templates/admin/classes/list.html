@@ -73,19 +73,38 @@
                     </span>
                     <p class="text-muted small mb-3">{{ class_section.school.name }}</p>
 
-                    <!-- Actions -->
-                    <div class="mt-auto d-flex justify-content-center gap-2">
-                        <a href="{% url 'edit_class_section' class_section.id %}" class="btn btn-outline-primary btn-sm">
-                            <i class="bx bx-edit"></i> Edit
-                        </a>
-                        <form action="{% url 'class_section_delete' class_section.id %}" method="post" 
-                              onsubmit="return confirm('Are you sure you want to delete this class?');">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-outline-danger btn-sm">
-                                <i class="bx bx-trash"></i> Delete
-                            </button>
-                        </form>
-                    </div>
+<div class="mt-auto d-flex flex-wrap justify-content-center gap-2">
+
+    <!-- Sessions -->
+    <a href="{% url 'admin_class_sessions' class_section.id %}"
+       class="btn btn-outline-success btn-sm">
+        <i class="bx bx-calendar"></i> Sessions
+    </a>
+
+    <!-- Attendance -->
+    <a href="{% url 'class_attendance' class_section.id %}"
+       class="btn btn-outline-warning btn-sm">
+        <i class="bx bx-check-circle"></i> Attendance
+    </a>]
+
+    <!-- Edit -->
+    <a href="{% url 'edit_class_section' class_section.id %}"
+       class="btn btn-outline-primary btn-sm">
+        <i class="bx bx-edit"></i>
+    </a>
+
+    <!-- Delete -->
+    <form action="{% url 'class_section_delete' class_section.id %}"
+          method="post"
+          onsubmit="return confirm('Are you sure you want to delete this class?');">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger btn-sm">
+            <i class="bx bx-trash"></i>
+        </button>
+    </form>
+
+</div>
+
 
                 </div>
             </div>

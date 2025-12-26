@@ -1,0 +1,117 @@
+{% extends 'admin/shared/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h5 class="fw-bold mb-1">
+            {{ class_section.class_level }} - Section {{ class_section.section }}
+        </h5>
+        <small class="text-muted">
+            Planned Sessions & Progress
+        </small>
+    </div>
+
+    <a href="{% url 'planned_session_create' class_section.id %}"
+       class="btn btn-primary btn-sm">
+        <i class="bi bi-plus-circle"></i> Add Planned Session
+    </a>
+</div>
+
+<!-- Next Pending Session -->
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+        <h6 class="fw-semibold mb-2">Next Pending Session</h6>
+
+        {% for ps in planned_sessions %}
+            {% if not ps.is_conducted %}
+                <span class="badge bg-warning mb-2">Pending</span>
+                <p class="mb-1">
+                    <strong>Day {{ ps.day_number }}:</strong>
+                    {{ ps.topic }}
+                </p>
+              
+            {% endif %}
+        {% empty %}
+            <span class="badge bg-success">
+                All sessions completed 🎉
+            </span>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Planned Sessions Table -->
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th style="width: 10%">Day</th>
+                    <th>Topic</th>
+                    <th style="width: 15%">Status</th>
+                    <th style="width: 20%" class="text-end">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for ps in planned_sessions %}
+                <tr>
+                    <td>
+                        <span class="fw-semibold">Day {{ ps.day_number }}</span>
+                    </td>
+
+                    <td>
+                        <div class="fw-semibold">{{ ps.topic }}</div>
+                        {% if ps.youtube_url %}
+                        <a href="{{ ps.youtube_url }}" target="_blank"
+                           class="small text-decoration-none">
+                            ▶ View Video
+                        </a>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if ps.is_conducted %}
+                            <span class="badge bg-success">Completed</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Pending</span>
+                        {% endif %}
+                    </td>
+
+                    <td class="text-end">
+                        {# Enable later if needed #}
+                        {#
+                        <a href="{% url 'planned_session_edit' ps.id %}"
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+
+                        <form method="post"
+                              action="{% url 'planned_session_delete' ps.id %}"
+                              class="d-inline"
+                              onsubmit="return confirm('Delete this planned session?');">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                        #}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted py-4">
+                        No planned sessions added yet.
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}
