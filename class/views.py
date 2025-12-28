@@ -26,7 +26,7 @@ User = get_user_model()
 ROLE_CONFIG = {
     "ADMIN": {"url": "/admin/dashboard/", "template": "admin/dashboard.html"},
     "SUPERVISOR": {"url": "/supervisor/dashboard/", "template": "Supervisor/dashboard.html"},
-    "FACILITATOR": {"url": "/facilitator/dashboard/", "template": "Facilitator/dashboard.html"},
+    "FACILITATOR": {"url": "/facilitator/dashboard/", "template": "facilitator/dashboard.html"},
 }
 
 # -------------------------------
