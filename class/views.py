@@ -648,7 +648,7 @@ def today_session(request, class_section_id):
     if planned_session and planned_session.youtube_url:
         video_id = extract_youtube_id(planned_session.youtube_url)
 
-    return render(request, "facilitator/today_session.html", {
+    return render(request, "facilitator/Today_session.html", {
         "class_section": class_section,
         "planned_session": planned_session,
         "video_id": video_id,
