@@ -133,7 +133,7 @@ urlpatterns = [
         name="class_attendance"
     ),
     path(
-    "facilitator/classes/",
+    "Facilitator/classes/",
     facilitator_classes,
     name="facilitator_classes"
 ),
