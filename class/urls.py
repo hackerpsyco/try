@@ -143,22 +143,22 @@ urlpatterns = [
     # Facilitator Flow
     # ======================
     path(
-        "Facilitator/class/<uuid:class_section_id>/today/",
+        "facilitator/class/<uuid:class_section_id>/today/",
         today_session,
         name="facilitator_today_session"
     ),
     path(
-        "Facilitator/session/start/<uuid:planned_session_id>/",
+        "facilitator/session/start/<uuid:planned_session_id>/",
         start_session,
         name="start_session"
     ),
     path(
-        "Facilitator/session/<uuid:actual_session_id>/attendance/",
+        "facilitator/session/<uuid:actual_session_id>/attendance/",
         mark_attendance,
         name="mark_attendance"
     ),
     path(
-        "Facilitator/class/<uuid:class_section_id>/planned-session/create/",
+        "facilitator/class/<uuid:class_section_id>/planned-session/create/",
         planned_session_create,
         name="planned_session_create"
     ),
