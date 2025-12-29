@@ -169,12 +169,14 @@ def create_user_ajax(request):
 
         try:
             role = Role.objects.get(id=role_id)
+
             user = User.objects.create_user(
                 email=email,
                 password=password,
                 full_name=full_name,
-                role_id=role.id
+                role=role        # ✅ IMPORTANT — pass the Role object
             )
+
             return JsonResponse({
                 "success": True,
                 "user": {
@@ -184,11 +186,11 @@ def create_user_ajax(request):
                     "role_name": role.name
                 }
             })
+
         except Role.DoesNotExist:
             return JsonResponse({"success": False, "error": "Invalid role selected."})
 
     return JsonResponse({"success": False, "error": "Invalid request method."})
-
 
 # -------------------------------
 # School Management Views
