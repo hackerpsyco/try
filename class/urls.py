@@ -19,9 +19,21 @@ from .views import (
     start_session,          # facilitator start session
     mark_attendance,        # facilitator mark attendance
     facilitator_classes,    # facilitator classes list
+    facilitator_attendance, # facilitator attendance filtering
     planned_session_create,
     planned_session_edit,
     planned_session_delete,
+    planned_session_import,
+    bulk_delete_sessions,
+    download_sample_csv,
+    toggle_facilitator_assignment,
+    delete_facilitator_assignment,
+    
+    # AJAX endpoints
+    ajax_facilitator_schools,
+    ajax_school_classes,
+    ajax_class_students,
+    debug_sessions,
 )
 
 urlpatterns = [
@@ -148,6 +160,11 @@ urlpatterns = [
         name="facilitator_today_session"
     ),
     path(
+        "facilitator/class/<uuid:class_section_id>/debug/",
+        debug_sessions,
+        name="debug_sessions"
+    ),
+    path(
         "facilitator/session/start/<uuid:planned_session_id>/",
         start_session,
         name="start_session"
@@ -156,6 +173,28 @@ urlpatterns = [
         "facilitator/session/<uuid:actual_session_id>/attendance/",
         mark_attendance,
         name="mark_attendance"
+    ),
+    path(
+        "facilitator/attendance/",
+        facilitator_attendance,
+        name="facilitator_attendance"
+    ),
+    
+    # AJAX endpoints for attendance filtering
+    path(
+        "api/facilitator/schools/",
+        ajax_facilitator_schools,
+        name="ajax_facilitator_schools"
+    ),
+    path(
+        "api/facilitator/classes/",
+        ajax_school_classes,
+        name="ajax_school_classes"
+    ),
+    path(
+        "api/facilitator/students/",
+        ajax_class_students,
+        name="ajax_class_students"
     ),
     path(
         "facilitator/class/<uuid:class_section_id>/planned-session/create/",
@@ -171,6 +210,31 @@ path(
     "admin/planned-session/<uuid:session_id>/delete/",
     planned_session_delete,
     name="planned_session_delete"
+),
+path(
+    "admin/classes/<uuid:class_section_id>/planned-sessions/import/",
+    planned_session_import,
+    name="planned_session_import"
+),
+path(
+    "admin/classes/<uuid:class_section_id>/planned-sessions/bulk-delete/",
+    bulk_delete_sessions,
+    name="bulk_delete_sessions"
+),
+path(
+    "admin/download-sample-csv/",
+    download_sample_csv,
+    name="download_sample_csv"
+),
+path(
+    "admin/facilitator-assignment/<uuid:assignment_id>/toggle/",
+    toggle_facilitator_assignment,
+    name="toggle_facilitator_assignment"
+),
+path(
+    "admin/facilitator-assignment/<uuid:assignment_id>/delete/",
+    delete_facilitator_assignment,
+    name="delete_facilitator_assignment"
 ),
 
 

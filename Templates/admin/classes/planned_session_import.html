@@ -1,0 +1,85 @@
+{% extends "admin/shared/base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold">Import Planned Sessions</h4>
+    <a href="{% url 'admin_class_sessions' class_section.id %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Sessions
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Upload Sessions File</h6>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-3">
+                    Import planned sessions for <strong>{{ class_section.school.name }} - Class {{ class_section.class_level }}-{{ class_section.section }}</strong>
+                </p>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Select File</label>
+                        <input type="file" class="form-control" id="file" name="file" 
+                               accept=".csv,.xlsx,.xls" required>
+                        <div class="form-text">
+                            Supported formats: CSV, Excel (.xlsx, .xls)<br>
+                            <small class="text-muted">For CSV files: Save with UTF-8 encoding for best compatibility</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-upload"></i> Import Sessions
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">File Format Requirements</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-2">Your file should contain these columns:</p>
+                <ul class="small">
+                    <li><strong>topic</strong> (required) - Session topic/title</li>
+                    <li><strong>day_number</strong> (optional) - Day sequence number</li>
+                    <li><strong>youtube_url</strong> (optional) - YouTube video URL</li>
+                    <li><strong>description</strong> (optional) - Session description</li>
+                </ul>
+                
+                <div class="alert alert-info small mt-3">
+                    <strong>Note:</strong> If day_number is not provided, sessions will be auto-numbered starting from the next available number.
+                </div>
+                
+                <div class="alert alert-warning small mt-2">
+                    <strong>CSV Encoding Issues?</strong> If you get encoding errors, try saving your CSV file as "UTF-8" in Excel or your text editor.
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">Sample CSV Format</h6>
+            </div>
+            <div class="card-body">
+                <pre class="small text-muted">topic,day_number,youtube_url,description
+Introduction to Math,1,https://youtube.com/watch?v=abc123,Basic math concepts
+Addition and Subtraction,2,https://youtube.com/watch?v=def456,Learning basic operations
+Multiplication Tables,3,,Practice multiplication</pre>
+                
+                <a href="{% url 'download_sample_csv' %}" class="btn btn-outline-secondary btn-sm mt-2">
+                    <i class="bi bi-download"></i> Download Sample CSV
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

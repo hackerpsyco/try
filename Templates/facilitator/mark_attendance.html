@@ -1,34 +1,41 @@
 {% extends "facilitator/shared/base.html" %}
 
 {% block content %}
-<h5>Mark Attendance</h5>
+<h5 class="mb-3">Mark Attendance</h5>
 
 <form method="post">
-{% csrf_token %}
+  {% csrf_token %}
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Student</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for e in enrollments %}
-    <tr>
-      <td>{{ e.student.name }}</td>
-      <td>
-        <select name="{{ e.id }}" class="form-select">
-          <option value="present">Present</option>
-          <option value="absent">Absent</option>
-        </select>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Status</th>
+      </tr>
+    </thead>
 
-<button class="btn btn-success">Save Attendance</button>
+    <tbody>
+      {% for e in enrollments %}
+      <tr>
+        <td>
+          {{ e.student.full_name }}
+          <br>
+          <small class="text-muted">
+            {{ e.student.enrollment_number }}
+          </small>
+        </td>
+
+        <td>
+          <select name="{{ e.id }}" class="form-select">
+            <option value="present">Present</option>
+            <option value="absent">Absent</option>
+          </select>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <button class="btn btn-success">Save Attendance</button>
 </form>
-
 {% endblock %}

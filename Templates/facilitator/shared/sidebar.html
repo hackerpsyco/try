@@ -27,6 +27,13 @@
             My Classes
         </a>
 
+        <!-- Attendance Management -->
+        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_attendance' %}active{% endif %}"
+           href="{% url 'facilitator_attendance' %}">
+            <span class="material-symbols-outlined">how_to_reg</span>
+            Attendance
+        </a>
+
         <!-- Today Session -->
         <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_classes' %}active{% endif %}"
    href="{% url 'facilitator_classes' %}">

@@ -23,6 +23,10 @@ class Enrollment(models.Model):
         Student, on_delete=models.CASCADE, related_name="enrollments"
     )
 
+    school = models.ForeignKey(
+        "class.School", on_delete=models.CASCADE, related_name="enrollments"
+    )
+
     class_section = models.ForeignKey(
         "class.ClassSection", on_delete=models.CASCADE, related_name="enrollments"
     )
@@ -31,7 +35,13 @@ class Enrollment(models.Model):
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        unique_together = ("student", "class_section")
+        unique_together = ("student", "school", "class_section")
+
+    def save(self, *args, **kwargs):
+        # Auto-populate school from class_section if not provided
+        if not self.school and self.class_section:
+            self.school = self.class_section.school
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.student} → {self.class_section}"
@@ -121,18 +131,3 @@ class Attendance(models.Model):
 
     class Meta:
         unique_together = ("actual_session", "enrollment")
-
-def today_session(request, class_section_id):
-    class_section = get_object_or_404(ClassSection, id=class_section_id)
-
-    planned_session = PlannedSession.objects.filter(
-        class_section=class_section,
-        is_active=True
-    ).exclude(
-        actual_sessions__status="conducted"
-    ).order_by("day_number").first()
-
-    return render(request, "facilitator/today_session.html", {
-        "class_section": class_section,
-        "planned_session": planned_session,
-    })

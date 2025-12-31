@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -255,10 +255,16 @@ def school_detail(request, school_id):
 
     school = get_object_or_404(School, id=school_id)
     classes = ClassSection.objects.filter(school=school).order_by("class_level", "section")
+    
+    # Get facilitator assignments for this school
+    facilitator_assignments = FacilitatorSchool.objects.filter(
+        school=school
+    ).select_related("facilitator").order_by("-created_at")
 
     return render(request, "admin/schools/detail.html", {
         "school": school,
-        "class_sections": classes
+        "class_sections": classes,
+        "facilitator_assignments": facilitator_assignments
     })
 
 
@@ -604,12 +610,32 @@ def sessions_view(request, class_section_id):
                 )
             )
         )
+        .prefetch_related('actual_sessions')
         .order_by("day_number")
     )
 
+    # Add status information to each planned session
+    for ps in planned_sessions:
+        ps.status_info = "pending"
+        ps.status_class = "secondary"
+        
+        if ps.is_conducted:
+            ps.status_info = "completed"
+            ps.status_class = "success"
+        else:
+            # Check for holiday/cancelled status
+            actual_session = ps.actual_sessions.first()
+            if actual_session:
+                if actual_session.status == "holiday":
+                    ps.status_info = "holiday"
+                    ps.status_class = "warning"
+                elif actual_session.status == "cancelled":
+                    ps.status_info = "cancelled"
+                    ps.status_class = "danger"
+
     # ✅ next pending session (FIRST not conducted)
     next_pending = next(
-        (ps for ps in planned_sessions if not ps.is_conducted),
+        (ps for ps in planned_sessions if not ps.is_conducted and ps.status_info == "pending"),
         None
     )
 
@@ -639,12 +665,39 @@ def extract_youtube_id(url):
 def today_session(request, class_section_id):
     class_section = get_object_or_404(ClassSection, id=class_section_id)
 
-    planned_session = PlannedSession.objects.filter(
+    # NEW LOGIC: Show sessions in this priority order:
+    # 1. First truly pending session (no ActualSession record)
+    # 2. If no pending sessions, show the most recent holiday/cancelled session
+    # 3. If all sessions are conducted, show "completed"
+    
+    # First, try to find a truly pending session
+    pending_session = PlannedSession.objects.filter(
         class_section=class_section,
-        is_active=True
-    ).exclude(
-        actual_sessions__status="conducted"
+        is_active=True,
+        actual_sessions__isnull=True  # No ActualSession record at all
     ).order_by("day_number").first()
+    
+    planned_session = None
+    session_status = None
+    
+    if pending_session:
+        # Found a pending session - show it
+        planned_session = pending_session
+        session_status = "pending"
+    else:
+        # No pending sessions - check for recent holiday/cancelled sessions
+        recent_non_conducted = PlannedSession.objects.filter(
+            class_section=class_section,
+            is_active=True,
+            actual_sessions__status__in=['holiday', 'cancelled']
+        ).order_by("-actual_sessions__date").first()
+        
+        if recent_non_conducted:
+            # Show the most recent holiday/cancelled session
+            planned_session = recent_non_conducted
+            actual_session = recent_non_conducted.actual_sessions.first()
+            session_status = actual_session.status
+        # If no holiday/cancelled sessions either, planned_session stays None (all completed)
 
     video_id = None
     if planned_session and planned_session.youtube_url:
@@ -653,7 +706,39 @@ def today_session(request, class_section_id):
     return render(request, "facilitator/Today_session.html", {
         "class_section": class_section,
         "planned_session": planned_session,
+        "session_status": session_status,
         "video_id": video_id,
+    })
+
+
+@login_required
+def debug_sessions(request, class_section_id):
+    """Debug view to show all sessions and their status"""
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+    
+    # Get all planned sessions
+    all_sessions = PlannedSession.objects.filter(
+        class_section=class_section,
+        is_active=True
+    ).order_by("day_number")
+    
+    session_info = []
+    for session in all_sessions:
+        if session.actual_sessions.exists():
+            actual = session.actual_sessions.first()
+            status = f"{actual.status} on {actual.date}"
+        else:
+            status = "PENDING (not processed)"
+        
+        session_info.append({
+            'day': session.day_number,
+            'topic': session.topic,
+            'status': status
+        })
+    
+    return render(request, "facilitator/debug_sessions.html", {
+        "class_section": class_section,
+        "session_info": session_info,
     })
 
 from django.utils import timezone
@@ -666,19 +751,33 @@ def start_session(request, planned_session_id):
 
     planned = get_object_or_404(PlannedSession, id=planned_session_id)
 
-    actual_session, _ = ActualSession.objects.get_or_create(
+    # Read status from POST request, default to "conducted"
+    status = request.POST.get('status', 'conducted')
+    remarks = request.POST.get('remarks', '')
+
+    actual_session, created = ActualSession.objects.get_or_create(
         planned_session=planned,
         date=timezone.now().date(),
         defaults={
             "facilitator": request.user,
-            "status": "conducted"
+            "status": status,
+            "remarks": remarks
         }
     )
 
-    return redirect("mark_attendance", actual_session.id)
+    # If session already exists, update it (in case of status change)
+    if not created:
+        actual_session.status = status
+        actual_session.remarks = remarks
+        actual_session.save()
 
-
-    return redirect("mark_attendance", actual_session.id)
+    # Redirect based on status
+    if status == "conducted":
+        return redirect("mark_attendance", actual_session.id)
+    else:
+        # For holiday/cancelled sessions, redirect back to facilitator classes
+        messages.success(request, f"Session marked as {status}.")
+        return redirect("facilitator_classes")
 @login_required
 def mark_attendance(request, actual_session_id):
     if request.user.role.name.upper() != "FACILITATOR":
@@ -751,6 +850,217 @@ def facilitator_classes(request):
     return render(request, "facilitator/classes/list.html", {
         "class_sections": class_sections
     })
+
+
+@login_required
+def facilitator_attendance(request):
+    """Enhanced attendance filtering interface for facilitators"""
+    if request.user.role.name.upper() != "FACILITATOR":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    # Debug: Check current user details
+    messages.info(request, f"Debug: Current user: {request.user.full_name} ({request.user.email}), Role: {request.user.role.name}")
+
+    # Get facilitator's assigned schools with debugging
+    assigned_schools = FacilitatorSchool.objects.filter(
+        facilitator=request.user,
+        is_active=True
+    ).select_related("school")
+
+    # Debug: Check query results
+    messages.info(request, f"Debug: Found {assigned_schools.count()} school assignments")
+    for fs in assigned_schools:
+        messages.info(request, f"Debug: Assigned to {fs.school.name} (Active: {fs.is_active})")
+
+    # Also check ALL FacilitatorSchool records for this user (including inactive)
+    all_assignments = FacilitatorSchool.objects.filter(
+        facilitator=request.user
+    ).select_related("school")
+    
+    messages.info(request, f"Debug: Total assignments (including inactive): {all_assignments.count()}")
+    for fs in all_assignments:
+        messages.info(request, f"Debug: {fs.school.name} - Active: {fs.is_active}, Created: {fs.created_at}")
+
+    # Check if facilitator has any school assignments
+    if not assigned_schools.exists():
+        messages.warning(request, f"No active schools assigned to facilitator {request.user.full_name}. Please contact admin to assign schools.")
+
+    context = {
+        "assigned_schools": assigned_schools,
+    }
+
+    # If filters are applied, get the filtered data
+    school_id = request.GET.get("school")
+    class_section_id = request.GET.get("class_section")
+    
+    if school_id:
+        # Verify facilitator has access to this school
+        if not assigned_schools.filter(school_id=school_id).exists():
+            messages.error(request, "You don't have access to this school.")
+            return redirect("facilitator_attendance")
+        
+        school = get_object_or_404(School, id=school_id)
+        context["selected_school"] = school
+        
+        # Get classes for this school
+        class_sections = ClassSection.objects.filter(
+            school=school,
+            is_active=True
+        ).order_by("class_level", "section")
+        context["class_sections"] = class_sections
+        
+        if class_section_id:
+            # Verify class belongs to selected school
+            if not class_sections.filter(id=class_section_id).exists():
+                messages.error(request, "Invalid class selection.")
+                return redirect("facilitator_attendance")
+            
+            class_section = get_object_or_404(ClassSection, id=class_section_id)
+            context["selected_class_section"] = class_section
+            
+            # Get students for this class with attendance summary
+            enrollments = Enrollment.objects.filter(
+                class_section=class_section,
+                is_active=True
+            ).select_related("student").order_by("student__full_name")
+            
+            # Calculate attendance statistics for each student
+            enrollment_stats = []
+            for enrollment in enrollments:
+                # Count total conducted sessions for this class
+                total_sessions = ActualSession.objects.filter(
+                    planned_session__class_section=class_section,
+                    status="conducted"
+                ).count()
+                
+                # Count attendance records for this student
+                present_count = Attendance.objects.filter(
+                    enrollment=enrollment,
+                    actual_session__planned_session__class_section=class_section,
+                    status="present"
+                ).count()
+                
+                absent_count = Attendance.objects.filter(
+                    enrollment=enrollment,
+                    actual_session__planned_session__class_section=class_section,
+                    status="absent"
+                ).count()
+                
+                attendance_percentage = (present_count / total_sessions * 100) if total_sessions > 0 else 0
+                
+                enrollment_stats.append({
+                    'enrollment': enrollment,
+                    'total_sessions': total_sessions,
+                    'present_count': present_count,
+                    'absent_count': absent_count,
+                    'attendance_percentage': round(attendance_percentage, 1)
+                })
+            
+            context["enrollment_stats"] = enrollment_stats
+            
+            # Get recent attendance sessions for this class with detailed attendance
+            recent_sessions_data = []
+            recent_sessions = ActualSession.objects.filter(
+                planned_session__class_section=class_section,
+                status="conducted"
+            ).select_related("planned_session").order_by("-date")[:10]
+            
+            for session in recent_sessions:
+                present_count = session.attendances.filter(status="present").count()
+                absent_count = session.attendances.filter(status="absent").count()
+                total_count = session.attendances.count()
+                
+                recent_sessions_data.append({
+                    'session': session,
+                    'present_count': present_count,
+                    'absent_count': absent_count,
+                    'total_count': total_count
+                })
+            
+            context["recent_sessions_data"] = recent_sessions_data
+
+    return render(request, "facilitator/attendance_filter.html", context)
+
+
+# AJAX endpoints for cascading filters
+@login_required
+def ajax_facilitator_schools(request):
+    """AJAX endpoint to get schools assigned to facilitator"""
+    if request.user.role.name.upper() != "FACILITATOR":
+        return JsonResponse({"error": "Permission denied"}, status=403)
+    
+    schools = FacilitatorSchool.objects.filter(
+        facilitator=request.user,
+        is_active=True
+    ).select_related("school").values(
+        "school__id", "school__name", "school__district"
+    )
+    
+    return JsonResponse({
+        "schools": list(schools)
+    })
+
+
+@login_required
+def ajax_school_classes(request):
+    """AJAX endpoint to get classes for a specific school"""
+    if request.user.role.name.upper() != "FACILITATOR":
+        return JsonResponse({"error": "Permission denied"}, status=403)
+    
+    school_id = request.GET.get("school_id")
+    if not school_id:
+        return JsonResponse({"error": "School ID required"}, status=400)
+    
+    # Verify facilitator has access to this school
+    if not FacilitatorSchool.objects.filter(
+        facilitator=request.user,
+        school_id=school_id,
+        is_active=True
+    ).exists():
+        return JsonResponse({"error": "Access denied to this school"}, status=403)
+    
+    classes = ClassSection.objects.filter(
+        school_id=school_id,
+        is_active=True
+    ).values(
+        "id", "class_level", "section"
+    ).order_by("class_level", "section")
+    
+    return JsonResponse({
+        "classes": list(classes)
+    })
+
+
+@login_required
+def ajax_class_students(request):
+    """AJAX endpoint to get students for a specific class"""
+    if request.user.role.name.upper() != "FACILITATOR":
+        return JsonResponse({"error": "Permission denied"}, status=403)
+    
+    class_section_id = request.GET.get("class_section_id")
+    if not class_section_id:
+        return JsonResponse({"error": "Class section ID required"}, status=400)
+    
+    # Verify facilitator has access to this class through school assignment
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+    if not FacilitatorSchool.objects.filter(
+        facilitator=request.user,
+        school=class_section.school,
+        is_active=True
+    ).exists():
+        return JsonResponse({"error": "Access denied to this class"}, status=403)
+    
+    students = Enrollment.objects.filter(
+        class_section_id=class_section_id,
+        is_active=True
+    ).select_related("student").values(
+        "id", "student__id", "student__full_name", "student__enrollment_number"
+    ).order_by("student__full_name")
+    
+    return JsonResponse({
+        "students": list(students)
+    })
 @login_required
 def planned_session_create(request, class_section_id):
     if request.user.role.name.upper() != "ADMIN":
@@ -815,24 +1125,284 @@ def planned_session_delete(request, session_id):
     planned = get_object_or_404(PlannedSession, id=session_id)
     class_section = planned.class_section
 
-    # 🔒 Safety check: already conducted?
-    if planned.actual_sessions.filter(status="conducted").exists():
-        messages.error(
-            request,
-            "This session has already been conducted and cannot be deleted."
-        )
-        return redirect("admin_class_sessions", class_section.id)
-
-    if request.method == "POST":
+    # Handle both GET and POST requests for deletion
+    if request.method == "POST" or request.method == "GET":
+        # Get related data count for user feedback
+        actual_sessions_count = planned.actual_sessions.count()
+        attendance_count = 0
+        
+        if actual_sessions_count > 0:
+            # Count attendance records that will be deleted
+            for actual_session in planned.actual_sessions.all():
+                attendance_count += actual_session.attendances.count()
+        
+        # Delete the planned session (this will cascade delete ActualSession and Attendance records)
         planned.delete()
-        messages.success(request, "Planned session deleted.")
+        
+        # Provide detailed feedback about what was deleted
+        if actual_sessions_count > 0:
+            messages.success(
+                request, 
+                f"Planned session deleted successfully. Also deleted {actual_sessions_count} actual session(s) and {attendance_count} attendance record(s)."
+            )
+        else:
+            messages.success(request, "Planned session deleted successfully.")
+            
         return redirect("admin_class_sessions", class_section.id)
 
-    # Optional confirm page
+    # Optional confirm page (if needed in future)
     return render(request, "admin/classes/planned_session_confirm_delete.html", {
         "planned_session": planned,
         "class_section": class_section,
-        
     })
+
+
+@login_required
+def planned_session_import(request, class_section_id):
+    """Import planned sessions from CSV/Excel file"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+
+    if request.method == "POST":
+        file = request.FILES.get("file")
+
+        if not file:
+            messages.error(request, "Please upload a file")
+            return redirect(request.path)
+
+        ext = file.name.split(".")[-1].lower()
+
+        # Read file based on extension
+        if ext == "csv":
+            # Try different encodings to handle various CSV formats
+            file_content = file.read()
+            
+            # Try UTF-8 first, then fallback to other common encodings
+            for encoding in ['utf-8', 'utf-8-sig', 'windows-1252', 'iso-8859-1', 'cp1252']:
+                try:
+                    decoded_content = file_content.decode(encoding)
+                    rows = csv.DictReader(decoded_content.splitlines())
+                    # Convert to list to process
+                    rows = list(rows)
+                    break
+                except UnicodeDecodeError:
+                    continue
+            else:
+                messages.error(request, "Unable to decode the CSV file. Please ensure it's saved in UTF-8 format.")
+                return redirect(request.path)
+        elif ext in ["xlsx", "xls"]:
+            try:
+                wb = openpyxl.load_workbook(file)
+                sheet = wb.active
+                headers = [str(cell.value).strip() if cell.value else "" for cell in sheet[1]]
+                rows = []
+                for r in sheet.iter_rows(min_row=2, values_only=True):
+                    # Handle None values in Excel cells
+                    row_data = [str(cell) if cell is not None else "" for cell in r]
+                    rows.append(dict(zip(headers, row_data)))
+            except Exception as e:
+                messages.error(request, f"Error reading Excel file: {str(e)}")
+                return redirect(request.path)
+        else:
+            messages.error(request, "Unsupported file format. Please use CSV or Excel files.")
+            return redirect(request.path)
+
+        created_count = 0
+        skipped_count = 0
+
+        # Get the highest day number for this class section
+        last_day = PlannedSession.objects.filter(
+            class_section=class_section
+        ).aggregate(Max("day_number"))["day_number__max"] or 0
+
+        # Process rows
+        for row_index, row in enumerate(rows, start=2):  # Start from 2 for Excel row numbering
+            try:
+                # Handle different data types and None values
+                day_number = row.get("day_number", "")
+                topic = str(row.get("topic", "")).strip()
+                youtube_url = str(row.get("youtube_url", "")).strip()
+                description = str(row.get("description", "")).strip()
+
+                # Skip empty rows
+                if not any([topic, youtube_url, description]):
+                    continue
+
+                # Basic validation
+                if not topic:
+                    skipped_count += 1
+                    continue
+
+                # Handle day_number - if not provided, auto-increment
+                if day_number and str(day_number).strip():
+                    try:
+                        day_number = int(float(str(day_number).strip()))  # Handle Excel decimal numbers
+                    except (ValueError, TypeError):
+                        last_day += 1
+                        day_number = last_day
+                else:
+                    last_day += 1
+                    day_number = last_day
+
+                # Check if session with this day number already exists
+                if PlannedSession.objects.filter(
+                    class_section=class_section,
+                    day_number=day_number
+                ).exists():
+                    skipped_count += 1
+                    continue
+
+                # Create planned session
+                PlannedSession.objects.create(
+                    class_section=class_section,
+                    day_number=day_number,
+                    topic=topic,
+                    youtube_url=youtube_url or "",
+                    description=description
+                )
+                created_count += 1
+                
+            except Exception as e:
+                # Log the error and skip this row
+                skipped_count += 1
+                continue
+
+        # User feedback
+        if created_count == 0:
+            messages.warning(
+                request,
+                f"No sessions imported. Skipped rows: {skipped_count}"
+            )
+        else:
+            messages.success(
+                request,
+                f"{created_count} sessions imported successfully "
+                f"(Skipped: {skipped_count})"
+            )
+
+        return redirect("admin_class_sessions", class_section.id)
+
+    return render(request, "admin/classes/planned_session_import.html", {
+        "class_section": class_section
+    })
+
+
+@login_required
+def bulk_delete_sessions(request, class_section_id):
+    """Bulk delete planned sessions"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+
+    if request.method == "POST":
+        session_ids = request.POST.getlist('session_ids')
+        
+        if not session_ids:
+            messages.error(request, "No sessions selected for deletion.")
+            return redirect("admin_class_sessions", class_section.id)
+
+        # Get sessions to delete
+        sessions_to_delete = PlannedSession.objects.filter(
+            id__in=session_ids,
+            class_section=class_section
+        )
+
+        if not sessions_to_delete.exists():
+            messages.error(request, "No valid sessions found for deletion.")
+            return redirect("admin_class_sessions", class_section.id)
+
+        # Count related data that will be deleted
+        total_actual_sessions = 0
+        total_attendance = 0
+        
+        for session in sessions_to_delete:
+            actual_sessions_count = session.actual_sessions.count()
+            total_actual_sessions += actual_sessions_count
+            
+            for actual_session in session.actual_sessions.all():
+                total_attendance += actual_session.attendances.count()
+
+        # Delete all selected sessions
+        deleted_count = sessions_to_delete.count()
+        sessions_to_delete.delete()
+
+        # Provide detailed feedback
+        message = f"Successfully deleted {deleted_count} planned session(s)."
+        if total_actual_sessions > 0:
+            message += f" Also deleted {total_actual_sessions} actual session(s) and {total_attendance} attendance record(s)."
+        
+        messages.success(request, message)
+
+    return redirect("admin_class_sessions", class_section.id)
+
+
+@login_required
+def download_sample_csv(request):
+    """Download a sample CSV file for planned sessions import"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    # Create sample CSV content
+    sample_data = [
+        ["topic", "day_number", "youtube_url", "description"],
+        ["Introduction to Math", "1", "https://youtube.com/watch?v=abc123", "Basic math concepts"],
+        ["Addition and Subtraction", "2", "https://youtube.com/watch?v=def456", "Learning basic operations"],
+        ["Multiplication Tables", "3", "", "Practice multiplication"],
+        ["Division Basics", "", "https://youtube.com/watch?v=ghi789", "Understanding division"]
+    ]
+
+    # Create HTTP response with CSV content
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="planned_sessions_sample.csv"'
+
+    writer = csv.writer(response)
+    for row in sample_data:
+        writer.writerow(row)
+
+    return response
+
+
+@login_required
+def toggle_facilitator_assignment(request, assignment_id):
+    """Toggle facilitator assignment active status"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    assignment = get_object_or_404(FacilitatorSchool, id=assignment_id)
+    
+    if request.method == "POST":
+        new_status = request.POST.get('is_active') == 'true'
+        assignment.is_active = new_status
+        assignment.save()
+        
+        status_text = "activated" if new_status else "deactivated"
+        messages.success(request, f"Facilitator assignment {status_text} successfully.")
+    
+    return redirect("school_detail", school_id=assignment.school.id)
+
+
+@login_required
+def delete_facilitator_assignment(request, assignment_id):
+    """Delete facilitator assignment"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    assignment = get_object_or_404(FacilitatorSchool, id=assignment_id)
+    school_id = assignment.school.id
+    
+    if request.method == "POST":
+        facilitator_name = assignment.facilitator.full_name
+        assignment.delete()
+        messages.success(request, f"Facilitator {facilitator_name} removed from school successfully.")
+    
+    return redirect("school_detail", school_id=school_id)
 
 
