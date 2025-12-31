@@ -70,7 +70,7 @@
               <h6 class="fw-semibold mb-1">{{ school.name }}</h6>
 
               <span class="badge
-                {% if school.status == 'active' %}
+                {% if school.status == 1 %}
                   bg-success-subtle text-success
                 {% else %}
                   bg-danger-subtle text-danger
@@ -92,6 +92,7 @@
 
               <!-- Actions -->
               <div class="mt-auto d-flex justify-content-center gap-2">
+
                 <a href="{% url 'school_detail' school.id %}"
                    class="btn btn-outline-primary btn-sm">
                   Manage
@@ -102,7 +103,9 @@
                           data-bs-toggle="dropdown">
                     <i class="bi bi-three-dots"></i>
                   </button>
+
                   <ul class="dropdown-menu">
+
                     <li>
                       <a class="dropdown-item"
                          data-bs-toggle="modal"
@@ -110,18 +113,61 @@
                         Assign Facilitator
                       </a>
                     </li>
+
                     <li>
-                      <a class="dropdown-item text-danger" href="#">
-                        Deactivate
+                      <a class="dropdown-item text-danger"
+                         data-bs-toggle="modal"
+                         data-bs-target="#deleteSchoolModal{{ school.id }}">
+                        Delete
                       </a>
                     </li>
+
                   </ul>
                 </div>
+
               </div>
 
             </div>
           </div>
         </div>
+
+        <!-- 🔴 DELETE MODAL (per school) -->
+        <div class="modal fade" id="deleteSchoolModal{{ school.id }}" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+
+              <form method="post" action="{% url 'delete_school' school.id %}">
+                {% csrf_token %}
+
+                <div class="modal-header">
+                  <h5 class="modal-title text-danger">Delete School</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                  Are you sure you want to delete
+                  <strong>{{ school.name }}</strong>?
+                  <br>
+                  <small class="text-muted">
+                    This action cannot be undone.
+                  </small>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                    Cancel
+                  </button>
+                  <button type="submit" class="btn btn-danger">
+                    Delete
+                  </button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+
         {% empty %}
         <div class="col-12">
           <div class="alert alert-info text-center">
@@ -147,8 +193,7 @@
           <h5 class="modal-title fw-semibold">
             Assign Facilitator
           </h5>
-          <button type="button" class="btn-close"
-                  data-bs-dismiss="modal"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
 
         <div class="modal-body">
@@ -163,12 +208,10 @@
             {{ form.school }}
           </div>
 
-
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-light"
-                  data-bs-dismiss="modal">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">
             Cancel
           </button>
           <button type="submit" class="btn btn-primary">

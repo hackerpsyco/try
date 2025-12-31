@@ -1,5 +1,7 @@
 {% extends 'admin/shared/base.html' %}
 {% block title %}Edit School{% endblock %}
+{% load widget_tweaks %}
+
 
 {% block content %}
 <div class="container mt-5">
@@ -32,7 +34,7 @@
 
         <div class="d-flex justify-content-between mt-4">
             <button type="submit" class="btn btn-primary">Update School</button>
-            <a href="{% url 'school_list' %}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'school_detail' school.id %}" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 </div>

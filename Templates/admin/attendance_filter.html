@@ -1,0 +1,145 @@
+{% extends "admin/shared/base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold">Attendance Management (Admin)</h4>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h6 class="mb-0">Filter Options</h6>
+    </div>
+
+    <div class="card-body">
+        <form method="GET" id="attendanceFilterForm">
+
+            <div class="row g-3">
+
+                <!-- School -->
+                <div class="col-md-4">
+                    <label class="form-label">Select School</label>
+                    <select class="form-select" id="schoolSelect" name="school">
+                        <option value="">Choose a school...</option>
+
+                        {% for s in schools %}
+                        <option value="{{ s.id }}"
+                            {% if selected_school and selected_school.id == s.id %}selected{% endif %}>
+                            {{ s.name }} ({{ s.district }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Class -->
+                <div class="col-md-4">
+                    <label class="form-label">Select Class</label>
+                    <select class="form-select" id="classSelect" name="class_section" disabled>
+                        <option value="">Choose a class...</option>
+
+                        {% if class_sections %}
+                            {% for c in class_sections %}
+                            <option value="{{ c.id }}"
+                                {% if selected_class_section and selected_class_section.id == c.id %}selected{% endif %}>
+                                Class {{ c.class_level }} - {{ c.section }}
+                            </option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+
+                <div class="col-md-4 d-flex align-items-end">
+                    <button class="btn btn-primary me-2" type="submit">Apply Filter</button>
+                    <a href="{% url 'admin_attendance_filter' %}" class="btn btn-outline-secondary">
+                        Clear
+                    </a>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if enrollment_stats %}
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between">
+        <h6 class="mb-0">
+            Students — {{ selected_class_section.class_level }}-{{ selected_class_section.section }}
+        </h6>
+
+        <span class="badge bg-primary">{{ enrollment_stats|length }} students</span>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Total</th>
+                        <th>Present</th>
+                        <th>Absent</th>
+                        <th>%</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for row in enrollment_stats %}
+                <tr>
+                    <td>{{ row.enrollment.student.full_name }}</td>
+                    <td>{{ row.total }}</td>
+                    <td><span class="badge bg-success">{{ row.present }}</span></td>
+                    <td><span class="badge bg-danger">{{ row.absent }}</span></td>
+                    <td>{{ row.percent }}%</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const schoolSelect = document.getElementById('schoolSelect');
+    const classSelect  = document.getElementById('classSelect');
+
+    const classes = {{ classes_json|safe }};
+
+    function loadClasses(schoolId) {
+        classSelect.innerHTML = '<option value="">Choose a class...</option>';
+
+        if (!schoolId) {
+            classSelect.disabled = true;
+            return;
+        }
+
+        const filtered = classes.filter(c => c.school_id === schoolId);
+
+        filtered.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.id;
+            opt.textContent = `Class ${c.class_level} - ${c.section}`;
+            classSelect.appendChild(opt);
+        });
+
+        classSelect.disabled = false;
+    }
+
+    schoolSelect.addEventListener('change', function () {
+        loadClasses(this.value);
+    });
+
+    classSelect.addEventListener('change', function () {
+        if (this.value) document.getElementById('attendanceFilterForm').submit();
+    });
+
+    {% if selected_school %}
+    loadClasses("{{ selected_school.id }}");
+    {% endif %}
+});
+</script>
+
+
+{% endblock %}

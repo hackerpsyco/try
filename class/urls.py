@@ -5,9 +5,9 @@ from .views import (
 
     # Admin – users & setup
     users_view, add_user, edit_user, delete_user, create_user_ajax,
-    schools, add_school, edit_school, school_detail,
+    schools, add_school, edit_school, delete_school, school_detail,
     class_sections_list, class_section_add, edit_class_section, class_section_delete,
-    assign_facilitator,
+    assign_facilitator,admin_sessions_filter,
 
     # Admin – students
     students_list, student_add, student_edit, student_delete, student_import,
@@ -20,6 +20,7 @@ from .views import (
     mark_attendance,        # facilitator mark attendance
     facilitator_classes,    # facilitator classes list
     facilitator_attendance, # facilitator attendance filtering
+    admin_attendance_filter,
     planned_session_create,
     planned_session_edit,
     planned_session_delete,
@@ -106,6 +107,10 @@ urlpatterns = [
         student_add,
         name="student_add"
     ),
+    
+     path("admin/chools/<uuid:school_id>/delete/", delete_school, name="delete_school"),
+
+    
     path(
         "admin/schools/<uuid:school_id>/students/<uuid:student_id>/edit/",
         student_edit,
@@ -121,7 +126,7 @@ urlpatterns = [
         student_import,
         name="student_import"
     ),
-
+    
     # ======================
     # Facilitator Assignment (ADMIN)
     # ======================
@@ -130,6 +135,12 @@ urlpatterns = [
         assign_facilitator,
         name="assign_facilitator"
     ),
+    path(
+    "admin/attendance/",
+    admin_attendance_filter,
+    name="admin_attendance_filter"
+),
+
 
     # ======================
     # Sessions & Attendance (ADMIN – READ ONLY)
@@ -149,6 +160,14 @@ urlpatterns = [
     facilitator_classes,
     name="facilitator_classes"
 ),
+path(
+    "admin/sessions/",
+    admin_sessions_filter,
+    name="admin_sessions_filter"
+),
+
+
+
 
 
     # ======================

@@ -89,7 +89,11 @@ class ClassSectionForm(forms.ModelForm):
         model = ClassSection
         fields = ["class_level", "section"]
         widgets = {
-            "class_level": forms.Select(attrs={"class": "form-control"}),
+            "class_level": forms.TextInput(attrs={
+    "class": "form-control",
+    "placeholder": "1, 2, KG",
+}),
+
             "section": forms.TextInput(attrs={
                 "class": "form-control",
                 "placeholder": "A, B, C (optional)",

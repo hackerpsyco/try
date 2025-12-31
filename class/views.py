@@ -15,6 +15,8 @@ from datetime import date
 from django.db.models import Max
 from django.db.models import Exists, OuterRef
 import re
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
 
 
@@ -245,6 +247,21 @@ def edit_school(request, school_id):
         "form": form,
         "school": school
     })
+@login_required
+def delete_school(request, school_id):
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "You do not have permission to delete schools.")
+        return redirect("no_permission")
+
+    school = get_object_or_404(School, id=school_id)
+
+    if request.method == "POST":
+        school.delete()
+        messages.success(request, "School deleted successfully!")
+        return redirect("schools")
+
+    messages.error(request, "Invalid request.")
+    return redirect("schools")
 
 
 @login_required
@@ -665,39 +682,34 @@ def extract_youtube_id(url):
 def today_session(request, class_section_id):
     class_section = get_object_or_404(ClassSection, id=class_section_id)
 
-    # NEW LOGIC: Show sessions in this priority order:
-    # 1. First truly pending session (no ActualSession record)
-    # 2. If no pending sessions, show the most recent holiday/cancelled session
-    # 3. If all sessions are conducted, show "completed"
-    
-    # First, try to find a truly pending session
-    pending_session = PlannedSession.objects.filter(
-        class_section=class_section,
-        is_active=True,
-        actual_sessions__isnull=True  # No ActualSession record at all
-    ).order_by("day_number").first()
-    
+    # Next session that is NOT CONDUCTED yet
+    pending_session = (
+        PlannedSession.objects
+        .filter(class_section=class_section, is_active=True)
+        .exclude(actual_sessions__status="conducted")
+        .order_by("day_number")
+        .first()
+    )
+
     planned_session = None
     session_status = None
-    
+    actual_session = None
+    is_today = False
+
     if pending_session:
-        # Found a pending session - show it
         planned_session = pending_session
-        session_status = "pending"
-    else:
-        # No pending sessions - check for recent holiday/cancelled sessions
-        recent_non_conducted = PlannedSession.objects.filter(
-            class_section=class_section,
-            is_active=True,
-            actual_sessions__status__in=['holiday', 'cancelled']
-        ).order_by("-actual_sessions__date").first()
         
-        if recent_non_conducted:
-            # Show the most recent holiday/cancelled session
-            planned_session = recent_non_conducted
-            actual_session = recent_non_conducted.actual_sessions.first()
+        # Check if there is any actual session record
+        actual_session = pending_session.actual_sessions.order_by("-date").first()
+
+        if actual_session:
             session_status = actual_session.status
-        # If no holiday/cancelled sessions either, planned_session stays None (all completed)
+
+            # 🔎 check if that record is from today
+            if actual_session.date == timezone.now().date():
+                is_today = True
+        else:
+            session_status = "pending"
 
     video_id = None
     if planned_session and planned_session.youtube_url:
@@ -707,8 +719,11 @@ def today_session(request, class_section_id):
         "class_section": class_section,
         "planned_session": planned_session,
         "session_status": session_status,
+        "actual_session": actual_session,
+        "is_today": is_today,     # 👈 important
         "video_id": video_id,
     })
+
 
 
 @login_required
@@ -751,9 +766,8 @@ def start_session(request, planned_session_id):
 
     planned = get_object_or_404(PlannedSession, id=planned_session_id)
 
-    # Read status from POST request, default to "conducted"
-    status = request.POST.get('status', 'conducted')
-    remarks = request.POST.get('remarks', '')
+    status = request.POST.get("status", "conducted")
+    remarks = request.POST.get("remarks", "")
 
     actual_session, created = ActualSession.objects.get_or_create(
         planned_session=planned,
@@ -765,26 +779,30 @@ def start_session(request, planned_session_id):
         }
     )
 
-    # If session already exists, update it (in case of status change)
-    if not created:
-        actual_session.status = status
-        actual_session.remarks = remarks
-        actual_session.save()
+    # Always update status if changed
+    actual_session.status = status
+    actual_session.remarks = remarks
+    actual_session.save()
 
-    # Redirect based on status
     if status == "conducted":
         return redirect("mark_attendance", actual_session.id)
-    else:
-        # For holiday/cancelled sessions, redirect back to facilitator classes
-        messages.success(request, f"Session marked as {status}.")
-        return redirect("facilitator_classes")
+
+    messages.success(request, f"Session marked as {status}.")
+    return redirect("facilitator_classes")
+
 @login_required
 def mark_attendance(request, actual_session_id):
     if request.user.role.name.upper() != "FACILITATOR":
         messages.error(request, "Permission denied.")
         return redirect("no_permission")
+    
 
     session = get_object_or_404(ActualSession, id=actual_session_id)
+
+    if session.status != "conducted":
+           messages.error(request, "Cannot mark attendance — session is not conducted.")
+           return redirect("facilitator_classes")
+
 
     enrollments = Enrollment.objects.filter(
         class_section=session.planned_session.class_section,
@@ -982,6 +1000,66 @@ def facilitator_attendance(request):
 
     return render(request, "facilitator/attendance_filter.html", context)
 
+@login_required
+def admin_attendance_filter(request):
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    context = {}
+
+    # Schools dropdown
+    context["schools"] = School.objects.all().order_by("name")
+
+    # 🔹 Preload ALL classes (needed for fast dropdown)
+    classes_by_school = ClassSection.objects.values(
+        "id", "class_level", "section", "school_id"
+    )
+    context["classes_json"] = json.dumps(list(classes_by_school), cls=DjangoJSONEncoder)
+
+    school_id = request.GET.get("school")
+    class_section_id = request.GET.get("class_section")
+
+    if school_id:
+        school = get_object_or_404(School, id=school_id)
+        context["selected_school"] = school
+
+        if class_section_id:
+            class_section = get_object_or_404(ClassSection, id=class_section_id)
+            context["selected_class_section"] = class_section
+
+            enrollments = Enrollment.objects.filter(
+                class_section=class_section,
+                is_active=True
+            ).select_related("student").order_by("student__full_name")
+
+            total_sessions = ActualSession.objects.filter(
+                planned_session__class_section=class_section,
+                status="conducted"
+            ).count()
+
+            stats = []
+            for e in enrollments:
+                present = Attendance.objects.filter(enrollment=e, status="present").count()
+                absent = Attendance.objects.filter(enrollment=e, status="absent").count()
+                percent = (present / total_sessions * 100) if total_sessions else 0
+
+                stats.append({
+                    "enrollment": e,
+                    "present": present,
+                    "absent": absent,
+                    "total": total_sessions,
+                    "percent": round(percent, 1),
+                })
+
+            context["enrollment_stats"] = stats
+
+            context["recent_sessions"] = ActualSession.objects.filter(
+                planned_session__class_section=class_section,
+                status="conducted"
+            ).select_related("planned_session").order_by("-date")[:10]
+
+    return render(request, "admin/attendance_filter.html", context)
 
 # AJAX endpoints for cascading filters
 @login_required
@@ -1404,5 +1482,31 @@ def delete_facilitator_assignment(request, assignment_id):
         messages.success(request, f"Facilitator {facilitator_name} removed from school successfully.")
     
     return redirect("school_detail", school_id=school_id)
+
+
+@login_required
+def admin_sessions_filter(request):
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    schools = School.objects.all()
+    classes = ClassSection.objects.none()
+
+    school_id = request.GET.get("school")
+    class_id = request.GET.get("class")
+
+    # when school selected → load related classes
+    if school_id:
+        classes = ClassSection.objects.filter(school_id=school_id)
+
+    # when both selected → redirect
+    if school_id and class_id:
+        return redirect("admin_class_sessions", class_section_id=class_id)
+
+    return render(request, "admin/sessions/filter.html", {
+        "schools": schools,
+        "classes": classes,
+    })
 
 
