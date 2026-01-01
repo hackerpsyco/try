@@ -36,7 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'class',
     'widget_tweaks',
+     "tailwind",
+    "theme",
+    "django_browser_reload",
 ]
+TAILWIND_APP_NAME = "theme"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
