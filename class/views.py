@@ -17,6 +17,8 @@ from django.db.models import Exists, OuterRef
 import re
 from django.core.serializers.json import DjangoJSONEncoder
 import json
+from django.db.models import Count, Q
+from django.utils import timezone
 
 
 
@@ -1510,3 +1512,68 @@ def admin_sessions_filter(request):
     })
 
 
+
+
+from django.utils import timezone
+from django.contrib import messages
+
+@login_required
+def dashboard(request):
+    role_name = request.user.role.name.upper()
+    role_config = ROLE_CONFIG.get(role_name)
+
+    if not role_config:
+        messages.error(request, "Invalid role.")
+        return redirect("no_permission")
+
+    context = {}
+
+    if role_name == "ADMIN":
+        today = timezone.now().date()
+
+        # ===== TOP STATS =====
+        context["active_schools"] = School.objects.filter(status=1).count()
+
+        context["active_facilitators"] = User.objects.filter(
+            role__name__iexact="FACILITATOR",
+            is_active=True
+        ).count()
+
+        context["enrolled_students"] = Enrollment.objects.filter(
+            is_active=True
+        ).count()
+
+        context["pending_validations"] = PlannedSession.objects.filter(
+            is_active=True
+        ).exclude(
+            actual_sessions__status="conducted"
+        ).count()
+
+        # ===== SYSTEM SNAPSHOT (TODAY) =====
+        context["sessions_today"] = ActualSession.objects.filter(
+            date=today,
+            status="conducted"
+        ).count()
+
+        context["holidays_today"] = ActualSession.objects.filter(
+            date=today,
+            status="holiday"
+        ).count()
+
+        context["cancelled_today"] = ActualSession.objects.filter(
+            date=today,
+            status="cancelled"
+        ).count()
+
+        # ===== RECENT ACTIVITY =====
+        context["recent_activities"] = ActualSession.objects.select_related(
+            "facilitator",
+            "planned_session",
+            "planned_session__class_section",
+            "planned_session__class_section__school"
+        ).order_by("-created_at")[:10]
+
+        # For Create User Modal
+        context["roles"] = Role.objects.all()
+
+    return render(request, role_config["template"], context)

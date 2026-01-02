@@ -421,3 +421,9 @@ th, td {
 .sidebar nav .nav-link:visited {
     color: var(--text-main);
 }
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, max-content));
+  gap: 12px;
+  justify-content: start;
+}

@@ -6,21 +6,22 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <p class="stat-label">Active Schools</p>
-                        <p class="stat-value">124</p>
+                     <p class="stat-value">{{ active_schools }}</p>
                     </div>
                     <div class="stat-card">
                         <p class="stat-label">Active Facilitators</p>
-                        <p class="stat-value">86</p>
+                   <p class="stat-value">{{ active_facilitators }}</p>
                     </div>
                     <div class="stat-card">
                         <p class="stat-label">Pending Validations</p>
-                        <p class="stat-value">15</p>
+                   <p class="stat-value">{{ pending_validations }}</p>
                     </div>
                     <div class="stat-card">
                         <p class="stat-label">Enrolled Students</p>
-                        <p class="stat-value">2,450</p>
+                    <p class="stat-value">{{ enrolled_students }}</p>
                     </div>
                 </div>
+
 
                 <h3 class="section-title" style="margin-top: 2rem;">Quick Actions</h3>
                 <div class="actions-grid">
@@ -31,12 +32,13 @@
                    <a href="{% url 'add_school' %}" class="action-btn">
 <span class="material-symbols-outlined">add_business</span> Add School
 </a>
-                    <button class="action-btn">
-                        <span class="material-symbols-outlined">upload_file</span> Import CSV
-                    </button>
-                    <button class="action-btn">
-                        <span class="material-symbols-outlined">bar_chart</span> View Reports
-                    </button>
+  <a href="{% url 'users_view' %}" class="action-btn">
+<span class="material-symbols-outlined">add_business</span> view Users
+</a>
+                  <a href="{% url 'admin_attendance_filter' %}" class="action-btn">
+  <span class="material-symbols-outlined">bar_chart</span>
+  View Reports
+</a>
                 </div>
                 <!-- CREATE USER MODAL -->
 <div id="createUserModal" class="modal" style="display:none;">
@@ -102,99 +104,70 @@
 </style>
 
 
-                <div class="bottom-grid">
-                    <div class="panel">
-                        <div class="panel-header">
-                            <h3>User Management</h3>
-                        </div>
-                        <div class="table-container">
-                        <table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-8">  
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
+  <h3 class="text-sm font-semibold text-gray-800 mb-4">
+    System Snapshot
+  </h3>
 
-    <tbody>
+ <ul class="space-y-3 text-sm">
+  <li class="flex justify-between">
+    <span>Sessions Today</span>
+    <span class="font-semibold">{{ sessions_today }}</span>
+  </li>
+  <li class="flex justify-between">
+    <span>Holidays</span>
+    <span class="font-semibold text-yellow-600">{{ holidays_today }}</span>
+  </li>
+  <li class="flex justify-between">
+    <span>Cancelled</span>
+    <span class="font-semibold text-red-600">{{ cancelled_today }}</span>
+  </li>
+</ul>
 
-        {% for u in users %}
-        <tr>
-            <td>{{ u.full_name }}</td>
-            <td>{{ u.email }}</td>
-            <td>{{ u.role.name }}</td>
+</div>
+        
+<div class="lg:col-span-2">
+  <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+    
+    <div class="px-3 py-3 border-b">
+      <h3 class="text-sm font-semibold text-gray-800">
+        Recent Activity
+      </h3>
+    </div>
 
-            <td>
-                {% if u.is_active %}
-                    <span class="badge badge-active">Active</span>
-                {% else %}
-                    <span class="badge badge-pending">Inactive</span>
-                {% endif %}
-            </td>
+   <ul class="divide-y">
+{% for a in recent_activities %}
+  <li class="flex items-start gap-3 px-4 py-2">
+    <span class="material-symbols-outlined text-blue-600 text-lg">
+      event
+    </span>
+    <div>
+      <p class="text-sm text-gray-700">
+        <strong>{{ a.facilitator.full_name }}</strong>
+        marked
+        <strong>{{ a.planned_session.topic }}</strong>
+        as
+        <span class="capitalize font-semibold">{{ a.status }}</span>
+        ({{ a.planned_session.class_section }})
+      </p>
+      <p class="text-xs text-gray-400">
+        {{ a.created_at|timesince }} ago
+      </p>
+    </div>
+  </li>
+{% empty %}
+  <li class="px-4 py-3 text-sm text-gray-500">
+    No recent activity
+  </li>
+{% endfor %}
+</ul>
 
-            <td>
-                <a href="{% url 'edit_user' u.id %}">
-                    <span class="material-symbols-outlined" style="cursor:pointer;">edit</span>
-                </a>
 
-                <a href="{% url 'delete_user' u.id %}" 
-                   onclick="return confirm('Delete this user?')">
-                   <span class="material-symbols-outlined" style="cursor:pointer;">delete</span>
-                </a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5" style="text-align:center;">No users found</td>
-        </tr>
-        {% endfor %}
+  </div>
+</div>
+   </div>
 
-    </tbody>
-</table>
-
-                        </div>
-                    </div>
-
-                    <!-- <div class="panel">
-                        <div class="panel-header">
-                            <h3>Recent Activity</h3>
-                        </div>
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <div class="activity-icon text-blue">
-                                    <span class="material-symbols-outlined" style="font-size: 18px">add_business</span>
-                                </div>
-                                <div>
-                                    <p style="font-size: 0.875rem;"><strong>John</strong> added Northwood Academy.</p>
-                                    <p style="font-size: 0.75rem; color: var(--text-muted);">2 hours ago</p>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon text-green">
-                                    <span class="material-symbols-outlined" style="font-size: 18px">task_alt</span>
-                                </div>
-                                <div>
-                                    <p style="font-size: 0.875rem;">Session validated for <strong>Oakwood High</strong>.</p>
-                                    <p style="font-size: 0.75rem; color: var(--text-muted);">5 hours ago</p>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon text-purple">
-                                    <span class="material-symbols-outlined" style="font-size: 18px">person_add</span>
-                                </div>
-                                <div>
-                                    <p style="font-size: 0.875rem;">New user <strong>Emily</strong> created.</p>
-                                    <p style="font-size: 0.75rem; color: var(--text-muted);">1 day ago</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
-
-            </div>
     <script>
 // helper: get cookie value (for CSRF)
 function getCookie(name) {
