@@ -1,56 +1,70 @@
-<aside class="sidebar">
+<!-- ========================================
+     2. SIDEBAR.HTML (Replace your current sidebar.html)
+========================================= -->
+<aside class="sidebar fixed top-0 left-0 h-screen w-[280px] bg-white border-r border-gray-200 p-6 flex flex-col overflow-y-auto z-[999] transition-transform duration-300 lg:sticky">
+    
     <!-- User Profile -->
-    <div class="user-profile mb-4">
-        <div class="avatar"
+    <div class="flex items-center gap-3 mb-8">
+        <div class="w-10 h-10 rounded-full bg-cover bg-center flex-shrink-0"
              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBv1qbMwANXehUvUuj7jLYDFVVfq_SWUg2g49l3SmLWskDtYHpHJ_8WvJwsx9a2FRubRslmWVa_i5P7tT8w3--UoztcwCpbKLOazTabnBD2N_fY6OQ7FRlKs_zlUcTkD7KY9w-hiqblxryxB10EyToaRWquh2M4i_rDvKfif1kGdDqLVYibrW5HsihGpGcxNNJEB8c7BL9lRSrGdRbSOnvY4eHzXRrkhgnIo7Q7R9Ra_WPzsy-VPqL4V_-_ekNly4XBYSN8gI28pPAs');">
         </div>
-        <div class="user-info">
-            <h1>Admin Platform</h1>
-            <p>{{ request.user.email }}</p>
+        <div class="flex-1 min-w-0">
+            <h1 class="text-base font-semibold text-gray-900 truncate">Admin Platform</h1>
+            <p class="text-sm text-gray-500 truncate">{{ request.user.email }}</p>
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="nav flex-column">
-        <a class="nav-link {% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}" href="{% url 'admin_dashboard' %}">
-            <span class="material-symbols-outlined">dashboard</span>
-            Dashboard
+    <nav class="flex flex-col gap-1">
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors {% if request.resolver_match.url_name == 'admin_dashboard' %}bg-blue-50 text-blue-600{% endif %}" 
+           href="{% url 'admin_dashboard' %}">
+            <span class="material-symbols-outlined text-[22px]">dashboard</span>
+            <span>Dashboard</span>
         </a>
 
-        <a class="nav-link {% if request.resolver_match.url_name == 'users_view' %}active{% endif %}" href="{% url 'users_view' %}">
-            <span class="material-symbols-outlined">group</span>
-            Users
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors {% if request.resolver_match.url_name == 'users_view' %}bg-blue-50 text-blue-600{% endif %}" 
+           href="{% url 'users_view' %}">
+            <span class="material-symbols-outlined text-[22px]">group</span>
+            <span>Users</span>
         </a>
 
-        <a class="nav-link {% if request.resolver_match.url_name == 'school_list' %}active{% endif %}" href="{% url 'schools' %}">
-            <span class="material-symbols-outlined">school</span>
-            Schools
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors {% if request.resolver_match.url_name == 'school_list' %}bg-blue-50 text-blue-600{% endif %}" 
+           href="{% url 'schools' %}">
+            <span class="material-symbols-outlined text-[22px]">school</span>
+            <span>Schools</span>
         </a>
-        <a href="{% url 'admin_attendance_filter' %}" class="nav-link">
-    <i class="bi bi-check-circle"></i> Attendance
-</a>
 
-<a href="{% url 'admin_sessions_filter' %}" class="nav-link">
-    <i class="bi bi-calendar-event"></i> Sessions
-</a>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors {% if request.resolver_match.url_name == 'admin_attendance_filter' %}bg-blue-50 text-blue-600{% endif %}" 
+           href="{% url 'admin_attendance_filter' %}">
+            <span class="material-symbols-outlined text-[22px]">check_circle</span>
+            <span>Attendance</span>
+        </a>
 
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors {% if request.resolver_match.url_name == 'admin_sessions_filter' %}bg-blue-50 text-blue-600{% endif %}" 
+           href="{% url 'admin_sessions_filter' %}">
+            <span class="material-symbols-outlined text-[22px]">calendar_month</span>
+            <span>Sessions</span>
+        </a>
 
-        <a class="nav-link" href="#">
-            <span class="material-symbols-outlined">assessment</span>
-            Reports
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors" 
+           href="#">
+            <span class="material-symbols-outlined text-[22px]">assessment</span>
+            <span>Reports</span>
         </a>
     </nav>
 
     <!-- Bottom Navigation / Settings -->
-    <div class="nav-section mt-auto">
-        <a class="nav-link" href="#">
-            <span class="material-symbols-outlined">settings</span>
-            Settings
+    <div class="mt-auto pt-4 border-t border-gray-200 flex flex-col gap-1">
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors" 
+           href="#">
+            <span class="material-symbols-outlined text-[22px]">settings</span>
+            <span>Settings</span>
         </a>
 
-        <a class="nav-link" href="{% url 'logout' %}">
-            <span class="material-symbols-outlined">logout</span>
-            Logout
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-red-600 transition-colors" 
+           href="{% url 'logout' %}">
+            <span class="material-symbols-outlined text-[22px]">logout</span>
+            <span>Logout</span>
         </a>
     </div>
 </aside>

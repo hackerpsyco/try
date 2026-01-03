@@ -1,85 +1,122 @@
 {% extends "admin/shared/base.html" %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-bold">Import Planned Sessions</h4>
-    <a href="{% url 'admin_class_sessions' class_section.id %}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left"></i> Back to Sessions
-    </a>
+
+<!-- Header -->
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+  <h4 class="text-xl font-bold text-gray-900">Import Planned Sessions</h4>
+
+  <a href="{% url 'admin_class_sessions' class_section.id %}"
+     class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm">
+    ← Back to Sessions
+  </a>
 </div>
 
-<div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h6 class="mb-0">Upload Sessions File</h6>
-            </div>
-            <div class="card-body">
-                <p class="text-muted mb-3">
-                    Import planned sessions for <strong>{{ class_section.school.name }} - Class {{ class_section.class_level }}-{{ class_section.section }}</strong>
-                </p>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    
-                    <div class="mb-3">
-                        <label for="file" class="form-label">Select File</label>
-                        <input type="file" class="form-control" id="file" name="file" 
-                               accept=".csv,.xlsx,.xls" required>
-                        <div class="form-text">
-                            Supported formats: CSV, Excel (.xlsx, .xls)<br>
-                            <small class="text-muted">For CSV files: Save with UTF-8 encoding for best compatibility</small>
-                        </div>
-                    </div>
+  <!-- Upload form -->
+  <div class="lg:col-span-2">
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
 
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-upload"></i> Import Sessions
-                    </button>
-                </form>
-            </div>
+      <div class="px-5 py-4 border-b">
+        <h6 class="font-semibold text-gray-800">Upload Sessions File</h6>
+      </div>
+
+      <div class="p-5">
+        <p class="text-gray-500 text-sm mb-4">
+          Import planned sessions for
+          <strong>{{ class_section.school.name }} — Class {{ class_section.class_level }}-{{ class_section.section }}</strong>
+        </p>
+
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="mb-5">
+            <label for="file" class="block text-sm font-medium text-gray-700 mb-1">
+              Select File
+            </label>
+
+            <input id="file"
+                   type="file"
+                   name="file"
+                   accept=".csv,.xlsx,.xls"
+                   required
+                   class="block w-full text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2.5">
+
+            <p class="text-xs text-gray-500 mt-2">
+              Supported formats: CSV, Excel (.xlsx, .xls)<br>
+              <span class="text-gray-400">
+                For CSV files, save with <strong>UTF-8</strong> encoding for best compatibility
+              </span>
+            </p>
+          </div>
+
+          <button type="submit"
+                  class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+            ⬆ Import Sessions
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Right side info -->
+  <div class="space-y-4">
+
+    <!-- Requirements -->
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+      <div class="px-5 py-3 border-b">
+        <h6 class="font-semibold text-gray-800">File Format Requirements</h6>
+      </div>
+
+      <div class="p-5 text-sm">
+        <p class="text-gray-500 mb-3">
+          Your file should contain these columns:
+        </p>
+
+        <ul class="list-disc ml-5 space-y-1 text-gray-700">
+          <li><strong>topic</strong> — Session topic/title (required)</li>
+          <li><strong>day_number</strong> — Day sequence number (optional)</li>
+          <li><strong>youtube_url</strong> — YouTube video URL (optional)</li>
+          <li><strong>description</strong> — Session description (optional)</li>
+        </ul>
+
+        <div class="mt-4 rounded-lg border border-blue-200 bg-blue-50 text-blue-700 px-3 py-2">
+          <strong>Note:</strong> If <code>day_number</code> is missing, it will auto-continue
+          from the next available number.
         </div>
+
+        <div class="mt-3 rounded-lg border border-yellow-300 bg-yellow-50 text-yellow-700 px-3 py-2">
+          <strong>CSV Encoding Issues?</strong><br>
+          Save your CSV as <strong>"UTF-8"</strong> in Excel or your editor.
+        </div>
+      </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                <h6 class="mb-0">File Format Requirements</h6>
-            </div>
-            <div class="card-body">
-                <p class="small text-muted mb-2">Your file should contain these columns:</p>
-                <ul class="small">
-                    <li><strong>topic</strong> (required) - Session topic/title</li>
-                    <li><strong>day_number</strong> (optional) - Day sequence number</li>
-                    <li><strong>youtube_url</strong> (optional) - YouTube video URL</li>
-                    <li><strong>description</strong> (optional) - Session description</li>
-                </ul>
-                
-                <div class="alert alert-info small mt-3">
-                    <strong>Note:</strong> If day_number is not provided, sessions will be auto-numbered starting from the next available number.
-                </div>
-                
-                <div class="alert alert-warning small mt-2">
-                    <strong>CSV Encoding Issues?</strong> If you get encoding errors, try saving your CSV file as "UTF-8" in Excel or your text editor.
-                </div>
-            </div>
-        </div>
+    <!-- Sample CSV -->
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+      <div class="px-5 py-3 border-b">
+        <h6 class="font-semibold text-gray-800">Sample CSV Format</h6>
+      </div>
 
-        <div class="card mt-3">
-            <div class="card-header">
-                <h6 class="mb-0">Sample CSV Format</h6>
-            </div>
-            <div class="card-body">
-                <pre class="small text-muted">topic,day_number,youtube_url,description
+      <div class="p-5">
+        <pre class="text-xs bg-gray-50 rounded-lg p-3 text-gray-600 overflow-x-auto">
+topic,day_number,youtube_url,description
 Introduction to Math,1,https://youtube.com/watch?v=abc123,Basic math concepts
 Addition and Subtraction,2,https://youtube.com/watch?v=def456,Learning basic operations
-Multiplication Tables,3,,Practice multiplication</pre>
-                
-                <a href="{% url 'download_sample_csv' %}" class="btn btn-outline-secondary btn-sm mt-2">
-                    <i class="bi bi-download"></i> Download Sample CSV
-                </a>
-            </div>
-        </div>
+Multiplication Tables,3,,Practice multiplication
+        </pre>
+
+        <a href="{% url 'download_sample_csv' %}"
+           class="inline-block mt-3 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 text-sm">
+          ⬇ Download Sample CSV
+        </a>
+      </div>
     </div>
+
+  </div>
+
 </div>
 
 {% endblock %}
