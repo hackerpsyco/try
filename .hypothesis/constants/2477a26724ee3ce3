@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0014_alter_actualsession_options_and_more.py
+# hypothesis_version: 6.148.11
+
+[255, 'Activity / Energizer', 'Actual Session', 'Actual Sessions', 'Computer', 'Duration in minutes', 'English', 'Hindi', 'Maths', 'Mindfulness', 'Session Step', 'Session Steps', 'activity', 'actualsession', 'attendance', 'attendances', 'class', 'class.enrollment', 'computer', 'day_number', 'description', 'duration_minutes', 'english', 'enrollment', 'hindi', 'maths', 'mindfulness', 'order', 'ordering', 'plannedsession', 'sessionstep', 'subject', 'title', 'verbose_name', 'verbose_name_plural', 'youtube_url']

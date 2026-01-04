@@ -2,58 +2,89 @@
 
 {% block content %}
 
-<!-- Header -->
+<!-- PAGE HEADER -->
 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
-  <h4 class="text-xl font-bold text-gray-900">Import Planned Sessions</h4>
+  <div>
+    <h4 class="text-2xl font-bold text-gray-900">
+      Import Day-wise Curriculum
+    </h4>
+    <p class="text-sm text-gray-500 mt-1">
+      Bulk upload structured teaching plan (Day 1 → Day N)
+    </p>
+  </div>
 
   <a href="{% url 'admin_class_sessions' class_section.id %}"
-     class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm">
+     class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300
+            text-gray-700 rounded-lg hover:bg-gray-50 text-sm">
     ← Back to Sessions
   </a>
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-  <!-- Upload form -->
-  <div class="lg:col-span-2">
+  <!-- LEFT: UPLOAD -->
+  <div class="lg:col-span-2 space-y-6">
+
+    <!-- CLASS CONTEXT -->
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
+      <p class="text-sm text-gray-600">
+        You are importing curriculum for:
+      </p>
+      <p class="mt-1 font-semibold text-gray-900">
+        {{ class_section.school.name }} —
+        Class {{ class_section.class_level }}-{{ class_section.section }}
+      </p>
+    </div>
+
+    <!-- UPLOAD CARD -->
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
 
       <div class="px-5 py-4 border-b">
-        <h6 class="font-semibold text-gray-800">Upload Sessions File</h6>
+        <h6 class="font-semibold text-gray-800">
+          Upload Curriculum CSV
+        </h6>
       </div>
 
-      <div class="p-5">
-        <p class="text-gray-500 text-sm mb-4">
-          Import planned sessions for
-          <strong>{{ class_section.school.name }} — Class {{ class_section.class_level }}-{{ class_section.section }}</strong>
-        </p>
+      <div class="p-5 space-y-5">
 
-        <form method="post" enctype="multipart/form-data">
+        <!-- INFO -->
+        <div class="rounded-lg bg-blue-50 border border-blue-200 p-4 text-sm text-blue-800">
+          <strong>✔ What will be imported?</strong>
+          <ul class="list-disc ml-5 mt-2 space-y-1">
+            <li>Each <strong>Day</strong> → One planned session</li>
+            <li>Activities & teaching flow → Session steps</li>
+            <li>Before / During / End of session content</li>
+            <li>Supports 1 to 300+ days</li>
+          </ul>
+        </div>
+
+        <!-- FORM -->
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
           {% csrf_token %}
 
-          <div class="mb-5">
-            <label for="file" class="block text-sm font-medium text-gray-700 mb-1">
-              Select File
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              Select CSV File
             </label>
 
-            <input id="file"
-                   type="file"
+            <input type="file"
                    name="file"
-                   accept=".csv,.xlsx,.xls"
+                   accept=".csv"
                    required
-                   class="block w-full text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2.5">
+                   class="block w-full text-sm border border-gray-300 rounded-lg
+                          bg-gray-50 p-2.5 focus:outline-none
+                          focus:ring-2 focus:ring-blue-500">
 
             <p class="text-xs text-gray-500 mt-2">
-              Supported formats: CSV, Excel (.xlsx, .xls)<br>
-              <span class="text-gray-400">
-                For CSV files, save with <strong>UTF-8</strong> encoding for best compatibility
-              </span>
+              Recommended: Save CSV in <strong>UTF-8</strong> encoding
             </p>
           </div>
 
           <button type="submit"
-                  class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
-            ⬆ Import Sessions
+                  class="inline-flex items-center gap-2 px-6 py-2.5
+                         bg-blue-600 text-white rounded-lg
+                         hover:bg-blue-700 text-sm font-medium">
+            ⬆ Import Curriculum
           </button>
         </form>
 
@@ -61,62 +92,57 @@
     </div>
   </div>
 
-  <!-- Right side info -->
-  <div class="space-y-4">
+  <!-- RIGHT: HELP -->
+  <div class="space-y-6">
 
-    <!-- Requirements -->
+    <!-- HOW IT WORKS -->
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
       <div class="px-5 py-3 border-b">
-        <h6 class="font-semibold text-gray-800">File Format Requirements</h6>
+        <h6 class="font-semibold text-gray-800">
+          How Import Works
+        </h6>
       </div>
 
-      <div class="p-5 text-sm">
-        <p class="text-gray-500 mb-3">
-          Your file should contain these columns:
-        </p>
-
-        <ul class="list-disc ml-5 space-y-1 text-gray-700">
-          <li><strong>topic</strong> — Session topic/title (required)</li>
-          <li><strong>day_number</strong> — Day sequence number (optional)</li>
-          <li><strong>youtube_url</strong> — YouTube video URL (optional)</li>
-          <li><strong>description</strong> — Session description (optional)</li>
-        </ul>
-
-        <div class="mt-4 rounded-lg border border-blue-200 bg-blue-50 text-blue-700 px-3 py-2">
-          <strong>Note:</strong> If <code>day_number</code> is missing, it will auto-continue
-          from the next available number.
-        </div>
-
-        <div class="mt-3 rounded-lg border border-yellow-300 bg-yellow-50 text-yellow-700 px-3 py-2">
-          <strong>CSV Encoding Issues?</strong><br>
-          Save your CSV as <strong>"UTF-8"</strong> in Excel or your editor.
-        </div>
+      <div class="p-5 text-sm text-gray-700 space-y-3">
+        <p>📅 <strong>Day 1, Day 2…</strong> → Planned Sessions</p>
+        <p>🧩 Activities → Session Steps</p>
+        <p>🔁 Existing days are automatically skipped</p>
+        <p>🟡 Buffer / Holiday days are still created</p>
       </div>
     </div>
 
-    <!-- Sample CSV -->
+    <!-- EXAMPLE -->
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
       <div class="px-5 py-3 border-b">
-        <h6 class="font-semibold text-gray-800">Sample CSV Format</h6>
+        <h6 class="font-semibold text-gray-800">
+          Example Curriculum Format
+        </h6>
       </div>
 
       <div class="p-5">
         <pre class="text-xs bg-gray-50 rounded-lg p-3 text-gray-600 overflow-x-auto">
-topic,day_number,youtube_url,description
-Introduction to Math,1,https://youtube.com/watch?v=abc123,Basic math concepts
-Addition and Subtraction,2,https://youtube.com/watch?v=def456,Learning basic operations
-Multiplication Tables,3,,Practice multiplication
-        </pre>
+Day 1
+Before the session – Preparation & review
+During the session – Activities & teaching
+End of the session – Mindfulness & closure
 
-        <a href="{% url 'download_sample_csv' %}"
-           class="inline-block mt-3 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 text-sm">
-          ⬇ Download Sample CSV
-        </a>
+Day 2
+Before – Recap
+During – New concepts
+End – Homework & feedback
+        </pre>
       </div>
     </div>
 
-  </div>
+    <!-- WARNING -->
+    <div class="rounded-xl border border-yellow-300 bg-yellow-50 p-4 text-sm text-yellow-800">
+      ⚠️ <strong>Important</strong><br>
+      This importer is only for
+      <strong>Day-wise Curriculum</strong>.<br>
+      Do NOT upload attendance or student CSV files.
+    </div>
 
+  </div>
 </div>
 
 {% endblock %}

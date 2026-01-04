@@ -5,6 +5,7 @@
     
     <!-- User Profile -->
     <div class="flex items-center gap-3 mb-8">
+        <!-- DEBUG: Admin Sidebar Loaded -->
         <div class="w-10 h-10 rounded-full bg-cover bg-center flex-shrink-0"
              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBv1qbMwANXehUvUuj7jLYDFVVfq_SWUg2g49l3SmLWskDtYHpHJ_8WvJwsx9a2FRubRslmWVa_i5P7tT8w3--UoztcwCpbKLOazTabnBD2N_fY6OQ7FRlKs_zlUcTkD7KY9w-hiqblxryxB10EyToaRWquh2M4i_rDvKfif1kGdDqLVYibrW5HsihGpGcxNNJEB8c7BL9lRSrGdRbSOnvY4eHzXRrkhgnIo7Q7R9Ra_WPzsy-VPqL4V_-_ekNly4XBYSN8gI28pPAs');">
         </div>
@@ -44,6 +45,12 @@
            href="{% url 'admin_sessions_filter' %}">
             <span class="material-symbols-outlined text-[22px]">calendar_month</span>
             <span>Sessions</span>
+        </a>
+
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors {% if request.resolver_match.url_name == 'admin_curriculum_sessions_list' or 'curriculum' in request.resolver_match.url_name %}bg-blue-50 text-blue-600{% endif %}" 
+           href="{% url 'admin_curriculum_sessions_list' %}">
+            <span class="material-symbols-outlined text-[22px]">menu_book</span>
+            <span>Curriculum Sessions</span>
         </a>
 
         <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors" 

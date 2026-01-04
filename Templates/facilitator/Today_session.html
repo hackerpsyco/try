@@ -1,123 +1,352 @@
 {% extends "facilitator/shared/base.html" %}
 
 {% block content %}
+
 <h5 class="fw-bold mb-3">
-  {{ class_section.class_level }} — Today’s Session
+  {{ class_section.school.name }} — {{ class_section.class_level }}-{{ class_section.section }} — Today's Session
 </h5>
 
+<!-- Language Selector -->
+<div class="row mb-3">
+  <div class="col-12">
+    <div class="card shadow-sm">
+      <div class="card-body py-2">
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">
+            <i class="fas fa-language me-1"></i>
+            Curriculum Language:
+          </small>
+          <div class="btn-group btn-group-sm" role="group" id="languageSelector">
+            <input type="radio" class="btn-check" name="language" id="englishBtn" value="english" checked>
+            <label class="btn btn-outline-primary" for="englishBtn">English</label>
+            
+            <input type="radio" class="btn-check" name="language" id="hindiBtn" value="hindi">
+            <label class="btn btn-outline-primary" for="hindiBtn">हिंदी</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% if planned_session %}
-<div class="card shadow-sm">
-  <div class="card-body">
+<div class="row">
+  <!-- Session Control Panel -->
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <!-- HEADER -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="badge bg-primary fs-6">
+            Day {{ current_day }}
+          </span>
 
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-2">
-      <span class="badge bg-primary">
-        Day {{ planned_session.day_number }}
-      </span>
-
-      {% if session_status == "holiday" %}
-        <span class="badge bg-warning">Holiday</span>
-
-      {% elif session_status == "cancelled" %}
-        <span class="badge bg-danger">Cancelled</span>
-
-      {% elif session_status == "pending" %}
-        <span class="badge bg-success">Ready to Start</span>
-      {% endif %}
-    </div>
-
-    <!-- Topic -->
-    <h6 class="fw-semibold">
-      {{ planned_session.topic }}
-    </h6>
-
-    <!-- Info message -->
-    {% if actual_session and session_status != "pending" %}
-      {% if is_today %}
-        <div class="alert alert-info my-2">
-          🌤️ This session was marked <strong>{{ session_status }}</strong>
-          today ({{ actual_session.date }}). <br>
-          It will be conducted on the next working day.
+          {% if session_status == "holiday" %}
+            <span class="badge bg-warning">Holiday</span>
+          {% elif session_status == "cancelled" %}
+            <span class="badge bg-danger">Cancelled</span>
+          {% elif session_status == "conducted" %}
+            <span class="badge bg-success">Completed</span>
+          {% else %}
+            <span class="badge bg-info">Ready</span>
+          {% endif %}
         </div>
-      {% else %}
-        <div class="alert alert-info my-2">
-          ⏪ This session was previously
-          marked <strong>{{ session_status }}</strong>
-          on {{ actual_session.date }}. <br>
-          It is still pending and needs to be conducted.
-        </div>
-      {% endif %}
-    {% endif %}
 
-    <!-- Video -->
-    {% if video_id %}
-      <div class="ratio ratio-16x9 my-3">
-        <iframe
-          src="https://www.youtube.com/embed/{{ video_id }}"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+        <!-- TOPIC -->
+        <h6 class="fw-semibold mt-2">
+          {{ planned_session.title|default:"Day Session" }}
+        </h6>
+
+        <!-- SESSION STEPS -->
+        {% if planned_session.steps.exists %}
+          <div class="alert alert-light border mt-2">
+            <strong>📋 Session Activities:</strong><br>
+            <div class="mt-1" style="font-size: 12px;">
+              {% for step in planned_session.steps.all %}
+                <div class="mb-1">
+                  <strong>{{ step.order }}.</strong> {{ step.title }}
+                  {% if step.duration_minutes %}
+                    <span class="badge bg-secondary ms-1">{{ step.duration_minutes }}min</span>
+                  {% endif %}
+                  {% if step.youtube_url %}
+                    <a href="{{ step.youtube_url }}" target="_blank" class="ms-1">
+                      <i class="fas fa-play-circle text-danger"></i>
+                    </a>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- DESCRIPTION / STEPS -->
+        {% if planned_session.description %}
+          <div class="alert alert-info border mt-2">
+            <strong>📘 Session Notes:</strong><br>
+            <div class="mt-1" style="white-space: pre-line; font-size: 12px;">
+              {{ planned_session.description }}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- INFO MESSAGE -->
+        {% if actual_session and session_status != "pending" %}
+          {% if is_today %}
+            <div class="alert alert-info my-2">
+              🌤️ This session was marked
+              <strong>{{ session_status|title }}</strong> today ({{ actual_session.date }}).<br>
+              {% if session_status == "conducted" %}
+                <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-sm btn-primary mt-1">
+                  View Attendance
+                </a>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="alert alert-info my-2">
+              ⏪ This session was earlier marked
+              <strong>{{ session_status|title }}</strong> on {{ actual_session.date }}.<br>
+              You can conduct it now.
+            </div>
+          {% endif %}
+        {% endif %}
+
+        <!-- VIDEO -->
+        {% if video_id %}
+          <div class="ratio ratio-16x9 my-3">
+            <iframe
+              src="https://www.youtube.com/embed/{{ video_id }}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        {% endif %}
+
+        <!-- ACTIONS -->
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          {% if session_status == "pending" %}
+            <!-- NORMAL FLOW -->
+            <form method="post" action="{% url 'start_session' planned_session.id %}">
+              {% csrf_token %}
+              <button class="btn btn-success btn-sm">
+                ▶ Conduct Session
+              </button>
+            </form>
+
+            <form method="post" action="{% url 'start_session' planned_session.id %}">
+              {% csrf_token %}
+              <input type="hidden" name="status" value="holiday">
+              <button class="btn btn-outline-warning btn-sm">
+                🌤️ Mark Holiday
+              </button>
+            </form>
+
+            <form method="post" action="{% url 'start_session' planned_session.id %}">
+              {% csrf_token %}
+              <input type="hidden" name="status" value="cancelled">
+              <button class="btn btn-outline-secondary btn-sm">
+                ❌ Cancel Session
+              </button>
+            </form>
+
+          {% elif session_status == "conducted" %}
+            <!-- SESSION COMPLETED -->
+            <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-primary btn-sm">
+              <i class="fas fa-users"></i> View/Edit Attendance
+            </a>
+
+          {% elif is_today %}
+            <!-- SAME DAY HOLIDAY/CANCEL -->
+            <div class="alert alert-warning mt-2 w-100">
+              🚫 Today is marked as <strong>{{ session_status }}</strong>.<br>
+              Session will continue on the next working day.
+            </div>
+
+          {% else %}
+            <!-- SHIFTED SESSION -->
+            <form method="post" action="{% url 'start_session' planned_session.id %}">
+              {% csrf_token %}
+              <input type="hidden" name="status" value="conducted">
+              <button class="btn btn-success btn-sm">
+                ▶ Conduct Session Now
+              </button>
+            </form>
+          {% endif %}
+        </div>
       </div>
-    {% else %}
-      <div class="alert alert-warning my-3">
-        ⚠️ Video unavailable or embedding disabled.
-      </div>
-    {% endif %}
-
-    <!-- Actions -->
-    <div class="d-flex gap-2 mt-3">
-
-      {% if session_status == "pending" %}
-        <!-- Normal pending session -->
-        <form method="post" action="{% url 'start_session' planned_session.id %}">
-          {% csrf_token %}
-          <button class="btn btn-success btn-sm">
-            Conduct Session
-          </button>
-        </form>
-
-        <form method="post" action="{% url 'start_session' planned_session.id %}">
-          {% csrf_token %}
-          <input type="hidden" name="status" value="holiday">
-          <button class="btn btn-outline-warning btn-sm">
-            Mark Holiday
-          </button>
-        </form>
-
-        <form method="post" action="{% url 'start_session' planned_session.id %}">
-          {% csrf_token %}
-          <input type="hidden" name="status" value="cancelled">
-          <button class="btn btn-outline-secondary btn-sm">
-            Cancel Session
-          </button>
-        </form>
-
-      {% elif is_today %}
-        <!-- SAME-DAY holiday/cancelled — DO NOT allow conduct -->
-        <div class="alert alert-warning">
-          🚫 Today is marked {{ session_status }}.  
-          This session will be taken next working day.
-        </div>
-
-      {% else %}
-        <!-- Conduct later (shifted session) -->
-        <form method="post" action="{% url 'start_session' planned_session.id %}">
-          {% csrf_token %}
-          <input type="hidden" name="status" value="conducted">
-          <button class="btn btn-success btn-sm">
-            Conduct Session Now
-          </button>
-        </form>
-      {% endif %}
     </div>
+  </div>
 
+  <!-- Curriculum Content -->
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h6 class="mb-0">
+          <i class="fas fa-book"></i> Day {{ current_day }} - <span id="curriculumLanguageLabel">English</span> Curriculum Content
+        </h6>
+      </div>
+      <div class="card-body p-0">
+        <div id="curriculumContent" style="max-height: 600px; overflow-y: auto;">
+          <!-- Content will be loaded here dynamically -->
+          <div class="text-center p-4">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading curriculum content...</span>
+            </div>
+            <p class="mt-2">Loading Day {{ current_day }} content...</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 {% else %}
 <div class="alert alert-success">
-  🎉 All planned sessions are completed.
+  🎉 All planned sessions are completed for this class.
 </div>
 {% endif %}
+
+<!-- JavaScript for Language Switching -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let currentLanguage = 'english';
+    const currentDay = parseInt('{{ current_day|default:"1" }}') || 1;
+    const curriculumUrl = "{% url 'curriculum_content_api' %}";
+    const contentDiv = document.getElementById('curriculumContent');
+    const languageLabel = document.getElementById('curriculumLanguageLabel');
+    
+    // Language selector event listeners
+    const languageInputs = document.querySelectorAll('input[name="language"]');
+    languageInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            if (this.checked) {
+                switchLanguage(this.value);
+            }
+        });
+    });
+    
+    function switchLanguage(language) {
+        currentLanguage = language;
+        languageLabel.textContent = language === 'hindi' ? 'Hindi' : 'English';
+        loadCurriculumContent(currentDay, language);
+        
+        // Show notification
+        showLanguageNotification(language);
+    }
+    
+    function showLanguageNotification(language) {
+        const notification = document.createElement('div');
+        notification.className = 'alert alert-success alert-dismissible fade show position-fixed';
+        notification.style.cssText = 'top: 20px; right: 20px; z-index: 1050; min-width: 250px;';
+        notification.innerHTML = `
+            <i class="fas fa-check-circle me-2"></i>
+            Switched to ${language === 'hindi' ? 'हिंदी (Hindi)' : 'English'}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 3000);
+    }
+    
+    async function loadCurriculumContent(day, language) {
+        contentDiv.innerHTML = `
+            <div class="text-center p-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} content...</p>
+            </div>
+        `;
+        
+        try {
+            const response = await fetch(`${curriculumUrl}?day=${day}&language=${language}`);
+            if (!response.ok) throw new Error('Failed to load content');
+            
+            const content = await response.text();
+            contentDiv.innerHTML = content;
+            
+        } catch (error) {
+            console.error('Error loading curriculum content:', error);
+            contentDiv.innerHTML = `
+                <div class="alert alert-danger m-3">
+                    <h6>Error Loading Content</h6>
+                    <p>Failed to load Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} curriculum content.</p>
+                    <button class="btn btn-outline-danger btn-sm" onclick="loadCurriculumContent(${day}, '${language}')">
+                        Retry
+                    </button>
+                </div>
+            `;
+        }
+    }
+    
+    // Load initial content
+    loadCurriculumContent(currentDay, currentLanguage);
+    
+    // Make function globally available for retry button
+    window.loadCurriculumContent = loadCurriculumContent;
+});
+</script>
+
+<style>
+.curriculum-table {
+  font-size: 13px;
+}
+.curriculum-table td {
+  padding: 6px 8px;
+  vertical-align: top;
+  border: 1px solid #dee2e6;
+}
+.curriculum-table .s0 {
+  background-color: #d9ead3 !important;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
+.curriculum-table .s1 {
+  background-color: #d9ead3 !important;
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+}
+.curriculum-table .s4 {
+  background-color: #ffffff !important;
+  font-weight: bold;
+  text-align: center;
+  font-size: 11px;
+}
+.curriculum-table .s7 {
+  background-color: #fde49a !important;
+}
+.curriculum-table .s11 {
+  background-color: #d9f1f3 !important;
+}
+.curriculum-table .s21 {
+  background-color: #fef1cc !important;
+}
+.curriculum-table a {
+  color: #0066cc;
+  text-decoration: underline;
+}
+.curriculum-table a:hover {
+  color: #004499;
+}
+.curriculum-content {
+  background: #f8f9fa;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .curriculum-table {
+    font-size: 11px;
+  }
+  .curriculum-table td {
+    padding: 4px 6px;
+  }
+}
+</style>
 
 {% endblock %}

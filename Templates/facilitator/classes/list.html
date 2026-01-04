@@ -15,10 +15,16 @@
           Class {{ class_section.class_level }} - {{ class_section.section }}
         </p>
 
-        <a href="{% url 'facilitator_today_session' class_section.id %}"
-           class="btn btn-primary btn-sm mt-2">
-          Go to Today’s Session
-        </a>
+        <div class="d-flex gap-2 mt-2">
+          <a href="{% url 'facilitator_today_session' class_section.id %}"
+             class="btn btn-primary btn-sm">
+            Today's Session
+          </a>
+          <a href="{% url 'facilitator_curriculum_session' class_section.id %}"
+             class="btn btn-success btn-sm">
+            <i class="fas fa-book"></i> Curriculum
+          </a>
+        </div>
       </div>
     </div>
   </div>

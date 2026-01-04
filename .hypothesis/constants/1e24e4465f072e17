@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0003_school.py
+# hypothesis_version: 6.148.11
+
+[100, 200, 'School', 'avg_attendance_pct', 'block', 'class', 'created_at', 'district', 'enrolled_students', 'id', 'name', 'profile_image', 'schools/', 'status', 'udise', 'validation_score']

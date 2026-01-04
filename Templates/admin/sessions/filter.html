@@ -1,59 +1,649 @@
 {% extends "admin/shared/base.html" %}
 
+{% block extra_css %}
+<style>
+/* Performance optimized styles */
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.stats-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.stats-card.hindi {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.stats-card.english {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Optimize form interactions */
+.form-select, .form-input {
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-select:focus, .form-input:focus {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Lazy loading skeleton */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+</style>
+{% endblock %}
+
 {% block content %}
 
-<h4 class="text-xl font-bold text-gray-900 mb-4">
-  Sessions — Select School & Class
-</h4>
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+  <div>
+    <h4 class="text-xl font-bold text-gray-900">
+      Sessions Management
+    </h4>
+    <p class="text-gray-500 text-sm">Choose session type to manage</p>
+  </div>
+</div>
 
-<form method="get" class="bg-white border border-gray-200 rounded-xl shadow-sm p-6 max-w-lg">
+<!-- Session Type Selection -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+  
+  <!-- Class-Based Sessions -->
+  <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6 card-hover">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+        <span class="material-symbols-outlined text-blue-600 text-2xl">calendar_month</span>
+      </div>
+      <div>
+        <h5 class="text-lg font-semibold text-gray-900">Class Sessions</h5>
+        <p class="text-sm text-gray-500">Manage sessions by school and class</p>
+      </div>
+    </div>
+    
+    <div class="space-y-3 mb-4">
+      <div class="flex items-center text-sm text-gray-600">
+        <span class="material-symbols-outlined text-green-600 text-lg mr-2">check_circle</span>
+        Track facilitator execution
+      </div>
+      <div class="flex items-center text-sm text-gray-600">
+        <span class="material-symbols-outlined text-green-600 text-lg mr-2">check_circle</span>
+        Attendance management
+      </div>
+      <div class="flex items-center text-sm text-gray-600">
+        <span class="material-symbols-outlined text-green-600 text-lg mr-2">check_circle</span>
+        Real-time session status
+      </div>
+    </div>
 
-  <!-- School -->
-  <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-700 mb-1">
-      School
-    </label>
+    <!-- School Selection Form with optimized loading -->
+    <form method="get" action="{% url 'admin_sessions_filter' %}" class="space-y-3" id="classSessionForm">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">School</label>
+        <select name="school" onchange="loadClasses(this.value)" 
+                class="form-select w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">-- Select school --</option>
+          {% for s in schools %}
+            <option value="{{ s.id }}" {% if request.GET.school == s.id|stringformat:'s' %}selected{% endif %}>
+              {{ s.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
 
-    <select name="school"
-            onchange="this.form.submit()"
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg
-                   focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <option value="">-- Select school --</option>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Class Section</label>
+        <select name="class" id="classSelect"
+                class="form-select w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">-- Select class --</option>
+          {% for c in classes %}
+            <option value="{{ c.id }}" {% if request.GET.class == c.id|stringformat:'s' %}selected{% endif %}>{{ c.class_level }} - {{ c.section }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-      {% for s in schools %}
-        <option value="{{ s.id }}"
-          {% if request.GET.school == s.id|stringformat:'s' %}selected{% endif %}>
-          {{ s.name }}
-        </option>
-      {% endfor %}
-    </select>
+      <button type="submit" class="w-full px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200" id="manageClassBtn">
+        <span class=" hidden mr-2" id="classLoadingSpinner"></span>
+        Manage Class Sessions
+      </button>
+    </form>
   </div>
 
-  <!-- Class -->
-  <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-700 mb-1">
-      Class Section
-    </label>
+  <!-- Curriculum Sessions -->
+  <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6 card-hover">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+        <span class="material-symbols-outlined text-green-600 text-2xl">menu_book</span>
+      </div>
+      <div>
+        <h5 class="text-lg font-semibold text-gray-900">Curriculum Sessions</h5>
+        <p class="text-sm text-gray-500">Manage master curriculum content</p>
+      </div>
+    </div>
+    
+    <div class="space-y-3 mb-4">
+      <div class="flex items-center text-sm text-gray-600">
+        <span class="material-symbols-outlined text-green-600 text-lg mr-2">check_circle</span>
+        Language-based organization (Hindi/English)
+      </div>
+      <div class="flex items-center text-sm text-gray-600">
+        <span class="material-symbols-outlined text-green-600 text-lg mr-2">check_circle</span>
+        Day-wise content (1-150 days)
+      </div>
+      <div class="flex items-center text-sm text-gray-600">
+        <span class="material-symbols-outlined text-green-600 text-lg mr-2">check_circle</span>
+        Template management & versioning
+      </div>
+    </div>
 
-    <select name="class"
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg
-                   focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <option value="">-- Select class --</option>
+    <!-- Quick Stats with loading states -->
+    <div class="grid grid-cols-2 gap-3 mb-4">
+      <div class="text-center p-3 stats-card hindi rounded-lg">
+        <div class="text-lg font-bold" id="hindiSessionCount">{{ hindi_sessions|default:0 }}</div>
+        <div class="text-xs opacity-90">Hindi Sessions</div>
+      </div>
+      <div class="text-center p-3 stats-card english rounded-lg">
+        <div class="text-lg font-bold" id="englishSessionCount">{{ english_sessions|default:0 }}</div>
+        <div class="text-xs opacity-90">English Sessions</div>
+      </div>
+    </div>
 
-      {% for c in classes %}
-        <option value="{{ c.id }}">
-          {{ c.class_level }} - {{ c.section }}
-        </option>
-      {% endfor %}
-    </select>
+    <div class="space-y-2">
+      <a href="{% url 'admin_curriculum_sessions_list' %}?v={{ request.GET.v|default:'1' }}" 
+         class="w-full px-5 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 text-center block transition-colors duration-200">
+        Manage Curriculum Sessions
+      </a>
+      <a href="{% url 'admin_curriculum_session_create' %}" 
+         class="w-full px-5 py-2.5 border border-green-600 text-green-600 rounded-lg hover:bg-green-50 text-center block transition-colors duration-200">
+        Create New Session
+      </a>
+    </div>
   </div>
+</div>
 
-  <!-- Submit -->
-  <button
-      class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-    Go to Sessions
-  </button>
+<!-- Recent Activity with lazy loading -->
+<div class="bg-white border border-gray-200 rounded-xl shadow-sm">
+  <div class="px-6 py-4 border-b border-gray-200">
+    <h5 class="text-lg font-semibold text-gray-900">Recent Session Activity</h5>
+  </div>
+  <div class="p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Recent Class Sessions -->
+      <div>
+        <h6 class="font-medium text-gray-900 mb-3 flex items-center justify-between">
+          Recent Class Sessions
+          <button onclick="refreshRecentSessions()" class="text-gray-400 hover:text-gray-600" title="Refresh">
+            <span class="material-symbols-outlined text-sm">refresh</span>
+          </button>
+        </h6>
+        <div id="recentClassSessions">
+          <!-- Loading skeleton -->
+          <div class="space-y-2" id="sessionsLoadingSkeleton">
+            <div class="animate-pulse">
+              <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+              <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+            </div>
+            <div class="animate-pulse">
+              <div class="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
+              <div class="h-3 bg-gray-200 rounded w-1/3"></div>
+            </div>
+          </div>
+          <!-- Content will be loaded here -->
+          <div id="sessionsContent" class="hidden"></div>
+          <!-- Error state -->
+          <div id="sessionsError" class="hidden text-center py-4">
+            <span class="material-symbols-outlined text-red-300 text-2xl mb-2">error</span>
+            <p class="text-sm text-red-600 mb-2">Failed to load recent sessions</p>
+            <button onclick="refreshRecentSessions()" class="text-sm text-red-600 hover:text-red-800 underline">
+              Try again
+            </button>
+          </div>
+        </div>
+      </div>
 
-</form>
+      <!-- Recent Curriculum Updates -->
+      <div>
+        <h6 class="font-medium text-gray-900 mb-3 flex items-center justify-between">
+          Recent Curriculum Updates
+          <button onclick="refreshCurriculumUpdates()" class="text-gray-400 hover:text-gray-600" title="Refresh">
+            <span class="material-symbols-outlined text-sm">refresh</span>
+          </button>
+        </h6>
+        <div id="recentCurriculumUpdates">
+          <!-- Loading skeleton -->
+          <div class="space-y-2" id="curriculumLoadingSkeleton">
+            <div class="animate-pulse">
+              <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+              <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+            </div>
+            <div class="animate-pulse">
+              <div class="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
+              <div class="h-3 bg-gray-200 rounded w-1/3"></div>
+            </div>
+          </div>
+          <!-- Content will be loaded here -->
+          <div id="curriculumContent" class="hidden"></div>
+          <!-- Error state -->
+          <div id="curriculumError" class="hidden text-center py-4">
+            <span class="material-symbols-outlined text-red-300 text-2xl mb-2">error</span>
+            <p class="text-sm text-red-600 mb-2">Failed to load curriculum updates</p>
+            <button onclick="refreshCurriculumUpdates()" class="text-sm text-red-600 hover:text-red-800 underline">
+              Try again
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Performance optimized JavaScript
+let classLoadingCache = new Map();
+let isLoadingClasses = false;
+
+function loadClasses(schoolId) {
+  const classSelect = document.getElementById('classSelect');
+  const loadingSpinner = document.getElementById('classLoadingSpinner');
+  
+  // Clear existing options
+  classSelect.innerHTML = '<option value="">-- Loading classes... --</option>';
+  
+  if (!schoolId) {
+    classSelect.innerHTML = '<option value="">-- Select class --</option>';
+    return;
+  }
+  
+  // Check cache first
+  if (classLoadingCache.has(schoolId)) {
+    populateClasses(classLoadingCache.get(schoolId));
+    return;
+  }
+  
+  if (isLoadingClasses) return;
+  
+  isLoadingClasses = true;
+  loadingSpinner.classList.remove('hidden');
+  
+  // Make optimized AJAX request with timeout and error handling
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+  
+  fetch(`/api/school-classes/?school_id=${schoolId}`, {
+    signal: controller.signal,
+    headers: {
+      'Cache-Control': 'max-age=600' // 10 minutes cache
+    }
+  })
+    .then(response => {
+      clearTimeout(timeoutId);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      // Cache the result
+      classLoadingCache.set(schoolId, data);
+      populateClasses(data);
+    })
+    .catch(error => {
+      console.error('Error loading classes:', error);
+      classSelect.innerHTML = '<option value="">-- Error loading classes --</option>';
+      
+      // Show user-friendly error message
+      if (error.name === 'AbortError') {
+        classSelect.innerHTML = '<option value="">-- Request timeout, please try again --</option>';
+      }
+    })
+    .finally(() => {
+      isLoadingClasses = false;
+      loadingSpinner.classList.add('hidden');
+    });
+}
+
+function populateClasses(data) {
+  const classSelect = document.getElementById('classSelect');
+  classSelect.innerHTML = '<option value="">-- Select class --</option>';
+  
+  if (data.classes && data.classes.length > 0) {
+    data.classes.forEach(cls => {
+      const option = document.createElement('option');
+      option.value = cls.id;
+      option.textContent = `${cls.class_level} - ${cls.section}`;
+      classSelect.appendChild(option);
+    });
+  } else {
+    classSelect.innerHTML = '<option value="">-- No classes found --</option>';
+  }
+}
+
+// Load classes on page load if school is already selected
+document.addEventListener('DOMContentLoaded', function() {
+  const schoolSelect = document.querySelector('select[name="school"]');
+  if (schoolSelect && schoolSelect.value) {
+    loadClasses(schoolSelect.value);
+  }
+  
+  // Load session data with a small delay to prioritize critical content
+  setTimeout(() => {
+    loadRecentSessions();
+    loadCurriculumUpdates();
+  }, 500);
+  
+  // Add keyboard shortcuts
+  document.addEventListener('keydown', function(e) {
+    // Alt + C for curriculum sessions
+    if (e.altKey && e.key === 'c') {
+      e.preventDefault();
+      window.location.href = '{% url "admin_curriculum_sessions_list" %}';
+    }
+    
+    // Alt + N for new curriculum session
+    if (e.altKey && e.key === 'n') {
+      e.preventDefault();
+      window.location.href = '{% url "admin_curriculum_session_create" %}';
+    }
+  });
+  
+  // Preload critical resources
+  preloadResources();
+  
+  // Initialize intersection observer for lazy loading
+  initializeLazyLoading();
+});
+
+function preloadResources() {
+  // Preload curriculum sessions list
+  const curriculumLink = document.createElement('link');
+  curriculumLink.rel = 'prefetch';
+  curriculumLink.href = '{% url "admin_curriculum_sessions_list" %}';
+  document.head.appendChild(curriculumLink);
+  
+  // Preload create session page
+  const createLink = document.createElement('link');
+  createLink.rel = 'prefetch';
+  createLink.href = '{% url "admin_curriculum_session_create" %}';
+  document.head.appendChild(createLink);
+}
+
+function initializeLazyLoading() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Load additional content if needed
+        loadAdditionalContent(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '50px'
+  });
+  
+  // Observe activity sections
+  document.querySelectorAll('#recentClassSessions, #recentCurriculumUpdates').forEach(section => {
+    observer.observe(section);
+  });
+}
+
+function loadAdditionalContent(element) {
+  // Implement lazy loading of additional content if needed
+  // This could load more recent activities, statistics, etc.
+}
+
+// Session loading functionality for filter page
+let sessionLoadingTimeout;
+let curriculumLoadingTimeout;
+
+// Load recent sessions with error handling and retry logic
+function loadRecentSessions() {
+  const skeleton = document.getElementById('sessionsLoadingSkeleton');
+  const content = document.getElementById('sessionsContent');
+  const error = document.getElementById('sessionsError');
+  
+  // Show loading state
+  skeleton.classList.remove('hidden');
+  content.classList.add('hidden');
+  error.classList.add('hidden');
+  
+  // Clear any existing timeout
+  clearTimeout(sessionLoadingTimeout);
+  
+  // Set timeout for request
+  sessionLoadingTimeout = setTimeout(() => {
+    showSessionsError('Request timeout - please try again');
+  }, 10000);
+  
+  fetch('/api/dashboard/recent-sessions/?limit=5', {
+    method: 'GET',
+    headers: {
+      'Cache-Control': 'max-age=120',
+      'Accept': 'application/json'
+    }
+  })
+  .then(response => {
+    clearTimeout(sessionLoadingTimeout);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    displayRecentSessions(data.sessions);
+  })
+  .catch(error => {
+    console.error('Error loading recent sessions:', error);
+    showSessionsError(error.message || 'Failed to load recent sessions');
+  });
+}
+
+function displayRecentSessions(sessions) {
+  const skeleton = document.getElementById('sessionsLoadingSkeleton');
+  const content = document.getElementById('sessionsContent');
+  const error = document.getElementById('sessionsError');
+  
+  skeleton.classList.add('hidden');
+  error.classList.add('hidden');
+  
+  if (!sessions || sessions.length === 0) {
+    content.innerHTML = `
+      <div class="text-center py-4">
+        <span class="material-symbols-outlined text-gray-300 text-2xl mb-2">inbox</span>
+        <p class="text-sm text-gray-500">No recent sessions found</p>
+      </div>
+    `;
+  } else {
+    const sessionsHtml = sessions.map(session => `
+      <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-150">
+        <div>
+          <div class="font-medium text-sm">${session.topic}</div>
+          <div class="text-xs text-gray-500">${session.class_section}</div>
+        </div>
+        <span class="px-2 py-1 text-xs rounded-full ${getStatusClass(session.status)}">
+          ${session.status}
+        </span>
+      </div>
+    `).join('');
+    
+    content.innerHTML = sessionsHtml;
+  }
+  
+  content.classList.remove('hidden');
+}
+
+function showSessionsError(message) {
+  const skeleton = document.getElementById('sessionsLoadingSkeleton');
+  const content = document.getElementById('sessionsContent');
+  const error = document.getElementById('sessionsError');
+  
+  skeleton.classList.add('hidden');
+  content.classList.add('hidden');
+  error.classList.remove('hidden');
+  
+  const errorMessage = error.querySelector('p');
+  if (errorMessage) {
+    errorMessage.textContent = message;
+  }
+}
+
+// Load recent curriculum updates
+function loadCurriculumUpdates() {
+  const skeleton = document.getElementById('curriculumLoadingSkeleton');
+  const content = document.getElementById('curriculumContent');
+  const error = document.getElementById('curriculumError');
+  
+  // Show loading state
+  skeleton.classList.remove('hidden');
+  content.classList.add('hidden');
+  error.classList.add('hidden');
+  
+  // Clear any existing timeout
+  clearTimeout(curriculumLoadingTimeout);
+  
+  // Set timeout for request
+  curriculumLoadingTimeout = setTimeout(() => {
+    showCurriculumError('Request timeout - please try again');
+  }, 10000);
+  
+  fetch('/api/dashboard/curriculum-updates/?limit=5', {
+    method: 'GET',
+    headers: {
+      'Cache-Control': 'max-age=120',
+      'Accept': 'application/json'
+    }
+  })
+  .then(response => {
+    clearTimeout(curriculumLoadingTimeout);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    displayCurriculumUpdates(data.updates);
+  })
+  .catch(error => {
+    console.error('Error loading curriculum updates:', error);
+    showCurriculumError(error.message || 'Failed to load curriculum updates');
+  });
+}
+
+function displayCurriculumUpdates(updates) {
+  const skeleton = document.getElementById('curriculumLoadingSkeleton');
+  const content = document.getElementById('curriculumContent');
+  const error = document.getElementById('curriculumError');
+  
+  skeleton.classList.add('hidden');
+  error.classList.add('hidden');
+  
+  if (!updates || updates.length === 0) {
+    content.innerHTML = `
+      <div class="text-center py-4">
+        <span class="material-symbols-outlined text-gray-300 text-2xl mb-2">inbox</span>
+        <p class="text-sm text-gray-500">No recent updates found</p>
+      </div>
+    `;
+  } else {
+    const updatesHtml = updates.map(update => `
+      <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-150">
+        <div>
+          <div class="font-medium text-sm">${update.title}</div>
+          <div class="text-xs text-gray-500">Day ${update.day_number} - ${update.language}</div>
+        </div>
+        <span class="px-2 py-1 text-xs rounded-full ${getStatusClass(update.status)}">
+          ${update.status}
+        </span>
+      </div>
+    `).join('');
+    
+    content.innerHTML = updatesHtml;
+  }
+  
+  content.classList.remove('hidden');
+}
+
+function showCurriculumError(message) {
+  const skeleton = document.getElementById('curriculumLoadingSkeleton');
+  const content = document.getElementById('curriculumContent');
+  const error = document.getElementById('curriculumError');
+  
+  skeleton.classList.add('hidden');
+  content.classList.add('hidden');
+  error.classList.remove('hidden');
+  
+  const errorMessage = error.querySelector('p');
+  if (errorMessage) {
+    errorMessage.textContent = message;
+  }
+}
+
+// Refresh functions
+function refreshRecentSessions() {
+  loadRecentSessions();
+}
+
+function refreshCurriculumUpdates() {
+  loadCurriculumUpdates();
+}
+
+// Helper function for status classes
+function getStatusClass(status) {
+  const statusLower = status.toLowerCase();
+  if (statusLower.includes('conducted') || statusLower.includes('published') || statusLower.includes('completed')) {
+    return 'bg-green-100 text-green-700';
+  } else if (statusLower.includes('cancelled') || statusLower.includes('failed')) {
+    return 'bg-red-100 text-red-700';
+  } else if (statusLower.includes('draft') || statusLower.includes('pending')) {
+    return 'bg-yellow-100 text-yellow-700';
+  } else {
+    return 'bg-gray-100 text-gray-700';
+  }
+}
+
+// Add smooth transitions
+document.documentElement.style.scrollBehavior = 'smooth';
+
+// Performance monitoring
+if ('performance' in window) {
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      const perfData = performance.getEntriesByType('navigation')[0];
+      if (perfData.loadEventEnd - perfData.loadEventStart > 3000) {
+        console.warn('Page load took longer than 3 seconds');
+      }
+    }, 0);
+  });
+}
+</script>
 
 {% endblock %}

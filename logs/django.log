@@ -1,0 +1,1934 @@
+INFO 2026-01-04 18:48:39,573 autoreload 47268 19176 Watching for file changes with StatReloader
+INFO 2026-01-04 18:49:09,861 autoreload 47268 19176 C:\Users\piyus\CLAS\CLAS\class\mixins.py changed, reloading.
+INFO 2026-01-04 18:49:11,421 autoreload 46652 27008 Watching for file changes with StatReloader
+INFO 2026-01-04 18:49:17,010 autoreload 46652 27008 C:\Users\piyus\CLAS\CLAS\class\mixins.py changed, reloading.
+INFO 2026-01-04 18:49:18,329 autoreload 41808 17528 Watching for file changes with StatReloader
+INFO 2026-01-04 18:49:51,906 autoreload 41808 17528 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 18:49:53,104 autoreload 7972 36632 Watching for file changes with StatReloader
+INFO 2026-01-04 19:00:38,535 autoreload 3816 8892 Watching for file changes with StatReloader
+INFO 2026-01-04 19:01:07,538 autoreload 3816 8892 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:01:08,853 autoreload 37664 18700 Watching for file changes with StatReloader
+INFO 2026-01-04 19:01:35,850 autoreload 28344 7416 Watching for file changes with StatReloader
+INFO 2026-01-04 19:03:28,585 autoreload 14684 22368 Watching for file changes with StatReloader
+INFO 2026-01-04 19:06:22,798 autoreload 14684 22368 C:\Users\piyus\CLAS\CLAS\CLAS\settings.py changed, reloading.
+INFO 2026-01-04 19:06:24,204 autoreload 27000 43160 Watching for file changes with StatReloader
+INFO 2026-01-04 19:07:10,128 basehttp 27000 16732 "GET /admin/sessions/ HTTP/1.1" 200 18664
+INFO 2026-01-04 19:07:10,188 basehttp 27000 38932 "GET /static/css/dist/styles.css?v=1767533829 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:07:12,864 basehttp 27000 36752 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 12914
+WARNING 2026-01-04 19:07:14,058 mixins 27000 38932 Slow function: admin_curriculum_sessions_list took 1.35s
+INFO 2026-01-04 19:07:14,060 basehttp 27000 38932 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 14712
+INFO 2026-01-04 19:07:17,458 basehttp 27000 36752 "GET /admin/dashboard/ HTTP/1.1" 200 21348
+INFO 2026-01-04 19:07:17,503 basehttp 27000 36752 "GET /static/css/dist/styles.css?v=1767533836 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:07:25,172 basehttp 27000 36752 "GET /admin/users/ HTTP/1.1" 200 34767
+INFO 2026-01-04 19:07:25,223 basehttp 27000 36752 "GET /static/css/dist/styles.css?v=1767533840 HTTP/1.1" 200 33131
+ERROR 2026-01-04 19:07:28,603 log 27000 36752 Internal Server Error: /admin/schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 227, in schools
+    queryset=ClassSection.objects.select_related().annotate(
+        student_count=Count('enrollment', filter=Q(enrollment__is_active=True))
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1635, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1685, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1194, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\aggregates.py", line 63, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 1073, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+                                ~~~~~~~~~~~~~~~~~~~~~~^
+        query, allow_joins, reuse, summarize, for_save
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 895, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 2011, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1864, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'enrollment' into field. Choices are: academic_year, class_level, created_at, display_name, enrollments, id, is_active, planned_sessions, school, school_id, section
+ERROR 2026-01-04 19:07:28,616 basehttp 27000 36752 "GET /admin/schools/ HTTP/1.1" 500 135787
+INFO 2026-01-04 19:08:16,393 basehttp 27000 36752 "GET /admin/attendance/ HTTP/1.1" 200 37803
+INFO 2026-01-04 19:08:16,444 basehttp 27000 36752 "GET /static/css/dist/styles.css?v=1767533896 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:08:16,456 basehttp 27000 36752 "GET /static/js/performance.js HTTP/1.1" 200 14105
+INFO 2026-01-04 19:08:17,844 basehttp 27000 38932 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 20515
+WARNING 2026-01-04 19:08:19,362 mixins 27000 36752 Slow function: api_dashboard_stats took 1.84s
+INFO 2026-01-04 19:08:19,364 basehttp 27000 36752 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+ERROR 2026-01-04 19:08:20,700 log 27000 8388 Internal Server Error: /admin/schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 227, in schools
+    queryset=ClassSection.objects.select_related().annotate(
+        student_count=Count('enrollment', filter=Q(enrollment__is_active=True))
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1635, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1685, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1194, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\aggregates.py", line 63, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 1073, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+                                ~~~~~~~~~~~~~~~~~~~~~~^
+        query, allow_joins, reuse, summarize, for_save
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 895, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 2011, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1864, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'enrollment' into field. Choices are: academic_year, class_level, created_at, display_name, enrollments, id, is_active, planned_sessions, school, school_id, section
+ERROR 2026-01-04 19:08:20,706 basehttp 27000 8388 "GET /admin/schools/ HTTP/1.1" 500 134942
+ERROR 2026-01-04 19:08:29,214 log 27000 8388 Internal Server Error: /admin/schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 227, in schools
+    queryset=ClassSection.objects.select_related().annotate(
+        student_count=Count('enrollment', filter=Q(enrollment__is_active=True))
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1635, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1685, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1194, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\aggregates.py", line 63, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 1073, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+                                ~~~~~~~~~~~~~~~~~~~~~~^
+        query, allow_joins, reuse, summarize, for_save
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 895, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 2011, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1864, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'enrollment' into field. Choices are: academic_year, class_level, created_at, display_name, enrollments, id, is_active, planned_sessions, school, school_id, section
+ERROR 2026-01-04 19:08:29,225 basehttp 27000 8388 "GET /admin/schools/ HTTP/1.1" 500 135084
+INFO 2026-01-04 19:12:39,615 autoreload 27000 43160 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:12:41,091 autoreload 11560 20748 Watching for file changes with StatReloader
+ERROR 2026-01-04 19:12:49,257 log 11560 26204 Internal Server Error: /admin/schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 235, in schools
+    ).annotate(
+      ~~~~~~~~^
+        total_classes=Count('classsection', distinct=True),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                                distinct=True)
+                                ^^^^^^^^^^^^^^
+    ).order_by("-created_at")
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1635, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1685, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1194, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\aggregates.py", line 63, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 1073, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+                                ~~~~~~~~~~~~~~~~~~~~~~^
+        query, allow_joins, reuse, summarize, for_save
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 895, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 2011, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1864, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'classsection' into field. Choices are: avg_attendance_pct, block, class_sections, created_at, district, enrolled_students, enrollments, facilitators, id, name, profile_image, session_accesses, status, udise, validation_score
+ERROR 2026-01-04 19:12:49,293 basehttp 11560 26204 "GET /admin/schools/ HTTP/1.1" 500 136419
+INFO 2026-01-04 19:12:51,581 autoreload 11560 20748 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:12:53,108 autoreload 22092 37196 Watching for file changes with StatReloader
+ERROR 2026-01-04 19:13:05,828 log 22092 32136 Internal Server Error: /admin/schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 235, in schools
+    ).annotate(
+      ~~~~~~~~^
+        total_classes=Count('classsection', distinct=True),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                                distinct=True)
+                                ^^^^^^^^^^^^^^
+    ).order_by("-created_at")
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1635, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1685, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1194, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\aggregates.py", line 63, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 1073, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+                                ~~~~~~~~~~~~~~~~~~~~~~^
+        query, allow_joins, reuse, summarize, for_save
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 895, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 2011, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1864, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'classsection' into field. Choices are: avg_attendance_pct, block, class_sections, created_at, district, enrolled_students, enrollments, facilitators, id, name, profile_image, session_accesses, status, udise, validation_score
+ERROR 2026-01-04 19:13:05,840 basehttp 22092 32136 "GET /admin/schools/ HTTP/1.1" 500 136420
+INFO 2026-01-04 19:13:10,576 autoreload 22092 37196 C:\Users\piyus\CLAS\CLAS\class\mixins.py changed, reloading.
+INFO 2026-01-04 19:13:12,354 autoreload 29316 10872 Watching for file changes with StatReloader
+ERROR 2026-01-04 19:13:31,212 log 29316 5032 Internal Server Error: /admin/schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 235, in schools
+    ).annotate(
+      ~~~~~~~~^
+        total_classes=Count('classsection', distinct=True),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                                distinct=True)
+                                ^^^^^^^^^^^^^^
+    ).order_by("-created_at")
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1635, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1685, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1194, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\aggregates.py", line 63, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 1073, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+                                ~~~~~~~~~~~~~~~~~~~~~~^
+        query, allow_joins, reuse, summarize, for_save
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 895, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 2011, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1864, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'classsection' into field. Choices are: avg_attendance_pct, block, class_sections, created_at, district, enrolled_students, enrollments, facilitators, id, name, profile_image, session_accesses, status, udise, validation_score
+ERROR 2026-01-04 19:13:31,224 basehttp 29316 5032 "GET /admin/schools/ HTTP/1.1" 500 136420
+INFO 2026-01-04 19:14:13,581 autoreload 29316 10872 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:14:15,230 autoreload 36328 41956 Watching for file changes with StatReloader
+INFO 2026-01-04 19:14:22,437 autoreload 36328 41956 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:14:23,942 autoreload 32624 45504 Watching for file changes with StatReloader
+ERROR 2026-01-04 19:15:44,129 log 32624 36996 Internal Server Error: /admin/schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 235, in schools
+    ).annotate(
+      ~~~~~~~~^
+        total_classes=Count('class_sections', distinct=True),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                                distinct=True)
+                                ^^^^^^^^^^^^^^
+    ).order_by("-created_at")
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1635, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1685, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1194, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\aggregates.py", line 63, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 1073, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+                                ~~~~~~~~~~~~~~~~~~~~~~^
+        query, allow_joins, reuse, summarize, for_save
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\expressions.py", line 895, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 2011, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1864, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'facilitatorschool' into field. Choices are: avg_attendance_pct, block, class_sections, created_at, district, enrolled_students, enrollments, facilitators, id, name, profile_image, session_accesses, status, total_classes, total_students, udise, validation_score
+ERROR 2026-01-04 19:15:44,142 basehttp 32624 36996 "GET /admin/schools/ HTTP/1.1" 500 137171
+INFO 2026-01-04 19:17:04,313 autoreload 32624 45504 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:17:05,760 autoreload 8588 3204 Watching for file changes with StatReloader
+WARNING 2026-01-04 19:17:18,498 mixins 8588 30808 Slow function: schools took 5.31s
+INFO 2026-01-04 19:17:18,500 basehttp 8588 30808 "GET /admin/schools/ HTTP/1.1" 200 27316
+INFO 2026-01-04 19:17:18,567 basehttp 8588 30808 "GET /static/css/dist/styles.css?v=1767534434 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:17:18,572 basehttp 8588 30808 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 19:17:21,013 mixins 8588 30808 Slow function: api_dashboard_stats took 1.58s
+INFO 2026-01-04 19:17:21,015 basehttp 8588 30808 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 19:17:22,770 mixins 8588 26732 Slow function: admin_curriculum_sessions_list took 1.25s
+INFO 2026-01-04 19:17:22,771 basehttp 8588 26732 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 20515
+INFO 2026-01-04 19:17:23,125 basehttp 8588 30808 "GET /admin/schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/ HTTP/1.1" 200 21018
+INFO 2026-01-04 19:17:23,185 basehttp 8588 30808 "GET /static/css/dist/styles.css?v=1767534442 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:17:27,059 basehttp 8588 30808 "GET /admin/schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/classes/ HTTP/1.1" 200 14260
+INFO 2026-01-04 19:17:27,113 basehttp 8588 30808 "GET /static/css/dist/styles.css?v=1767534446 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:17:27,149 basehttp 8588 30808 "GET /static/admin/assets/img/empty-state.svg HTTP/1.1" 404 1910
+INFO 2026-01-04 19:17:30,214 autoreload 8588 3204 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:17:31,505 autoreload 39572 33768 Watching for file changes with StatReloader
+INFO 2026-01-04 19:17:38,244 basehttp 39572 11120 "GET /admin/schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/ HTTP/1.1" 200 26635
+INFO 2026-01-04 19:17:38,383 basehttp 39572 11120 "GET /static/css/dist/styles.css?v=1767534457 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:17:44,178 basehttp 39572 11120 "GET /admin/schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/classes/ HTTP/1.1" 200 17350
+INFO 2026-01-04 19:17:44,229 basehttp 39572 11120 "GET /static/css/dist/styles.css?v=1767534463 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:17:53,292 basehttp 39572 11120 "GET /admin/schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/students/ HTTP/1.1" 200 22407
+INFO 2026-01-04 19:17:53,351 basehttp 39572 11120 "GET /static/css/dist/styles.css?v=1767534472 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:17:59,547 basehttp 39572 11120 "GET /admin/schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/students/?class_section=e979202b-46b4-4252-a3b1-3ece1fc1e9b0 HTTP/1.1" 200 15454
+INFO 2026-01-04 19:17:59,610 basehttp 39572 11120 "GET /static/css/dist/styles.css?v=1767534478 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:18:03,888 autoreload 39572 33768 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:18:05,198 autoreload 240 20828 Watching for file changes with StatReloader
+INFO 2026-01-04 19:18:13,922 basehttp 240 43920 "GET /admin/sessions/ HTTP/1.1" 200 24746
+INFO 2026-01-04 19:18:14,044 basehttp 240 43920 "GET /static/css/dist/styles.css?v=1767534492 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:18:14,911 basehttp 240 43920 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+INFO 2026-01-04 19:19:47,520 basehttp 240 43920 "GET /admin/sessions/ HTTP/1.1" 200 24746
+INFO 2026-01-04 19:19:47,578 basehttp 240 43920 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 19:19:53,115 mixins 240 43920 Slow function: ajax_school_classes_admin took 0.59s
+INFO 2026-01-04 19:19:53,117 basehttp 240 43920 "GET /api/school-classes/?school_id=64ba8ff6-3870-4f64-b602-24b168f5d43c HTTP/1.1" 200 183
+INFO 2026-01-04 19:19:58,469 basehttp 240 43920 "GET /admin/sessions/?school=64ba8ff6-3870-4f64-b602-24b168f5d43c&class=e979202b-46b4-4252-a3b1-3ece1fc1e9b0 HTTP/1.1" 302 0
+INFO 2026-01-04 19:20:00,419 basehttp 240 43920 "GET /admin/classes/e979202b-46b4-4252-a3b1-3ece1fc1e9b0/sessions/ HTTP/1.1" 200 15665
+INFO 2026-01-04 19:20:00,439 basehttp 240 43920 "GET /static/css/dist/styles.css?v=1767534600 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:20:17,344 basehttp 240 43920 "GET /admin/sessions/ HTTP/1.1" 200 24746
+INFO 2026-01-04 19:22:25,772 basehttp 240 43920 "GET /admin/sessions/ HTTP/1.1" 200 24746
+INFO 2026-01-04 19:22:25,855 basehttp 240 43920 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 19:22:27,495 mixins 240 43920 Slow function: admin_curriculum_sessions_list took 1.08s
+INFO 2026-01-04 19:22:27,497 basehttp 240 43920 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 20515
+WARNING 2026-01-04 19:22:30,450 mixins 240 21736 Slow function: api_dashboard_stats took 1.68s
+INFO 2026-01-04 19:22:30,452 basehttp 240 21736 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 19:22:34,086 mixins 240 38712 Slow function: schools took 5.44s
+INFO 2026-01-04 19:22:34,088 basehttp 240 38712 "GET /admin/schools/ HTTP/1.1" 200 27316
+WARNING 2026-01-04 19:22:35,326 log 240 38712 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-04 19:22:35,332 basehttp 240 38712 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 24996
+INFO 2026-01-04 19:24:20,164 basehttp 240 21736 "GET /static/css/dist/styles.css?v=1767534747 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:24:31,508 basehttp 240 21736 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+INFO 2026-01-04 19:24:41,099 basehttp 240 38712 - Broken pipe from ('127.0.0.1', 56578)
+WARNING 2026-01-04 19:24:46,526 mixins 240 21736 Slow function: admin_curriculum_sessions_list took 6.04s
+INFO 2026-01-04 19:24:46,528 basehttp 240 21736 "GET /admin/curriculum-sessions/?language=english&day_from=&day_to=&status= HTTP/1.1" 200 20523
+INFO 2026-01-04 19:24:46,576 basehttp 240 21736 "GET /static/css/dist/styles.css?v=1767534886 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:25:11,410 mixins 240 21736 Slow function: admin_curriculum_sessions_list took 12.90s
+INFO 2026-01-04 19:25:11,412 basehttp 240 21736 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=&status= HTTP/1.1" 200 20524
+INFO 2026-01-04 19:25:11,470 basehttp 240 21736 "GET /static/css/dist/styles.css?v=1767534911 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:25:11,472 basehttp 240 43920 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 19:25:36,279 mixins 240 43920 Slow function: admin_curriculum_sessions_list took 1.03s
+INFO 2026-01-04 19:25:36,281 basehttp 240 43920 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=3&status= HTTP/1.1" 200 20525
+INFO 2026-01-04 19:25:36,356 basehttp 240 43920 "GET /static/css/dist/styles.css?v=1767534936 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:25:42,299 mixins 240 43920 Slow function: admin_curriculum_sessions_list took 1.03s
+INFO 2026-01-04 19:25:42,300 basehttp 240 43920 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=3&status=published HTTP/1.1" 200 20533
+INFO 2026-01-04 19:25:42,378 basehttp 240 43920 "GET /static/css/dist/styles.css?v=1767534942 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:25:58,368 mixins 240 43920 Slow function: admin_curriculum_sessions_list took 1.12s
+INFO 2026-01-04 19:25:58,370 basehttp 240 43920 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=3&status=draft HTTP/1.1" 200 20533
+INFO 2026-01-04 19:25:58,430 basehttp 240 43920 "GET /static/css/dist/styles.css?v=1767534958 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:26:05,782 basehttp 240 43920 "GET /admin/sessions/ HTTP/1.1" 200 24746
+INFO 2026-01-04 19:26:05,883 basehttp 240 43920 "GET /static/css/dist/styles.css?v=1767534964 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:28:23,150 basehttp 240 43920 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 19:28:25,742 mixins 240 21736 Slow function: api_dashboard_stats took 1.65s
+INFO 2026-01-04 19:28:25,743 basehttp 240 21736 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 19:28:26,794 mixins 240 43920 Slow function: admin_curriculum_sessions_list took 1.21s
+INFO 2026-01-04 19:28:26,796 basehttp 240 43920 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 20515
+WARNING 2026-01-04 19:28:32,208 mixins 240 29188 Slow function: schools took 6.15s
+INFO 2026-01-04 19:28:32,210 basehttp 240 29188 "GET /admin/schools/ HTTP/1.1" 200 27316
+INFO 2026-01-04 19:35:08,171 autoreload 240 20828 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:35:09,446 autoreload 5196 4624 Watching for file changes with StatReloader
+INFO 2026-01-04 19:35:15,134 autoreload 5196 4624 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:35:16,235 autoreload 22424 36432 Watching for file changes with StatReloader
+INFO 2026-01-04 19:35:18,442 autoreload 22424 36432 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:35:19,412 autoreload 24632 7836 Watching for file changes with StatReloader
+INFO 2026-01-04 19:35:21,696 autoreload 24632 7836 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:35:22,644 autoreload 9300 15372 Watching for file changes with StatReloader
+INFO 2026-01-04 19:35:24,880 autoreload 9300 15372 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:35:25,933 autoreload 1712 14948 Watching for file changes with StatReloader
+INFO 2026-01-04 19:35:28,295 autoreload 1712 14948 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:35:29,307 autoreload 5236 47188 Watching for file changes with StatReloader
+INFO 2026-01-04 19:36:22,128 basehttp 5236 46996 "GET /admin/attendance/ HTTP/1.1" 200 16385
+INFO 2026-01-04 19:36:22,207 basehttp 5236 46996 "GET /static/css/dist/styles.css?v=1767535581 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:36:22,223 basehttp 5236 46996 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 19:36:25,729 mixins 5236 46996 Slow function: api_dashboard_stats took 1.94s
+INFO 2026-01-04 19:36:25,731 basehttp 5236 46996 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 19:36:26,465 mixins 5236 27876 Slow function: admin_curriculum_sessions_list took 1.12s
+INFO 2026-01-04 19:36:26,467 basehttp 5236 27876 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 20515
+INFO 2026-01-04 19:36:29,038 basehttp 5236 24080 "GET /admin/sessions/ HTTP/1.1" 200 24746
+INFO 2026-01-04 19:36:29,105 basehttp 5236 24080 "GET /static/css/dist/styles.css?v=1767535587 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:36:30,148 basehttp 5236 24080 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+WARNING 2026-01-04 19:36:31,345 mixins 5236 17200 Slow function: schools took 5.74s
+INFO 2026-01-04 19:36:31,347 basehttp 5236 17200 "GET /admin/schools/ HTTP/1.1" 200 27316
+INFO 2026-01-04 19:36:59,236 autoreload 5236 47188 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:37:00,746 autoreload 24540 28268 Watching for file changes with StatReloader
+INFO 2026-01-04 19:37:09,907 autoreload 24540 28268 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-04 19:37:12,046 autoreload 43384 45324 Watching for file changes with StatReloader
+INFO 2026-01-04 19:37:18,177 autoreload 43384 45324 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-04 19:37:19,891 autoreload 34684 488 Watching for file changes with StatReloader
+INFO 2026-01-04 19:39:41,767 basehttp 34684 23616 "GET /admin/dashboard/ HTTP/1.1" 200 39041
+INFO 2026-01-04 19:39:41,819 basehttp 34684 23616 "GET /static/css/dist/styles.css?v=1767535781 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:39:43,726 mixins 34684 23616 Slow function: api_dashboard_recent_sessions took 0.54s
+INFO 2026-01-04 19:39:43,727 basehttp 34684 23616 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 19:39:45,905 mixins 34684 47828 Slow function: api_dashboard_curriculum_updates took 0.58s
+INFO 2026-01-04 19:39:45,906 basehttp 34684 47828 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+INFO 2026-01-04 19:40:51,836 basehttp 34684 47828 "GET /static/js/performance.js HTTP/1.1" 304 0
+INFO 2026-01-04 19:41:07,270 basehttp 34684 47828 "GET /admin/sessions/ HTTP/1.1" 200 33864
+INFO 2026-01-04 19:41:07,338 basehttp 34684 47828 "GET /static/css/dist/styles.css?v=1767535866 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:41:30,021 mixins 34684 47828 Slow function: admin_curriculum_sessions_list took 1.51s
+INFO 2026-01-04 19:41:30,022 basehttp 34684 47828 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 20515
+INFO 2026-01-04 19:41:30,098 basehttp 34684 47828 "GET /static/css/dist/styles.css?v=1767535890 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:41:31,303 basehttp 34684 47828 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+WARNING 2026-01-04 19:41:32,866 mixins 34684 23616 Slow function: api_dashboard_stats took 1.77s
+INFO 2026-01-04 19:41:32,867 basehttp 34684 23616 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 19:41:37,907 mixins 34684 36308 Slow function: schools took 4.78s
+INFO 2026-01-04 19:41:37,910 basehttp 34684 36308 "GET /admin/schools/ HTTP/1.1" 200 27316
+WARNING 2026-01-04 19:41:39,568 mixins 34684 23616 Slow function: admin_curriculum_sessions_list took 1.21s
+INFO 2026-01-04 19:41:39,570 basehttp 34684 23616 "GET /admin/curriculum-sessions/?language=english&day_from=&day_to=&status= HTTP/1.1" 200 20523
+INFO 2026-01-04 19:41:39,642 basehttp 34684 23616 "GET /static/css/dist/styles.css?v=1767535899 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:41:45,834 mixins 34684 23616 Slow function: admin_curriculum_sessions_list took 1.35s
+INFO 2026-01-04 19:41:45,836 basehttp 34684 23616 - Broken pipe from ('127.0.0.1', 65419)
+WARNING 2026-01-04 19:41:45,847 mixins 34684 36308 Slow function: admin_curriculum_sessions_list took 1.37s
+INFO 2026-01-04 19:41:45,849 basehttp 34684 36308 "GET /admin/curriculum-sessions/?language=english&day_from=&day_to=3&status= HTTP/1.1" 200 20524
+INFO 2026-01-04 19:41:45,940 basehttp 34684 36308 "GET /static/css/dist/styles.css?v=1767535905 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:41:50,105 mixins 34684 36308 Slow function: admin_curriculum_sessions_list took 1.20s
+INFO 2026-01-04 19:41:50,107 basehttp 34684 36308 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=3&status= HTTP/1.1" 200 20525
+INFO 2026-01-04 19:41:50,169 basehttp 34684 36308 "GET /static/css/dist/styles.css?v=1767535910 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:41:59,229 basehttp 34684 36308 "GET /static/css/dist/styles.css?v=1767535891 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:42:41,744 mixins 34684 36308 Slow function: api_dashboard_recent_sessions took 0.61s
+INFO 2026-01-04 19:42:41,745 basehttp 34684 36308 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 19:42:41,990 mixins 34684 47828 Slow function: api_dashboard_curriculum_updates took 0.65s
+INFO 2026-01-04 19:42:41,992 basehttp 34684 47828 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 19:43:29,887 mixins 34684 47828 Slow function: admin_curriculum_sessions_list took 1.39s
+INFO 2026-01-04 19:43:29,889 basehttp 34684 47828 "GET /admin/curriculum-sessions/?language=english&day_from=2&day_to=&status= HTTP/1.1" 200 20989
+INFO 2026-01-04 19:43:29,956 basehttp 34684 47828 "GET /static/css/dist/styles.css?v=1767536009 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:43:35,410 mixins 34684 47828 Slow function: admin_curriculum_sessions_list took 1.47s
+INFO 2026-01-04 19:43:35,411 basehttp 34684 47828 "GET /admin/curriculum-sessions/?language=english&day_from=2&day_to=3&status= HTTP/1.1" 200 20990
+INFO 2026-01-04 19:43:35,462 basehttp 34684 47828 "GET /static/css/dist/styles.css?v=1767536015 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:43:44,723 mixins 34684 47828 Slow function: admin_curriculum_sessions_list took 1.43s
+INFO 2026-01-04 19:43:44,725 basehttp 34684 47828 "GET /admin/curriculum-sessions/?language=english&day_from=2&day_to=3&status=archived HTTP/1.1" 200 20998
+INFO 2026-01-04 19:43:44,821 basehttp 34684 47828 "GET /static/css/dist/styles.css?v=1767536024 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:45:37,840 autoreload 34684 488 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:45:39,155 autoreload 34720 4752 Watching for file changes with StatReloader
+INFO 2026-01-04 19:45:47,980 basehttp 34720 43312 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 19:45:58,771 mixins 34720 23800 Slow function: api_dashboard_curriculum_updates took 0.71s
+INFO 2026-01-04 19:45:58,774 basehttp 34720 23800 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 19:45:58,780 mixins 34720 43312 Slow function: api_dashboard_recent_sessions took 0.69s
+INFO 2026-01-04 19:45:58,782 basehttp 34720 43312 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 19:46:02,709 mixins 34720 43312 Slow function: admin_curriculum_sessions_list took 1.39s
+INFO 2026-01-04 19:46:02,710 basehttp 34720 43312 "GET /admin/curriculum-sessions/?language=hindi&day_from=&day_to=&status= HTTP/1.1" 200 20988
+INFO 2026-01-04 19:46:02,838 basehttp 34720 43312 "GET /static/css/dist/styles.css?v=1767536162 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:46:15,854 mixins 34720 23800 Slow function: admin_curriculum_sessions_list took 1.72s
+INFO 2026-01-04 19:46:15,855 basehttp 34720 23800 "GET /admin/curriculum-sessions/?language=hindi&day_from=2&day_to=&status= HTTP/1.1" 200 20989
+INFO 2026-01-04 19:46:15,914 basehttp 34720 23800 "GET /static/css/dist/styles.css?v=1767536175 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:46:16,181 mixins 34720 43312 Slow function: admin_curriculum_sessions_list took 2.22s
+INFO 2026-01-04 19:46:16,182 basehttp 34720 43312 - Broken pipe from ('127.0.0.1', 51670)
+WARNING 2026-01-04 19:46:24,990 mixins 34720 23800 Slow function: admin_curriculum_sessions_list took 1.55s
+INFO 2026-01-04 19:46:24,991 basehttp 34720 23800 "GET /admin/curriculum-sessions/?language=hindi&day_from=2&day_to=4&status= HTTP/1.1" 200 20990
+INFO 2026-01-04 19:46:25,050 basehttp 34720 23800 "GET /static/css/dist/styles.css?v=1767536184 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:46:35,537 basehttp 34720 23800 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+WARNING 2026-01-04 19:46:38,227 mixins 34720 44144 Slow function: admin_curriculum_sessions_list took 1.06s
+INFO 2026-01-04 19:46:38,228 basehttp 34720 44144 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 20980
+WARNING 2026-01-04 19:46:39,511 mixins 34720 16732 Slow function: api_dashboard_stats took 1.90s
+INFO 2026-01-04 19:46:39,512 basehttp 34720 16732 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 19:46:42,157 mixins 34720 25220 Slow function: schools took 4.98s
+INFO 2026-01-04 19:46:42,159 basehttp 34720 25220 "GET /admin/schools/ HTTP/1.1" 200 27316
+INFO 2026-01-04 19:46:57,331 basehttp 34720 25220 "GET /admin/dashboard/ HTTP/1.1" 200 39041
+INFO 2026-01-04 19:46:57,385 basehttp 34720 25220 "GET /static/css/dist/styles.css?v=1767536216 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:49:49,083 basehttp 34720 43848 "GET /admin/sessions/ HTTP/1.1" 200 33864
+INFO 2026-01-04 19:49:49,136 basehttp 34720 43848 "GET /static/css/dist/styles.css?v=1767536387 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:49:51,629 mixins 34720 43848 Slow function: api_dashboard_recent_sessions took 1.33s
+INFO 2026-01-04 19:49:51,630 basehttp 34720 43848 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+INFO 2026-01-04 19:49:52,210 basehttp 34720 43848 "GET /static/css/dist/styles.css?v=1767536198 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:49:57,266 mixins 34720 47860 Slow function: api_dashboard_curriculum_updates took 1.95s
+INFO 2026-01-04 19:49:57,267 basehttp 34720 47860 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 19:50:01,778 mixins 34720 43848 Slow function: admin_curriculum_sessions_list took 4.00s
+INFO 2026-01-04 19:50:01,779 basehttp 34720 43848 "GET /admin/curriculum-sessions/?language=english&day_from=&day_to=&status= HTTP/1.1" 200 22077
+INFO 2026-01-04 19:50:01,830 basehttp 34720 43848 "GET /static/css/dist/styles.css?v=1767536401 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:50:17,303 mixins 34720 43848 Slow function: admin_curriculum_sessions_list took 2.78s
+INFO 2026-01-04 19:50:17,304 basehttp 34720 43848 "GET /admin/curriculum-sessions/?language=english&day_from=3&day_to=&status= HTTP/1.1" 200 22078
+INFO 2026-01-04 19:50:17,353 basehttp 34720 43848 "GET /static/css/dist/styles.css?v=1767536417 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:50:39,584 autoreload 34720 4752 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 19:50:40,874 autoreload 2148 47428 Watching for file changes with StatReloader
+INFO 2026-01-04 19:51:05,452 autoreload 2148 47428 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-04 19:51:06,910 autoreload 21680 45196 Watching for file changes with StatReloader
+INFO 2026-01-04 19:51:23,893 autoreload 21680 45196 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-04 19:51:25,148 autoreload 24744 3908 Watching for file changes with StatReloader
+INFO 2026-01-04 19:52:29,549 basehttp 24744 47232 "GET /admin/dashboard/ HTTP/1.1" 200 34653
+INFO 2026-01-04 19:52:29,609 basehttp 24744 47232 "GET /static/css/dist/styles.css?v=1767536546 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:52:29,626 basehttp 24744 47232 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 19:52:40,968 mixins 24744 47232 Slow function: api_dashboard_stats took 6.03s
+INFO 2026-01-04 19:52:40,969 basehttp 24744 47232 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 19:52:41,278 mixins 24744 44572 Slow function: admin_curriculum_sessions_list took 1.09s
+INFO 2026-01-04 19:52:41,280 basehttp 24744 44572 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 22069
+INFO 2026-01-04 19:52:47,365 basehttp 24744 44572 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+WARNING 2026-01-04 19:52:47,992 mixins 24744 47232 Slow function: api_dashboard_recent_sessions took 0.64s
+INFO 2026-01-04 19:52:47,994 basehttp 24744 47232 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 19:52:50,752 mixins 24744 10736 Slow function: api_dashboard_curriculum_updates took 1.09s
+INFO 2026-01-04 19:52:50,754 basehttp 24744 10736 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 19:52:50,887 mixins 24744 47944 Slow function: schools took 8.81s
+INFO 2026-01-04 19:52:50,888 basehttp 24744 47944 "GET /admin/schools/ HTTP/1.1" 200 27316
+INFO 2026-01-04 19:54:11,733 basehttp 24744 47944 "GET /static/css/dist/styles.css?v=1767536561 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:55:16,766 basehttp 24744 47944 "GET /admin/sessions/ HTTP/1.1" 200 33849
+INFO 2026-01-04 19:55:16,826 basehttp 24744 47944 "GET /static/css/dist/styles.css?v=1767536716 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:55:19,312 mixins 24744 10736 Slow function: api_dashboard_curriculum_updates took 0.81s
+INFO 2026-01-04 19:55:19,313 basehttp 24744 10736 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 19:55:19,775 mixins 24744 47944 Slow function: api_dashboard_recent_sessions took 1.17s
+INFO 2026-01-04 19:55:19,776 basehttp 24744 47944 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 19:58:41,468 mixins 24744 47944 Slow function: admin_curriculum_sessions_list took 13.03s
+INFO 2026-01-04 19:58:41,470 basehttp 24744 47944 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 22069
+INFO 2026-01-04 19:58:41,520 basehttp 24744 47944 "GET /static/css/dist/styles.css?v=1767536921 HTTP/1.1" 200 33131
+INFO 2026-01-04 19:58:41,529 basehttp 24744 47944 "GET /static/js/performance.js HTTP/1.1" 304 0
+INFO 2026-01-04 19:58:50,037 basehttp 24744 47944 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+WARNING 2026-01-04 19:58:59,999 mixins 24744 10736 Slow function: api_dashboard_stats took 14.34s
+INFO 2026-01-04 19:59:00,000 basehttp 24744 10736 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 19:59:09,020 mixins 24744 34916 Slow function: admin_curriculum_sessions_list took 7.81s
+INFO 2026-01-04 19:59:09,021 basehttp 24744 34916 "GET /admin/curriculum-sessions/?language=hindi&day_from=&day_to=&status= HTTP/1.1" 200 22077
+INFO 2026-01-04 19:59:09,072 basehttp 24744 34916 "GET /static/css/dist/styles.css?v=1767536949 HTTP/1.1" 200 33131
+WARNING 2026-01-04 19:59:35,840 mixins 24744 34916 Slow function: admin_curriculum_sessions_list took 7.17s
+INFO 2026-01-04 19:59:35,841 basehttp 24744 34916 "GET /admin/curriculum-sessions/?language=hindi&day_from=3&day_to=&status= HTTP/1.1" 200 22078
+INFO 2026-01-04 19:59:35,911 basehttp 24744 34916 "GET /static/css/dist/styles.css?v=1767536975 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:00:06,356 mixins 24744 15716 Slow function: schools took 61.74s
+INFO 2026-01-04 20:00:06,357 basehttp 24744 15716 "GET /admin/schools/ HTTP/1.1" 200 27316
+WARNING 2026-01-04 20:00:10,441 mixins 24744 10736 Slow function: admin_curriculum_sessions_list took 10.62s
+INFO 2026-01-04 20:00:10,443 basehttp 24744 10736 "GET /admin/curriculum-sessions/?language=hindi&day_from=3&day_to=4&status= HTTP/1.1" 200 22079
+INFO 2026-01-04 20:00:10,488 basehttp 24744 10736 "GET /static/css/dist/styles.css?v=1767537010 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:00:14,796 mixins 24744 34916 Slow function: schools took 29.24s
+INFO 2026-01-04 20:00:14,798 basehttp 24744 34916 "GET /admin/schools/ HTTP/1.1" 200 27316
+WARNING 2026-01-04 20:00:20,980 mixins 24744 47944 Slow function: schools took 14.63s
+INFO 2026-01-04 20:00:20,982 basehttp 24744 47944 "GET /admin/schools/ HTTP/1.1" 200 27316
+WARNING 2026-01-04 20:11:03,362 mixins 24744 35752 Slow function: admin_curriculum_sessions_list took 2.81s
+INFO 2026-01-04 20:11:03,364 basehttp 24744 35752 "GET /admin/curriculum-sessions/?language=english&day_from=3&day_to=4&status= HTTP/1.1" 200 27514
+INFO 2026-01-04 20:11:03,412 basehttp 24744 35752 "GET /static/css/dist/styles.css?v=1767537663 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:11:03,413 basehttp 24744 8816 "GET /static/js/performance.js HTTP/1.1" 304 0
+INFO 2026-01-04 20:11:06,685 basehttp 24744 8816 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+WARNING 2026-01-04 20:11:08,062 mixins 24744 35752 Slow function: api_dashboard_stats took 2.76s
+INFO 2026-01-04 20:11:08,064 basehttp 24744 35752 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 20:11:08,836 mixins 24744 17284 Slow function: admin_curriculum_sessions_list took 1.23s
+INFO 2026-01-04 20:11:08,838 basehttp 24744 17284 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 27504
+WARNING 2026-01-04 20:11:12,723 mixins 24744 8816 Slow function: schools took 5.43s
+INFO 2026-01-04 20:11:12,725 basehttp 24744 8816 "GET /admin/schools/ HTTP/1.1" 200 27316
+INFO 2026-01-04 20:11:24,909 basehttp 24744 8816 "GET /admin/sessions/ HTTP/1.1" 200 33849
+INFO 2026-01-04 20:11:24,954 basehttp 24744 8816 "GET /static/css/dist/styles.css?v=1767537684 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:11:26,662 basehttp 24744 35752 "GET /static/css/dist/styles.css?v=1767537668 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:11:26,753 mixins 24744 8816 Slow function: api_dashboard_recent_sessions took 0.62s
+WARNING 2026-01-04 20:11:26,754 mixins 24744 17284 Slow function: api_dashboard_curriculum_updates took 0.62s
+INFO 2026-01-04 20:11:26,757 basehttp 24744 8816 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+INFO 2026-01-04 20:11:26,757 basehttp 24744 17284 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 20:11:32,647 mixins 24744 17284 Slow function: admin_curriculum_sessions_list took 2.36s
+INFO 2026-01-04 20:11:32,649 basehttp 24744 17284 "GET /admin/curriculum-sessions/?language=hindi&day_from=&day_to=&status= HTTP/1.1" 200 27512
+INFO 2026-01-04 20:11:32,698 basehttp 24744 17284 "GET /static/css/dist/styles.css?v=1767537692 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:11:38,379 mixins 24744 17284 Slow function: admin_curriculum_sessions_list took 1.80s
+INFO 2026-01-04 20:11:38,381 basehttp 24744 17284 "GET /admin/curriculum-sessions/?language=hindi&day_from=2&day_to=&status= HTTP/1.1" 200 27513
+INFO 2026-01-04 20:11:38,432 basehttp 24744 17284 "GET /static/css/dist/styles.css?v=1767537698 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:11:42,776 mixins 24744 17284 Slow function: admin_curriculum_sessions_list took 1.37s
+INFO 2026-01-04 20:11:42,778 basehttp 24744 17284 "GET /admin/curriculum-sessions/?language=hindi&day_from=2&day_to=4&status= HTTP/1.1" 200 27514
+INFO 2026-01-04 20:11:42,828 basehttp 24744 17284 "GET /static/css/dist/styles.css?v=1767537702 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:11:51,798 mixins 24744 17284 Slow function: admin_curriculum_sessions_list took 4.41s
+INFO 2026-01-04 20:11:51,799 basehttp 24744 17284 "GET /admin/curriculum-sessions/?language=hindi&day_from=2&day_to=4&status=published HTTP/1.1" 200 27522
+INFO 2026-01-04 20:11:51,845 basehttp 24744 17284 "GET /static/css/dist/styles.css?v=1767537711 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:12:16,898 mixins 24744 17284 Slow function: admin_curriculum_sessions_list took 3.30s
+INFO 2026-01-04 20:12:16,899 basehttp 24744 17284 "GET /admin/curriculum-sessions/?language=hindi&day_from=&day_to=4&status= HTTP/1.1" 200 27513
+INFO 2026-01-04 20:12:16,958 basehttp 24744 17284 "GET /static/css/dist/styles.css?v=1767537736 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:12:27,840 mixins 24744 17284 Slow function: admin_curriculum_sessions_list took 2.46s
+INFO 2026-01-04 20:12:27,841 basehttp 24744 17284 "GET /admin/curriculum-sessions/?language=hindi&day_from=&day_to=2&status= HTTP/1.1" 200 27513
+INFO 2026-01-04 20:12:27,901 basehttp 24744 17284 "GET /static/css/dist/styles.css?v=1767537747 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:14:08,291 mixins 24744 8816 Slow function: api_dashboard_curriculum_updates took 0.62s
+INFO 2026-01-04 20:14:08,292 basehttp 24744 8816 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 20:14:08,596 mixins 24744 17284 Slow function: api_dashboard_recent_sessions took 0.92s
+INFO 2026-01-04 20:14:08,598 basehttp 24744 17284 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+INFO 2026-01-04 20:15:12,191 basehttp 24744 17284 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 27504
+INFO 2026-01-04 20:15:13,564 basehttp 24744 17284 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 27504
+INFO 2026-01-04 20:15:14,702 basehttp 24744 17284 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 27504
+WARNING 2026-01-04 20:16:03,309 mixins 24744 17284 Slow function: admin_curriculum_sessions_list took 1.86s
+INFO 2026-01-04 20:16:03,311 basehttp 24744 17284 "GET /admin/curriculum-sessions/?language=english&day_from=&day_to=&status= HTTP/1.1" 200 32123
+INFO 2026-01-04 20:16:03,361 basehttp 24744 17284 "GET /static/css/dist/styles.css?v=1767537963 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:16:08,105 mixins 24744 17284 Slow function: admin_curriculum_sessions_list took 1.74s
+INFO 2026-01-04 20:16:08,106 basehttp 24744 17284 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=&status= HTTP/1.1" 200 32118
+INFO 2026-01-04 20:16:08,150 basehttp 24744 17284 "GET /static/css/dist/styles.css?v=1767537968 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:16:08,478 basehttp 24744 35752 "GET /admin/schools/ HTTP/1.1" 200 27316
+INFO 2026-01-04 20:16:09,149 basehttp 24744 17284 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+WARNING 2026-01-04 20:16:12,405 mixins 24744 8816 Slow function: api_dashboard_stats took 3.26s
+INFO 2026-01-04 20:16:12,406 basehttp 24744 8816 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 20:16:13,436 mixins 24744 17284 Slow function: admin_curriculum_sessions_list took 1.74s
+INFO 2026-01-04 20:16:13,438 basehttp 24744 17284 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=5&status= HTTP/1.1" 200 32120
+INFO 2026-01-04 20:16:13,504 basehttp 24744 17284 "GET /static/css/dist/styles.css?v=1767537973 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:16:25,926 mixins 24744 8816 Slow function: schools took 9.22s
+INFO 2026-01-04 20:16:25,928 basehttp 24744 8816 "GET /admin/schools/ HTTP/1.1" 200 27316
+WARNING 2026-01-04 20:16:26,227 mixins 24744 17284 Slow function: schools took 10.95s
+INFO 2026-01-04 20:16:26,228 basehttp 24744 17284 - Broken pipe from ('127.0.0.1', 56556)
+WARNING 2026-01-04 20:16:33,497 mixins 24744 35752 Slow function: admin_curriculum_sessions_list took 6.96s
+INFO 2026-01-04 20:16:33,498 basehttp 24744 35752 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=10&status= HTTP/1.1" 200 32122
+INFO 2026-01-04 20:16:33,544 basehttp 24744 35752 "GET /static/css/dist/styles.css?v=1767537993 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:16:38,054 mixins 24744 35752 Slow function: admin_curriculum_sessions_list took 3.37s
+INFO 2026-01-04 20:16:38,055 basehttp 24744 35752 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 32000
+INFO 2026-01-04 20:19:11,901 basehttp 24744 35752 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 20:19:20,998 mixins 24744 35752 Slow function: admin_curriculum_sessions_list took 1.46s
+INFO 2026-01-04 20:19:21,002 basehttp 24744 35752 "GET /admin/curriculum-sessions/?language=english&day_from=31&day_to=50&status= HTTP/1.1" 200 32124
+INFO 2026-01-04 20:19:21,101 basehttp 24744 35752 "GET /static/css/dist/styles.css?v=1767538160 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:19:33,375 mixins 24744 35752 Slow function: admin_curriculum_sessions_list took 1.50s
+INFO 2026-01-04 20:19:33,377 basehttp 24744 35752 "GET /admin/curriculum-sessions/?language=english&day_from=4&day_to=4&status= HTTP/1.1" 200 35360
+INFO 2026-01-04 20:19:33,439 basehttp 24744 35752 "GET /static/css/dist/styles.css?v=1767538173 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:19:59,991 basehttp 24744 35752 "GET /admin/sessions/ HTTP/1.1" 200 33849
+INFO 2026-01-04 20:20:00,048 basehttp 24744 35752 "GET /static/css/dist/styles.css?v=1767538199 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:20:02,201 basehttp 24744 45616 "GET /static/css/dist/styles.css?v=1767537998 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:20:02,823 mixins 24744 8816 Slow function: api_dashboard_curriculum_updates took 1.49s
+INFO 2026-01-04 20:20:02,824 basehttp 24744 8816 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 20:20:03,736 mixins 24744 35752 Slow function: api_dashboard_recent_sessions took 1.53s
+INFO 2026-01-04 20:20:03,737 basehttp 24744 35752 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 20:20:08,500 mixins 24744 35752 Slow function: admin_curriculum_sessions_list took 1.34s
+INFO 2026-01-04 20:20:08,501 basehttp 24744 35752 "GET /admin/curriculum-sessions/?language=&day_from=1&day_to=10&status= HTTP/1.1" 200 36268
+INFO 2026-01-04 20:20:08,546 basehttp 24744 35752 "GET /static/css/dist/styles.css?v=1767538208 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:20:16,942 mixins 24744 35752 Slow function: admin_curriculum_sessions_list took 2.10s
+INFO 2026-01-04 20:20:16,944 basehttp 24744 35752 "GET /admin/curriculum-sessions/?language=&day_from=1&day_to=10&status=draft HTTP/1.1" 200 36276
+INFO 2026-01-04 20:20:17,002 basehttp 24744 35752 "GET /static/css/dist/styles.css?v=1767538216 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:20:48,016 mixins 24744 35752 Slow function: admin_curriculum_sessions_list took 2.92s
+INFO 2026-01-04 20:20:48,017 basehttp 24744 35752 "GET /admin/curriculum-sessions/?language=&day_from=1&day_to=&status= HTTP/1.1" 200 36264
+INFO 2026-01-04 20:20:48,064 basehttp 24744 35752 "GET /static/css/dist/styles.css?v=1767538248 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:20:56,833 mixins 24744 35752 Slow function: admin_curriculum_sessions_list took 4.15s
+INFO 2026-01-04 20:20:56,834 basehttp 24744 35752 "GET /admin/curriculum-sessions/?language=&day_from=1&day_to=1&status= HTTP/1.1" 200 36266
+INFO 2026-01-04 20:20:56,876 basehttp 24744 35752 "GET /static/css/dist/styles.css?v=1767538256 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:23:00,844 mixins 24744 45616 Slow function: admin_curriculum_sessions_list took 1.50s
+INFO 2026-01-04 20:23:00,846 basehttp 24744 45616 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 36269
+INFO 2026-01-04 20:23:00,907 basehttp 24744 45616 "GET /static/css/dist/styles.css?v=1767538380 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:23:01,913 basehttp 24744 9572 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+WARNING 2026-01-04 20:23:01,958 mixins 24744 35752 Slow function: api_dashboard_stats took 2.10s
+INFO 2026-01-04 20:23:01,959 basehttp 24744 35752 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 20:23:02,725 mixins 24744 3892 Slow function: api_dashboard_recent_sessions took 0.82s
+INFO 2026-01-04 20:23:02,727 basehttp 24744 3892 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 20:23:02,778 mixins 24744 8936 Slow function: api_dashboard_curriculum_updates took 0.82s
+INFO 2026-01-04 20:23:02,780 basehttp 24744 8936 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 20:23:08,724 mixins 24744 8816 Slow function: schools took 9.38s
+INFO 2026-01-04 20:23:08,726 basehttp 24744 8816 "GET /admin/schools/ HTTP/1.1" 200 27316
+WARNING 2026-01-04 20:23:09,486 mixins 24744 8936 Slow function: admin_curriculum_sessions_list took 2.41s
+INFO 2026-01-04 20:23:09,487 basehttp 24744 8936 "GET /admin/curriculum-sessions/?language=english&day_from=&day_to=&status= HTTP/1.1" 200 36392
+INFO 2026-01-04 20:23:09,561 basehttp 24744 8936 "GET /static/css/dist/styles.css?v=1767538389 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:23:15,742 mixins 24744 8936 Slow function: admin_curriculum_sessions_list took 2.66s
+INFO 2026-01-04 20:23:15,743 basehttp 24744 8936 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=&status= HTTP/1.1" 200 36387
+INFO 2026-01-04 20:23:15,837 basehttp 24744 8936 "GET /static/css/dist/styles.css?v=1767538395 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:23:35,459 mixins 24744 8936 Slow function: admin_curriculum_sessions_list took 2.01s
+INFO 2026-01-04 20:23:35,461 basehttp 24744 8936 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=2&status= HTTP/1.1" 200 36389
+INFO 2026-01-04 20:23:35,521 basehttp 24744 8936 "GET /static/css/dist/styles.css?v=1767538415 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:23:50,754 mixins 24744 8936 Slow function: admin_curriculum_sessions_list took 2.76s
+INFO 2026-01-04 20:23:50,756 basehttp 24744 8936 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=4&status= HTTP/1.1" 200 36389
+INFO 2026-01-04 20:23:50,805 basehttp 24744 8936 "GET /static/css/dist/styles.css?v=1767538430 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:23:56,437 mixins 24744 8936 Slow function: admin_curriculum_sessions_list took 1.54s
+INFO 2026-01-04 20:23:56,439 basehttp 24744 8936 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=10&status= HTTP/1.1" 200 36391
+INFO 2026-01-04 20:23:56,493 basehttp 24744 8936 "GET /static/css/dist/styles.css?v=1767538436 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:27:43,163 basehttp 24744 8936 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=4&status= HTTP/1.1" 200 36389
+INFO 2026-01-04 20:27:43,226 basehttp 24744 8936 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 20:27:58,775 mixins 24744 8936 Slow function: admin_curriculum_sessions_list took 1.91s
+INFO 2026-01-04 20:27:58,777 basehttp 24744 8936 "GET /admin/curriculum-sessions/?language=english&day_from=3&day_to=3&status= HTTP/1.1" 200 55962
+INFO 2026-01-04 20:27:58,852 basehttp 24744 8936 "GET /static/css/dist/styles.css?v=1767538678 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:29:27,656 basehttp 24744 8936 "GET /admin/curriculum-sessions/?language=english&day_from=3&day_to=3&status= HTTP/1.1" 200 55962
+INFO 2026-01-04 20:29:28,982 basehttp 24744 8936 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+WARNING 2026-01-04 20:29:33,185 mixins 24744 47432 Slow function: admin_curriculum_sessions_list took 1.55s
+INFO 2026-01-04 20:29:33,186 basehttp 24744 47432 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 57694
+WARNING 2026-01-04 20:29:33,845 mixins 24744 46568 Slow function: api_dashboard_stats took 2.21s
+INFO 2026-01-04 20:29:33,848 basehttp 24744 46568 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 20:29:37,464 mixins 24744 3832 Slow function: schools took 5.87s
+INFO 2026-01-04 20:29:37,466 basehttp 24744 3832 - Broken pipe from ('127.0.0.1', 52183)
+INFO 2026-01-04 20:29:37,581 basehttp 24744 47432 "GET /admin/schools/ HTTP/1.1" 200 27316
+WARNING 2026-01-04 20:29:40,785 mixins 24744 46568 Slow function: schools took 5.72s
+INFO 2026-01-04 20:29:40,786 basehttp 24744 46568 - Broken pipe from ('127.0.0.1', 50744)
+WARNING 2026-01-04 20:29:44,134 mixins 24744 47432 Slow function: admin_curriculum_sessions_list took 1.59s
+INFO 2026-01-04 20:29:44,136 basehttp 24744 47432 "GET /admin/curriculum-sessions/?language=english&day_from=1&day_to=10&status= HTTP/1.1" 200 57816
+INFO 2026-01-04 20:29:44,218 basehttp 24744 47432 "GET /static/css/dist/styles.css?v=1767538784 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:30:06,045 basehttp 24744 47432 "GET /admin/dashboard/ HTTP/1.1" 200 34653
+INFO 2026-01-04 20:30:06,134 basehttp 24744 47432 "GET /static/css/dist/styles.css?v=1767538805 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:30:23,922 basehttp 24744 47432 "GET /admin/users/ HTTP/1.1" 200 39437
+INFO 2026-01-04 20:30:23,978 basehttp 24744 47432 "GET /static/css/dist/styles.css?v=1767538818 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:30:26,136 basehttp 24744 47432 "GET /static/css/dist/styles.css?v=1767538773 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:30:30,109 basehttp 24744 47432 "GET /admin/schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/ HTTP/1.1" 200 26635
+INFO 2026-01-04 20:30:30,190 basehttp 24744 47432 "GET /static/css/dist/styles.css?v=1767538829 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:30:36,767 basehttp 24744 47432 "GET /admin/schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/classes/ HTTP/1.1" 200 17350
+INFO 2026-01-04 20:30:36,823 basehttp 24744 47432 "GET /static/css/dist/styles.css?v=1767538835 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:30:41,270 basehttp 24744 47432 "GET /admin/classes/b3072e6c-0313-488e-ab07-a3a6835225f6/attendance/ HTTP/1.1" 200 12539
+INFO 2026-01-04 20:30:41,320 basehttp 24744 47432 "GET /static/css/dist/styles.css?v=1767538840 HTTP/1.1" 200 33131
+INFO 2026-01-04 20:30:52,631 basehttp 24744 47432 "GET /admin/sessions/ HTTP/1.1" 200 33849
+INFO 2026-01-04 20:30:52,682 basehttp 24744 47432 "GET /static/css/dist/styles.css?v=1767538851 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:30:54,788 mixins 24744 8936 Slow function: api_dashboard_curriculum_updates took 0.76s
+WARNING 2026-01-04 20:30:54,788 mixins 24744 47432 Slow function: api_dashboard_recent_sessions took 0.75s
+INFO 2026-01-04 20:30:54,790 basehttp 24744 8936 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+INFO 2026-01-04 20:30:54,790 basehttp 24744 47432 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 20:31:07,950 mixins 24744 47432 Slow function: admin_curriculum_sessions_list took 1.57s
+INFO 2026-01-04 20:31:07,952 basehttp 24744 47432 "GET /admin/curriculum-sessions/?language=&day_from=4&day_to=4&status= HTTP/1.1" 200 57691
+INFO 2026-01-04 20:31:08,005 basehttp 24744 47432 "GET /static/css/dist/styles.css?v=1767538867 HTTP/1.1" 200 33131
+WARNING 2026-01-04 20:33:27,916 mixins 24744 47432 Slow function: admin_curriculum_sessions_list took 1.54s
+INFO 2026-01-04 20:33:27,917 basehttp 24744 47432 "GET /admin/curriculum-sessions/?language=&day_from=2&day_to=2&status= HTTP/1.1" 200 75998
+INFO 2026-01-04 20:33:27,964 basehttp 24744 47432 "GET /static/css/dist/styles.css?v=1767539007 HTTP/1.1" 200 33131
+ERROR 2026-01-04 20:47:05,380 log 24744 30152 Internal Server Error: /admin/curriculum-sessions/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2242, in admin_curriculum_sessions_list
+    return render(request, "admin/sessions/curriculum_list.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'start_session' with arguments '('',)' not found. 1 pattern(s) tried: ['facilitator/session/start/(?P<planned_session_id>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/\\Z']
+ERROR 2026-01-04 20:47:05,405 basehttp 24744 30152 "GET /admin/curriculum-sessions/?language=&day_from=4&day_to=4&status= HTTP/1.1" 500 210152
+ERROR 2026-01-04 20:49:22,139 log 24744 30152 Internal Server Error: /admin/curriculum-sessions/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 283, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2242, in admin_curriculum_sessions_list
+    return render(request, "admin/sessions/curriculum_list.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 135: 'endif', expected 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-04 20:49:22,150 basehttp 24744 30152 "GET /admin/curriculum-sessions/?language=&day_from=4&day_to=4&status= HTTP/1.1" 500 218638
+WARNING 2026-01-04 21:07:47,453 mixins 24744 43704 Slow function: admin_curriculum_sessions_list took 1.42s
+INFO 2026-01-04 21:07:47,454 basehttp 24744 43704 "GET /admin/curriculum-sessions/?language=&day_from=4&day_to=4&status= HTTP/1.1" 200 66731
+INFO 2026-01-04 21:07:47,571 basehttp 24744 43704 "GET /static/css/dist/styles.css?v=1767541067 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:07:47,598 basehttp 24744 43704 "GET /static/js/performance.js HTTP/1.1" 304 0
+INFO 2026-01-04 21:07:48,440 basehttp 24744 43704 "GET /static/images/wes-logo.jpg HTTP/1.1" 304 0
+WARNING 2026-01-04 21:07:51,577 mixins 24744 43704 Slow function: api_dashboard_stats took 2.26s
+INFO 2026-01-04 21:07:51,579 basehttp 24744 43704 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 21:07:52,809 mixins 24744 34820 Slow function: admin_curriculum_sessions_list took 1.49s
+INFO 2026-01-04 21:07:52,811 basehttp 24744 34820 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 66731
+WARNING 2026-01-04 21:07:59,056 mixins 24744 47564 Slow function: schools took 6.56s
+INFO 2026-01-04 21:07:59,058 basehttp 24744 47564 "GET /admin/schools/ HTTP/1.1" 200 27316
+INFO 2026-01-04 21:08:22,676 basehttp 24744 32804 "GET /admin/curriculum-sessions/?language=&day_from=4&day_to=4&status= HTTP/1.1" 200 66731
+INFO 2026-01-04 21:08:26,208 basehttp 24744 32804 "GET /admin/curriculum-sessions/?language=&day_from=4&day_to=4&status= HTTP/1.1" 200 66731
+INFO 2026-01-04 21:08:27,435 basehttp 24744 32804 "GET /admin/curriculum-sessions/?language=&day_from=4&day_to=4&status= HTTP/1.1" 200 66731
+INFO 2026-01-04 21:11:41,470 basehttp 24744 28360 "GET /admin/curriculum-sessions/?language=&day_from=4&day_to=4&status= HTTP/1.1" 200 66731
+INFO 2026-01-04 21:12:01,643 autoreload 2792 16280 Watching for file changes with StatReloader
+INFO 2026-01-04 21:12:07,544 basehttp 2792 35996 "GET /static/css/dist/styles.css?v=1767541072 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:12:22,227 mixins 2792 6536 Slow function: api_dashboard_curriculum_updates took 0.95s
+WARNING 2026-01-04 21:12:22,227 mixins 2792 35996 Slow function: api_dashboard_recent_sessions took 0.93s
+INFO 2026-01-04 21:12:22,229 basehttp 2792 6536 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+INFO 2026-01-04 21:12:22,230 basehttp 2792 35996 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+INFO 2026-01-04 21:13:00,523 basehttp 2792 35996 "GET /admin/attendance/ HTTP/1.1" 200 16385
+INFO 2026-01-04 21:13:00,580 basehttp 2792 35996 "GET /static/css/dist/styles.css?v=1767541379 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:13:03,808 mixins 2792 6536 Slow function: admin_curriculum_sessions_list took 1.75s
+INFO 2026-01-04 21:13:03,810 basehttp 2792 6536 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 17259
+WARNING 2026-01-04 21:13:04,620 mixins 2792 35996 Slow function: api_dashboard_stats took 2.56s
+INFO 2026-01-04 21:13:04,621 basehttp 2792 35996 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+INFO 2026-01-04 21:13:08,004 basehttp 2792 40436 "GET /admin/sessions/ HTTP/1.1" 200 33849
+INFO 2026-01-04 21:13:08,066 basehttp 2792 40436 "GET /static/css/dist/styles.css?v=1767541387 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:13:09,340 basehttp 2792 40436 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+INFO 2026-01-04 21:13:10,392 basehttp 2792 40436 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+WARNING 2026-01-04 21:13:12,707 mixins 2792 44716 Slow function: schools took 8.09s
+INFO 2026-01-04 21:13:12,709 basehttp 2792 44716 "GET /admin/schools/ HTTP/1.1" 200 27316
+INFO 2026-01-04 21:14:27,111 basehttp 2792 44716 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 17259
+INFO 2026-01-04 21:14:28,670 basehttp 2792 44716 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 17259
+INFO 2026-01-04 21:14:29,719 basehttp 2792 44716 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 17259
+INFO 2026-01-04 21:14:30,215 basehttp 2792 44716 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 17259
+INFO 2026-01-04 21:14:30,727 basehttp 2792 44716 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 17259
+INFO 2026-01-04 21:14:39,134 basehttp 2792 44716 "GET /admin/dashboard/ HTTP/1.1" 200 34653
+INFO 2026-01-04 21:14:39,196 basehttp 2792 44716 "GET /static/css/dist/styles.css?v=1767541478 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:14:43,164 mixins 2792 44716 Slow function: api_dashboard_recent_sessions took 0.92s
+INFO 2026-01-04 21:14:43,166 basehttp 2792 44716 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 21:14:43,849 mixins 2792 40436 Slow function: api_dashboard_curriculum_updates took 0.83s
+INFO 2026-01-04 21:14:43,850 basehttp 2792 40436 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+ERROR 2026-01-04 21:17:53,392 log 2792 40436 Internal Server Error: /facilitator/students/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 142, in dispatch
+    messages.error(request, "You do not have permission to access this page.")
+    ^^^^^^^^
+NameError: name 'messages' is not defined
+ERROR 2026-01-04 21:17:53,398 basehttp 2792 40436 "GET /facilitator/students/ HTTP/1.1" 500 79548
+INFO 2026-01-04 21:18:15,513 basehttp 2792 40436 "GET /Facilitator/classes/ HTTP/1.1" 302 0
+INFO 2026-01-04 21:18:15,525 basehttp 2792 40436 "GET /no_permission/ HTTP/1.1" 200 298
+WARNING 2026-01-04 21:18:27,061 mixins 2792 40436 Slow function: admin_curriculum_sessions_list took 1.60s
+INFO 2026-01-04 21:18:27,063 basehttp 2792 40436 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 19483
+ERROR 2026-01-04 21:19:05,138 log 2792 40436 Internal Server Error: /facilitator/students/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 142, in dispatch
+    messages.error(request, "You do not have permission to access this page.")
+    ^^^^^^^^
+NameError: name 'messages' is not defined
+ERROR 2026-01-04 21:19:05,142 basehttp 2792 40436 "GET /facilitator/students/ HTTP/1.1" 500 79793
+INFO 2026-01-04 21:21:04,681 basehttp 2792 40436 "GET /admin/users/ HTTP/1.1" 200 40368
+INFO 2026-01-04 21:21:04,703 basehttp 2792 40436 "GET /static/css/dist/styles.css?v=1767541857 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:21:04,737 basehttp 2792 40436 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 21:21:07,955 mixins 2792 40436 Slow function: api_dashboard_stats took 2.05s
+INFO 2026-01-04 21:21:07,957 basehttp 2792 40436 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 21:21:09,084 mixins 2792 20440 Slow function: admin_curriculum_sessions_list took 1.33s
+INFO 2026-01-04 21:21:09,086 basehttp 2792 20440 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 66731
+INFO 2026-01-04 21:21:15,393 basehttp 2792 20440 "GET /admin/dashboard/ HTTP/1.1" 200 34653
+INFO 2026-01-04 21:21:15,460 basehttp 2792 20440 "GET /static/css/dist/styles.css?v=1767541874 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:21:15,812 mixins 2792 41136 Slow function: schools took 6.53s
+INFO 2026-01-04 21:21:15,814 basehttp 2792 41136 "GET /admin/schools/ HTTP/1.1" 200 27316
+INFO 2026-01-04 21:21:24,855 basehttp 2792 41136 "GET /admin/users/ HTTP/1.1" 200 39437
+INFO 2026-01-04 21:21:24,927 basehttp 2792 41136 "GET /static/css/dist/styles.css?v=1767541878 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:21:31,303 basehttp 2792 41136 "GET /admin/sessions/ HTTP/1.1" 200 33849
+INFO 2026-01-04 21:21:31,353 basehttp 2792 41136 "GET /static/css/dist/styles.css?v=1767541890 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:21:32,739 basehttp 2792 41136 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17584
+WARNING 2026-01-04 21:21:33,963 mixins 2792 20440 Slow function: api_dashboard_recent_sessions took 0.61s
+INFO 2026-01-04 21:21:33,965 basehttp 2792 20440 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 21:21:34,269 mixins 2792 40436 Slow function: api_dashboard_curriculum_updates took 0.82s
+INFO 2026-01-04 21:21:34,271 basehttp 2792 40436 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+INFO 2026-01-04 21:25:20,665 basehttp 2792 40436 "GET /static/css/dist/styles.css?v=1767541869 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:25:45,790 basehttp 2792 40436 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 66731
+INFO 2026-01-04 21:25:47,066 basehttp 2792 40436 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 66731
+INFO 2026-01-04 21:25:47,439 basehttp 2792 40436 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 66731
+INFO 2026-01-04 21:25:53,435 basehttp 2792 40436 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-04 21:25:53,453 basehttp 2792 40436 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-04 21:25:53,566 basehttp 2792 40436 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-04 21:25:59,894 autoreload 2792 16280 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 21:26:01,338 autoreload 40372 47648 Watching for file changes with StatReloader
+INFO 2026-01-04 21:26:15,482 basehttp 40372 35196 "POST / HTTP/1.1" 302 0
+INFO 2026-01-04 21:26:16,591 autoreload 40372 47648 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 21:26:17,791 autoreload 8764 41616 Watching for file changes with StatReloader
+INFO 2026-01-04 21:26:25,091 basehttp 8764 47468 "GET /facilitator/dashboard/ HTTP/1.1" 200 6249
+INFO 2026-01-04 21:26:50,636 autoreload 8764 41616 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 21:26:52,241 autoreload 19648 3404 Watching for file changes with StatReloader
+INFO 2026-01-04 21:26:59,729 autoreload 19648 3404 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 21:27:01,101 autoreload 22128 2364 Watching for file changes with StatReloader
+ERROR 2026-01-04 21:27:55,224 log 22128 38008 Internal Server Error: /facilitator/students/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 145, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\list.py", line 154, in get
+    self.object_list = self.get_queryset()
+                       ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 123, in get_queryset
+    queryset = Enrollment.objects.filter(
+               ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        is_active=True,
+        ^^^^^^^^^^^^^^^
+        school__in=self.get_facilitator_schools()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).select_related('student', 'class_section', 'school').order_by('student__full_name')
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1528, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1337, in check_related_objects
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Cannot use QuerySet for "FacilitatorSchool": Use a QuerySet for "School".
+INFO 2026-01-04 21:27:55,232 basehttp 22128 38008 - Broken pipe from ('127.0.0.1', 63521)
+INFO 2026-01-04 21:28:02,085 autoreload 22128 2364 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 21:28:03,406 autoreload 39744 33112 Watching for file changes with StatReloader
+ERROR 2026-01-04 21:28:51,818 log 39744 12560 Internal Server Error: /facilitator/students/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 145, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\list.py", line 154, in get
+    self.object_list = self.get_queryset()
+                       ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 123, in get_queryset
+    queryset = Enrollment.objects.filter(
+               ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        is_active=True,
+        ^^^^^^^^^^^^^^^
+        school__in=self.get_facilitator_schools()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).select_related('student', 'class_section', 'school').order_by('student__full_name')
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1528, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1337, in check_related_objects
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Cannot use QuerySet for "FacilitatorSchool": Use a QuerySet for "School".
+INFO 2026-01-04 21:28:51,828 basehttp 39744 12560 - Broken pipe from ('127.0.0.1', 61041)
+INFO 2026-01-04 21:29:03,223 autoreload 5108 6756 Watching for file changes with StatReloader
+INFO 2026-01-04 21:29:40,028 basehttp 5108 48100 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-04 21:29:40,043 basehttp 5108 48100 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-04 21:29:47,534 basehttp 5108 48100 "POST / HTTP/1.1" 302 0
+INFO 2026-01-04 21:29:48,414 basehttp 5108 48100 "GET /facilitator/dashboard/ HTTP/1.1" 200 6349
+ERROR 2026-01-04 21:29:56,635 log 5108 26880 Internal Server Error: /facilitator/students/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 145, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\list.py", line 154, in get
+    self.object_list = self.get_queryset()
+                       ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 123, in get_queryset
+    queryset = Enrollment.objects.filter(
+               ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        is_active=True,
+        ^^^^^^^^^^^^^^^
+        school__in=self.get_facilitator_schools()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).select_related('student', 'class_section', 'school').order_by('student__full_name')
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1528, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1337, in check_related_objects
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Cannot use QuerySet for "FacilitatorSchool": Use a QuerySet for "School".
+INFO 2026-01-04 21:29:56,645 basehttp 5108 26880 - Broken pipe from ('127.0.0.1', 54845)
+ERROR 2026-01-04 21:30:13,215 log 5108 14956 Internal Server Error: /facilitator/students/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 145, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\list.py", line 154, in get
+    self.object_list = self.get_queryset()
+                       ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 123, in get_queryset
+    queryset = Enrollment.objects.filter(
+               ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        is_active=True,
+        ^^^^^^^^^^^^^^^
+        school__in=self.get_facilitator_schools()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).select_related('student', 'class_section', 'school').order_by('student__full_name')
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1528, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1337, in check_related_objects
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Cannot use QuerySet for "FacilitatorSchool": Use a QuerySet for "School".
+INFO 2026-01-04 21:30:13,225 basehttp 5108 14956 - Broken pipe from ('127.0.0.1', 58930)
+ERROR 2026-01-04 21:30:38,314 log 5108 48100 Internal Server Error: /facilitator/students/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 145, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\list.py", line 154, in get
+    self.object_list = self.get_queryset()
+                       ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 123, in get_queryset
+    queryset = Enrollment.objects.filter(
+               ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        is_active=True,
+        ^^^^^^^^^^^^^^^
+        school__in=self.get_facilitator_schools()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).select_related('student', 'class_section', 'school').order_by('student__full_name')
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1528, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1337, in check_related_objects
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Cannot use QuerySet for "FacilitatorSchool": Use a QuerySet for "School".
+ERROR 2026-01-04 21:30:38,322 basehttp 5108 48100 "GET /facilitator/students/ HTTP/1.1" 500 136632
+INFO 2026-01-04 21:30:46,851 autoreload 5108 6756 C:\Users\piyus\CLAS\CLAS\class\mixins.py changed, reloading.
+INFO 2026-01-04 21:30:48,219 autoreload 35048 38012 Watching for file changes with StatReloader
+INFO 2026-01-04 21:30:56,916 autoreload 35048 38012 C:\Users\piyus\CLAS\CLAS\class\mixins.py changed, reloading.
+INFO 2026-01-04 21:30:58,292 autoreload 22120 13220 Watching for file changes with StatReloader
+INFO 2026-01-04 21:31:07,417 autoreload 22120 13220 C:\Users\piyus\CLAS\CLAS\class\mixins.py changed, reloading.
+INFO 2026-01-04 21:31:08,534 autoreload 43920 45672 Watching for file changes with StatReloader
+INFO 2026-01-04 21:31:17,992 autoreload 43920 45672 C:\Users\piyus\CLAS\CLAS\class\mixins.py changed, reloading.
+INFO 2026-01-04 21:31:19,342 autoreload 24072 3088 Watching for file changes with StatReloader
+INFO 2026-01-04 21:31:30,768 autoreload 24072 3088 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-04 21:31:32,005 autoreload 35284 16536 Watching for file changes with StatReloader
+INFO 2026-01-04 21:31:41,484 basehttp 35284 21376 "GET /facilitator/students/ HTTP/1.1" 200 27988
+INFO 2026-01-04 21:32:00,805 basehttp 35284 21376 "GET /Facilitator/classes/ HTTP/1.1" 200 7167
+INFO 2026-01-04 21:32:12,686 basehttp 35284 21376 "GET /facilitator/my-schools/ HTTP/1.1" 200 9674
+INFO 2026-01-04 21:32:24,057 basehttp 35284 21376 "GET /facilitator/my-schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/ HTTP/1.1" 200 15579
+INFO 2026-01-04 21:32:35,108 basehttp 35284 21376 "GET /facilitator/students/?class=b3072e6c-0313-488e-ab07-a3a6835225f6 HTTP/1.1" 200 25257
+INFO 2026-01-04 21:33:09,415 basehttp 35284 21376 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/ HTTP/1.1" 200 22225
+INFO 2026-01-04 21:33:10,745 basehttp 35284 21376 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14103
+WARNING 2026-01-04 21:33:10,783 log 35284 21376 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:33:10,784 basehttp 35284 21376 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26066
+INFO 2026-01-04 21:33:14,560 basehttp 35284 45712 "GET /api/curriculum/content/?day=2&language=hindi HTTP/1.1" 200 22713
+INFO 2026-01-04 21:33:14,560 basehttp 35284 14816 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 14308
+INFO 2026-01-04 21:35:37,160 basehttp 35284 14816 "GET /curriculum/hindi/ HTTP/1.1" 200 16257
+INFO 2026-01-04 21:35:38,703 basehttp 35284 14816 "GET /api/curriculum/content/?day=1&language=hindi HTTP/1.1" 200 22777
+WARNING 2026-01-04 21:35:38,739 log 35284 14816 Not Found: /curriculum/hindi/resources/cellImage_717991741_0.jpg
+WARNING 2026-01-04 21:35:38,740 basehttp 35284 14816 "GET /curriculum/hindi/resources/cellImage_717991741_0.jpg HTTP/1.1" 404 25919
+WARNING 2026-01-04 21:35:48,803 log 35284 14816 Not Found: /curriculum/hindi/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-04 21:35:48,804 basehttp 35284 14816 "GET /curriculum/hindi/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 25919
+INFO 2026-01-04 21:35:53,963 basehttp 35284 14816 "GET /api/curriculum/content/?day=3&language=hindi HTTP/1.1" 200 21935
+WARNING 2026-01-04 21:35:53,997 log 35284 14816 Not Found: /curriculum/hindi/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-04 21:35:53,998 basehttp 35284 14816 "GET /curriculum/hindi/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 25919
+WARNING 2026-01-04 21:36:08,821 log 35284 14816 Not Found: /curriculum/hindi/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-04 21:36:08,822 basehttp 35284 14816 "GET /curriculum/hindi/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 25919
+WARNING 2026-01-04 21:36:09,782 log 35284 14816 Not Found: /curriculum/hindi/resources/cellImage_717991741_0.jpg
+WARNING 2026-01-04 21:36:09,784 basehttp 35284 14816 "GET /curriculum/hindi/resources/cellImage_717991741_0.jpg HTTP/1.1" 404 25919
+WARNING 2026-01-04 21:36:10,658 log 35284 14816 Not Found: /curriculum/hindi/resources/cellImage_717991741_0.jpg
+WARNING 2026-01-04 21:36:10,659 basehttp 35284 14816 "GET /curriculum/hindi/resources/cellImage_717991741_0.jpg HTTP/1.1" 404 25919
+WARNING 2026-01-04 21:36:16,416 log 35284 14816 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_0.jpg
+WARNING 2026-01-04 21:36:16,418 basehttp 35284 14816 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_0.jpg HTTP/1.1" 404 26066
+WARNING 2026-01-04 21:36:21,140 log 35284 14816 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:36:21,142 basehttp 35284 14816 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26066
+INFO 2026-01-04 21:36:55,578 autoreload 35284 16536 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 21:36:57,102 autoreload 42632 3088 Watching for file changes with StatReloader
+INFO 2026-01-04 21:37:30,294 autoreload 42632 3088 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-04 21:37:31,536 autoreload 47716 46380 Watching for file changes with StatReloader
+INFO 2026-01-04 21:38:31,687 basehttp 47716 31276 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/?language=english HTTP/1.1" 200 21976
+INFO 2026-01-04 21:38:32,939 basehttp 47716 31276 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14103
+WARNING 2026-01-04 21:38:32,959 log 47716 31276 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:38:32,960 basehttp 47716 31276 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26066
+INFO 2026-01-04 21:38:35,941 basehttp 47716 47788 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 14308
+INFO 2026-01-04 21:38:36,457 basehttp 47716 28620 "GET /api/curriculum/content/?day=2&language=hindi HTTP/1.1" 200 22713
+INFO 2026-01-04 21:38:43,824 basehttp 47716 28620 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-04 21:38:43,835 basehttp 47716 28620 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-04 21:39:01,943 basehttp 47716 28620 "POST / HTTP/1.1" 302 0
+INFO 2026-01-04 21:39:06,453 basehttp 47716 28620 "GET /admin/dashboard/ HTTP/1.1" 200 37765
+INFO 2026-01-04 21:39:06,538 basehttp 47716 28620 "GET /static/css/dist/styles.css?v=1767542945 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:39:06,556 basehttp 47716 28620 "GET /static/js/performance.js HTTP/1.1" 304 0
+ERROR 2026-01-04 21:39:09,596 log 47716 31276 Internal Server Error: /admin/curriculum-sessions/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 310, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2279, in admin_curriculum_sessions_list
+    return render(request, "admin/sessions/curriculum_list.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'admin_curriculum_session_edit' with arguments '('SESSION_ID',)' not found. 1 pattern(s) tried: ['admin/curriculum\\-sessions/(?P<session_id>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/edit/\\Z']
+ERROR 2026-01-04 21:39:09,608 basehttp 47716 31276 "GET /admin/curriculum-sessions/ HTTP/1.1" 500 208667
+WARNING 2026-01-04 21:39:10,298 mixins 47716 28620 Slow function: api_dashboard_stats took 2.45s
+INFO 2026-01-04 21:39:10,300 basehttp 47716 28620 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 21:39:16,281 mixins 47716 47788 Slow function: schools took 8.43s
+INFO 2026-01-04 21:39:16,286 basehttp 47716 47788 "GET /admin/schools/ HTTP/1.1" 200 27749
+ERROR 2026-01-04 21:39:34,759 log 47716 47788 Internal Server Error: /admin/curriculum-sessions/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 310, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2279, in admin_curriculum_sessions_list
+    return render(request, "admin/sessions/curriculum_list.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'admin_curriculum_session_edit' with arguments '('SESSION_ID',)' not found. 1 pattern(s) tried: ['admin/curriculum\\-sessions/(?P<session_id>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/edit/\\Z']
+ERROR 2026-01-04 21:39:34,766 basehttp 47716 47788 "GET /admin/curriculum-sessions/ HTTP/1.1" 500 208808
+WARNING 2026-01-04 21:40:35,353 mixins 47716 47788 Slow function: admin_curriculum_sessions_list took 1.46s
+INFO 2026-01-04 21:40:35,355 basehttp 47716 47788 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 85357
+INFO 2026-01-04 21:40:35,477 basehttp 47716 47788 "GET /static/css/dist/styles.css?v=1767543035 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:40:36,562 basehttp 47716 47788 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14103
+WARNING 2026-01-04 21:40:36,578 log 47716 47788 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:40:36,579 basehttp 47716 47788 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:40:37,798 basehttp 47716 28620 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 14308
+INFO 2026-01-04 21:40:37,798 basehttp 47716 31276 "GET /api/curriculum/content/?day=2&language=hindi HTTP/1.1" 200 22713
+WARNING 2026-01-04 21:40:59,272 log 47716 31276 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-04 21:40:59,273 basehttp 47716 31276 "GET /admin/curriculum-sessions/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:41:03,899 basehttp 47716 31276 "GET /api/curriculum/content/?day=3&language=english HTTP/1.1" 200 14227
+WARNING 2026-01-04 21:41:03,918 log 47716 31276 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-04 21:41:03,919 basehttp 47716 31276 "GET /admin/curriculum-sessions/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:41:05,948 basehttp 47716 31276 "GET /api/curriculum/content/?day=4&language=english HTTP/1.1" 200 14421
+WARNING 2026-01-04 21:41:05,969 log 47716 31276 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-04 21:41:05,971 basehttp 47716 31276 "GET /admin/curriculum-sessions/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:41:10,254 basehttp 47716 31276 "GET /api/curriculum/content/?day=4&language=hindi HTTP/1.1" 200 21990
+WARNING 2026-01-04 21:41:10,275 log 47716 31276 Not Found: /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-04 21:41:10,276 basehttp 47716 31276 "GET /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:41:18,619 basehttp 47716 31276 "GET /api/curriculum/content/?day=120&language=hindi HTTP/1.1" 200 25456
+WARNING 2026-01-04 21:41:18,635 log 47716 31276 Not Found: /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-04 21:41:18,637 basehttp 47716 31276 "GET /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:43:28,836 mixins 47716 31276 Slow function: admin_curriculum_sessions_list took 1.66s
+INFO 2026-01-04 21:43:28,839 basehttp 47716 31276 "GET /admin/curriculum-sessions/?day=120&language=hindi HTTP/1.1" 200 85357
+INFO 2026-01-04 21:43:28,921 basehttp 47716 31276 "GET /static/css/dist/styles.css?v=1767543208 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:43:29,388 log 47716 31276 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:43:29,396 log 47716 28620 Not Found: /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-04 21:43:29,397 basehttp 47716 31276 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:43:29,397 basehttp 47716 28620 "GET /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:43:30,964 basehttp 47716 47788 "GET /api/curriculum/content/?day=121&language=english HTTP/1.1" 200 14502
+INFO 2026-01-04 21:43:31,145 basehttp 47716 31276 "GET /api/curriculum/content/?day=119&language=hindi HTTP/1.1" 200 22837
+INFO 2026-01-04 21:43:31,195 basehttp 47716 28620 "GET /api/curriculum/content/?day=119&language=english HTTP/1.1" 200 14464
+INFO 2026-01-04 21:43:33,406 basehttp 47716 21488 "GET /api/curriculum/content/?day=121&language=hindi HTTP/1.1" 200 22960
+INFO 2026-01-04 21:45:25,371 basehttp 47716 21488 "GET /admin/curriculum-sessions/?day=120&language=hindi HTTP/1.1" 200 85357
+WARNING 2026-01-04 21:45:26,254 log 47716 28620 Not Found: /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-04 21:45:26,263 log 47716 21488 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:45:26,265 basehttp 47716 28620 "GET /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:45:26,266 basehttp 47716 21488 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:45:29,814 mixins 47716 21488 Slow function: api_dashboard_stats took 2.56s
+INFO 2026-01-04 21:45:29,816 basehttp 47716 21488 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 21:45:34,320 mixins 47716 28620 Slow function: schools took 7.06s
+INFO 2026-01-04 21:45:34,321 basehttp 47716 28620 "GET /admin/schools/ HTTP/1.1" 200 27749
+INFO 2026-01-04 21:45:53,334 basehttp 47716 28620 "GET /static/css/dist/styles.css?v=1767543328 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:45:56,133 mixins 47716 28620 Slow function: admin_curriculum_sessions_list took 1.64s
+INFO 2026-01-04 21:45:56,135 basehttp 47716 28620 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 84211
+INFO 2026-01-04 21:45:57,466 basehttp 47716 21488 "GET /admin/schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/ HTTP/1.1" 200 27068
+INFO 2026-01-04 21:45:57,548 basehttp 47716 21488 "GET /static/css/dist/styles.css?v=1767543356 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:46:02,688 basehttp 47716 21488 "GET /admin/schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/students/ HTTP/1.1" 200 22840
+INFO 2026-01-04 21:46:02,754 basehttp 47716 21488 "GET /static/css/dist/styles.css?v=1767543361 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:46:08,725 basehttp 47716 21488 "GET /admin/attendance/ HTTP/1.1" 200 16818
+INFO 2026-01-04 21:46:08,788 basehttp 47716 21488 "GET /static/css/dist/styles.css?v=1767543368 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:46:22,858 basehttp 47716 21488 - Broken pipe from ('127.0.0.1', 56465)
+INFO 2026-01-04 21:46:24,222 basehttp 47716 28620 "GET /admin/attendance/?school=64ba8ff6-3870-4f64-b602-24b168f5d43c&class_section=b3072e6c-0313-488e-ab07-a3a6835225f6 HTTP/1.1" 200 30713
+INFO 2026-01-04 21:46:24,288 basehttp 47716 28620 "GET /static/css/dist/styles.css?v=1767543383 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:46:32,999 basehttp 47716 28620 "GET /admin/sessions/ HTTP/1.1" 200 34286
+INFO 2026-01-04 21:46:33,062 basehttp 47716 28620 "GET /static/css/dist/styles.css?v=1767543392 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:46:34,281 basehttp 47716 28620 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 18041
+WARNING 2026-01-04 21:46:35,242 mixins 47716 47788 Slow function: api_dashboard_curriculum_updates took 0.91s
+WARNING 2026-01-04 21:46:35,243 mixins 47716 31276 Slow function: api_dashboard_recent_sessions took 0.95s
+INFO 2026-01-04 21:46:35,245 basehttp 47716 47788 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+INFO 2026-01-04 21:46:35,245 basehttp 47716 31276 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+ERROR 2026-01-04 21:46:40,104 log 47716 31276 Internal Server Error: /admin/curriculum-sessions/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 310, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2279, in admin_curriculum_sessions_list
+    return render(request, "admin/sessions/curriculum_list.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 1568: 'endblock', expected 'elif', 'else' or 'endif'. Did you forget to register or load this tag?
+ERROR 2026-01-04 21:46:40,118 basehttp 47716 31276 "GET /admin/curriculum-sessions/?v=1 HTTP/1.1" 500 225193
+INFO 2026-01-04 21:47:15,639 basehttp 47716 31276 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14103
+WARNING 2026-01-04 21:47:15,658 log 47716 31276 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:47:15,659 basehttp 47716 31276 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:47:16,507 basehttp 47716 47788 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 14308
+INFO 2026-01-04 21:47:16,523 basehttp 47716 28620 "GET /api/curriculum/content/?day=2&language=hindi HTTP/1.1" 200 22713
+WARNING 2026-01-04 21:47:19,800 log 47716 28620 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:47:19,801 basehttp 47716 28620 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:47:26,959 mixins 47716 28620 Slow function: admin_curriculum_sessions_list took 1.43s
+INFO 2026-01-04 21:47:26,960 basehttp 47716 28620 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 33290
+INFO 2026-01-04 21:47:27,037 basehttp 47716 28620 "GET /static/css/dist/styles.css?v=1767543446 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:47:27,351 log 47716 28620 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:47:27,352 basehttp 47716 28620 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:50:26,764 log 47716 28620 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:50:26,765 basehttp 47716 28620 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:50:28,889 log 47716 31276 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:50:28,890 basehttp 47716 31276 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:50:32,901 mixins 47716 28620 Slow function: api_dashboard_stats took 2.77s
+INFO 2026-01-04 21:50:32,909 basehttp 47716 28620 - Broken pipe from ('127.0.0.1', 49671)
+INFO 2026-01-04 21:50:32,910 basehttp 47716 31276 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 21:50:35,670 mixins 47716 31276 Slow function: admin_curriculum_sessions_list took 1.33s
+INFO 2026-01-04 21:50:35,673 basehttp 47716 31276 "GET /admin/curriculum-sessions/?v=1 HTTP/1.1" 200 32975
+INFO 2026-01-04 21:50:35,743 basehttp 47716 31276 "GET /static/css/dist/styles.css?v=1767543635 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:50:36,064 log 47716 31276 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:50:36,066 basehttp 47716 31276 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:50:36,077 mixins 47716 39564 Slow function: api_dashboard_recent_sessions took 0.69s
+INFO 2026-01-04 21:50:36,079 basehttp 47716 39564 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 21:50:36,279 mixins 47716 16072 Slow function: api_dashboard_curriculum_updates took 0.71s
+INFO 2026-01-04 21:50:36,281 basehttp 47716 16072 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 21:50:36,834 mixins 47716 47788 Slow function: schools took 6.70s
+INFO 2026-01-04 21:50:36,835 basehttp 47716 47788 - Broken pipe from ('127.0.0.1', 50387)
+WARNING 2026-01-04 21:50:37,816 mixins 47716 20692 Slow function: schools took 5.32s
+INFO 2026-01-04 21:50:37,817 basehttp 47716 20692 "GET /admin/schools/ HTTP/1.1" 200 27749
+WARNING 2026-01-04 21:50:56,033 log 47716 20692 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:50:56,034 basehttp 47716 20692 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:50:59,052 log 47716 20692 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:50:59,053 basehttp 47716 20692 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:51:35,881 mixins 47716 20692 Slow function: admin_curriculum_sessions_list took 1.65s
+INFO 2026-01-04 21:51:35,883 basehttp 47716 20692 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 32975
+INFO 2026-01-04 21:51:35,949 basehttp 47716 20692 "GET /static/css/dist/styles.css?v=1767543695 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:51:36,291 log 47716 20692 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:51:36,293 basehttp 47716 20692 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:51:45,518 basehttp 47716 20692 "GET /admin/sessions/ HTTP/1.1" 200 34286
+INFO 2026-01-04 21:51:45,588 basehttp 47716 20692 "GET /static/css/dist/styles.css?v=1767543705 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:51:47,068 basehttp 47716 20692 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 18041
+WARNING 2026-01-04 21:51:51,438 mixins 47716 20692 Slow function: ajax_school_classes_admin took 0.92s
+INFO 2026-01-04 21:51:51,440 basehttp 47716 20692 "GET /api/school-classes/?school_id=64ba8ff6-3870-4f64-b602-24b168f5d43c HTTP/1.1" 200 183
+INFO 2026-01-04 21:51:55,591 basehttp 47716 20692 "GET /admin/sessions/?school=64ba8ff6-3870-4f64-b602-24b168f5d43c&class=b3072e6c-0313-488e-ab07-a3a6835225f6 HTTP/1.1" 302 0
+INFO 2026-01-04 21:51:59,239 basehttp 47716 20692 "GET /admin/classes/b3072e6c-0313-488e-ab07-a3a6835225f6/sessions/ HTTP/1.1" 200 18197
+INFO 2026-01-04 21:51:59,305 basehttp 47716 20692 "GET /static/css/dist/styles.css?v=1767543718 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:52:13,232 log 47716 20692 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:52:13,233 basehttp 47716 20692 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:53:04,207 mixins 47716 20692 Slow function: admin_curriculum_sessions_list took 1.62s
+INFO 2026-01-04 21:53:04,210 basehttp 47716 20692 "GET /admin/curriculum-sessions/?v=1 HTTP/1.1" 200 32761
+INFO 2026-01-04 21:53:04,267 basehttp 47716 20692 "GET /static/css/dist/styles.css?v=1767543784 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:53:05,579 basehttp 47716 20692 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14103
+WARNING 2026-01-04 21:53:05,619 log 47716 20692 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:53:05,621 basehttp 47716 20692 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:53:06,297 basehttp 47716 39564 "GET /api/curriculum/content/?day=2&language=hindi HTTP/1.1" 200 22713
+INFO 2026-01-04 21:53:06,499 basehttp 47716 16072 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 14308
+WARNING 2026-01-04 21:53:12,250 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:53:12,251 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:53:19,805 mixins 47716 16072 Slow function: admin_curriculum_sessions_list took 1.74s
+INFO 2026-01-04 21:53:19,807 basehttp 47716 16072 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 32761
+INFO 2026-01-04 21:53:19,882 basehttp 47716 16072 "GET /static/css/dist/styles.css?v=1767543799 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:53:20,256 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:53:20,258 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:53:34,813 mixins 47716 39564 Slow function: api_dashboard_curriculum_updates took 0.67s
+INFO 2026-01-04 21:53:34,814 basehttp 47716 39564 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 21:53:34,824 log 47716 39564 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:53:34,825 basehttp 47716 39564 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:53:34,958 mixins 47716 16072 Slow function: api_dashboard_recent_sessions took 0.82s
+INFO 2026-01-04 21:53:34,959 basehttp 47716 16072 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 21:53:37,182 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:53:37,183 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:56:12,404 basehttp 47716 16072 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-04 21:56:12,733 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:56:12,735 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:56:14,865 log 47716 20692 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:56:14,867 basehttp 47716 20692 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:56:17,269 mixins 47716 16072 Slow function: api_dashboard_stats took 3.49s
+INFO 2026-01-04 21:56:17,271 basehttp 47716 16072 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-04 21:56:17,864 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:56:17,865 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:56:19,270 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:56:19,271 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:56:20,473 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:56:20,475 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:56:20,840 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:56:20,840 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:56:21,020 mixins 47716 39564 Slow function: schools took 7.24s
+INFO 2026-01-04 21:56:21,021 basehttp 47716 39564 "GET /admin/schools/ HTTP/1.1" 200 27410
+WARNING 2026-01-04 21:56:23,716 log 47716 39564 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:56:23,717 basehttp 47716 39564 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:56:34,052 basehttp 47716 39564 "GET /admin/dashboard/ HTTP/1.1" 200 34747
+INFO 2026-01-04 21:56:34,127 basehttp 47716 39564 "GET /static/css/dist/styles.css?v=1767543991 HTTP/1.1" 200 33131
+WARNING 2026-01-04 21:56:38,424 mixins 47716 39564 Slow function: api_dashboard_recent_sessions took 0.79s
+WARNING 2026-01-04 21:56:38,426 mixins 47716 16072 Slow function: api_dashboard_curriculum_updates took 0.79s
+INFO 2026-01-04 21:56:38,428 basehttp 47716 39564 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+INFO 2026-01-04 21:56:38,428 basehttp 47716 16072 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+WARNING 2026-01-04 21:56:38,715 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:56:38,717 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:57:04,363 basehttp 47716 16072 "GET /admin/sessions/ HTTP/1.1" 200 33947
+INFO 2026-01-04 21:57:04,436 basehttp 47716 16072 "GET /static/css/dist/styles.css?v=1767544023 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:57:06,148 basehttp 47716 16072 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 17678
+WARNING 2026-01-04 21:57:06,869 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:57:06,870 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:57:19,951 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:57:19,952 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:57:23,532 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:57:23,533 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 21:58:10,002 mixins 47716 16072 Slow function: admin_curriculum_sessions_list took 1.95s
+INFO 2026-01-04 21:58:10,003 basehttp 47716 16072 "GET /admin/curriculum-sessions/?v=1 HTTP/1.1" 200 32761
+INFO 2026-01-04 21:58:10,062 basehttp 47716 16072 "GET /static/css/dist/styles.css?v=1767544089 HTTP/1.1" 200 33131
+INFO 2026-01-04 21:58:11,434 basehttp 47716 16072 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14103
+WARNING 2026-01-04 21:58:11,452 log 47716 16072 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:58:11,453 basehttp 47716 16072 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:58:12,263 basehttp 47716 20692 "GET /api/curriculum/content/?day=2&language=hindi HTTP/1.1" 200 22713
+INFO 2026-01-04 21:58:12,263 basehttp 47716 39564 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 14308
+WARNING 2026-01-04 21:58:21,999 mixins 47716 20692 Slow function: admin_curriculum_sessions_list took 1.64s
+INFO 2026-01-04 21:58:22,001 basehttp 47716 20692 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 32761
+WARNING 2026-01-04 21:58:27,197 log 47716 20692 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:58:27,198 basehttp 47716 20692 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 21:59:31,634 autoreload 32400 25840 Watching for file changes with StatReloader
+WARNING 2026-01-04 21:59:44,514 mixins 32400 17788 Slow function: api_dashboard_curriculum_updates took 0.80s
+WARNING 2026-01-04 21:59:44,514 mixins 32400 32108 Slow function: api_dashboard_recent_sessions took 0.93s
+INFO 2026-01-04 21:59:44,517 basehttp 32400 17788 "GET /api/dashboard/curriculum-updates/?limit=5 HTTP/1.1" 200 79
+INFO 2026-01-04 21:59:44,517 basehttp 32400 32108 "GET /api/dashboard/recent-sessions/?limit=5 HTTP/1.1" 200 80
+WARNING 2026-01-04 21:59:47,455 log 32400 32108 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 21:59:47,456 basehttp 32400 32108 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 22:00:03,433 log 32400 32108 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 22:00:03,434 basehttp 32400 32108 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 22:00:06,430 basehttp 32400 32108 "GET /api/curriculum/content/?day=73&language=english HTTP/1.1" 200 14453
+WARNING 2026-01-04 22:00:06,450 log 32400 32108 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-04 22:00:06,451 basehttp 32400 32108 "GET /admin/curriculum-sessions/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 25946
+INFO 2026-01-04 22:00:14,216 basehttp 32400 32108 "GET /api/curriculum/content/?day=73&language=hindi HTTP/1.1" 200 22863
+WARNING 2026-01-04 22:00:14,238 log 32400 32108 Not Found: /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-04 22:00:14,239 basehttp 32400 32108 "GET /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 25946
+WARNING 2026-01-04 22:00:31,634 log 32400 32108 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-04 22:00:31,635 basehttp 32400 32108 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946

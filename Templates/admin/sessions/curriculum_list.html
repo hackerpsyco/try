@@ -1,0 +1,451 @@
+{% extends "admin/shared/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+/* Only keeping curriculum table styles that require exact color matching */
+.curriculum-table td {
+  border: 1px solid #dee2e6;
+}
+.curriculum-table .s0 {
+  background-color: #d9ead3 !important;
+}
+.curriculum-table .s1 {
+  background-color: #d9ead3 !important;
+}
+.curriculum-table .s4 {
+  background-color: #ffffff !important;
+}
+.curriculum-table .s7 {
+  background-color: #fde49a !important;
+}
+.curriculum-table .s11 {
+  background-color: #d9f1f3 !important;
+}
+.curriculum-table .s21 {
+  background-color: #fef1cc !important;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div><a href="{% url 'admin_sessions_filter' %}" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium">
+            <span class="material-symbols-outlined text-lg mr-1">arrow_back</span>
+            Back to List
+        </a>
+</div>
+<div class="max-w-full mx-auto px-4">
+    <!-- Header -->
+    <div class="mb-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h4 class="text-2xl font-bold mb-1 text-gray-900">Admin Curriculum Management</h4>
+                <h5 class="text-lg text-gray-600">Master Curriculum Sessions (Days 1-150)</h5>
+            </div>
+            <div class="flex gap-2">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-600 text-white">
+                    Day <span id="currentDayBadge" class="ml-1">1</span>
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-cyan-500 text-white">Admin View</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Selector -->
+    <div class="mb-6">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div class="p-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <h6 class="text-base font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-language mr-2 text-gray-600"></i>
+                        Select Curriculum Language
+                    </h6>
+                    <div class="flex rounded-lg border border-gray-300 overflow-hidden" id="languageSelector">
+                        <input type="radio" class="hidden peer/english" name="language" id="englishBtn" value="english" checked>
+                        <label for="englishBtn" class="flex items-center px-4 py-2 cursor-pointer bg-white text-gray-700 border-r border-gray-300 hover:bg-gray-50 peer-checked/english:bg-blue-600 peer-checked/english:text-white peer-checked/english:border-blue-600 transition-colors">
+                            <i class="fas fa-globe mr-2"></i>English
+                        </label>
+                        
+                        <input type="radio" class="hidden peer/hindi" name="language" id="hindiBtn" value="hindi">
+                        <label for="hindiBtn" class="flex items-center px-4 py-2 cursor-pointer bg-white text-gray-700 hover:bg-gray-50 peer-checked/hindi:bg-blue-600 peer-checked/hindi:text-white transition-colors">
+                            <i class="fas fa-language mr-2"></i>हिंदी (Hindi)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day Navigator -->
+    <div class="mb-6">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div class="p-4">
+                <h6 class="text-base font-semibold text-gray-900 mb-3">Quick Day Navigation</h6>
+                <div id="dayNavigator" class="flex flex-wrap gap-1 max-h-40 overflow-y-auto">
+                    <!-- Days will be loaded here via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Actions -->
+    <div class="mb-6">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div class="p-4">
+                <h6 class="text-base font-semibold text-gray-900 mb-3">Admin Actions</h6>
+                <div class="flex flex-wrap gap-2">
+                    <a href="{% url 'admin_curriculum_session_create' %}" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700 transition-colors">
+                        <i class="fas fa-plus mr-2"></i> Create New Session
+                    </a>
+                    <button onclick="refreshCurriculumData()" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-blue-700 bg-white border border-blue-700 hover:bg-blue-50 transition-colors">
+                        <i class="fas fa-sync-alt mr-2"></i> Refresh Data
+                    </button>
+                    <button onclick="exportCurriculumData()" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-cyan-700 bg-white border border-cyan-700 hover:bg-cyan-50 transition-colors">
+                        <i class="fas fa-download mr-2"></i> Export Data
+                    </button>
+                    <a href="{% url 'admin_sessions_filter' %}" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i> Back to Sessions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Curriculum Content -->
+    <div class="mb-6">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div class="px-4 py-3 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <h6 class="text-base font-semibold text-gray-900" id="curriculumTitle">Day 1 - English Curriculum Content</h6>
+                <div class="flex rounded-md shadow-sm">
+                    <button onclick="adminCurriculumNav.navigateToDay(adminCurriculumNav.currentDay - 1)" id="prevDayBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                        <i class="fas fa-chevron-left mr-1"></i> Previous
+                    </button>
+                    <button onclick="adminCurriculumNav.navigateToDay(adminCurriculumNav.currentDay + 1)" id="nextDayBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border-l-0 border border-gray-300 rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                        Next <i class="fas fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-0">
+                <!-- Curriculum content will be loaded here -->
+                <div id="curriculumContent" class="min-h-[400px] bg-gray-50">
+                    <div class="text-center p-8">
+                        <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-blue-600"></div>
+                        <p class="mt-4 text-gray-600">Loading Day 1 content...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Admin Curriculum Data for JavaScript -->
+<script id="adminCurriculumData" type="application/json">
+{
+    "currentDay": 1,
+    "totalDays": 150,
+    "curriculumUrl": "{% url 'curriculum_content_api' %}",
+    "currentLanguage": "english",
+    "sessionsData": {{ sessions_by_language|safe }},
+    "hindiCount": {{ hindi_count }},
+    "englishCount": {{ english_count }}
+}
+</script>
+
+<script>
+// Enhanced Admin Curriculum Navigator
+class AdminCurriculumNavigator {
+    constructor() {
+        this.data = JSON.parse(document.getElementById('adminCurriculumData').textContent);
+        this.currentDay = this.data.currentDay;
+        this.totalDays = this.data.totalDays;
+        this.currentLanguage = this.data.currentLanguage;
+        this.sessionsData = this.data.sessionsData;
+        this.cache = new Map();
+        this.init();
+    }
+
+    init() {
+        this.generateDayNavigator();
+        this.setupLanguageSelector();
+        this.loadCurriculumContent(this.currentDay, this.currentLanguage);
+        this.updateNavigationButtons();
+    }
+
+    setupLanguageSelector() {
+        const languageInputs = document.querySelectorAll('input[name="language"]');
+        languageInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    this.switchLanguage(e.target.value);
+                }
+            });
+        });
+    }
+
+    switchLanguage(language) {
+        this.currentLanguage = language;
+        
+        const url = new URL(window.location);
+        url.searchParams.set('language', language);
+        window.history.pushState({}, '', url);
+        
+        this.loadCurriculumContent(this.currentDay, language);
+        this.updateTitle();
+        this.generateDayNavigator();
+        
+        this.showLanguageNotification(language);
+    }
+
+    showLanguageNotification(language) {
+        const notification = document.createElement('div');
+        notification.className = 'fixed top-5 right-5 z-50 min-w-[300px] bg-green-50 border border-green-400 text-green-800 px-4 py-3 rounded-lg shadow-lg flex items-start justify-between';
+        notification.innerHTML = `
+            <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-green-600"></i>
+                <span>Switched to ${language === 'hindi' ? 'हिंदी (Hindi)' : 'English'} curriculum</span>
+            </div>
+            <button onclick="this.parentElement.remove()" class="ml-4 text-green-800 hover:text-green-900">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => notification.remove(), 300);
+            }
+        }, 3000);
+    }
+
+    generateDayNavigator() {
+        const navigator = document.getElementById('dayNavigator');
+        navigator.innerHTML = '';
+
+        for (let day = 1; day <= this.totalDays; day++) {
+            const button = document.createElement('button');
+            const hasSession = this.hasSessionForDay(day, this.currentLanguage);
+            
+            // Base classes
+            let btnClasses = 'min-w-[35px] px-2 py-1 text-xs rounded-md font-medium transition-colors';
+            
+            if (day === this.currentDay) {
+                btnClasses += ' bg-blue-600 text-white font-bold';
+            } else if (hasSession) {
+                btnClasses += ' bg-green-500 text-white hover:bg-green-600';
+            } else {
+                btnClasses += ' bg-white text-gray-700 border border-gray-300 hover:bg-gray-50';
+            }
+            
+            button.className = btnClasses;
+            button.textContent = day;
+            button.title = `Day ${day} - ${hasSession ? 'Session Available' : 'No Session'}`;
+            
+            button.addEventListener('click', () => {
+                this.navigateToDay(day);
+            });
+
+            navigator.appendChild(button);
+        }
+    }
+
+    hasSessionForDay(day, language) {
+        const sessions = this.sessionsData[language] || [];
+        return sessions.some(session => session.day_number === day);
+    }
+
+    async loadCurriculumContent(day, language = null) {
+        if (!language) language = this.currentLanguage;
+        
+        const contentDiv = document.getElementById('curriculumContent');
+        
+        contentDiv.innerHTML = `
+            <div class="text-center p-8">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-blue-600"></div>
+                <p class="mt-4 text-gray-600">Loading Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} content...</p>
+            </div>
+        `;
+
+        try {
+            const cacheKey = `${language}_${day}`;
+            
+            if (this.cache.has(cacheKey)) {
+                contentDiv.innerHTML = this.cache.get(cacheKey);
+                return;
+            }
+
+            const response = await fetch(`${this.data.curriculumUrl}?day=${day}&language=${language}`);
+            if (!response.ok) throw new Error('Failed to load content');
+            
+            const content = await response.text();
+            this.cache.set(cacheKey, content);
+            
+            const adminContent = this.wrapContentWithAdminActions(content, day, language);
+            contentDiv.innerHTML = adminContent;
+            
+        } catch (error) {
+            console.error('Error loading curriculum content:', error);
+            contentDiv.innerHTML = `
+                <div class="m-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <h6 class="text-lg font-semibold text-red-800 mb-2">Error Loading Content</h6>
+                    <p class="text-red-700 mb-4">Failed to load Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} curriculum content.</p>
+                    <div class="flex gap-2">
+                        <button onclick="adminCurriculumNav.loadCurriculumContent(${day}, '${language}')" class="px-4 py-2 text-sm font-medium text-red-700 bg-white border border-red-700 rounded-md hover:bg-red-50">
+                            Retry
+                        </button>
+                        <a href="/admin/curriculum-sessions/create/?day=${day}&language=${language}" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700">
+                            Create Session for Day ${day}
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    wrapContentWithAdminActions(content, day, language) {
+        const hasSession = this.hasSessionForDay(day, language);
+        const session = hasSession ? this.getSessionForDay(day, language) : null;
+        
+        let adminActions = '';
+        if (hasSession && session) {
+            adminActions = `
+                <div class="m-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <strong class="text-blue-900 text-sm font-semibold">Session Available:</strong> 
+                            <span class="text-blue-800">${session.title || 'Day ' + day + ' Session'}</span>
+                            <br><small class="text-blue-600 text-xs">Status: ${session.status || 'Draft'}</small>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="/admin/curriculum-sessions/${session.id}/edit/" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-blue-700 bg-white border border-blue-700 rounded-md hover:bg-blue-50">
+                                <i class="fas fa-edit mr-1"></i> Edit
+                            </a>
+                            <a href="/admin/curriculum-sessions/${session.id}/preview/" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-cyan-700 bg-white border border-cyan-700 rounded-md hover:bg-cyan-50">
+                                <i class="fas fa-eye mr-1"></i> Preview
+                            </a>
+                            <a href="/admin/curriculum-sessions/${session.id}/delete/" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-red-700 bg-white border border-red-700 rounded-md hover:bg-red-50">
+                                <i class="fas fa-trash mr-1"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            adminActions = `
+                <div class="m-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <strong class="text-yellow-900 text-sm font-semibold">No Session Available</strong>
+                            <span class="text-yellow-800"> for Day ${day} in ${language === 'hindi' ? 'Hindi' : 'English'}</span>
+                            <br><small class="text-yellow-600 text-xs">Create a session to add curriculum content for this day.</small>
+                        </div>
+                        <a href="/admin/curriculum-sessions/create/?day=${day}&language=${language}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 whitespace-nowrap">
+                            <i class="fas fa-plus mr-2"></i> Create Session
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+        
+        return adminActions + content;
+    }
+
+    getSessionForDay(day, language) {
+        const sessions = this.sessionsData[language] || [];
+        return sessions.find(session => session.day_number === day);
+    }
+
+    navigateToDay(day) {
+        if (day < 1 || day > this.totalDays) return;
+        
+        const url = new URL(window.location);
+        url.searchParams.set('day', day);
+        window.history.pushState({}, '', url);
+        
+        this.currentDay = day;
+        
+        document.getElementById('currentDayBadge').textContent = day;
+        this.updateTitle();
+        this.updateNavigationButtons();
+        
+        this.generateDayNavigator();
+        this.loadCurriculumContent(day, this.currentLanguage);
+    }
+
+    updateTitle() {
+        const title = `Day ${this.currentDay} - ${this.currentLanguage === 'hindi' ? 'Hindi' : 'English'} Curriculum Content`;
+        document.getElementById('curriculumTitle').textContent = title;
+        document.title = `Admin - ${title}`;
+    }
+
+    updateNavigationButtons() {
+        const prevBtn = document.getElementById('prevDayBtn');
+        const nextBtn = document.getElementById('nextDayBtn');
+        
+        prevBtn.disabled = this.currentDay <= 1;
+        nextBtn.disabled = this.currentDay >= this.totalDays;
+    }
+
+    preloadAdjacentDays() {
+        const preloadDays = [this.currentDay - 1, this.currentDay + 1];
+        preloadDays.forEach(day => {
+            if (day >= 1 && day <= this.totalDays) {
+                ['english', 'hindi'].forEach(lang => {
+                    const cacheKey = `${lang}_${day}`;
+                    if (!this.cache.has(cacheKey)) {
+                        fetch(`${this.data.curriculumUrl}?day=${day}&language=${lang}`)
+                            .then(response => response.text())
+                            .then(content => this.cache.set(cacheKey, content))
+                            .catch(() => {});
+                    }
+                });
+            }
+        });
+    }
+}
+
+// Global functions
+function refreshCurriculumData() {
+    location.reload();
+}
+
+function exportCurriculumData() {
+    alert('Export functionality will be implemented soon.');
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    window.adminCurriculumNav = new AdminCurriculumNavigator();
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlDay = parseInt(urlParams.get('day')) || 1;
+    const urlLanguage = urlParams.get('language') || 'english';
+    
+    if (urlLanguage && ['english', 'hindi'].includes(urlLanguage)) {
+        document.getElementById(urlLanguage + 'Btn').checked = true;
+        window.adminCurriculumNav.currentLanguage = urlLanguage;
+    }
+    
+    if (urlDay !== 1) {
+        window.adminCurriculumNav.navigateToDay(urlDay);
+    }
+    
+    setTimeout(() => {
+        window.adminCurriculumNav.preloadAdjacentDays();
+    }, 1000);
+});
+
+// Handle browser navigation
+window.addEventListener('popstate', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const day = parseInt(urlParams.get('day')) || 1;
+    const language = urlParams.get('language') || 'english';
+    
+    document.getElementById(language + 'Btn').checked = true;
+    window.adminCurriculumNav.currentLanguage = language;
+    window.adminCurriculumNav.navigateToDay(day);
+});
+</script>
+
+{% endblock %}

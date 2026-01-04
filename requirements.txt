@@ -35,3 +35,23 @@ openpyxl>=3.1.2
 django-tailwind>=3.6.2
 django-browser-reload>=1.2.4
 
+# Testing libraries
+pytest>=7.4.0
+pytest-django>=4.5.2
+pytest-hypothesis>=0.19.0
+hypothesis>=6.82.0
+
+# Performance monitoring and optimization
+psutil>=5.9.0  # System and process monitoring
+django-debug-toolbar>=4.2.0  # Debug toolbar for development
+django-silk>=5.0.4  # Request profiling
+redis>=4.6.0  # Redis for caching (optional)
+django-redis>=5.3.0  # Django Redis cache backend
+django-cachalot>=2.6.1  # ORM query caching
+django-compressor>=4.4  # Static file compression
+
+# CSS and frontend optimization
+django-pipeline>=3.0.0  # Asset pipeline for CSS/JS optimization
+django-htmlmin>=0.11.0  # HTML minification
+beautifulsoup4>=4.12.0  # HTML parsing for optimization
+

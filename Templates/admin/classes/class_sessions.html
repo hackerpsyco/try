@@ -74,89 +74,81 @@
     <div class="overflow-x-auto">
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50 text-left text-sm text-gray-600">
-          <tr>
-            <th class="p-3 w-10">
-              <input id="selectAll" type="checkbox"
-                     class="h-4 w-4 rounded border-gray-300">
-            </th>
-            <th class="p-3 w-20 font-semibold">Day</th>
-            <th class="p-3 font-semibold">Topic</th>
-            <th class="p-3 w-32 font-semibold">Status</th>
-            <th class="p-3 text-right w-40 font-semibold">Actions</th>
-          </tr>
-        </thead>
+       {% for ps in planned_sessions %}
+<tr class="hover:bg-gray-50">
+  <td class="p-3">
+    <input type="checkbox"
+           name="session_ids"
+           value="{{ ps.id }}"
+           class="session-checkbox h-4 w-4 rounded border-gray-300">
+  </td>
 
-        <tbody class="divide-y">
+  <!-- DAY -->
+  <td class="p-3 font-semibold text-gray-800">
+    Day {{ ps.day_number }}
+  </td>
 
-        {% for ps in planned_sessions %}
-          <tr class="hover:bg-gray-50">
-            <td class="p-3">
-              <input type="checkbox"
-                     name="session_ids"
-                     value="{{ ps.id }}"
-                     class="session-checkbox h-4 w-4 rounded border-gray-300">
-            </td>
+  <!-- CONTENT -->
+  <td class="p-3">
+    <div class="font-medium text-gray-900 mb-2">
+      {{ ps.title }}
+    </div>
 
-            <td class="p-3 font-semibold text-gray-800">
-              Day {{ ps.day_number }}
-            </td>
-
-            <td class="p-3">
-              <div class="font-medium text-gray-900">
-                {{ ps.topic }}
-              </div>
-
-              {% if ps.youtube_url %}
-              <a href="{{ ps.youtube_url }}"
-                 target="_blank"
-                 class="text-blue-600 text-sm hover:underline">
-                ▶ View Video
-              </a>
-              {% endif %}
-            </td>
-
-            <td class="p-3">
-              <span class="px-3 py-1 text-xs rounded-full
-                {% if ps.status_class == 'success' %}
-                  bg-green-100 text-green-700
-                {% elif ps.status_class == 'warning' %}
-                  bg-yellow-100 text-yellow-700
-                {% else %}
-                  bg-gray-200 text-gray-700
-                {% endif %}
-              ">
-                {{ ps.status_info|title }}
-              </span>
-            </td>
-
-            <td class="p-3 text-right">
-
-              <a href="{% url 'planned_session_edit' ps.id %}"
-                 class="px-3 py-1.5 border border-blue-500 text-blue-600 rounded-lg text-xs hover:bg-blue-50 mr-1">
-                Edit
-              </a>
-
-              <a href="{% url 'planned_session_delete' ps.id %}"
-                 onclick="return confirm('Are you sure you want to delete this planned session?{% if ps.status_info != 'pending' %} This will also delete all related attendance data.{% endif %}');"
-                 class="px-3 py-1.5 border border-red-500 text-red-600 rounded-lg text-xs hover:bg-red-50">
-                Delete
-              </a>
-
-              {% if ps.status_info != 'pending' %}
-                <div class="text-xs text-yellow-600 mt-1">
-                  ⚠ Has attendance data
-                </div>
-              {% endif %}
-            </td>
-          </tr>
-
-        {% empty %}
-          <tr>
-            <td colspan="5" class="text-center text-gray-500 py-6">
-              No planned sessions added yet.
-            </td>
-          </tr>
+    {% if ps.steps.all %}
+      <ul class="space-y-1 text-sm text-gray-700">
+        {% for step in ps.steps.all %}
+          <li class="flex gap-2">
+            <span class="px-2 py-0.5 text-xs rounded bg-gray-100 text-gray-700">
+              {{ step.get_subject_display }}
+            </span>
+            <span>{{ step.title }}</span>
+          </li>
         {% endfor %}
+      </ul>
+    {% else %}
+      <span class="text-xs text-gray-400">
+        No activities imported
+      </span>
+    {% endif %}
+  </td>
+
+  <!-- STATUS -->
+  <td class="p-3">
+    <span class="px-3 py-1 text-xs rounded-full
+      {% if ps.status_class == 'success' %}
+        bg-green-100 text-green-700
+      {% elif ps.status_class == 'warning' %}
+        bg-yellow-100 text-yellow-700
+      {% else %}
+        bg-gray-200 text-gray-700
+      {% endif %}
+    ">
+      {{ ps.status_info|title }}
+    </span>
+  </td>
+
+  <!-- ACTIONS -->
+  <td class="p-3 text-right">
+    <a href="{% url 'planned_session_edit' ps.id %}"
+       class="px-3 py-1.5 border border-blue-500 text-blue-600 rounded-lg text-xs hover:bg-blue-50 mr-1">
+      Edit
+    </a>
+
+    <a href="{% url 'planned_session_delete' ps.id %}"
+       onclick="return confirm('Delete this day and all its activities?');"
+       class="px-3 py-1.5 border border-red-500 text-red-600 rounded-lg text-xs hover:bg-red-50">
+      Delete
+    </a>
+
+    {% if ps.status_info != 'pending' %}
+      <div class="text-xs text-yellow-600 mt-1">
+        ⚠ Has attendance data
+      </div>
+    {% endif %}
+  </td>
+</tr>
+{% endfor %}
+
 
         </tbody>
       </table>

@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0006_alter_school_options_alter_school_enrolled_students_and_more.py
+# hypothesis_version: 6.148.11
+
+['Active', 'Inactive', 'class', 'enrolled_students', 'name', 'ordering', 'school', 'status']

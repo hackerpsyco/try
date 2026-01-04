@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0007_alter_user_options_user_supervisor_alter_user_role_and_more.py
+# hypothesis_version: 6.148.11
+
+['FacilitatorSchool', 'assigned_date', 'assigned_schools', 'class', 'class.role', 'class.school', 'created_at', 'email', 'facilitator', 'facilitators', 'id', 'is_active', 'is_primary', 'ordering', 'role', 'role__id', 'role_id', 'school', 'supervisor', 'unique_together', 'user', 'verbose_name', 'verbose_name_plural']

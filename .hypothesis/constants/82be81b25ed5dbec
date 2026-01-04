@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\models\users.py
+# hypothesis_version: 6.148.11
+
+[150, 'Admin', 'Email is required', 'Role is required', 'email', 'facilitators', 'name', 'role__id', 'self']

@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\forms.py
+# hypothesis_version: 6.148.11
+
+['1, 2, KG', 'A, B, C (optional)', 'Email Address', 'Full Name', 'avg_attendance_pct', 'block', 'class', 'class_level', 'district', 'email', 'enrolled_students', 'facilitator', 'form-control', 'full_name', 'is_active', 'is_primary', 'name', 'password', 'placeholder', 'profile_image', 'role', 'school', 'section', 'status', 'udise', 'validation_score']

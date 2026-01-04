@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0010_alter_enrollment_unique_together_enrollment_school_and_more.py
+# hypothesis_version: 6.148.11
+
+['class', 'class.school', 'class_section', 'enrollment', 'enrollments', 'school', 'student']

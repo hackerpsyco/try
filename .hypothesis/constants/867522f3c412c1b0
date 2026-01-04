@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0004_classsection.py
+# hypothesis_version: 6.148.11
+
+['0003_school', 'Class Section', 'Class Sections', 'ClassSection', 'class', 'class.school', 'class_level', 'class_sections', 'created_at', 'id', 'school', 'section', 'unique_together', 'verbose_name', 'verbose_name_plural']

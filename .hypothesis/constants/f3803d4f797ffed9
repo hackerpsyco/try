@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0001_initial.py
+# hypothesis_version: 6.148.11
+
+[128, 150, 254, 'Role', 'User', 'abstract', 'class.role', 'created_at', 'email', 'full_name', 'id', 'is_active', 'last_login', 'name', 'password', 'role']

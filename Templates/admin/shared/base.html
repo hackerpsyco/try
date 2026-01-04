@@ -1,80 +1,210 @@
 
 {% load static %}
 {% load static tailwind_tags %}
+<!-- DEBUG: Admin Base Template Loaded -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
     
-    <!-- Tailwind CSS ONLY -->
+    <!-- Preload critical resources for performance -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" as="style">
+    
+    <!-- Critical CSS inline for performance -->
+    <style>
+        /* Critical above-the-fold styles */
+        html { height: 100%; }
+        body { 
+            height: 100%; 
+            font-family: 'Lexend', sans-serif; 
+            background-color: #f9fafb; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .sidebar { transition: transform 0.3s ease-in-out; }
+        .loading-spinner { 
+            display: inline-block; width: 1rem; height: 1rem; 
+            border: 2px solid #e5e7eb; border-top-color: #3b82f6; 
+            border-radius: 50%; animation: spin 1s linear infinite; 
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Mobile sidebar optimization */
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.show { transform: translateX(0); }
+        }
+        @media (min-width: 769px) {
+            .sidebar { transform: none !important; }
+        }
+        
+        /* Performance optimizations */
+        * { box-sizing: border-box; }
+        img { max-width: 100%; height: auto; }
+        
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+    
+    <!-- Tailwind CSS -->
     {% tailwind_css %}
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
-      
+    <!-- Load fonts asynchronously for performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/jpg" href="{% static 'images/wes-logo.jpg' %}">
+    
+    <!-- Additional CSS -->
+    {% block extra_css %}{% endblock %}
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
-<body class="antialiased font-['Lexend'] bg-gray-50">
+<body class="antialiased font-['Lexend'] bg-gray-50 h-full">
 
-<!-- Sidebar overlay for mobile -->
-<div id="sidebarOverlay" class="fixed inset-0 bg-transparent z-[998] hidden opacity-0 transition-opacity duration-300"></div>
+<!-- Optimized sidebar overlay for mobile -->
+<div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-[998] hidden opacity-0 transition-opacity duration-300 lg:hidden"></div>
 
-
-<div class="flex min-h-screen">
+<div class="flex min-h-screen h-full">
     {% include 'admin/shared/sidebar.html' %}
     
     <main class="flex-1 flex flex-col min-w-0">
         {% include 'admin/shared/topbar.html' %}
 
-        <div class="flex-1 p-6 sm:p-8 lg:p-10">
+        <div class="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto">
+            <!-- Messages with improved styling -->
+            {% if messages %}
+                <div class="mb-6 space-y-3">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} p-4 rounded-lg border-l-4 animate-fade-in {% if message.tags == 'error' %}bg-red-50 border-red-400 text-red-700{% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-400 text-yellow-700{% elif message.tags == 'success' %}bg-green-50 border-green-400 text-green-700{% else %}bg-blue-50 border-blue-400 text-blue-700{% endif %}">
+                            <div class="flex items-center">
+                                <span class="material-symbols-outlined mr-2 text-lg">
+                                    {% if message.tags == 'error' %}error
+                                    {% elif message.tags == 'warning' %}warning
+                                    {% elif message.tags == 'success' %}check_circle
+                                    {% else %}info{% endif %}
+                                </span>
+                                {{ message }}
+                                <button onclick="this.parentElement.parentElement.remove()" class="ml-auto text-current opacity-50 hover:opacity-100">
+                                    <span class="material-symbols-outlined text-lg">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
             {% block content %}{% endblock %}
         </div>
     </main>
 </div>
 
-<!-- Sidebar Toggle Script -->
+<!-- Optimized JavaScript -->
 <script>
-  const toggleBtn = document.getElementById("sidebarToggle");
-  const sidebar = document.querySelector(".sidebar");
-  const overlay = document.getElementById("sidebarOverlay");
-
-  if(toggleBtn) {
-    toggleBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("show");
-      overlay.classList.toggle("hidden");
-      overlay.classList.toggle("opacity-100");
+(function() {
+    'use strict';
+    
+    // Cache DOM elements
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const sidebar = document.querySelector(".sidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+    
+    // Optimized sidebar toggle
+    function toggleSidebar() {
+        sidebar.classList.toggle("show");
+        overlay.classList.toggle("hidden");
+        overlay.classList.toggle("opacity-100");
+        
+        // Prevent body scroll when sidebar is open on mobile
+        if (window.innerWidth <= 768) {
+            document.body.style.overflow = sidebar.classList.contains("show") ? 'hidden' : '';
+        }
+    }
+    
+    // Event listeners with passive option for better performance
+    if (toggleBtn) {
+        toggleBtn.addEventListener("click", toggleSidebar, { passive: true });
+    }
+    
+    if (overlay) {
+        overlay.addEventListener("click", function() {
+            sidebar.classList.remove("show");
+            overlay.classList.add("hidden");
+            overlay.classList.remove("opacity-100");
+            document.body.style.overflow = '';
+        }, { passive: true });
+    }
+    
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            if (window.innerWidth > 768) {
+                document.body.style.overflow = '';
+                overlay.classList.add("hidden");
+                overlay.classList.remove("opacity-100");
+            }
+        }, 150);
+    }, { passive: true });
+    
+    // Optimize image loading
+    if ('loading' in HTMLImageElement.prototype) {
+        const images = document.querySelectorAll('img[data-src]');
+        images.forEach(img => {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+        });
+    }
+    
+    // Performance monitoring
+    if ('performance' in window && 'getEntriesByType' in performance) {
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                if (perfData && perfData.loadEventEnd - perfData.loadEventStart > 3000) {
+                    console.warn('Page load took longer than 3 seconds:', 
+                        Math.round(perfData.loadEventEnd - perfData.loadEventStart), 'ms');
+                }
+            }, 0);
+        });
+    }
+    
+    // Auto-dismiss messages after 5 seconds
+    const messages = document.querySelectorAll('.alert');
+    messages.forEach(function(message) {
+        if (!message.classList.contains('alert-error')) {
+            setTimeout(function() {
+                if (message.parentElement) {
+                    message.style.opacity = '0';
+                    message.style.transform = 'translateY(-10px)';
+                    setTimeout(function() {
+                        message.remove();
+                    }, 300);
+                }
+            }, 5000);
+        }
     });
-  }
-
-  if(overlay) {
-    overlay.addEventListener("click", () => {
-      sidebar.classList.remove("show");
-      overlay.classList.add("hidden");
-      overlay.classList.remove("opacity-100");
-    });
-  }
+})();
 </script>
 
-<style>
-  /* Sidebar mobile behavior */
-  @media (max-width: 768px) {
-    .sidebar {
-      transform: translateX(-100%);
-    }
-    .sidebar.show {
-      transform: translateX(0);
-    }
-  }
-  
-  @media (min-width: 769px) {
-    .sidebar {
-      transform: none !important;
-    }
-  }
-</style>
+<!-- Additional JavaScript -->
+{% block extra_js %}{% endblock %}
+
+<!-- Load performance optimization script -->
+<script src="{% static 'js/performance.js' %}" defer></script>
 
 </body>
 </html>

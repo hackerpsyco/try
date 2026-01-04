@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\models\students.py
+# hypothesis_version: 6.148.11
+
+[100, 255, 'Absent', 'Activity / Energizer', 'Actual Session', 'Actual Sessions', 'Cancelled', 'Computer', 'Conducted', 'Duration in minutes', 'English', 'F', 'Female', 'Hindi', 'Holiday', 'M', 'Male', 'Maths', 'Mindfulness', 'Present', 'Session Step', 'Session Steps', 'absent', 'activity', 'actual_session', 'actual_sessions', 'attendances', 'cancelled', 'class.ClassSection', 'class.School', 'class_section', 'computer', 'conducted', 'conducted_sessions', 'date', 'day_number', 'english', 'enrollment', 'enrollments', 'hindi', 'holiday', 'is_active', 'maths', 'mindfulness', 'order', 'planned_session', 'planned_sessions', 'present', 'steps', 'student']

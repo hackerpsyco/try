@@ -1,6 +1,7 @@
 <aside class="sidebar">
     <!-- User Profile -->
     <div class="user-profile mb-4">
+        <!-- DEBUG: Facilitator Sidebar Loaded -->
         <div class="avatar"
              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBv1qbMwANXehUvUuj7jLYDFVVfq_SWUg2g49l3SmLWskDtYHpHJ_8WvJwsx9a2FRubRslmWVa_i5P7tT8w3--UoztcwCpbKLOazTabnBD2N_fY6OQ7FRlKs_zlUcTkD7KY9w-hiqblxryxB10EyToaRWquh2M4i_rDvKfif1kGdDqLVYibrW5HsihGpGcxNNJEB8c7BL9lRSrGdRbSOnvY4eHzXRrkhgnIo7Q7R9Ra_WPzsy-VPqL4V_-_ekNly4XBYSN8gI28pPAs');">
         </div>
@@ -20,11 +21,27 @@
             Dashboard
         </a>
 
-        <!-- Assigned Classes -->
-        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_classes' %}active{% endif %}"
-           href="#">
-            <span class="material-symbols-outlined">school</span>
-            My Classes
+        <!-- My Schools -->
+        <a class="nav-link {% if 'facilitator_schools' in request.resolver_match.url_name %}active{% endif %}"
+           href="{% url 'facilitator_schools_list' %}">
+            <span class="material-symbols-outlined">domain</span>
+            My Schools
+        </a>
+
+        <!-- Student Management -->
+        <a class="nav-link {% if 'facilitator_students' in request.resolver_match.url_name %}active{% endif %}"
+           href="{% url 'facilitator_students_list' %}">
+            <span class="material-symbols-outlined">groups</span>
+            Students
+        </a>
+
+       
+
+        <!-- Today's Sessions -->
+        <a class="nav-link {% if 'today' in request.resolver_match.url_name %}active{% endif %}"
+           href="{% url 'facilitator_classes' %}">
+            <span class="material-symbols-outlined">today</span>
+            Today's Sessions
         </a>
 
         <!-- Attendance Management -->
@@ -34,19 +51,13 @@
             Attendance
         </a>
 
-        <!-- Today Session -->
-        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_classes' %}active{% endif %}"
-   href="{% url 'facilitator_classes' %}">
-            <span class="material-symbols-outlined">today</span>
-            Today's Session
-        </a>
+      
 
-
-        <!-- Reports / Feedback (optional future) -->
+        <!-- Reports / Feedback -->
         <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_feedback' %}active{% endif %}"
            href="#">
             <span class="material-symbols-outlined">assessment</span>
-            Feedback
+            Reports
         </a>
 
     </nav>

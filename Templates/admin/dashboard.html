@@ -228,7 +228,7 @@
         </div>
     </div>
 
-</div>
+  
 
 <script>
 // Helper: get cookie value (for CSRF)
@@ -310,9 +310,245 @@ form.addEventListener('submit', function(e){
     })
     .catch(err => {
         console.error(err);
-        msg.textContent = 'Server error. Please try again';
-        msg.classList.remove('hidden');
     });
+});
+
+// Session loading functionality
+let sessionLoadingTimeout;
+let curriculumLoadingTimeout;
+
+// Load recent sessions with error handling and retry logic
+function loadRecentSessions() {
+    const container = document.getElementById('recentClassSessions');
+    const skeleton = document.getElementById('sessionsLoadingSkeleton');
+    const content = document.getElementById('sessionsContent');
+    const error = document.getElementById('sessionsError');
+    
+    // Show loading state
+    skeleton.classList.remove('hidden');
+    content.classList.add('hidden');
+    error.classList.add('hidden');
+    
+    // Clear any existing timeout
+    clearTimeout(sessionLoadingTimeout);
+    
+    // Set timeout for request
+    sessionLoadingTimeout = setTimeout(() => {
+        showSessionsError('Request timeout - please try again');
+    }, 10000);
+    
+    fetch('/api/dashboard/recent-sessions/?limit=5', {
+        method: 'GET',
+        headers: {
+            'Cache-Control': 'max-age=120',
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        clearTimeout(sessionLoadingTimeout);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        displayRecentSessions(data.sessions);
+    })
+    .catch(error => {
+        console.error('Error loading recent sessions:', error);
+        showSessionsError(error.message || 'Failed to load recent sessions');
+    });
+}
+
+function displayRecentSessions(sessions) {
+    const skeleton = document.getElementById('sessionsLoadingSkeleton');
+    const content = document.getElementById('sessionsContent');
+    const error = document.getElementById('sessionsError');
+    
+    skeleton.classList.add('hidden');
+    error.classList.add('hidden');
+    
+    if (!sessions || sessions.length === 0) {
+        content.innerHTML = `
+            <div class="px-6 py-8 text-center">
+                <span class="material-symbols-outlined text-gray-300 text-4xl mb-2">inbox</span>
+                <p class="text-sm text-gray-500">No recent sessions found</p>
+            </div>
+        `;
+    } else {
+        const sessionsHtml = sessions.map(session => `
+            <div class="px-6 py-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors">
+                <div class="flex items-center justify-between">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">${session.topic}</p>
+                        <p class="text-xs text-gray-500">${session.class_section} - ${session.school}</p>
+                        <p class="text-xs text-gray-400">${session.facilitator}</p>
+                    </div>
+                    <div class="flex-shrink-0 ml-4">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getStatusClass(session.status)}">
+                            ${session.status}
+                        </span>
+                        <p class="text-xs text-gray-400 mt-1">${session.time_ago}</p>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        content.innerHTML = sessionsHtml;
+    }
+    
+    content.classList.remove('hidden');
+}
+
+function showSessionsError(message) {
+    const skeleton = document.getElementById('sessionsLoadingSkeleton');
+    const content = document.getElementById('sessionsContent');
+    const error = document.getElementById('sessionsError');
+    
+    skeleton.classList.add('hidden');
+    content.classList.add('hidden');
+    error.classList.remove('hidden');
+    
+    const errorMessage = error.querySelector('p');
+    if (errorMessage) {
+        errorMessage.textContent = message;
+    }
+}
+
+// Load recent curriculum updates
+function loadCurriculumUpdates() {
+    const container = document.getElementById('recentCurriculumUpdates');
+    const skeleton = document.getElementById('curriculumLoadingSkeleton');
+    const content = document.getElementById('curriculumContent');
+    const error = document.getElementById('curriculumError');
+    
+    // Show loading state
+    skeleton.classList.remove('hidden');
+    content.classList.add('hidden');
+    error.classList.add('hidden');
+    
+    // Clear any existing timeout
+    clearTimeout(curriculumLoadingTimeout);
+    
+    // Set timeout for request
+    curriculumLoadingTimeout = setTimeout(() => {
+        showCurriculumError('Request timeout - please try again');
+    }, 10000);
+    
+    fetch('/api/dashboard/curriculum-updates/?limit=5', {
+        method: 'GET',
+        headers: {
+            'Cache-Control': 'max-age=120',
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        clearTimeout(curriculumLoadingTimeout);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        displayCurriculumUpdates(data.updates);
+    })
+    .catch(error => {
+        console.error('Error loading curriculum updates:', error);
+        showCurriculumError(error.message || 'Failed to load curriculum updates');
+    });
+}
+
+function displayCurriculumUpdates(updates) {
+    const skeleton = document.getElementById('curriculumLoadingSkeleton');
+    const content = document.getElementById('curriculumContent');
+    const error = document.getElementById('curriculumError');
+    
+    skeleton.classList.add('hidden');
+    error.classList.add('hidden');
+    
+    if (!updates || updates.length === 0) {
+        content.innerHTML = `
+            <div class="px-6 py-8 text-center">
+                <span class="material-symbols-outlined text-gray-300 text-4xl mb-2">inbox</span>
+                <p class="text-sm text-gray-500">No recent updates found</p>
+            </div>
+        `;
+    } else {
+        const updatesHtml = updates.map(update => `
+            <div class="px-6 py-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors">
+                <div class="flex items-center justify-between">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">${update.title}</p>
+                        <p class="text-xs text-gray-500">Day ${update.day_number} - ${update.language}</p>
+                        <p class="text-xs text-gray-400">${update.created_by}</p>
+                    </div>
+                    <div class="flex-shrink-0 ml-4">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getStatusClass(update.status)}">
+                            ${update.status}
+                        </span>
+                        <p class="text-xs text-gray-400 mt-1">${update.time_ago}</p>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        content.innerHTML = updatesHtml;
+    }
+    
+    content.classList.remove('hidden');
+}
+
+function showCurriculumError(message) {
+    const skeleton = document.getElementById('curriculumLoadingSkeleton');
+    const content = document.getElementById('curriculumContent');
+    const error = document.getElementById('curriculumError');
+    
+    skeleton.classList.add('hidden');
+    content.classList.add('hidden');
+    error.classList.remove('hidden');
+    
+    const errorMessage = error.querySelector('p');
+    if (errorMessage) {
+        errorMessage.textContent = message;
+    }
+}
+
+// Refresh functions
+function refreshRecentSessions() {
+    loadRecentSessions();
+}
+
+function refreshCurriculumUpdates() {
+    loadCurriculumUpdates();
+}
+
+// Helper function for status classes
+function getStatusClass(status) {
+    const statusLower = status.toLowerCase();
+    if (statusLower.includes('conducted') || statusLower.includes('published') || statusLower.includes('completed')) {
+        return 'bg-green-100 text-green-800';
+    } else if (statusLower.includes('cancelled') || statusLower.includes('failed')) {
+        return 'bg-red-100 text-red-800';
+    } else if (statusLower.includes('draft') || statusLower.includes('pending')) {
+        return 'bg-yellow-100 text-yellow-800';
+    } else {
+        return 'bg-gray-100 text-gray-800';
+    }
+}
+
+// Load session data when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Load session data with a small delay to prioritize critical content
+    setTimeout(() => {
+        loadRecentSessions();
+        loadCurriculumUpdates();
+    }, 500);
+    
+    // Auto-refresh every 5 minutes
+    setInterval(() => {
+        loadRecentSessions();
+        loadCurriculumUpdates();
+    }, 300000); // 5 minutes
 });
 </script>
 {% endblock content %}

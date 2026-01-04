@@ -1,0 +1,106 @@
+{% extends "facilitator/shared/base.html" %}
+{% load static %}
+
+{% block title %}My Schools - Facilitator Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">
+                    <i class="fas fa-school me-2"></i>
+                    My Assigned Schools
+                </h2>
+                <div class="text-muted">
+                    <i class="fas fa-info-circle me-1"></i>
+                    {{ schools_with_counts|length }} school{{ schools_with_counts|length|pluralize }} assigned
+                </div>
+            </div>
+
+            {% if not schools_with_counts %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>No schools assigned</strong><br>
+                    You don't have any schools assigned to you yet. Please contact your administrator to assign schools.
+                </div>
+            {% else %}
+                <div class="row">
+                    {% for item in schools_with_counts %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <h5 class="card-title mb-0">
+                                            <i class="fas fa-school text-primary me-2"></i>
+                                            {{ item.school.name }}
+                                        </h5>
+                                        <span class="badge bg-success">Active</span>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <p class="text-muted mb-1">
+                                            <i class="fas fa-map-marker-alt me-1"></i>
+                                            {{ item.school.block }}, {{ item.school.district }}
+                                        </p>
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-id-card me-1"></i>
+                                            UDISE: {{ item.school.udise }}
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="row text-center mb-3">
+                                        <div class="col-6">
+                                            <div class="border-end">
+                                                <h6 class="text-primary mb-0">{{ item.enrollment_count }}</h6>
+                                                <small class="text-muted">Students</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <h6 class="text-success mb-0">{{ item.class_count }}</h6>
+                                            <small class="text-muted">Classes</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-footer bg-transparent">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <a href="{% url 'facilitator_school_detail' item.school.id %}" 
+                                           class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-eye me-1"></i>
+                                            View Classes
+                                        </a>
+                                        <a href="{% url 'facilitator_students_list' %}?school={{ item.school.id }}" 
+                                           class="btn btn-primary btn-sm">
+                                            <i class="fas fa-users me-1"></i>
+                                            View Students
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add any JavaScript for interactive features
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add hover effects or other interactions if needed
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.classList.add('shadow');
+            });
+            card.addEventListener('mouseleave', function() {
+                this.classList.remove('shadow');
+            });
+        });
+    });
+</script>
+{% endblock %}

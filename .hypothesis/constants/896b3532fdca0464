@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0008_student_enrollment.py
+# hypothesis_version: 6.148.11
+
+[100, 'Enrollment', 'F', 'Female', 'M', 'Male', 'Student', 'class', 'class.classsection', 'class.school', 'class.student', 'class_section', 'created_at', 'dob', 'enrollment_number', 'full_name', 'gender', 'id', 'is_active', 'school', 'start_date', 'student', 'unique_together']

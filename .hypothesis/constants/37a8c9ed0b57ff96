@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0009_alter_enrollment_unique_together_and_more.py
+# hypothesis_version: 6.148.11
+
+[255, 'Absent', 'ActualSession', 'Attendance', 'Cancelled', 'Conducted', 'Holiday', 'PlannedSession', 'Present', 'absent', 'actual_session', 'actual_sessions', 'attendances', 'cancelled', 'class', 'class.actualsession', 'class.classsection', 'class.enrollment', 'class.plannedsession', 'class.student', 'class_section', 'conducted', 'conducted_sessions', 'created_at', 'date', 'day_number', 'description', 'enrollment', 'enrollments', 'facilitator', 'holiday', 'id', 'is_active', 'marked_at', 'ordering', 'planned_session', 'planned_sessions', 'present', 'remarks', 'school', 'status', 'student', 'topic', 'unique_together', 'youtube_url']

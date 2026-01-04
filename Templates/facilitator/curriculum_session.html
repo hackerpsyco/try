@@ -1,0 +1,443 @@
+{% extends "facilitator/shared/base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="fw-bold mb-1">{{ class_section.school.name }}</h4>
+                    <h5 class="text-muted">{{ class_section.class_level }} - {{ class_section.section }}</h5>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-primary fs-6">Day {{ current_day_number }}</span>
+                    {% if session_status == "conducted" %}
+                        <span class="badge bg-success">Completed</span>
+                    {% elif session_status == "holiday" %}
+                        <span class="badge bg-warning">Holiday</span>
+                    {% elif session_status == "cancelled" %}
+                        <span class="badge bg-danger">Cancelled</span>
+                    {% else %}
+                        <span class="badge bg-info">Ready</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Selector -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="card-title mb-0">
+                            <i class="fas fa-language me-2"></i>
+                            Select Curriculum Language
+                        </h6>
+                        <div class="btn-group" role="group" id="languageSelector">
+                            <input type="radio" class="btn-check" name="language" id="englishBtn" value="english" checked>
+                            <label class="btn btn-outline-primary" for="englishBtn">
+                                <i class="fas fa-globe me-1"></i>English
+                            </label>
+                            
+                            <input type="radio" class="btn-check" name="language" id="hindiBtn" value="hindi">
+                            <label class="btn btn-outline-primary" for="hindiBtn">
+                                <i class="fas fa-language me-1"></i>हिंदी (Hindi)
+                            </label>
+                            
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Session Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-title">Session Actions</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% if session_status == "pending" %}
+                            <form method="post" action="{% url 'start_session' planned_session.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button class="btn btn-success btn-sm">
+                                    <i class="fas fa-play"></i> Conduct Session
+                                </button>
+                            </form>
+                            <form method="post" action="{% url 'start_session' planned_session.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="holiday">
+                                <button class="btn btn-outline-warning btn-sm">
+                                    <i class="fas fa-calendar-times"></i> Mark Holiday
+                                </button>
+                            </form>
+                            <form method="post" action="{% url 'start_session' planned_session.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="cancelled">
+                                <button class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-times"></i> Cancel Session
+                                </button>
+                            </form>
+                        {% elif session_status == "conducted" %}
+                            <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-users"></i> View/Edit Attendance
+                            </a>
+                        {% else %}
+                            <form method="post" action="{% url 'start_session' planned_session.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="conducted">
+                                <button class="btn btn-success btn-sm">
+                                    <i class="fas fa-play"></i> Conduct Session Now
+                                </button>
+                            </form>
+                        {% endif %}
+                        
+                        <!-- Navigation Controls -->
+                        <div class="ms-auto">
+                            {% if prev_day %}
+                                <a href="{% url 'facilitator_curriculum_session' class_section.id %}?day={{ prev_day }}" 
+                                   class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-chevron-left"></i> Previous Day
+                                </a>
+                            {% endif %}
+                            {% if next_day %}
+                                <a href="{% url 'facilitator_curriculum_session' class_section.id %}?day={{ next_day }}" 
+                                   class="btn btn-outline-primary btn-sm">
+                                    Next Day <i class="fas fa-chevron-right"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day Navigator -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-title">Quick Day Navigation</h6>
+                    <div id="dayNavigator" class="d-flex flex-wrap gap-1" style="max-height: 150px; overflow-y: auto;">
+                        <!-- Days will be loaded here via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Curriculum Content -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h6 class="mb-0">Day {{ current_day_number }} - Curriculum Content</h6>
+                </div>
+                <div class="card-body p-0">
+                    <!-- Curriculum content will be loaded here -->
+                    <div id="curriculumContent" style="min-height: 400px;">
+                        <div class="text-center p-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading curriculum content...</span>
+                            </div>
+                            <p class="mt-2">Loading Day {{ current_day_number }} content...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Session Status Data for JavaScript -->
+<script id="sessionData" type="application/json">
+{
+    "classId": "{{ class_section.id }}",
+    "currentDay": {{ current_day_number }},
+    "totalDays": 150,
+    "sessionStatus": "{{ session_status }}",
+    "sessionStatuses": {{ session_statuses|safe }},
+    "curriculumUrl": "{% url 'curriculum_content_api' %}",
+    "currentLanguage": "english"
+}
+</script>
+
+<script>
+// Enhanced Curriculum Navigator with Session Integration and Language Support
+class FacilitatorCurriculumNavigator {
+    constructor() {
+        this.sessionData = JSON.parse(document.getElementById('sessionData').textContent);
+        this.currentDay = this.sessionData.currentDay;
+        this.totalDays = this.sessionData.totalDays;
+        this.sessionStatuses = this.sessionData.sessionStatuses;
+        this.currentLanguage = this.sessionData.currentLanguage;
+        this.cache = new Map(); // Content cache with language support
+        this.init();
+    }
+
+    init() {
+        this.generateDayNavigator();
+        this.setupLanguageSelector();
+        this.loadCurriculumContent(this.currentDay, this.currentLanguage);
+    }
+
+    setupLanguageSelector() {
+        const languageInputs = document.querySelectorAll('input[name="language"]');
+        languageInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    this.switchLanguage(e.target.value);
+                }
+            });
+        });
+    }
+
+    switchLanguage(language) {
+        this.currentLanguage = language;
+        this.sessionData.currentLanguage = language;
+        
+        // Update URL parameter
+        const url = new URL(window.location);
+        url.searchParams.set('language', language);
+        window.history.pushState({}, '', url);
+        
+        // Reload content for current day in new language
+        this.loadCurriculumContent(this.currentDay, language);
+        
+        // Show language switch notification
+        this.showLanguageNotification(language);
+    }
+
+    showLanguageNotification(language) {
+        const notification = document.createElement('div');
+        notification.className = 'alert alert-success alert-dismissible fade show position-fixed';
+        notification.style.cssText = 'top: 20px; right: 20px; z-index: 1050; min-width: 300px;';
+        notification.innerHTML = `
+            <i class="fas fa-check-circle me-2"></i>
+            Switched to ${language === 'hindi' ? 'हिंदी (Hindi)' : 'English'} curriculum
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 3000);
+    }
+
+    generateDayNavigator() {
+        const navigator = document.getElementById('dayNavigator');
+        navigator.innerHTML = '';
+
+        // Generate day buttons with session status
+        for (let day = 1; day <= this.totalDays; day++) {
+            const button = document.createElement('button');
+            button.className = 'btn btn-sm';
+            button.textContent = day;
+            button.setAttribute('data-day', day);
+            
+            // Apply status-based styling
+            const status = this.sessionStatuses[day] || 'pending';
+            switch (status) {
+                case 'conducted':
+                    button.className += ' btn-success';
+                    button.title = `Day ${day} - Completed`;
+                    break;
+                case 'holiday':
+                    button.className += ' btn-warning';
+                    button.title = `Day ${day} - Holiday`;
+                    break;
+                case 'cancelled':
+                    button.className += ' btn-danger';
+                    button.title = `Day ${day} - Cancelled`;
+                    break;
+                default:
+                    button.className += ' btn-outline-secondary';
+                    button.title = `Day ${day} - Pending`;
+            }
+
+            // Highlight current day
+            if (day === this.currentDay) {
+                button.className = button.className.replace('btn-outline-secondary', 'btn-primary');
+                if (!button.className.includes('btn-success') && 
+                    !button.className.includes('btn-warning') && 
+                    !button.className.includes('btn-danger')) {
+                    button.className += ' btn-primary';
+                }
+                button.style.fontWeight = 'bold';
+            }
+
+            // Add click handler
+            button.addEventListener('click', () => {
+                this.navigateToDay(day);
+            });
+
+            navigator.appendChild(button);
+        }
+    }
+
+    async loadCurriculumContent(day, language = null) {
+        if (!language) language = this.currentLanguage;
+        
+        const contentDiv = document.getElementById('curriculumContent');
+        
+        // Show loading
+        contentDiv.innerHTML = `
+            <div class="text-center p-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} content...</p>
+            </div>
+        `;
+
+        try {
+            // Create cache key with language
+            const cacheKey = `${language}_${day}`;
+            
+            // Check cache first
+            if (this.cache.has(cacheKey)) {
+                contentDiv.innerHTML = this.cache.get(cacheKey);
+                return;
+            }
+
+            // Fetch content with language parameter
+            const response = await fetch(`${this.sessionData.curriculumUrl}?day=${day}&language=${language}`);
+            if (!response.ok) throw new Error('Failed to load content');
+            
+            const content = await response.text();
+            
+            // Cache the content
+            this.cache.set(cacheKey, content);
+            
+            // Display content
+            contentDiv.innerHTML = content;
+            
+        } catch (error) {
+            console.error('Error loading curriculum content:', error);
+            contentDiv.innerHTML = `
+                <div class="alert alert-danger m-3">
+                    <h6>Error Loading Content</h6>
+                    <p>Failed to load Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} curriculum content. Please try again.</p>
+                    <button class="btn btn-outline-danger btn-sm" onclick="curriculumNav.loadCurriculumContent(${day}, '${language}')">
+                        Retry
+                    </button>
+                </div>
+            `;
+        }
+    }
+
+    navigateToDay(day) {
+        // Update URL without page reload
+        const url = new URL(window.location);
+        url.searchParams.set('day', day);
+        window.history.pushState({}, '', url);
+        
+        // Update current day
+        this.currentDay = day;
+        
+        // Reload navigator and content
+        this.generateDayNavigator();
+        this.loadCurriculumContent(day, this.currentLanguage);
+        
+        // Update page title
+        document.title = `Day ${day} - ${this.currentLanguage === 'hindi' ? 'Hindi' : 'English'} Curriculum`;
+    }
+
+    // Preload adjacent days for better performance
+    preloadAdjacentDays() {
+        const preloadDays = [this.currentDay - 1, this.currentDay + 1];
+        preloadDays.forEach(day => {
+            if (day >= 1 && day <= this.totalDays) {
+                // Preload both languages for adjacent days
+                ['english', 'hindi'].forEach(lang => {
+                    const cacheKey = `${lang}_${day}`;
+                    if (!this.cache.has(cacheKey)) {
+                        fetch(`${this.sessionData.curriculumUrl}?day=${day}&language=${lang}`)
+                            .then(response => response.text())
+                            .then(content => this.cache.set(cacheKey, content))
+                            .catch(() => {}); // Silent fail for preloading
+                    }
+                });
+            }
+        });
+    }
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    window.curriculumNav = new FacilitatorCurriculumNavigator();
+    
+    // Check URL parameters for initial language
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLanguage = urlParams.get('language');
+    if (urlLanguage && ['english', 'hindi'].includes(urlLanguage)) {
+        document.getElementById(urlLanguage + 'Btn').checked = true;
+        window.curriculumNav.currentLanguage = urlLanguage;
+        window.curriculumNav.loadCurriculumContent(window.curriculumNav.currentDay, urlLanguage);
+    }
+    
+    // Preload adjacent days after initial load
+    setTimeout(() => {
+        window.curriculumNav.preloadAdjacentDays();
+    }, 1000);
+});
+
+// Handle browser back/forward
+window.addEventListener('popstate', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const day = parseInt(urlParams.get('day')) || window.curriculumNav.sessionData.currentDay;
+    const language = urlParams.get('language') || 'english';
+    
+    // Update language selector
+    document.getElementById(language + 'Btn').checked = true;
+    
+    // Navigate to day with language
+    window.curriculumNav.currentLanguage = language;
+    window.curriculumNav.navigateToDay(day);
+});
+</script>
+
+<style>
+/* Custom styles for the curriculum navigator */
+#dayNavigator button {
+    min-width: 35px;
+    margin: 2px;
+    font-size: 12px;
+}
+
+#curriculumContent {
+    background: #f8f9fa;
+}
+
+#curriculumContent .day-section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #dayNavigator {
+        max-height: 100px;
+    }
+    
+    #dayNavigator button {
+        min-width: 30px;
+        font-size: 11px;
+    }
+}
+</style>
+
+{% endblock %}

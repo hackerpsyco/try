@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0005_alter_classsection_unique_together_and_more.py
+# hypothesis_version: 6.148.11
+
+['0004_classsection', '2024-2025', 'academic_year', 'class', 'class_level', 'classsection', 'display_name', 'is_active', 'school', 'section']

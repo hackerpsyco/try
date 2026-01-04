@@ -1,0 +1,35 @@
+{
+  "name": "clas-admin-theme",
+  "version": "1.0.0",
+  "description": "Optimized Tailwind CSS theme for CLAS admin interface",
+  "main": "src/styles.css",
+  "scripts": {
+    "build": "tailwindcss -i ./src/styles.css -o ../css/styles.css --minify",
+    "build-dev": "tailwindcss -i ./src/styles.css -o ../css/styles.css --watch",
+    "build-prod": "NODE_ENV=production tailwindcss -i ./src/styles.css -o ../css/styles.css --minify --purge",
+    "analyze": "tailwindcss -i ./src/styles.css -o ../css/styles.css --minify --verbose",
+    "clean": "rm -rf ../css/styles.css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "cssnano": "^6.0.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "keywords": [
+    "tailwindcss",
+    "django",
+    "admin",
+    "css",
+    "performance"
+  ],
+  "author": "CLAS Team",
+  "license": "MIT"
+}

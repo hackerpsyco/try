@@ -30,12 +30,44 @@ from .views import (
     toggle_facilitator_assignment,
     delete_facilitator_assignment,
     
+    # Curriculum Navigator
+    curriculum_navigator,
+    hindi_curriculum_navigator,
+    facilitator_curriculum_session,
+    curriculum_content_api,
+    facilitator_session_quick_nav,
+    
+    # Facilitator Management
+    facilitator_schools,
+    facilitator_school_detail,
+    facilitator_students_list,
+    facilitator_student_detail,
+    facilitator_student_edit,
+    
+    # Admin Curriculum Session Management
+    admin_curriculum_sessions_list,
+    admin_curriculum_session_create,
+    admin_curriculum_session_edit,
+    admin_curriculum_session_delete,
+    admin_curriculum_session_preview,
+    admin_sessions_overview,
+    ajax_school_classes_admin,
+    
+    # Performance API endpoints
+    api_lazy_load_sessions,
+    api_lazy_load_schools,
+    api_dashboard_stats,
+    api_dashboard_recent_sessions,
+    api_dashboard_curriculum_updates,
+    api_curriculum_sessions_filter,
+    
     # AJAX endpoints
     ajax_facilitator_schools,
     ajax_school_classes,
     ajax_class_students,
     debug_sessions,
 )
+from . import facilitator_views
 
 urlpatterns = [
 
@@ -108,7 +140,7 @@ urlpatterns = [
         name="student_add"
     ),
     
-     path("admin/chools/<uuid:school_id>/delete/", delete_school, name="delete_school"),
+     path("admin/schools/<uuid:school_id>/delete/", delete_school, name="delete_school"),
 
     
     path(
@@ -160,10 +192,15 @@ urlpatterns = [
     facilitator_classes,
     name="facilitator_classes"
 ),
-path(
+    path(
     "admin/sessions/",
     admin_sessions_filter,
     name="admin_sessions_filter"
+),
+path(
+    "admin/sessions/classes/",
+    admin_sessions_filter,
+    name="admin_class_sessions_filter"
 ),
 
 
@@ -261,4 +298,86 @@ path(
     # No Permission
     # ======================
     path("no_permission/", no_permission, name="no_permission"),
+    
+    # ======================
+    # Curriculum Navigator
+    # ======================
+    path("curriculum/", curriculum_navigator, name="curriculum_navigator"),
+    path("curriculum/hindi/", hindi_curriculum_navigator, name="hindi_curriculum_navigator"),
+    path(
+        "facilitator/class/<uuid:class_section_id>/curriculum/",
+        facilitator_curriculum_session,
+        name="facilitator_curriculum_session"
+    ),
+    path("api/curriculum/content/", curriculum_content_api, name="curriculum_content_api"),
+    path(
+        "api/facilitator/class/<uuid:class_section_id>/sessions/",
+        facilitator_session_quick_nav,
+        name="facilitator_session_quick_nav"
+    ),
+    
+    # ======================
+    # Facilitator Management
+    # ======================
+    path("facilitator/schools/", facilitator_schools, name="facilitator_schools"),
+    path(
+        "facilitator/school/<uuid:school_id>/",
+        facilitator_school_detail,
+        name="facilitator_school_detail"
+    ),
+    path(
+        "facilitator/class/<uuid:class_section_id>/students/",
+        facilitator_students_list,
+        name="facilitator_students_list"
+    ),
+    path(
+        "facilitator/class/<uuid:class_section_id>/student/<uuid:student_id>/",
+        facilitator_student_detail,
+        name="facilitator_student_detail"
+    ),
+    path(
+        "facilitator/class/<uuid:class_section_id>/student/<uuid:student_id>/edit/",
+        facilitator_student_edit,
+        name="facilitator_student_edit"
+    ),
+    
+    # ======================
+    # AJAX endpoints
+    # ======================
+    path("api/school-classes/", ajax_school_classes_admin, name="ajax_school_classes_admin"),
+    
+    # ======================
+    # Admin Sessions Overview
+    # ======================
+    path("admin/sessions/overview/", admin_sessions_overview, name="admin_sessions_overview"),
+    
+    # ======================
+    # Admin Curriculum Session Management
+    # ======================
+    path("admin/curriculum-sessions/", admin_curriculum_sessions_list, name="admin_curriculum_sessions_list"),
+    path("admin/curriculum-sessions/create/", admin_curriculum_session_create, name="admin_curriculum_session_create"),
+    path("admin/curriculum-sessions/<uuid:session_id>/edit/", admin_curriculum_session_edit, name="admin_curriculum_session_edit"),
+    path("admin/curriculum-sessions/<uuid:session_id>/delete/", admin_curriculum_session_delete, name="admin_curriculum_session_delete"),
+    path("admin/curriculum-sessions/<uuid:session_id>/preview/", admin_curriculum_session_preview, name="admin_curriculum_session_preview"),
+    
+    # ======================
+    # Facilitator Student Management (New)
+    # ======================
+    path("facilitator/my-schools/", facilitator_views.FacilitatorSchoolListView.as_view(), name="facilitator_schools_list"),
+    path("facilitator/my-schools/<uuid:pk>/", facilitator_views.FacilitatorSchoolDetailView.as_view(), name="facilitator_school_detail"),
+    path("facilitator/students/", facilitator_views.FacilitatorStudentListView.as_view(), name="facilitator_students_list"),
+    path("facilitator/students/create/", facilitator_views.FacilitatorStudentCreateView.as_view(), name="facilitator_student_create"),
+    path("facilitator/students/<uuid:pk>/edit/", facilitator_views.FacilitatorStudentUpdateView.as_view(), name="facilitator_student_edit"),
+    path("facilitator/students/<uuid:student_id>/detail/", facilitator_views.facilitator_student_detail, name="facilitator_student_detail"),
+    path("facilitator/ajax/school-classes/", facilitator_views.facilitator_ajax_school_classes, name="facilitator_ajax_school_classes"),
+    
+    # ======================
+    # Performance API Endpoints
+    # ======================
+    path("api/lazy-load/sessions/", api_lazy_load_sessions, name="api_lazy_load_sessions"),
+    path("api/lazy-load/schools/", api_lazy_load_schools, name="api_lazy_load_schools"),
+    path("api/dashboard/stats/", api_dashboard_stats, name="api_dashboard_stats"),
+    path("api/dashboard/recent-sessions/", api_dashboard_recent_sessions, name="api_dashboard_recent_sessions"),
+    path("api/dashboard/curriculum-updates/", api_dashboard_curriculum_updates, name="api_dashboard_curriculum_updates"),
+    path("api/curriculum-sessions/filter/", api_curriculum_sessions_filter, name="api_curriculum_sessions_filter"),
 ]

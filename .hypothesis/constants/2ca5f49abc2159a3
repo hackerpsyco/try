@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0013_rename_topic_plannedsession_title_and_more.py
+# hypothesis_version: 6.148.11
+
+[255, 'Activity', 'Computer', 'English', 'Hindi', 'Maths', 'Mindfulness', 'SessionStep', 'activity', 'class', 'class.plannedsession', 'class_section', 'computer', 'description', 'duration_minutes', 'english', 'enrollment', 'hindi', 'id', 'is_active', 'maths', 'mindfulness', 'order', 'ordering', 'planned_session', 'plannedsession', 'steps', 'student', 'subject', 'title', 'topic', 'unique_together', 'youtube_url']

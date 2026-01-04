@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\CLAS\settings.py
+# hypothesis_version: 6.148.11
+
+['*', '5432', 'APP_DIRS', 'BACKEND', 'CLAS.urls', 'CONN_MAX_AGE', 'DIRS', 'ENGINE', 'HOST', 'NAME', 'OPTIONS', 'PASSWORD', 'PORT', 'Templates', 'USER', 'UTC', 'class', 'class.User', 'context_processors', 'default', 'django.contrib.admin', 'django.contrib.auth', 'en-us', 'neondb', 'neondb_owner', 'npg_ICyqflMD5ma7', 'require', 'sslmode', 'static', 'static/', 'staticfiles', 'tailwind', 'theme', 'widget_tweaks']

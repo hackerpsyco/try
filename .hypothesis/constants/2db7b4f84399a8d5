@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0012_alter_enrollment_school.py
+# hypothesis_version: 6.148.11
+
+['class', 'class.school', 'enrollment', 'enrollments', 'school']
