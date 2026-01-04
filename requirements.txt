@@ -38,7 +38,6 @@ django-browser-reload>=1.2.4
 # Testing libraries
 pytest>=7.4.0
 pytest-django>=4.5.2
-pytest-hypothesis>=0.19.0
 hypothesis>=6.82.0
 
 # Performance monitoring and optimization
