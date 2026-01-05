@@ -1932,3 +1932,646 @@ WARNING 2026-01-04 22:00:14,238 log 32400 32108 Not Found: /admin/curriculum-ses
 WARNING 2026-01-04 22:00:14,239 basehttp 32400 32108 "GET /admin/curriculum-sessions/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 25946
 WARNING 2026-01-04 22:00:31,634 log 32400 32108 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
 WARNING 2026-01-04 22:00:31,635 basehttp 32400 32108 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 25946
+INFO 2026-01-05 15:07:32,075 autoreload 41900 47672 Watching for file changes with StatReloader
+INFO 2026-01-05 15:07:39,173 basehttp 41900 39752 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-05 15:07:39,255 basehttp 41900 39752 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-05 15:07:39,269 basehttp 41900 39752 "GET /static/images/wes-logo.jpg HTTP/1.1" 304 0
+INFO 2026-01-05 15:07:52,246 basehttp 41900 39752 "POST / HTTP/1.1" 302 0
+INFO 2026-01-05 15:07:53,095 basehttp 41900 39752 "GET /facilitator/dashboard/ HTTP/1.1" 200 6157
+INFO 2026-01-05 15:07:53,164 basehttp 41900 39752 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+WARNING 2026-01-05 15:07:53,562 basehttp 41900 39752 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-05 15:08:21,425 basehttp 41900 39924 "GET /facilitator/students/ HTTP/1.1" 200 27796
+INFO 2026-01-05 15:08:25,400 basehttp 41900 39924 "GET /facilitator/students/create/ HTTP/1.1" 200 13611
+INFO 2026-01-05 15:11:50,787 autoreload 41900 47672 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:11:51,847 autoreload 29580 21756 Watching for file changes with StatReloader
+INFO 2026-01-05 15:12:03,949 autoreload 29580 21756 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:12:05,364 autoreload 43972 32524 Watching for file changes with StatReloader
+INFO 2026-01-05 15:13:03,347 autoreload 43972 32524 C:\Users\piyus\CLAS\CLAS\class\mixins.py changed, reloading.
+INFO 2026-01-05 15:13:04,753 autoreload 20116 34372 Watching for file changes with StatReloader
+INFO 2026-01-05 15:13:14,601 autoreload 20116 34372 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:13:15,950 autoreload 48088 22572 Watching for file changes with StatReloader
+INFO 2026-01-05 15:13:26,676 autoreload 48088 22572 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-05 15:13:28,019 autoreload 36840 24552 Watching for file changes with StatReloader
+INFO 2026-01-05 15:14:08,866 basehttp 36840 20308 "GET /facilitator/dashboard/ HTTP/1.1" 200 6157
+INFO 2026-01-05 15:14:13,434 basehttp 36840 20308 "GET /Facilitator/classes/ HTTP/1.1" 200 6969
+INFO 2026-01-05 15:14:18,916 basehttp 36840 20308 "GET /facilitator/students/ HTTP/1.1" 200 27796
+INFO 2026-01-05 15:14:23,967 basehttp 36840 20308 "GET /facilitator/students/create/ HTTP/1.1" 200 13917
+WARNING 2026-01-05 15:16:21,711 log 36840 20308 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:16:21,712 basehttp 36840 20308 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26200
+INFO 2026-01-05 15:16:35,248 autoreload 36840 24552 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:16:36,667 autoreload 10208 29828 Watching for file changes with StatReloader
+INFO 2026-01-05 15:16:50,662 autoreload 10208 29828 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:16:52,042 autoreload 34800 8516 Watching for file changes with StatReloader
+INFO 2026-01-05 15:16:58,498 autoreload 34800 8516 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-05 15:16:59,917 autoreload 9748 29788 Watching for file changes with StatReloader
+INFO 2026-01-05 15:17:15,208 basehttp 9748 46896 "GET /facilitator/students/create/ HTTP/1.1" 200 13917
+WARNING 2026-01-05 15:17:15,316 log 9748 46896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:17:15,322 basehttp 9748 46896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 15:17:27,869 log 9748 46896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:17:27,870 basehttp 9748 46896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 15:17:36,227 log 9748 46896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:17:36,228 basehttp 9748 46896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 15:18:26,680 log 9748 46896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:18:26,681 basehttp 9748 46896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 15:19:08,282 autoreload 6596 26928 Watching for file changes with StatReloader
+INFO 2026-01-05 15:19:15,656 basehttp 6596 760 - Broken pipe from ('127.0.0.1', 63831)
+INFO 2026-01-05 15:19:18,266 basehttp 6596 3696 "GET /facilitator/dashboard/ HTTP/1.1" 200 6157
+INFO 2026-01-05 15:19:41,663 basehttp 6596 3696 "GET /facilitator/students/ HTTP/1.1" 200 27796
+INFO 2026-01-05 15:20:50,013 autoreload 6596 26928 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:20:51,516 autoreload 18696 26668 Watching for file changes with StatReloader
+INFO 2026-01-05 15:21:10,954 basehttp 18696 45508 "GET /facilitator/my-schools/ HTTP/1.1" 200 9482
+INFO 2026-01-05 15:21:16,061 basehttp 18696 45508 "GET /facilitator/my-schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/ HTTP/1.1" 200 15387
+INFO 2026-01-05 15:21:22,351 basehttp 18696 45508 "GET /facilitator/students/create/?class=e979202b-46b4-4252-a3b1-3ece1fc1e9b0 HTTP/1.1" 200 13917
+INFO 2026-01-05 15:21:42,013 basehttp 18696 45508 "GET /facilitator/students/?school=64ba8ff6-3870-4f64-b602-24b168f5d43c HTTP/1.1" 200 27804
+INFO 2026-01-05 15:22:06,415 basehttp 18696 45508 "GET /facilitator/students/?school=64ba8ff6-3870-4f64-b602-24b168f5d43c&class=&grade=&search=4543567879 HTTP/1.1" 200 14109
+INFO 2026-01-05 15:22:29,232 basehttp 18696 45508 "GET /facilitator/students/dfadc96f-ee5b-4113-97ab-a5f27ef6d985/detail/ HTTP/1.1" 200 16872
+INFO 2026-01-05 15:23:10,065 basehttp 18696 45508 "GET /facilitator/students/create/ HTTP/1.1" 200 14305
+WARNING 2026-01-05 15:24:30,238 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:24:30,240 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 15:25:03,353 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:25:03,354 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 15:25:16,145 basehttp 18696 30896 "GET /facilitator/dashboard/ HTTP/1.1" 200 6157
+WARNING 2026-01-05 15:25:16,284 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:25:16,285 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 15:25:22,307 basehttp 18696 30896 "GET /facilitator/students/ HTTP/1.1" 200 27796
+WARNING 2026-01-05 15:25:22,481 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:25:22,482 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 15:25:27,845 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:25:27,846 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 15:27:22,880 basehttp 18696 30896 "GET /facilitator/students/create/ HTTP/1.1" 200 14305
+WARNING 2026-01-05 15:27:22,958 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:27:22,958 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 15:27:37,035 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:27:37,037 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 15:27:41,825 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:27:41,826 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 15:27:45,186 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:27:45,186 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 15:30:02,247 basehttp 18696 30896 "GET /facilitator/students/create/ HTTP/1.1" 200 19972
+WARNING 2026-01-05 15:30:02,333 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:30:02,334 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 15:30:08,780 basehttp 18696 30896 "GET /facilitator/ajax/school-classes/?school_id=64ba8ff6-3870-4f64-b602-24b168f5d43c HTTP/1.1" 200 258
+INFO 2026-01-05 15:30:38,420 basehttp 18696 30896 "POST /facilitator/students/create/ HTTP/1.1" 200 20202
+WARNING 2026-01-05 15:30:38,485 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:30:38,487 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+ERROR 2026-01-05 15:31:13,361 log 18696 30896 Internal Server Error: /facilitator/students/create/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: null value in column "start_date" of relation "class_enrollment" violates not-null constraint
+DETAIL:  Failing row contains (d331504e-933d-4a0a-b2a6-4cb76f440ad2, null, t, e979202b-46b4-4252-a3b1-3ece1fc1e9b0, 2089274f-76a2-4049-bd2c-7b13a3ca8051, 64ba8ff6-3870-4f64-b602-24b168f5d43c).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 148, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\edit.py", line 182, in post
+    return super().post(request, *args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\edit.py", line 151, in post
+    return self.form_valid(form)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 215, in form_valid
+    Enrollment.objects.create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        student=student,
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        is_active=True
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 681, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\models\students.py", line 50, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\base.py", line 892, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\base.py", line 998, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\base.py", line 1161, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\base.py", line 1202, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1852, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: null value in column "start_date" of relation "class_enrollment" violates not-null constraint
+DETAIL:  Failing row contains (d331504e-933d-4a0a-b2a6-4cb76f440ad2, null, t, e979202b-46b4-4252-a3b1-3ece1fc1e9b0, 2089274f-76a2-4049-bd2c-7b13a3ca8051, 64ba8ff6-3870-4f64-b602-24b168f5d43c).
+
+ERROR 2026-01-05 15:31:13,386 basehttp 18696 30896 "POST /facilitator/students/create/ HTTP/1.1" 500 188439
+WARNING 2026-01-05 15:31:13,472 log 18696 30896 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:31:13,473 basehttp 18696 30896 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 15:31:14,863 log 18696 30896 Not Found: /favicon.ico
+WARNING 2026-01-05 15:31:14,864 basehttp 18696 30896 "GET /favicon.ico HTTP/1.1" 404 26378
+INFO 2026-01-05 15:32:46,050 autoreload 18696 26668 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:32:47,204 autoreload 19584 5560 Watching for file changes with StatReloader
+INFO 2026-01-05 15:32:55,956 basehttp 19584 11900 "POST /facilitator/students/create/ HTTP/1.1" 200 20202
+ERROR 2026-01-05 15:33:36,976 log 19584 11900 Internal Server Error: /facilitator/students/create/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: null value in column "start_date" of relation "class_enrollment" violates not-null constraint
+DETAIL:  Failing row contains (a1c4ee71-58bc-45e1-b408-b91ab3da6f64, null, t, e979202b-46b4-4252-a3b1-3ece1fc1e9b0, 945aafe2-2bf1-453b-8a8b-f7e7c36d6068, 64ba8ff6-3870-4f64-b602-24b168f5d43c).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 148, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\edit.py", line 182, in post
+    return super().post(request, *args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\edit.py", line 151, in post
+    return self.form_valid(form)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 215, in form_valid
+    Enrollment.objects.create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        student=student,
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        is_active=True
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 681, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\models\students.py", line 50, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\base.py", line 892, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\base.py", line 998, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\base.py", line 1161, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\base.py", line 1202, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1852, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: null value in column "start_date" of relation "class_enrollment" violates not-null constraint
+DETAIL:  Failing row contains (a1c4ee71-58bc-45e1-b408-b91ab3da6f64, null, t, e979202b-46b4-4252-a3b1-3ece1fc1e9b0, 945aafe2-2bf1-453b-8a8b-f7e7c36d6068, 64ba8ff6-3870-4f64-b602-24b168f5d43c).
+
+ERROR 2026-01-05 15:33:36,990 basehttp 19584 11900 "POST /facilitator/students/create/ HTTP/1.1" 500 188407
+INFO 2026-01-05 15:33:58,353 autoreload 19584 5560 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:33:59,445 autoreload 17556 44864 Watching for file changes with StatReloader
+INFO 2026-01-05 15:34:39,425 autoreload 17556 44864 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:34:40,557 autoreload 20360 11580 Watching for file changes with StatReloader
+INFO 2026-01-05 15:35:12,838 autoreload 20360 11580 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:35:14,111 autoreload 29552 29700 Watching for file changes with StatReloader
+INFO 2026-01-05 15:35:21,698 basehttp 29552 42976 - Broken pipe from ('127.0.0.1', 57410)
+INFO 2026-01-05 15:35:29,196 basehttp 29552 28012 "GET /facilitator/students/create/ HTTP/1.1" 200 19972
+INFO 2026-01-05 15:35:47,099 basehttp 29552 28012 "GET /facilitator/ajax/school-classes/?school_id=64ba8ff6-3870-4f64-b602-24b168f5d43c HTTP/1.1" 200 258
+INFO 2026-01-05 15:36:00,263 basehttp 29552 28012 "POST /facilitator/students/create/ HTTP/1.1" 302 0
+INFO 2026-01-05 15:36:03,798 basehttp 29552 28012 "GET /facilitator/students/ HTTP/1.1" 200 30536
+INFO 2026-01-05 15:36:21,078 basehttp 29552 28012 "GET /facilitator/dashboard/ HTTP/1.1" 200 6157
+INFO 2026-01-05 15:38:00,047 basehttp 29552 28012 "GET /Facilitator/classes/ HTTP/1.1" 200 6969
+INFO 2026-01-05 15:38:06,263 basehttp 29552 28012 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/ HTTP/1.1" 200 19239
+INFO 2026-01-05 15:38:08,739 basehttp 29552 28012 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14103
+WARNING 2026-01-05 15:38:08,757 log 29552 28012 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-05 15:38:08,758 basehttp 29552 28012 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:38:10,239 basehttp 29552 12596 "GET /api/curriculum/content/?day=2&language=hindi HTTP/1.1" 200 22713
+INFO 2026-01-05 15:38:10,283 basehttp 29552 44908 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 14308
+INFO 2026-01-05 15:41:20,533 basehttp 29552 44908 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/ HTTP/1.1" 200 19239
+WARNING 2026-01-05 15:41:21,313 log 29552 44908 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-05 15:41:21,314 basehttp 29552 44908 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:41:25,475 basehttp 29552 44908 "GET /facilitator/dashboard/ HTTP/1.1" 200 6157
+WARNING 2026-01-05 15:41:29,657 log 29552 44908 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-05 15:41:29,658 basehttp 29552 44908 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:41:43,300 autoreload 47416 21348 Watching for file changes with StatReloader
+WARNING 2026-01-05 15:41:47,217 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-05 15:41:47,219 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26648
+WARNING 2026-01-05 15:41:48,846 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-05 15:41:48,847 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26648
+WARNING 2026-01-05 15:41:50,151 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-05 15:41:50,152 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26648
+WARNING 2026-01-05 15:41:57,468 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-05 15:41:57,469 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:42:11,897 basehttp 47416 21268 "GET /api/curriculum/content/?day=1&language=hindi HTTP/1.1" 200 22777
+WARNING 2026-01-05 15:42:11,923 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_0.jpg
+WARNING 2026-01-05 15:42:11,924 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_0.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:42:15,889 basehttp 47416 21268 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-05 15:42:15,908 basehttp 47416 21268 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-05 15:42:30,643 basehttp 47416 21268 "POST / HTTP/1.1" 302 0
+INFO 2026-01-05 15:42:31,468 basehttp 47416 21268 "GET /facilitator/dashboard/ HTTP/1.1" 200 6157
+INFO 2026-01-05 15:42:35,494 basehttp 47416 21268 "GET /Facilitator/classes/ HTTP/1.1" 200 6969
+INFO 2026-01-05 15:42:40,717 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/ HTTP/1.1" 200 26316
+INFO 2026-01-05 15:42:41,594 basehttp 47416 21268 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14103
+WARNING 2026-01-05 15:42:41,610 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-05 15:42:41,611 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:44:00,515 basehttp 47416 21268 "GET /api/curriculum/content/?day=3&language=english HTTP/1.1" 200 14227
+WARNING 2026-01-05 15:44:00,531 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-05 15:44:00,532 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:44:06,113 basehttp 47416 21268 "GET /api/curriculum/content/?day=75&language=english HTTP/1.1" 200 14444
+WARNING 2026-01-05 15:44:06,129 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-05 15:44:06,130 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:44:11,865 basehttp 47416 21268 "GET /api/curriculum/content/?day=150&language=english HTTP/1.1" 200 15102
+WARNING 2026-01-05 15:44:11,884 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-05 15:44:11,885 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 26648
+WARNING 2026-01-05 15:44:18,842 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-05 15:44:18,843 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 26648
+WARNING 2026-01-05 15:44:27,487 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-05 15:44:27,488 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:44:41,990 basehttp 47416 21268 "GET /api/curriculum/content/?day=1&language=hindi HTTP/1.1" 200 22777
+WARNING 2026-01-05 15:44:42,009 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_0.jpg
+WARNING 2026-01-05 15:44:42,010 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_0.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:44:48,921 basehttp 47416 21268 "GET /api/curriculum/content/?day=5&language=hindi HTTP/1.1" 200 22817
+WARNING 2026-01-05 15:44:48,935 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-05 15:44:48,936 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:44:56,411 basehttp 47416 21268 "GET /api/curriculum/content/?day=6&language=hindi HTTP/1.1" 200 26073
+WARNING 2026-01-05 15:44:56,426 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-05 15:44:56,428 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 26648
+WARNING 2026-01-05 15:44:57,377 log 47416 21268 Not Found: /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-05 15:44:57,379 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 26648
+INFO 2026-01-05 15:46:04,068 basehttp 47416 21268 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/curriculum/?day=5&language=hindi HTTP/1.1" 200 25651
+INFO 2026-01-05 15:48:00,166 basehttp 47416 21268 "GET /Facilitator/classes/ HTTP/1.1" 200 6969
+INFO 2026-01-05 15:48:03,577 basehttp 47416 21268 "GET /facilitator/dashboard/ HTTP/1.1" 200 6157
+INFO 2026-01-05 15:49:57,181 autoreload 47416 21348 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:49:58,546 autoreload 30736 29780 Watching for file changes with StatReloader
+INFO 2026-01-05 15:50:01,827 autoreload 30736 29780 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:50:03,325 autoreload 22464 13764 Watching for file changes with StatReloader
+INFO 2026-01-05 15:50:12,358 autoreload 22464 13764 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-05 15:50:13,738 autoreload 13772 5376 Watching for file changes with StatReloader
+ERROR 2026-01-05 15:51:35,878 log 13772 18060 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 1680, in dashboard
+    return render(request, role_config["template"], context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'facilitator_students_create' not found. 'facilitator_students_create' is not a valid view function or pattern name.
+ERROR 2026-01-05 15:51:35,894 basehttp 13772 18060 "GET /facilitator/dashboard/ HTTP/1.1" 500 170352
+INFO 2026-01-05 15:52:37,535 autoreload 13772 5376 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-05 15:52:39,048 autoreload 21312 27872 Watching for file changes with StatReloader
+INFO 2026-01-05 15:52:46,801 autoreload 21312 27872 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-05 15:52:48,394 autoreload 28960 46636 Watching for file changes with StatReloader
+ERROR 2026-01-05 15:53:16,458 log 28960 38932 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 607, in facilitator_dashboard
+    ).select_related('student', 'class_section').order_by('-created_at')[:5]
+                                                 ~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1706, in order_by
+    obj.query.add_ordering(*field_names)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 2250, in add_ordering
+    self.names_to_path(item.split(LOOKUP_SEP), self.model._meta)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'created_at' into field. Choices are: attendances, class_section, class_section_id, id, is_active, school, school_id, start_date, student, student_id
+ERROR 2026-01-05 15:53:16,466 basehttp 28960 38932 "GET /facilitator/dashboard/ HTTP/1.1" 500 105472
+INFO 2026-01-05 15:54:07,469 autoreload 28960 46636 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-05 15:54:09,027 autoreload 28844 20672 Watching for file changes with StatReloader
+INFO 2026-01-05 15:54:37,301 basehttp 28844 41216 "GET /facilitator/dashboard/ HTTP/1.1" 200 16502
+INFO 2026-01-05 15:55:38,726 autoreload 17836 25040 Watching for file changes with StatReloader
+INFO 2026-01-05 15:55:52,205 basehttp 17836 43056 "GET /facilitator/dashboard/ HTTP/1.1" 200 16502
+INFO 2026-01-05 15:57:52,477 basehttp 17836 43056 "GET /facilitator/dashboard/ HTTP/1.1" 200 16502
+INFO 2026-01-05 15:57:54,746 basehttp 17836 43056 "GET /facilitator/dashboard/ HTTP/1.1" 200 16502
+INFO 2026-01-05 15:58:09,624 autoreload 26416 12068 Watching for file changes with StatReloader
+INFO 2026-01-05 15:58:21,204 basehttp 26416 20916 "GET /facilitator/my-schools/ HTTP/1.1" 200 9793
+WARNING 2026-01-05 15:59:14,791 log 26416 20916 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:59:14,792 basehttp 26416 20916 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 15:59:20,378 log 26416 20916 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 15:59:20,379 basehttp 26416 20916 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 16:00:14,708 log 26416 20916 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:00:14,709 basehttp 26416 20916 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:00:19,234 autoreload 26416 12068 C:\Users\piyus\CLAS\CLAS\CLAS\settings.py changed, reloading.
+INFO 2026-01-05 16:00:20,682 autoreload 28984 42472 Watching for file changes with StatReloader
+INFO 2026-01-05 16:00:36,848 basehttp 28984 26804 "GET /facilitator/attendance/ HTTP/1.1" 200 10108
+INFO 2026-01-05 16:00:47,210 basehttp 28984 26804 "GET /facilitator/dashboard/ HTTP/1.1" 200 8944
+INFO 2026-01-05 16:03:24,640 basehttp 28984 26804 "GET /facilitator/dashboard/ HTTP/1.1" 200 8944
+INFO 2026-01-05 16:03:25,803 basehttp 28984 26804 "GET /facilitator/dashboard/ HTTP/1.1" 200 8944
+INFO 2026-01-05 16:03:26,810 basehttp 28984 26804 "GET /facilitator/dashboard/ HTTP/1.1" 200 8944
+INFO 2026-01-05 16:03:27,199 basehttp 28984 26804 "GET /facilitator/dashboard/ HTTP/1.1" 200 8944
+INFO 2026-01-05 16:03:32,143 basehttp 28984 26804 "GET /facilitator/my-schools/ HTTP/1.1" 200 9793
+INFO 2026-01-05 16:03:45,262 autoreload 40836 45636 Watching for file changes with StatReloader
+INFO 2026-01-05 16:03:51,681 basehttp 40836 38120 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-05 16:04:02,756 basehttp 40836 38120 "POST / HTTP/1.1" 302 0
+INFO 2026-01-05 16:04:08,127 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 16803
+INFO 2026-01-05 16:09:04,118 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 16803
+INFO 2026-01-05 16:09:08,535 basehttp 40836 38120 "GET /facilitator/attendance/ HTTP/1.1" 200 10108
+INFO 2026-01-05 16:09:15,956 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 22110
+WARNING 2026-01-05 16:09:43,748 log 40836 38120 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:09:43,749 basehttp 40836 38120 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:11:14,091 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 22110
+INFO 2026-01-05 16:11:20,541 basehttp 40836 38120 "GET /facilitator/my-schools/ HTTP/1.1" 200 9793
+INFO 2026-01-05 16:11:41,215 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 22110
+INFO 2026-01-05 16:11:42,433 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 22110
+INFO 2026-01-05 16:12:11,302 basehttp 40836 38120 "GET /Facilitator/classes/ HTTP/1.1" 200 7267
+INFO 2026-01-05 16:12:14,321 basehttp 40836 38120 "GET /facilitator/attendance/ HTTP/1.1" 200 10108
+INFO 2026-01-05 16:12:21,400 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 21716
+INFO 2026-01-05 16:12:42,111 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 21716
+INFO 2026-01-05 16:12:43,460 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 21716
+INFO 2026-01-05 16:12:47,367 basehttp 40836 38120 "GET /facilitator/my-schools/ HTTP/1.1" 200 9793
+INFO 2026-01-05 16:13:13,319 basehttp 40836 38120 "GET /facilitator/attendance/ HTTP/1.1" 200 10108
+INFO 2026-01-05 16:13:19,972 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 21627
+INFO 2026-01-05 16:14:49,736 basehttp 40836 38120 "GET /facilitator/dashboard/ HTTP/1.1" 200 21627
+INFO 2026-01-05 16:15:00,063 basehttp 40836 38120 - Broken pipe from ('127.0.0.1', 60000)
+INFO 2026-01-05 16:15:05,025 basehttp 40836 45580 "GET /facilitator/attendance/ HTTP/1.1" 200 10108
+INFO 2026-01-05 16:15:12,322 basehttp 40836 45580 "GET /facilitator/dashboard/ HTTP/1.1" 200 22073
+INFO 2026-01-05 16:16:36,909 basehttp 40836 45580 "GET /facilitator/students/ HTTP/1.1" 200 31384
+INFO 2026-01-05 16:16:43,694 basehttp 40836 45580 "GET /Facilitator/classes/ HTTP/1.1" 200 7267
+INFO 2026-01-05 16:17:17,339 autoreload 39772 46400 Watching for file changes with StatReloader
+INFO 2026-01-05 16:17:30,573 basehttp 39772 40040 "GET /facilitator/my-schools/ HTTP/1.1" 200 9793
+INFO 2026-01-05 16:18:04,030 autoreload 32088 47408 Watching for file changes with StatReloader
+INFO 2026-01-05 16:18:10,967 basehttp 32088 22680 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-05 16:18:10,983 basehttp 32088 22680 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-05 16:18:16,610 basehttp 32088 22680 "POST / HTTP/1.1" 302 0
+INFO 2026-01-05 16:18:22,045 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21710
+INFO 2026-01-05 16:18:54,287 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21710
+INFO 2026-01-05 16:18:54,724 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21710
+INFO 2026-01-05 16:18:55,731 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21710
+INFO 2026-01-05 16:18:56,736 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21710
+INFO 2026-01-05 16:18:57,642 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21710
+INFO 2026-01-05 16:18:58,661 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21710
+INFO 2026-01-05 16:18:59,670 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21710
+INFO 2026-01-05 16:19:03,406 basehttp 32088 22680 "GET /Facilitator/classes/ HTTP/1.1" 200 7267
+INFO 2026-01-05 16:19:12,009 basehttp 32088 22680 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-05 16:19:12,019 basehttp 32088 22680 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-05 16:19:17,328 basehttp 32088 22680 "POST / HTTP/1.1" 302 0
+INFO 2026-01-05 16:19:22,755 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21666
+INFO 2026-01-05 16:19:47,969 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21666
+INFO 2026-01-05 16:19:49,934 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21666
+INFO 2026-01-05 16:19:50,318 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21666
+INFO 2026-01-05 16:19:53,492 basehttp 32088 22680 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-05 16:19:53,503 basehttp 32088 22680 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-05 16:19:59,326 basehttp 32088 22680 "POST / HTTP/1.1" 302 0
+INFO 2026-01-05 16:20:05,399 basehttp 32088 22680 "GET /facilitator/dashboard/ HTTP/1.1" 200 21674
+INFO 2026-01-05 16:20:26,472 basehttp 32088 22680 "GET /facilitator/my-schools/ HTTP/1.1" 200 9793
+WARNING 2026-01-05 16:20:30,476 log 32088 22680 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:20:30,477 basehttp 32088 22680 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:20:35,501 basehttp 32088 22680 "GET /facilitator/my-schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/ HTTP/1.1" 200 15692
+WARNING 2026-01-05 16:20:35,618 log 32088 22680 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:20:35,620 basehttp 32088 22680 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:20:46,074 basehttp 32088 22680 "GET /facilitator/students/?class=e979202b-46b4-4252-a3b1-3ece1fc1e9b0 HTTP/1.1" 200 17691
+WARNING 2026-01-05 16:20:46,228 log 32088 22680 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:20:46,229 basehttp 32088 22680 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:21:09,809 basehttp 32088 22680 "GET /Facilitator/classes/ HTTP/1.1" 200 7267
+WARNING 2026-01-05 16:21:09,950 log 32088 22680 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:21:09,951 basehttp 32088 22680 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:21:15,864 basehttp 32088 22680 "GET /facilitator/attendance/ HTTP/1.1" 200 10108
+WARNING 2026-01-05 16:21:16,025 log 32088 22680 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:21:16,026 basehttp 32088 22680 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:21:21,693 basehttp 32088 22680 "GET /api/facilitator/classes/?school_id=64ba8ff6-3870-4f64-b602-24b168f5d43c HTTP/1.1" 200 183
+INFO 2026-01-05 16:21:29,324 basehttp 32088 22680 - Broken pipe from ('127.0.0.1', 54737)
+INFO 2026-01-05 16:21:32,106 basehttp 32088 45180 "GET /facilitator/attendance/?school=64ba8ff6-3870-4f64-b602-24b168f5d43c&class_section=e979202b-46b4-4252-a3b1-3ece1fc1e9b0 HTTP/1.1" 200 13157
+WARNING 2026-01-05 16:21:32,264 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:21:32,265 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:25:23,843 basehttp 32088 45180 "GET /facilitator/attendance/?school=64ba8ff6-3870-4f64-b602-24b168f5d43c&class_section=e979202b-46b4-4252-a3b1-3ece1fc1e9b0 HTTP/1.1" 200 13157
+WARNING 2026-01-05 16:25:23,923 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:25:23,924 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:25:35,763 basehttp 32088 45180 "GET /facilitator/students/ HTTP/1.1" 200 53108
+WARNING 2026-01-05 16:25:35,986 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:25:35,987 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:25:54,876 basehttp 32088 45180 "GET /facilitator/students/e72c2b36-15bd-41a1-aa64-d5dc5960e581/detail/ HTTP/1.1" 200 17764
+WARNING 2026-01-05 16:25:55,054 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:25:55,055 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:27:39,821 basehttp 32088 45180 "GET /facilitator/students/ HTTP/1.1" 200 53108
+INFO 2026-01-05 16:27:48,839 basehttp 32088 45180 "GET /facilitator/dashboard/ HTTP/1.1" 200 21674
+INFO 2026-01-05 16:27:54,692 basehttp 32088 45180 "GET /Facilitator/classes/ HTTP/1.1" 200 7267
+INFO 2026-01-05 16:27:59,691 basehttp 32088 45180 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-05 16:27:59,700 basehttp 32088 45180 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-05 16:28:05,638 basehttp 32088 45180 "POST / HTTP/1.1" 302 0
+INFO 2026-01-05 16:28:11,412 basehttp 32088 45180 "GET /facilitator/dashboard/ HTTP/1.1" 200 21674
+INFO 2026-01-05 16:28:18,255 basehttp 32088 45180 "GET /facilitator/students/ HTTP/1.1" 200 51696
+INFO 2026-01-05 16:28:32,904 basehttp 32088 45180 "GET /Facilitator/classes/ HTTP/1.1" 200 7267
+WARNING 2026-01-05 16:28:44,671 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:28:44,673 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:28:56,497 basehttp 32088 45180 "GET /facilitator/my-schools/ HTTP/1.1" 200 9793
+WARNING 2026-01-05 16:28:56,626 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:28:56,627 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:29:01,955 basehttp 32088 45180 "GET /facilitator/my-schools/64ba8ff6-3870-4f64-b602-24b168f5d43c/ HTTP/1.1" 200 15692
+WARNING 2026-01-05 16:29:02,109 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:29:02,110 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:29:08,130 basehttp 32088 45180 "GET /facilitator/students/?class=e979202b-46b4-4252-a3b1-3ece1fc1e9b0 HTTP/1.1" 200 26268
+WARNING 2026-01-05 16:29:08,280 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:29:08,281 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 16:29:13,434 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:29:13,435 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:29:21,282 basehttp 32088 45180 "GET /facilitator/class/e979202b-46b4-4252-a3b1-3ece1fc1e9b0/curriculum/ HTTP/1.1" 200 25931
+WARNING 2026-01-05 16:29:21,441 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:29:21,444 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 16:30:52,886 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:30:52,887 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 16:30:52,935 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:30:52,937 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+WARNING 2026-01-05 16:30:55,686 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:30:55,688 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:31:14,125 basehttp 32088 45180 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-05 16:31:14,136 basehttp 32088 45180 "GET / HTTP/1.1" 200 2258
+WARNING 2026-01-05 16:31:14,349 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:31:14,351 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:31:20,911 basehttp 32088 45180 "POST / HTTP/1.1" 302 0
+INFO 2026-01-05 16:31:26,768 basehttp 32088 45180 "GET /facilitator/dashboard/ HTTP/1.1" 200 21674
+WARNING 2026-01-05 16:31:26,929 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:31:26,930 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:31:33,747 basehttp 32088 45180 "GET /Facilitator/classes/ HTTP/1.1" 200 7267
+WARNING 2026-01-05 16:31:33,932 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:31:33,933 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:31:42,216 basehttp 32088 45180 "GET /facilitator/class/e979202b-46b4-4252-a3b1-3ece1fc1e9b0/curriculum/ HTTP/1.1" 200 26044
+WARNING 2026-01-05 16:31:42,393 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:31:42,395 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:31:43,278 basehttp 32088 45180 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14103
+WARNING 2026-01-05 16:31:43,599 log 32088 45180 Not Found: /facilitator/class/e979202b-46b4-4252-a3b1-3ece1fc1e9b0/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-05 16:31:43,601 basehttp 32088 45180 "GET /facilitator/class/e979202b-46b4-4252-a3b1-3ece1fc1e9b0/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 26648
+WARNING 2026-01-05 16:32:12,319 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:32:12,320 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 16:32:23,712 basehttp 32088 45180 "GET /facilitator/class/b3072e6c-0313-488e-ab07-a3a6835225f6/today/ HTTP/1.1" 200 11366
+WARNING 2026-01-05 16:32:23,872 log 32088 45180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 16:32:23,873 basehttp 32088 45180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489
+INFO 2026-01-05 17:11:18,199 basehttp 32088 44928 - Broken pipe from ('127.0.0.1', 51094)
+INFO 2026-01-05 17:11:21,952 basehttp 32088 32828 "GET /facilitator/students/ HTTP/1.1" 200 51696
+WARNING 2026-01-05 17:11:22,064 log 32088 32828 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-05 17:11:22,066 basehttp 32088 32828 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 26489

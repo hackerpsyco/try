@@ -82,7 +82,7 @@ urlpatterns = [
     # ======================
     path("admin/dashboard/", dashboard, name="admin_dashboard"),
     path("supervisor/dashboard/", dashboard, name="supervisor_dashboard"),
-    path("facilitator/dashboard/", dashboard, name="facilitator_dashboard"),
+    path("facilitator/dashboard/", facilitator_views.facilitator_dashboard, name="facilitator_dashboard"),
 
     # ======================
     # Users (ADMIN)
@@ -370,6 +370,8 @@ path(
     path("facilitator/students/<uuid:pk>/edit/", facilitator_views.FacilitatorStudentUpdateView.as_view(), name="facilitator_student_edit"),
     path("facilitator/students/<uuid:student_id>/detail/", facilitator_views.facilitator_student_detail, name="facilitator_student_detail"),
     path("facilitator/ajax/school-classes/", facilitator_views.facilitator_ajax_school_classes, name="facilitator_ajax_school_classes"),
+    path("facilitator/debug/schools/", facilitator_views.facilitator_debug_schools, name="facilitator_debug_schools"),
+    path("facilitator/test/access/", facilitator_views.facilitator_test_access, name="facilitator_test_access"),
     
     # ======================
     # Performance API Endpoints

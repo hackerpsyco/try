@@ -91,14 +91,20 @@
                                                 <option value="{{ school.id }}">{{ school.name }}</option>
                                             {% endfor %}
                                         </select>
+                                        <div class="form-text">
+                                            Available schools: {{ schools.count }}
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="class_section" class="form-label">
                                             Class Section <span class="text-danger">*</span>
                                         </label>
-                                        <select name="class_section" id="class_section" class="form-select" required>
+                                        <select name="class_section" id="class_section" class="form-select" required disabled>
                                             <option value="">Select School First</option>
                                         </select>
+                                        <div class="form-text" id="class_help">
+                                            Select a school to see available classes
+                                        </div>
                                     </div>
                                 </div>
 
@@ -157,70 +163,118 @@
         </div>
     </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const schoolSelect = document.getElementById('school');
-        const classSelect = document.getElementById('class_section');
-        
-        // Add Bootstrap classes to form fields
-        document.querySelectorAll('input, select').forEach(field => {
-            field.classList.add('form-control');
-        });
-        document.querySelectorAll('select').forEach(field => {
-            field.classList.remove('form-control');
-            field.classList.add('form-select');
-        });
-        
-        // Handle school selection change
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page initialized');
+    
+    const schoolSelect = document.getElementById('school');
+    const classSelect = document.getElementById('class_section');
+    const classHelp = document.getElementById('class_help');
+    const form = document.getElementById('studentForm');
+    
+    // Add Bootstrap classes to form fields
+    document.querySelectorAll('input[type="text"], input[type="number"]').forEach(field => {
+        field.classList.add('form-control');
+    });
+    
+    // Handle school selection change
+    if (schoolSelect) {
         schoolSelect.addEventListener('change', function() {
             const schoolId = this.value;
+            console.log('School selected:', schoolId);
             
-            // Clear class options
+            // Reset and disable class dropdown
             classSelect.innerHTML = '<option value="">Loading...</option>';
             classSelect.disabled = true;
+            classHelp.innerHTML = 'Loading classes...';
             
             if (!schoolId) {
                 classSelect.innerHTML = '<option value="">Select School First</option>';
+                classHelp.innerHTML = 'Select a school to see available classes';
                 return;
             }
             
             // Fetch classes for selected school
-            fetch(`{% url 'facilitator_ajax_school_classes' %}?school_id=${schoolId}`)
-                .then(response => response.json())
+            const url = `/facilitator/ajax/school-classes/?school_id=${schoolId}`;
+            console.log('Fetching from:', url);
+            
+            fetch(url)
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    classSelect.innerHTML = '<option value="">Select Class</option>';
+                    console.log('Received data:', data);
                     
-                    if (data.classes && data.classes.length > 0) {
-                        data.classes.forEach(classSection => {
+                    // Clear dropdown
+                    classSelect.innerHTML = '';
+                    
+                    if (data.error) {
+                        console.error('Server error:', data.error);
+                        classSelect.innerHTML = `<option value="">Error: ${data.error}</option>`;
+                        classHelp.innerHTML = `<span class="text-danger">Error: ${data.error}</span>`;
+                        classSelect.disabled = true;
+                    } else if (data.classes && data.classes.length > 0) {
+                        // Add default option
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = '';
+                        defaultOption.textContent = 'Select Class Section';
+                        classSelect.appendChild(defaultOption);
+                        
+                        // Add class options
+                        data.classes.forEach(cls => {
                             const option = document.createElement('option');
-                            option.value = classSection.id;
-                            option.textContent = `${classSection.class_level}${classSection.section || ''} (${classSection.display_name})`;
+                            option.value = cls.id;
+                            // Format: "5A - Class 5A" or "5 - Class 5"
+                            const displayText = cls.display_name || `${cls.class_level}${cls.section}`;
+                            option.textContent = displayText;
                             classSelect.appendChild(option);
+                            console.log('Added class:', displayText);
                         });
+                        
+                        classHelp.innerHTML = `<span class="text-success">${data.classes.length} class(es) available</span>`;
+                        classSelect.disabled = false;
                     } else {
                         classSelect.innerHTML = '<option value="">No classes available</option>';
+                        classHelp.innerHTML = '<span class="text-warning">No classes found for this school</span>';
+                        classSelect.disabled = true;
                     }
-                    
-                    classSelect.disabled = false;
                 })
                 .catch(error => {
-                    console.error('Error fetching classes:', error);
-                    classSelect.innerHTML = '<option value="">Error loading classes</option>';
-                    classSelect.disabled = false;
+                    console.error('Fetch error:', error);
+                    classSelect.innerHTML = '<option value="">Connection Error</option>';
+                    classHelp.innerHTML = `<span class="text-danger">Failed to load classes: ${error.message}</span>`;
+                    classSelect.disabled = true;
                 });
         });
-        
-        // Form validation
-        const form = document.getElementById('studentForm');
+    }
+    
+    // Form validation on submit
+    if (form) {
         form.addEventListener('submit', function(e) {
+            const schoolVal = schoolSelect.value;
+            const classVal = classSelect.value;
+            
+            if (!schoolVal || !classVal) {
+                e.preventDefault();
+                alert('Please select both school and class section.');
+                
+                if (!schoolVal) schoolSelect.classList.add('is-invalid');
+                if (!classVal) classSelect.classList.add('is-invalid');
+                
+                return false;
+            }
+            
+            // Check all required fields
             const requiredFields = form.querySelectorAll('[required]');
             let isValid = true;
             
             requiredFields.forEach(field => {
-                if (!field.value.trim()) {
+                if (!field.value || !field.value.trim()) {
                     field.classList.add('is-invalid');
                     isValid = false;
                 } else {
@@ -231,8 +285,19 @@
             if (!isValid) {
                 e.preventDefault();
                 alert('Please fill in all required fields.');
+                return false;
             }
         });
-    });
+        
+        // Remove invalid class on input
+        form.querySelectorAll('[required]').forEach(field => {
+            field.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.classList.remove('is-invalid');
+                }
+            });
+        });
+    }
+});
 </script>
 {% endblock %}

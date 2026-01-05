@@ -136,9 +136,12 @@ class FacilitatorAccessMixin:
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
+            from django.shortcuts import redirect
             return redirect('login')
         
         if request.user.role.name.upper() != "FACILITATOR":
+            from django.contrib import messages
+            from django.shortcuts import redirect
             messages.error(request, "You do not have permission to access this page.")
             return redirect("no_permission")
         

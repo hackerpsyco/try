@@ -3,291 +3,630 @@
 
 {% block title %}Students - Facilitator Dashboard{% endblock %}
 
+{% block extra_css %}
+<style>
+/* Modern Card Styles */
+.modern-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: none;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.modern-card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px 24px;
+    border: none;
+}
+
+.modern-card-body {
+    padding: 24px;
+}
+
+/* Filter Section */
+.filter-section {
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+/* Student Cards for Mobile */
+.student-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 20px;
+    margin-bottom: 16px;
+    border-left: 4px solid #667eea;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.student-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.student-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 16px;
+}
+
+.student-info h6 {
+    margin: 0 0 4px 0;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.student-meta {
+    font-size: 13px;
+    color: #718096;
+    margin: 2px 0;
+}
+
+.attendance-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.attendance-excellent {
+    background: #d4edda;
+    color: #155724;
+}
+
+.attendance-good {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.attendance-poor {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Action Buttons */
+.action-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 8px;
+    transition: all 0.2s ease;
+}
+
+.action-btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.action-btn-primary:hover {
+    background: #5a67d8;
+    color: white;
+}
+
+.action-btn-secondary {
+    background: #e2e8f0;
+    color: #4a5568;
+}
+
+.action-btn-secondary:hover {
+    background: #cbd5e0;
+    color: #2d3748;
+}
+
+/* Table Improvements */
+.modern-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.modern-table thead th {
+    background: #f7fafc;
+    color: #4a5568;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px;
+    border: none;
+}
+
+.modern-table tbody td {
+    padding: 16px;
+    border-top: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+.modern-table tbody tr:hover {
+    background: #f7fafc;
+}
+
+/* Search and Filter Styles */
+.search-input {
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    padding: 12px 16px;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filter-select {
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    padding: 12px 16px;
+    font-size: 14px;
+    background: white;
+}
+
+.filter-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+}
+
+.filter-btn:hover {
+    transform: translateY(-1px);
+    color: white;
+}
+
+/* Stats Cards */
+.stats-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.stats-number {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.stats-label {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-top: 4px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .desktop-table {
+        display: none;
+    }
+    
+    .mobile-cards {
+        display: block;
+    }
+    
+    .filter-section {
+        padding: 16px;
+    }
+    
+    .modern-card-body {
+        padding: 16px;
+    }
+    
+    .student-card {
+        padding: 16px;
+    }
+    
+    .student-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 769px) {
+    .desktop-table {
+        display: block;
+    }
+    
+    .mobile-cards {
+        display: none;
+    }
+}
+
+/* Pagination */
+.modern-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.page-btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #4a5568;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.page-btn:hover {
+    background: #f7fafc;
+    color: #2d3748;
+}
+
+.page-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #718096;
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
+    <!-- Header -->
+    <div class="row mb-4">
         <div class="col-12">
-            <!-- Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h2 class="mb-0">
+                    <h2 class="mb-1">
                         <i class="fas fa-users me-2"></i>
                         Student Management
                     </h2>
                     <p class="text-muted mb-0">Manage students from your assigned schools</p>
                 </div>
                 <div>
-                    <a href="{% url 'facilitator_student_create' %}" class="btn btn-success">
+                    <a href="{% url 'facilitator_student_create' %}" class="btn filter-btn">
                         <i class="fas fa-plus me-1"></i>
-                        Add New Student
+                        Add Student
                     </a>
                 </div>
             </div>
-
-            <!-- Filters -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h6 class="mb-0">
-                        <i class="fas fa-filter me-1"></i>
-                        Filter Students
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <form method="get" class="row g-3">
-                        <div class="col-md-3">
-                            <label for="school" class="form-label">School</label>
-                            <select name="school" id="school" class="form-select">
-                                <option value="">All Schools</option>
-                                {% for school in schools %}
-                                    <option value="{{ school.id }}" {% if filters.school == school.id|stringformat:"s" %}selected{% endif %}>
-                                        {{ school.name }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="class" class="form-label">Class</label>
-                            <select name="class" id="class" class="form-select">
-                                <option value="">All Classes</option>
-                                {% for class_section in classes %}
-                                    <option value="{{ class_section.id }}" 
-                                            data-school="{{ class_section.school.id }}"
-                                            {% if filters.class == class_section.id|stringformat:"s" %}selected{% endif %}>
-                                        {{ class_section.school.name }} - {{ class_section.display_name }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="grade" class="form-label">Grade</label>
-                            <select name="grade" id="grade" class="form-select">
-                                <option value="">All Grades</option>
-                                {% for grade in grade_levels %}
-                                    <option value="{{ grade }}" {% if filters.grade == grade %}selected{% endif %}>
-                                        Grade {{ grade }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="search" class="form-label">Search</label>
-                            <input type="text" name="search" id="search" class="form-control" 
-                                   placeholder="Name or enrollment number..." value="{{ filters.search }}">
-                        </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-search me-1"></i>
-                                Search
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Students Table -->
-            {% if enrollments %}
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0">
-                            <i class="fas fa-list me-1"></i>
-                            Students List
-                        </h6>
-                        <span class="badge bg-primary">{{ page_obj.paginator.count }} student{{ page_obj.paginator.count|pluralize }}</span>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Student Name</th>
-                                    <th>Enrollment Number</th>
-                                    <th>School</th>
-                                    <th>Class</th>
-                                    <th>Gender</th>
-                                    <th>Enrollment Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for enrollment in enrollments %}
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2">
-                                                    {{ enrollment.student.full_name|first|upper }}
-                                                </div>
-                                                <div>
-                                                    <strong>{{ enrollment.student.full_name }}</strong>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <code>{{ enrollment.student.enrollment_number }}</code>
-                                        </td>
-                                        <td>
-                                            <small class="text-muted">{{ enrollment.school.name }}</small>
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-info">{{ enrollment.class_section.display_name }}</span>
-                                        </td>
-                                        <td>
-                                            {% if enrollment.student.gender == 'M' %}
-                                                <i class="fas fa-mars text-primary"></i> Male
-                                            {% elif enrollment.student.gender == 'F' %}
-                                                <i class="fas fa-venus text-danger"></i> Female
-                                            {% else %}
-                                                <i class="fas fa-question text-muted"></i> {{ enrollment.student.gender }}
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            <small class="text-muted">{{ enrollment.start_date|date:"M d, Y" }}</small>
-                                        </td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <a href="{% url 'facilitator_student_detail' enrollment.student.id %}" 
-                                                   class="btn btn-outline-info" title="View Details">
-                                                    <i class="fas fa-eye me-1"></i>View
-                                                </a>
-                                                <a href="{% url 'facilitator_student_edit' enrollment.student.id %}" 
-                                                   class="btn btn-outline-primary" title="Edit Student">
-                                                    <i class="fas fa-edit me-1"></i>Edit
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <!-- Pagination -->
-                    {% if is_paginated %}
-                        <div class="card-footer">
-                            <nav aria-label="Students pagination">
-                                <ul class="pagination justify-content-center mb-0">
-                                    {% if page_obj.has_previous %}
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">First</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a>
-                                        </li>
-                                    {% endif %}
-                                    
-                                    <li class="page-item active">
-                                        <span class="page-link">
-                                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                                        </span>
-                                    </li>
-                                    
-                                    {% if page_obj.has_next %}
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Last</a>
-                                        </li>
-                                    {% endif %}
-                                </ul>
-                            </nav>
-                        </div>
-                    {% endif %}
-                </div>
-            {% else %}
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle me-2"></i>
-                    <strong>No students found</strong><br>
-                    {% if filters.search or filters.school or filters.class or filters.grade %}
-                        No students match your current filters. Try adjusting your search criteria.
-                    {% else %}
-                        No students are enrolled in your assigned schools yet.
-                    {% endif %}
-                </div>
-            {% endif %}
         </div>
     </div>
+
+    <!-- Filters -->
+    <div class="filter-section">
+        <h6 class="mb-3">
+            <i class="fas fa-filter me-2"></i>
+            Filter Students
+        </h6>
+        <form method="get" class="row g-3">
+            <div class="col-lg-3 col-md-6">
+                <label for="school" class="form-label fw-medium">School</label>
+                <select name="school" id="school" class="form-select filter-select">
+                    <option value="">All Schools</option>
+                    {% for school in schools %}
+                        <option value="{{ school.id }}" {% if filters.school == school.id|stringformat:"s" %}selected{% endif %}>
+                            {{ school.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label for="class" class="form-label fw-medium">Class</label>
+                <select name="class" id="class" class="form-select filter-select">
+                    <option value="">All Classes</option>
+                    {% for class_section in classes %}
+                        <option value="{{ class_section.id }}" 
+                                data-school="{{ class_section.school.id }}"
+                                {% if filters.class == class_section.id|stringformat:"s" %}selected{% endif %}>
+                            {{ class_section.school.name }} - {{ class_section.display_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label for="grade" class="form-label fw-medium">Grade</label>
+                <select name="grade" id="grade" class="form-select filter-select">
+                    <option value="">All Grades</option>
+                    {% for grade in grade_levels %}
+                        <option value="{{ grade }}" {% if filters.grade == grade %}selected{% endif %}>
+                            Grade {{ grade }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label for="search" class="form-label fw-medium">Search</label>
+                <input type="text" name="search" id="search" class="form-control search-input" 
+                       placeholder="Name or enrollment number..." value="{{ filters.search }}">
+            </div>
+            <div class="col-lg-1 col-md-6 d-flex align-items-end">
+                <button type="submit" class="btn filter-btn w-100">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Students List -->
+    {% if enrollments %}
+        <!-- Desktop Table View -->
+        <div class="desktop-table">
+            <div class="modern-card">
+                <div class="modern-card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-list me-2"></i>
+                        Students List
+                    </h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table modern-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Enrollment #</th>
+                                <th>School & Class</th>
+                                <th>Gender</th>
+                                <th>Enrollment Date</th>
+                                <th>Attendance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for enrollment in enrollments %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="student-avatar me-3">
+                                                {{ enrollment.student.full_name|first|upper }}
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0">{{ enrollment.student.full_name }}</h6>
+                                                <small class="text-muted">ID: {{ enrollment.student.enrollment_number }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <code class="bg-light px-2 py-1 rounded">{{ enrollment.student.enrollment_number }}</code>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <div class="fw-medium">{{ enrollment.school.name }}</div>
+                                            <span class="badge bg-info">{{ enrollment.class_section.display_name }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {% if enrollment.student.gender == 'M' %}
+                                            <i class="fas fa-mars text-primary me-1"></i> Male
+                                        {% elif enrollment.student.gender == 'F' %}
+                                            <i class="fas fa-venus text-danger me-1"></i> Female
+                                        {% else %}
+                                            <i class="fas fa-question text-muted me-1"></i> {{ enrollment.student.gender }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">{{ enrollment.start_date|date:"M d, Y" }}</small>
+                                    </td>
+                                    <td>
+                                        <span class="attendance-badge attendance-excellent">
+                                            <i class="fas fa-check-circle me-1"></i>
+                                            85%
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'facilitator_student_detail' enrollment.student.id %}" 
+                                           class="action-btn action-btn-primary">
+                                            <i class="fas fa-eye me-1"></i>View
+                                        </a>
+                                        <a href="{% url 'facilitator_student_edit' enrollment.student.id %}" 
+                                           class="action-btn action-btn-secondary">
+                                            <i class="fas fa-edit me-1"></i>Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Card View -->
+        <div class="mobile-cards">
+            {% for enrollment in enrollments %}
+                <div class="student-card">
+                    <div class="d-flex align-items-start">
+                        <div class="student-avatar">
+                            {{ enrollment.student.full_name|first|upper }}
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6>{{ enrollment.student.full_name }}</h6>
+                            <div class="student-meta">
+                                <i class="fas fa-id-card me-1"></i>
+                                {{ enrollment.student.enrollment_number }}
+                            </div>
+                            <div class="student-meta">
+                                <i class="fas fa-school me-1"></i>
+                                {{ enrollment.school.name }}
+                            </div>
+                            <div class="student-meta">
+                                <i class="fas fa-chalkboard me-1"></i>
+                                {{ enrollment.class_section.display_name }}
+                            </div>
+                            <div class="student-meta">
+                                {% if enrollment.student.gender == 'M' %}
+                                    <i class="fas fa-mars text-primary me-1"></i> Male
+                                {% elif enrollment.student.gender == 'F' %}
+                                    <i class="fas fa-venus text-danger me-1"></i> Female
+                                {% endif %}
+                                • Enrolled: {{ enrollment.start_date|date:"M d, Y" }}
+                            </div>
+                            <div class="mt-2">
+                                <span class="attendance-badge attendance-excellent">
+                                    <i class="fas fa-check-circle me-1"></i>
+                                    85% Attendance
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <a href="{% url 'facilitator_student_detail' enrollment.student.id %}" 
+                           class="action-btn action-btn-primary">
+                            <i class="fas fa-eye me-1"></i>View
+                        </a>
+                        <a href="{% url 'facilitator_student_edit' enrollment.student.id %}" 
+                           class="action-btn action-btn-secondary">
+                            <i class="fas fa-edit me-1"></i>Edit
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if is_paginated %}
+            <div class="modern-pagination">
+                {% if page_obj.has_previous %}
+                    <a class="page-btn" href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                    <a class="page-btn" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                {% endif %}
+                
+                <span class="page-btn active">
+                    {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+                
+                {% if page_obj.has_next %}
+                    <a class="page-btn" href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="page-btn" href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h5>No Students Found</h5>
+            <p class="mb-3">
+                {% if filters.search or filters.school or filters.class or filters.grade %}
+                    No students match your current filters. Try adjusting your search criteria.
+                {% else %}
+                    No students are enrolled in your assigned schools yet.
+                {% endif %}
+            </p>
+            <a href="{% url 'facilitator_student_create' %}" class="btn filter-btn">
+                <i class="fas fa-plus me-1"></i>
+                Add First Student
+            </a>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Cascade filtering: when school changes, filter classes
-        const schoolSelect = document.getElementById('school');
-        const classSelect = document.getElementById('class');
-        
-        if (schoolSelect && classSelect) {
-            schoolSelect.addEventListener('change', function() {
-                const selectedSchoolId = this.value;
-                const classOptions = classSelect.querySelectorAll('option');
+document.addEventListener('DOMContentLoaded', function() {
+    // Cascade filtering: when school changes, filter classes
+    const schoolSelect = document.getElementById('school');
+    const classSelect = document.getElementById('class');
+    
+    if (schoolSelect && classSelect) {
+        schoolSelect.addEventListener('change', function() {
+            const selectedSchoolId = this.value;
+            const classOptions = classSelect.querySelectorAll('option');
+            
+            classOptions.forEach(option => {
+                if (option.value === '') {
+                    option.style.display = 'block';
+                    return;
+                }
                 
-                classOptions.forEach(option => {
-                    if (option.value === '') {
-                        option.style.display = 'block';
-                        return;
-                    }
-                    
-                    const optionSchoolId = option.getAttribute('data-school');
-                    if (!selectedSchoolId || optionSchoolId === selectedSchoolId) {
-                        option.style.display = 'block';
-                    } else {
-                        option.style.display = 'none';
-                    }
-                });
-                
-                // Reset class selection if current selection is not valid
-                const currentClassOption = classSelect.querySelector(`option[value="${classSelect.value}"]`);
-                if (currentClassOption && currentClassOption.style.display === 'none') {
-                    classSelect.value = '';
+                const optionSchoolId = option.getAttribute('data-school');
+                if (!selectedSchoolId || optionSchoolId === selectedSchoolId) {
+                    option.style.display = 'block';
+                } else {
+                    option.style.display = 'none';
                 }
             });
             
-            // Trigger change event on page load to set initial state
-            schoolSelect.dispatchEvent(new Event('change'));
-        }
+            // Reset class selection if current selection is not valid
+            const currentClassOption = classSelect.querySelector(`option[value="${classSelect.value}"]`);
+            if (currentClassOption && currentClassOption.style.display === 'none') {
+                classSelect.value = '';
+            }
+        });
         
-        // Auto-submit search after typing (with debounce)
-        const searchInput = document.getElementById('search');
-        if (searchInput) {
-            let searchTimeout;
-            searchInput.addEventListener('input', function() {
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(() => {
-                    if (this.value.length >= 3 || this.value.length === 0) {
-                        this.form.submit();
-                    }
-                }, 500);
-            });
-        }
-    });
+        // Trigger change event on page load to set initial state
+        schoolSelect.dispatchEvent(new Event('change'));
+    }
+    
+    // Auto-submit search after typing (with debounce)
+    const searchInput = document.getElementById('search');
+    if (searchInput) {
+        let searchTimeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                if (this.value.length >= 3 || this.value.length === 0) {
+                    this.form.submit();
+                }
+            }, 500);
+        });
+    }
+    
+    // Add loading states to buttons
+    const filterBtn = document.querySelector('.filter-btn[type="submit"]');
+    if (filterBtn) {
+        filterBtn.addEventListener('click', function() {
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            this.disabled = true;
+        });
+    }
+});
 </script>
-
-{% endblock %}
-
-{% block extra_css %}
-<style>
-    .avatar-sm {
-        width: 32px;
-        height: 32px;
-        font-size: 14px;
-        font-weight: bold;
-    }
-    
-    /* Ensure action buttons are properly sized */
-    .btn-group .btn {
-        min-width: 70px;
-        padding: 0.375rem 0.75rem;
-        font-size: 0.875rem;
-    }
-    
-    /* Make table more readable */
-    .table td {
-        vertical-align: middle;
-        padding: 0.75rem;
-    }
-    
-    /* Improve button spacing */
-    .btn-group .btn:not(:last-child) {
-        margin-right: 2px;
-    }
-</style>
 {% endblock %}

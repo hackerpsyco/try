@@ -1,21 +1,607 @@
 {% extends 'facilitator/shared/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - {{ facilitator_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Dashboard Cards */
+.dashboard-card {
+   background: white;
+    border-radius: 12px;
+    box-shadow: none;
+    padding: 24px;
+    margin-bottom: 24px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+/* Stat Cards with Gradients */
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover::before {
+    transform: translateX(0);
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+.stat-card .stat-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-card .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 8px 0 0 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Progress Bars */
+.progress-bar {
+    background: #e9ecef;
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.8s ease;
+}
+
+.progress-fill.high {
+    background: linear-gradient(90deg, #28a745, #20c997);
+}
+
+.progress-fill.medium {
+    background: linear-gradient(90deg, #ffc107, #fd7e14);
+}
+
+.progress-fill.low {
+    background: linear-gradient(90deg, #dc3545, #e83e8c);
+}
+
+/* Recent Items */
+.recent-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.recent-item:last-child {
+    border-bottom: none;
+}
+
+.recent-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-right: 12px;
+}
+
+.chart-container {
+    position: relative;
+    height: 200px;
+    margin: 20px 0;
+}
+
+/* Bootstrap utility overrides */
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.text-primary {
+    color: #0d6efd !important;
+}
+
+.text-success {
+    color: #198754 !important;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.text-info {
+    color: #0dcaf0 !important;
+}
+
+/* Button styles */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-success {
+    border-color: #198754;
+    color: #198754;
+}
+
+.btn-outline-success:hover {
+    background-color: #198754;
+    border-color: #198754;
+    color: white;
+}
+
+.btn-outline-primary {
+    border-color: #0d6efd;
+    color: #0d6efd;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+.btn-outline-info {
+    border-color: #0dcaf0;
+    color: #0dcaf0;
+}
+
+.btn-outline-info:hover {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+    color: white;
+}
+
+.btn-outline-warning {
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.btn-outline-warning:hover {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-card {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 2rem;
+    }
+}
+
+/* Container and layout fixes */
+.container-fluid {
+    padding: 20px;
+}
+
+/* Ensure proper spacing */
+.row {
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.col-lg-3, .col-lg-4, .col-lg-6, .col-lg-8, .col-md-6 {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+/* Text utilities */
+.fw-medium {
+    font-weight: 500;
+}
+
+.text-end {
+    text-align: right;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+/* Icon spacing */
+.me-1 {
+    margin-right: 0.25rem;
+}
+
+.me-2 {
+    margin-right: 0.5rem;
+}
+
+/* Display utilities */
+.d-block {
+    display: block;
+}
+
+/* Padding utilities */
+.py-3 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.py-4 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+/* Width utilities */
+.w-100 {
+    width: 100%;
+}
+
+/* Font size utilities */
+.fa-2x {
+    font-size: 2em;
+}
+
+.fa-3x {
+    font-size: 3em;
+}
+
+/* Text center */
+.text-center {
+    text-align: center;
+}
+
+/* Headings */
+.h3 {
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+h5 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+/* Small text */
+small {
+    font-size: 0.875em;
+}
+</style>
+{% endblock %}
 
 {% block content %}
-                <h2 class="section-title">Facilitator Overview</h2>
-                
-                <div class="stats-grid">
-                   
-                    <div class="stat-card">
-                        <p class="stat-label">Active Facilitators</p>
-                        <p class="stat-value">86</p>
-                    </div>
-                    <div class="stat-card">
-                        <p class="stat-label">Pending Validations</p>
-                        <p class="stat-value">15</p>
-                    </div>
-                   
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h3 mb-1">Welcome back, {{ facilitator_name }}!</h1>
+                    <p class="text-muted mb-0">Here's what's happening with your classes today</p>
                 </div>
+                <div class="text-end">
+                    <small class="text-muted">Last updated: {{ "now"|date:"M d, Y H:i" }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <!-- CREATE USER MODAL -->
+    <!-- Key Statistics -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stat-card green">
+                <div class="stat-value">{{ total_schools }}</div>
+                <div class="stat-label">
+                    <i class="fas fa-school me-1"></i>
+                    School{{ total_schools|pluralize }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stat-card blue">
+                <div class="stat-value">{{ total_classes }}</div>
+                <div class="stat-label">
+                    <i class="fas fa-chalkboard-teacher me-1"></i>
+                    Class{{ total_classes|pluralize }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stat-card orange">
+                <div class="stat-value">{{ total_students }}</div>
+                <div class="stat-label">
+                    <i class="fas fa-users me-1"></i>
+                    Student{{ total_students|pluralize }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stat-card purple">
+                <div class="stat-value">{{ conducted_sessions }}</div>
+                <div class="stat-label">
+                    <i class="fas fa-calendar-check me-1"></i>
+                    Session{{ conducted_sessions|pluralize }} Conducted
+                </div>
+            </div>
+        </div>
+    </div>
 
-{% endblock content %}
+    <!-- Performance Metrics -->
+    <div class="row mb-4">
+        <div class="col-lg-6 mb-3">
+            <div class="dashboard-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-chart-line text-primary me-2"></i>
+                    Session Completion Rate
+                </h5>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span>{{ conducted_sessions }} of {{ total_planned_sessions }} sessions completed</span>
+                    <strong class="text-primary">{{ session_completion_rate }}%</strong>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill {% if session_completion_rate >= 80 %}high{% elif session_completion_rate >= 60 %}medium{% else %}low{% endif %}" 
+                         style="width: {{ session_completion_rate }}%"></div>
+                </div>
+                <small class="text-muted">
+                    {% if session_completion_rate >= 80 %}
+                        <i class="fas fa-check-circle text-success me-1"></i>Excellent progress!
+                    {% elif session_completion_rate >= 60 %}
+                        <i class="fas fa-exclamation-triangle text-warning me-1"></i>Good progress, keep it up!
+                    {% else %}
+                        <i class="fas fa-info-circle text-info me-1"></i>More sessions needed
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-3">
+            <div class="dashboard-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-check text-success me-2"></i>
+                    Overall Attendance Rate
+                </h5>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span>Student attendance across all classes</span>
+                    <strong class="text-success">{{ overall_attendance_rate }}%</strong>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill {% if overall_attendance_rate >= 85 %}high{% elif overall_attendance_rate >= 70 %}medium{% else %}low{% endif %}" 
+                         style="width: {{ overall_attendance_rate }}%"></div>
+                </div>
+                <small class="text-muted">
+                    {% if overall_attendance_rate >= 85 %}
+                        <i class="fas fa-thumbs-up text-success me-1"></i>Outstanding attendance!
+                    {% elif overall_attendance_rate >= 70 %}
+                        <i class="fas fa-chart-line text-warning me-1"></i>Good attendance rate
+                    {% else %}
+                        <i class="fas fa-arrow-up text-info me-1"></i>Room for improvement
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Class Performance & Recent Activity -->
+    <div class="row mb-4">
+        <div class="col-lg-8 mb-3">
+            <div class="dashboard-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-chart-bar text-info me-2"></i>
+                    Class-wise Attendance Performance
+                </h5>
+                {% if class_attendance_stats %}
+                    {% for class_stat in class_attendance_stats %}
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="fw-medium">
+                                {{ class_stat.class_section.school.name }} - {{ class_stat.class_section.display_name }}
+                                <small class="text-muted">({{ class_stat.total_students }} students)</small>
+                            </span>
+                            <strong class="{% if class_stat.attendance_rate >= 85 %}text-success{% elif class_stat.attendance_rate >= 70 %}text-warning{% else %}text-danger{% endif %}">
+                                {{ class_stat.attendance_rate }}%
+                            </strong>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill {% if class_stat.attendance_rate >= 85 %}high{% elif class_stat.attendance_rate >= 70 %}medium{% else %}low{% endif %}" 
+                                 style="width: {{ class_stat.attendance_rate }}%"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-chart-bar fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No attendance data available yet</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-4 mb-3">
+            <div class="dashboard-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-clock text-warning me-2"></i>
+                    Recent Activity
+                </h5>
+                <div class="mb-3">
+                    <small class="text-muted d-block mb-2">Sessions this week</small>
+                    <div class="d-flex align-items-center">
+                        <div class="recent-avatar">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div>
+                            <div class="fw-medium">{{ recent_sessions }} sessions</div>
+                            <small class="text-muted">Last 7 days</small>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if recent_students %}
+                    <small class="text-muted d-block mb-2">Recently added students</small>
+                    {% for enrollment in recent_students|slice:":3" %}
+                    <div class="recent-item">
+                        <div class="recent-avatar">
+                            {{ enrollment.student.full_name|first }}
+                        </div>
+                        <div>
+                            <div class="fw-medium">{{ enrollment.student.full_name }}</div>
+                            <small class="text-muted">{{ enrollment.class_section.display_name }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions & Upcoming Sessions -->
+    <div class="row">
+        <div class="col-lg-6 mb-3">
+            <div class="dashboard-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-bolt text-primary me-2"></i>
+                    Quick Actions
+                </h5>
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <a href="{% url 'facilitator_student_create' %}" class="btn btn-outline-success w-100">
+                            <i class="fas fa-user-plus me-1"></i>
+                            Add Student
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <a href="{% url 'facilitator_students_list' %}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-users me-1"></i>
+                            View Students
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <a href="{% url 'facilitator_schools_list' %}" class="btn btn-outline-info w-100">
+                            <i class="fas fa-school me-1"></i>
+                            My Schools
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <a href="/Facilitator/classes/" class="btn btn-outline-warning w-100">
+                            <i class="fas fa-chalkboard-teacher me-1"></i>
+                            My Classes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-3">
+            <div class="dashboard-card">
+                <h5 class="mb-3">
+                    <i class="fas fa-calendar-alt text-success me-2"></i>
+                    Upcoming Sessions
+                </h5>
+                {% if upcoming_sessions %}
+                    {% for session in upcoming_sessions %}
+                    <div class="recent-item">
+                        <div class="recent-avatar">
+                            {{ session.day_number }}
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="fw-medium">{{ session.topic|default:"Day "|add:session.day_number }}</div>
+                            <small class="text-muted">{{ session.class_section.school.name }} - {{ session.class_section.display_name }}</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted">Day {{ session.day_number }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-3">
+                        <i class="fas fa-calendar-check fa-2x text-muted mb-2"></i>
+                        <p class="text-muted mb-0">All sessions completed!</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Add some interactive animations
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate progress bars
+    const progressBars = document.querySelectorAll('.progress-fill');
+    progressBars.forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => {
+            bar.style.width = width;
+        }, 500);
+    });
+    
+    // Add hover effects to stat cards
+    const statCards = document.querySelectorAll('.stat-card');
+    statCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+    });
+});
+</script>
+{% endblock %}
