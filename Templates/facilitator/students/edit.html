@@ -106,16 +106,50 @@
                                                 </option>
                                             {% endfor %}
                                         </select>
+                                        {% if current_enrollment %}
+                                            <small class="text-muted">Current: {{ current_enrollment.school.name }}</small>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-6">
                                         <label for="class_section" class="form-label">
                                             Class Section <span class="text-danger">*</span>
                                         </label>
                                         <select name="class_section" id="class_section" class="form-select" required>
-                                            <option value="">Loading...</option>
+                                            <option value="">Select School First</option>
+                                            {% comment %}
+                                            Fallback: Include all class sections with data attributes for school filtering
+                                            {% endcomment %}
+                                            {% for class_section in class_sections %}
+                                                <option value="{{ class_section.id }}" 
+                                                        data-school="{{ class_section.school.id }}"
+                                                        style="display: none;"
+                                                        {% if current_enrollment and class_section.id == current_enrollment.class_section.id %}selected{% endif %}>
+                                                    {{ class_section.display_name }}
+                                                </option>
+                                            {% endfor %}
                                         </select>
+                                        {% if current_enrollment %}
+                                            <small class="text-muted">Current: {{ current_enrollment.class_section.display_name }}</small>
+                                        {% endif %}
                                     </div>
                                 </div>
+
+                                <!-- Hidden data for JavaScript fallback -->
+                                <script type="application/json" id="classData">
+                                    {
+                                        "classes": [
+                                            {% for class_section in class_sections %}
+                                            {
+                                                "id": "{{ class_section.id }}",
+                                                "school_id": "{{ class_section.school.id }}",
+                                                "display_name": "{{ class_section.display_name }}",
+                                                "class_level": "{{ class_section.class_level }}",
+                                                "section": "{{ class_section.section|default:'' }}"
+                                            }{% if not forloop.last %},{% endif %}
+                                            {% endfor %}
+                                        ]
+                                    }
+                                </script>
 
                                 <!-- Form Actions -->
                                 <div class="d-flex justify-content-between">
@@ -216,6 +250,15 @@
         const schoolSelect = document.getElementById('school');
         const classSelect = document.getElementById('class_section');
         
+        // Get class data from JSON script tag (fallback)
+        const classDataElement = document.getElementById('classData');
+        let classData = [];
+        try {
+            classData = JSON.parse(classDataElement.textContent).classes;
+        } catch (e) {
+            console.warn('Could not parse class data:', e);
+        }
+        
         // Add Bootstrap classes to form fields
         document.querySelectorAll('input, select').forEach(field => {
             field.classList.add('form-control');
@@ -224,6 +267,31 @@
             field.classList.remove('form-control');
             field.classList.add('form-select');
         });
+        
+        // Fallback function using local data
+        function loadClassesFallback(schoolId, selectedClassId = null) {
+            classSelect.innerHTML = '<option value="">Select Class</option>';
+            
+            const schoolClasses = classData.filter(cls => cls.school_id === schoolId);
+            
+            if (schoolClasses.length === 0) {
+                classSelect.innerHTML = '<option value="">No classes available</option>';
+                return;
+            }
+            
+            schoolClasses.forEach(classSection => {
+                const option = document.createElement('option');
+                option.value = classSection.id;
+                option.textContent = classSection.display_name;
+                
+                if (selectedClassId && String(classSection.id) === String(selectedClassId)) {
+                    option.selected = true;
+                    console.log('Selected class (fallback):', classSection.display_name, 'ID:', classSection.id);
+                }
+                
+                classSelect.appendChild(option);
+            });
+        }
         
         // Load classes for initially selected school
         function loadClasses(schoolId, selectedClassId = null) {
@@ -235,6 +303,7 @@
             classSelect.innerHTML = '<option value="">Loading...</option>';
             classSelect.disabled = true;
             
+            // Try AJAX first, fallback to local data if it fails
             fetch(`{% url 'facilitator_ajax_school_classes' %}?school_id=${schoolId}`)
                 .then(response => {
                     if (!response.ok) {
@@ -243,20 +312,21 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Received data:', data); // Debug log
                     classSelect.innerHTML = '<option value="">Select Class</option>';
                     
                     if (data.error) {
                         console.error('Server error:', data.error);
-                        classSelect.innerHTML = '<option value="">Error: ' + data.error + '</option>';
+                        throw new Error(data.error);
                     } else if (data.classes && data.classes.length > 0) {
                         data.classes.forEach(classSection => {
                             const option = document.createElement('option');
                             option.value = classSection.id;
                             option.textContent = `${classSection.class_level}${classSection.section || ''} (${classSection.display_name || classSection.class_level + (classSection.section || '')})`;
                             
-                            if (selectedClassId && classSection.id == selectedClassId) {
+                            // Set selected if this matches the current enrollment
+                            if (selectedClassId && String(classSection.id) === String(selectedClassId)) {
                                 option.selected = true;
+                                console.log('Selected class:', classSection.display_name, 'ID:', classSection.id);
                             }
                             
                             classSelect.appendChild(option);
@@ -268,17 +338,38 @@
                     classSelect.disabled = false;
                 })
                 .catch(error => {
-                    console.error('Error fetching classes:', error);
-                    classSelect.innerHTML = '<option value="">Error loading classes - Check console</option>';
+                    console.error('AJAX failed, using fallback:', error);
+                    // Use fallback method
+                    loadClassesFallback(schoolId, selectedClassId);
                     classSelect.disabled = false;
                 });
         }
         
-        // Load classes for initially selected school
+        // Load classes for initially selected school on page load
         const initialSchoolId = schoolSelect.value;
         const initialClassId = '{% if current_enrollment %}{{ current_enrollment.class_section.id }}{% endif %}';
-        if (initialSchoolId) {
+        
+        console.log('Initial school ID:', initialSchoolId);
+        console.log('Initial class ID:', initialClassId);
+        
+        // Debug: Show current enrollment info
+        {% if current_enrollment %}
+        console.log('Current enrollment school ID:', '{{ current_enrollment.school.id }}');
+        console.log('Current enrollment class ID:', '{{ current_enrollment.class_section.id }}');
+        console.log('Current enrollment class name:', '{{ current_enrollment.class_section.display_name }}');
+        {% else %}
+        console.log('No current enrollment found');
+        {% endif %}
+        
+        if (initialSchoolId && initialClassId) {
+            // Load classes and set the selected class
             loadClasses(initialSchoolId, initialClassId);
+        } else if (initialSchoolId) {
+            // Just load classes without selection
+            loadClasses(initialSchoolId);
+        } else {
+            // No school selected, show default message
+            classSelect.innerHTML = '<option value="">Select School First</option>';
         }
         
         // Handle school selection change

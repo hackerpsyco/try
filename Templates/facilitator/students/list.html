@@ -386,7 +386,7 @@
     </div>
 
     <!-- Students List -->
-    {% if enrollments %}
+    {% if enrollment_stats %}
         <!-- Desktop Table View -->
         <div class="desktop-table">
             <div class="modern-card">
@@ -410,52 +410,64 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for enrollment in enrollments %}
+                            {% for stat in enrollment_stats %}
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="student-avatar me-3">
-                                                {{ enrollment.student.full_name|first|upper }}
+                                                {{ stat.enrollment.student.full_name|first|upper }}
                                             </div>
                                             <div>
-                                                <h6 class="mb-0">{{ enrollment.student.full_name }}</h6>
-                                                <small class="text-muted">ID: {{ enrollment.student.enrollment_number }}</small>
+                                                <h6 class="mb-0">{{ stat.enrollment.student.full_name }}</h6>
+                                                <small class="text-muted">ID: {{ stat.enrollment.student.enrollment_number }}</small>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <code class="bg-light px-2 py-1 rounded">{{ enrollment.student.enrollment_number }}</code>
+                                        <code class="bg-light px-2 py-1 rounded">{{ stat.enrollment.student.enrollment_number }}</code>
                                     </td>
                                     <td>
                                         <div>
-                                            <div class="fw-medium">{{ enrollment.school.name }}</div>
-                                            <span class="badge bg-info">{{ enrollment.class_section.display_name }}</span>
+                                            <div class="fw-medium">{{ stat.enrollment.school.name }}</div>
+                                            <span class="badge bg-info">{{ stat.enrollment.class_section.display_name }}</span>
                                         </div>
                                     </td>
                                     <td>
-                                        {% if enrollment.student.gender == 'M' %}
+                                        {% if stat.enrollment.student.gender == 'M' %}
                                             <i class="fas fa-mars text-primary me-1"></i> Male
-                                        {% elif enrollment.student.gender == 'F' %}
+                                        {% elif stat.enrollment.student.gender == 'F' %}
                                             <i class="fas fa-venus text-danger me-1"></i> Female
                                         {% else %}
-                                            <i class="fas fa-question text-muted me-1"></i> {{ enrollment.student.gender }}
+                                            <i class="fas fa-question text-muted me-1"></i> {{ stat.enrollment.student.gender }}
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <small class="text-muted">{{ enrollment.start_date|date:"M d, Y" }}</small>
+                                        <small class="text-muted">{{ stat.enrollment.start_date|date:"M d, Y" }}</small>
                                     </td>
                                     <td>
-                                        <span class="attendance-badge attendance-excellent">
-                                            <i class="fas fa-check-circle me-1"></i>
-                                            85%
-                                        </span>
+                                        {% if stat.attendance_percentage >= 75 %}
+                                            <span class="attendance-badge attendance-excellent">
+                                                <i class="fas fa-check-circle me-1"></i>
+                                                {{ stat.attendance_percentage }}%
+                                            </span>
+                                        {% elif stat.attendance_percentage >= 50 %}
+                                            <span class="attendance-badge attendance-good">
+                                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                                {{ stat.attendance_percentage }}%
+                                            </span>
+                                        {% else %}
+                                            <span class="attendance-badge attendance-poor">
+                                                <i class="fas fa-times-circle me-1"></i>
+                                                {{ stat.attendance_percentage }}%
+                                            </span>
+                                        {% endif %}
                                     </td>
                                     <td>
-                                        <a href="{% url 'facilitator_student_detail' enrollment.student.id %}" 
+                                        <a href="{% url 'facilitator_student_detail' stat.enrollment.student.id %}" 
                                            class="action-btn action-btn-primary">
                                             <i class="fas fa-eye me-1"></i>View
                                         </a>
-                                        <a href="{% url 'facilitator_student_edit' enrollment.student.id %}" 
+                                        <a href="{% url 'facilitator_student_edit' stat.enrollment.student.id %}" 
                                            class="action-btn action-btn-secondary">
                                             <i class="fas fa-edit me-1"></i>Edit
                                         </a>
@@ -470,48 +482,60 @@
 
         <!-- Mobile Card View -->
         <div class="mobile-cards">
-            {% for enrollment in enrollments %}
+            {% for stat in enrollment_stats %}
                 <div class="student-card">
                     <div class="d-flex align-items-start">
                         <div class="student-avatar">
-                            {{ enrollment.student.full_name|first|upper }}
+                            {{ stat.enrollment.student.full_name|first|upper }}
                         </div>
                         <div class="flex-grow-1">
-                            <h6>{{ enrollment.student.full_name }}</h6>
+                            <h6>{{ stat.enrollment.student.full_name }}</h6>
                             <div class="student-meta">
                                 <i class="fas fa-id-card me-1"></i>
-                                {{ enrollment.student.enrollment_number }}
+                                {{ stat.enrollment.student.enrollment_number }}
                             </div>
                             <div class="student-meta">
                                 <i class="fas fa-school me-1"></i>
-                                {{ enrollment.school.name }}
+                                {{ stat.enrollment.school.name }}
                             </div>
                             <div class="student-meta">
                                 <i class="fas fa-chalkboard me-1"></i>
-                                {{ enrollment.class_section.display_name }}
+                                {{ stat.enrollment.class_section.display_name }}
                             </div>
                             <div class="student-meta">
-                                {% if enrollment.student.gender == 'M' %}
+                                {% if stat.enrollment.student.gender == 'M' %}
                                     <i class="fas fa-mars text-primary me-1"></i> Male
-                                {% elif enrollment.student.gender == 'F' %}
+                                {% elif stat.enrollment.student.gender == 'F' %}
                                     <i class="fas fa-venus text-danger me-1"></i> Female
                                 {% endif %}
-                                • Enrolled: {{ enrollment.start_date|date:"M d, Y" }}
+                                • Enrolled: {{ stat.enrollment.start_date|date:"M d, Y" }}
                             </div>
                             <div class="mt-2">
-                                <span class="attendance-badge attendance-excellent">
-                                    <i class="fas fa-check-circle me-1"></i>
-                                    85% Attendance
-                                </span>
+                                {% if stat.attendance_percentage >= 75 %}
+                                    <span class="attendance-badge attendance-excellent">
+                                        <i class="fas fa-check-circle me-1"></i>
+                                        {{ stat.attendance_percentage }}% Attendance
+                                    </span>
+                                {% elif stat.attendance_percentage >= 50 %}
+                                    <span class="attendance-badge attendance-good">
+                                        <i class="fas fa-exclamation-triangle me-1"></i>
+                                        {{ stat.attendance_percentage }}% Attendance
+                                    </span>
+                                {% else %}
+                                    <span class="attendance-badge attendance-poor">
+                                        <i class="fas fa-times-circle me-1"></i>
+                                        {{ stat.attendance_percentage }}% Attendance
+                                    </span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <a href="{% url 'facilitator_student_detail' enrollment.student.id %}" 
+                        <a href="{% url 'facilitator_student_detail' stat.enrollment.student.id %}" 
                            class="action-btn action-btn-primary">
                             <i class="fas fa-eye me-1"></i>View
                         </a>
-                        <a href="{% url 'facilitator_student_edit' enrollment.student.id %}" 
+                        <a href="{% url 'facilitator_student_edit' stat.enrollment.student.id %}" 
                            class="action-btn action-btn-secondary">
                             <i class="fas fa-edit me-1"></i>Edit
                         </a>

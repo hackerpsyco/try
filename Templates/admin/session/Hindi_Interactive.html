@@ -332,7 +332,6 @@
                     }
                     return await response.text();
                 } catch (error) {
-                    console.error('Error loading day content:', error);
                     return `<div class="alert alert-danger m-3">दिन ${day} की सामग्री लोड करने में त्रुटि: ${error.message}</div>`;
                 }
             }
@@ -382,7 +381,6 @@
                     this.cache.set(day, content);
                     contentDiv.innerHTML = content;
                 } catch (error) {
-                    console.error('Error loading day content:', error);
                     contentDiv.innerHTML = `<div class="alert alert-danger m-3">दिन ${day} की सामग्री लोड करने में त्रुटि।</div>`;
                 }
 

@@ -85,6 +85,28 @@ class CurriculumSession(models.Model):
         related_name='created_sessions',
         help_text="Administrator who created session"
     )
+    
+    # New integration fields
+    usage_count = models.PositiveIntegerField(
+        default=0,
+        help_text="Number of times accessed by facilitators"
+    )
+    
+    last_accessed = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Last time content was accessed by a facilitator"
+    )
+    
+    is_active_for_facilitators = models.BooleanField(
+        default=True,
+        help_text="Whether facilitators should see this content"
+    )
+    
+    fallback_to_static = models.BooleanField(
+        default=False,
+        help_text="Force fallback to static content for this day/language"
+    )
 
     class Meta:
         ordering = ['language', 'day_number']
@@ -174,7 +196,7 @@ class SessionUsageLog(models.Model):
     session = models.ForeignKey(
         CurriculumSession,
         on_delete=models.CASCADE,
-        related_name='usage_logs',
+        related_name='session_usage_logs',
         help_text="Reference to accessed session"
     )
     
@@ -323,3 +345,114 @@ class SessionVersionHistory(models.Model):
 
     def __str__(self):
         return f"{self.session} - Version {self.version_number}"
+
+
+class CurriculumUsageLog(models.Model):
+    """
+    Tracks facilitator access to curriculum content for analytics.
+    """
+    
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
+    curriculum_session = models.ForeignKey(
+        CurriculumSession,
+        on_delete=models.CASCADE,
+        related_name='curriculum_usage_logs'
+    )
+    
+    facilitator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='curriculum_accesses'
+    )
+    
+    class_section = models.ForeignKey(
+        'ClassSection',
+        on_delete=models.CASCADE,
+        related_name='curriculum_accesses'
+    )
+    
+    planned_session = models.ForeignKey(
+        'PlannedSession',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        help_text="Associated PlannedSession if applicable"
+    )
+    
+    access_timestamp = models.DateTimeField(auto_now_add=True)
+    session_duration = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text="Time spent viewing content in seconds"
+    )
+    
+    content_source = models.CharField(
+        max_length=20,
+        choices=[
+            ('admin_managed', 'Admin Managed'),
+            ('static_fallback', 'Static Fallback'),
+        ],
+        help_text="Source of the curriculum content"
+    )
+    
+    user_agent = models.TextField(blank=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-access_timestamp']
+        verbose_name = "Curriculum Usage Log"
+        verbose_name_plural = "Curriculum Usage Logs"
+
+    def __str__(self):
+        return f"{self.facilitator} accessed {self.curriculum_session} at {self.access_timestamp}"
+
+
+class SessionContentMapping(models.Model):
+    """
+    Links PlannedSessions with their corresponding CurriculumSessions.
+    """
+    
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
+    planned_session = models.OneToOneField(
+        'PlannedSession',
+        on_delete=models.CASCADE,
+        related_name='curriculum_mapping'
+    )
+    
+    curriculum_session = models.ForeignKey(
+        CurriculumSession,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='planned_mappings'
+    )
+    
+    content_source = models.CharField(
+        max_length=20,
+        choices=[
+            ('admin_managed', 'Admin Managed'),
+            ('static_fallback', 'Static Fallback'),
+            ('not_available', 'Not Available'),
+        ],
+        default='static_fallback'
+    )
+    
+    last_sync = models.DateTimeField(auto_now=True)
+    sync_status = models.CharField(
+        max_length=20,
+        choices=[
+            ('synced', 'Synced'),
+            ('outdated', 'Outdated'),
+            ('failed', 'Failed'),
+        ],
+        default='synced'
+    )
+
+    class Meta:
+        verbose_name = "Session Content Mapping"
+        verbose_name_plural = "Session Content Mappings"
+
+    def __str__(self):
+        return f"{self.planned_session} -> {self.curriculum_session or 'Static Content'}"

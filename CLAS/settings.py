@@ -84,6 +84,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'class.middleware.MessageCleanupMiddleware',  # Custom message cleanup
+    'class.middleware.DebugMessageSuppressMiddleware',  # Debug message suppression
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 

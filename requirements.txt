@@ -54,3 +54,6 @@ django-pipeline>=3.0.0  # Asset pipeline for CSS/JS optimization
 django-htmlmin>=0.11.0  # HTML minification
 beautifulsoup4>=4.12.0  # HTML parsing for optimization
 
+# Reports and PDF generation
+reportlab>=4.0.0
+pandas>=2.0.0

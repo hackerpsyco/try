@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import (
     # Auth
     login_view, logout_view, dashboard, no_permission,
@@ -52,6 +52,7 @@ from .views import (
     admin_curriculum_session_preview,
     admin_sessions_overview,
     ajax_school_classes_admin,
+    initialize_class_sessions,
     
     # Performance API endpoints
     api_lazy_load_sessions,
@@ -61,6 +62,16 @@ from .views import (
     api_dashboard_curriculum_updates,
     api_curriculum_sessions_filter,
     
+    # Session Workflow (NEW)
+    upload_lesson_plan,
+    save_preparation_checklist,
+    save_session_reward,
+    save_session_tracking,
+    save_session_feedback,
+    save_student_feedback,
+    save_teacher_feedback,
+    get_feedback_status,
+    
     # AJAX endpoints
     ajax_facilitator_schools,
     ajax_school_classes,
@@ -68,6 +79,14 @@ from .views import (
     debug_sessions,
 )
 from . import facilitator_views
+from .admin_session_views import (
+    admin_session_templates_list,
+    admin_session_template_create,
+    admin_bulk_generate_sessions,
+    admin_sequence_integrity_check,
+    admin_session_analytics,
+    ajax_class_session_status,
+)
 
 urlpatterns = [
 
@@ -328,7 +347,7 @@ path(
     path(
         "facilitator/class/<uuid:class_section_id>/students/",
         facilitator_students_list,
-        name="facilitator_students_list"
+        name="facilitator_class_students_list"
     ),
     path(
         "facilitator/class/<uuid:class_section_id>/student/<uuid:student_id>/",
@@ -361,6 +380,11 @@ path(
     path("admin/curriculum-sessions/<uuid:session_id>/preview/", admin_curriculum_session_preview, name="admin_curriculum_session_preview"),
     
     # ======================
+    # Class Session Initialization
+    # ======================
+    path("admin/initialize-class-sessions/", initialize_class_sessions, name="initialize_class_sessions"),
+    
+    # ======================
     # Facilitator Student Management (New)
     # ======================
     path("facilitator/my-schools/", facilitator_views.FacilitatorSchoolListView.as_view(), name="facilitator_schools_list"),
@@ -374,6 +398,28 @@ path(
     path("facilitator/test/access/", facilitator_views.facilitator_test_access, name="facilitator_test_access"),
     
     # ======================
+    # Admin Session Sequence Management (NEW)
+    # ======================
+    path("admin/session-templates/", admin_session_templates_list, name="admin_session_templates_list"),
+    path("admin/session-templates/create/", admin_session_template_create, name="admin_session_template_create"),
+    path("admin/sessions/bulk-generate/", admin_bulk_generate_sessions, name="admin_bulk_generate_sessions"),
+    path("admin/sessions/integrity-check/", admin_sequence_integrity_check, name="admin_sequence_integrity_check"),
+    path("admin/sessions/analytics/", admin_session_analytics, name="admin_session_analytics"),
+    path("api/admin/class-session-status/", ajax_class_session_status, name="ajax_class_session_status"),
+    
+    # ======================
+    # Session Workflow (NEW)
+    # ======================
+    path("api/upload-lesson-plan/", upload_lesson_plan, name="upload_lesson_plan"),
+    path("api/save-preparation-checklist/", save_preparation_checklist, name="save_preparation_checklist"),
+    path("api/save-session-reward/", save_session_reward, name="save_session_reward"),
+    path("api/save-session-tracking/", save_session_tracking, name="save_session_tracking"),
+    path("api/save-session-feedback/", save_session_feedback, name="save_session_feedback"),
+    path("api/save-student-feedback/", save_student_feedback, name="save_student_feedback"),
+    path("api/save-teacher-feedback/", save_teacher_feedback, name="save_teacher_feedback"),
+    path("api/get-feedback-status/", get_feedback_status, name="get_feedback_status"),
+    
+    # ======================
     # Performance API Endpoints
     # ======================
     path("api/lazy-load/sessions/", api_lazy_load_sessions, name="api_lazy_load_sessions"),
@@ -382,4 +428,9 @@ path(
     path("api/dashboard/recent-sessions/", api_dashboard_recent_sessions, name="api_dashboard_recent_sessions"),
     path("api/dashboard/curriculum-updates/", api_dashboard_curriculum_updates, name="api_dashboard_curriculum_updates"),
     path("api/curriculum-sessions/filter/", api_curriculum_sessions_filter, name="api_curriculum_sessions_filter"),
+    
+    # ======================
+    # Reports System
+    # ======================
+    path("", include('class.urls_reports')),
 ]

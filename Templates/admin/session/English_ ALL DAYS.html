@@ -19,8 +19,6 @@ class CurriculumNavigator {
     initialize() {
         if (this.isInitialized) return;
         
-        console.log('Initializing Curriculum Day Navigator...');
-        
         // Step 1: Identify and wrap day content
         this.wrapDayContent();
         
@@ -31,14 +29,12 @@ class CurriculumNavigator {
         this.showDay(1);
         
         this.isInitialized = true;
-        console.log('Curriculum Day Navigator initialized successfully');
     }
 
     // Identify day boundaries and wrap content in sections
     wrapDayContent() {
         const table = document.querySelector('.waffle tbody');
         if (!table) {
-            console.error('Table not found');
             return;
         }
 
@@ -69,8 +65,6 @@ class CurriculumNavigator {
         if (currentDayRows.length > 0) {
             this.wrapRowsInSection(currentDayRows, currentDayNumber);
         }
-
-        console.log(`Wrapped content for ${this.daySections.length} days`);
     }
 
     // Wrap a group of rows in a day section
@@ -103,7 +97,6 @@ class CurriculumNavigator {
     generateButtons() {
         const buttonContainer = document.getElementById('dayButtons');
         if (!buttonContainer) {
-            console.error('Button container not found');
             return;
         }
 
@@ -172,13 +165,11 @@ class CurriculumNavigator {
         }
 
         buttonContainer.appendChild(buttonsWrapper);
-        console.log(`Generated ${this.dayButtons.length} navigation buttons`);
     }
 
     // Show specific day content
     showDay(dayNumber) {
         if (dayNumber < 1 || dayNumber > this.totalDays) {
-            console.warn(`Invalid day number: ${dayNumber}`);
             dayNumber = 1; // Default to Day 1
         }
 
@@ -200,10 +191,8 @@ class CurriculumNavigator {
 
             // Scroll to top of content
             targetSection.element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-            console.log(`Showing Day ${dayNumber}`);
         } else {
-            console.error(`Day ${dayNumber} section not found`);
+            // Day section not found - fallback to Day 1
         }
     }
 

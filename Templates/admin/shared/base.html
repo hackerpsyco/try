@@ -1,7 +1,7 @@
 
 {% load static %}
 {% load static tailwind_tags %}
-<!-- DEBUG: Admin Base Template Loaded -->
+{% load message_tags %}
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 <head>
@@ -25,11 +25,24 @@
             -moz-osx-font-smoothing: grayscale;
         }
         .sidebar { transition: transform 0.3s ease-in-out; }
+        /* Loading spinner improvements */
         .loading-spinner { 
             display: inline-block; width: 1rem; height: 1rem; 
             border: 2px solid #e5e7eb; border-top-color: #3b82f6; 
             border-radius: 50%; animation: spin 1s linear infinite; 
         }
+        
+        .loading-spinner.w-5 {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        
+        .loading-spinner.w-8 {
+            width: 2rem;
+            height: 2rem;
+            border-width: 3px;
+        }
+        
         @keyframes spin { to { transform: rotate(360deg); } }
         
         /* Mobile sidebar optimization */
@@ -44,6 +57,22 @@
         /* Performance optimizations */
         * { box-sizing: border-box; }
         img { max-width: 100%; height: auto; }
+        
+        /* Message animations */
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message-exit {
+            transition: all 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
         
         /* Reduce motion for accessibility */
         @media (prefers-reduced-motion: reduce) {
@@ -84,24 +113,27 @@
         {% include 'admin/shared/topbar.html' %}
 
         <div class="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto">
-            <!-- Messages with improved styling -->
+            <!-- Messages with improved styling and auto-clear functionality -->
+            {% clean_old_messages request %}
             {% if messages %}
-                <div class="mb-6 space-y-3">
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }} p-4 rounded-lg border-l-4 animate-fade-in {% if message.tags == 'error' %}bg-red-50 border-red-400 text-red-700{% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-400 text-yellow-700{% elif message.tags == 'success' %}bg-green-50 border-green-400 text-green-700{% else %}bg-blue-50 border-blue-400 text-blue-700{% endif %}">
-                            <div class="flex items-center">
-                                <span class="material-symbols-outlined mr-2 text-lg">
-                                    {% if message.tags == 'error' %}error
-                                    {% elif message.tags == 'warning' %}warning
-                                    {% elif message.tags == 'success' %}check_circle
-                                    {% else %}info{% endif %}
-                                </span>
-                                {{ message }}
-                                <button onclick="this.parentElement.parentElement.remove()" class="ml-auto text-current opacity-50 hover:opacity-100">
-                                    <span class="material-symbols-outlined text-lg">close</span>
-                                </button>
+                <div class="mb-6 space-y-3" id="messagesContainer">
+                    {% for message in messages|filter_debug_messages %}
+                        {% if message|is_recent_message:60 %}
+                            <div class="alert alert-{{ message.tags }} p-4 rounded-lg border-l-4 animate-fade-in {% if message.tags == 'error' %}bg-red-50 border-red-400 text-red-700{% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-400 text-yellow-700{% elif message.tags == 'success' %}bg-green-50 border-green-400 text-green-700{% else %}bg-blue-50 border-blue-400 text-blue-700{% endif %}" data-message-time="{{ message.extra_tags|default:'' }}">
+                                <div class="flex items-center">
+                                    <span class="material-symbols-outlined mr-2 text-lg">
+                                        {% if message.tags == 'error' %}error
+                                        {% elif message.tags == 'warning' %}warning
+                                        {% elif message.tags == 'success' %}check_circle
+                                        {% else %}info{% endif %}
+                                    </span>
+                                    {{ message }}
+                                    <button onclick="this.parentElement.parentElement.remove()" class="ml-auto text-current opacity-50 hover:opacity-100" title="Dismiss">
+                                        <span class="material-symbols-outlined text-lg">close</span>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             {% endif %}
@@ -182,26 +214,16 @@
         });
     }
     
-    // Auto-dismiss messages after 5 seconds
-    const messages = document.querySelectorAll('.alert');
-    messages.forEach(function(message) {
-        if (!message.classList.contains('alert-error')) {
-            setTimeout(function() {
-                if (message.parentElement) {
-                    message.style.opacity = '0';
-                    message.style.transform = 'translateY(-10px)';
-                    setTimeout(function() {
-                        message.remove();
-                    }, 300);
-                }
-            }, 5000);
-        }
-    });
+    // Initialize message system
+    // Message handling is now managed by message-manager.js
 })();
 </script>
 
 <!-- Additional JavaScript -->
 {% block extra_js %}{% endblock %}
+
+<!-- Load message manager script -->
+<script src="{% static 'js/message-manager.js' %}" defer></script>
 
 <!-- Load performance optimization script -->
 <script src="{% static 'js/performance.js' %}" defer></script>

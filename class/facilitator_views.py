@@ -175,6 +175,42 @@ class FacilitatorStudentListView(FacilitatorAccessMixin, ListView):
             'search': self.request.GET.get('search', ''),
         }
         
+        # Calculate attendance statistics for each enrollment
+        from .models import Attendance, ActualSession
+        enrollment_stats = []
+        
+        for enrollment in context['enrollments']:
+            # Get total conducted sessions for this class
+            total_sessions = ActualSession.objects.filter(
+                planned_session__class_section=enrollment.class_section,
+                status="conducted"
+            ).count()
+            
+            # Count attendance records for this student
+            present_count = Attendance.objects.filter(
+                enrollment=enrollment,
+                actual_session__planned_session__class_section=enrollment.class_section,
+                status="present"
+            ).count()
+            
+            absent_count = Attendance.objects.filter(
+                enrollment=enrollment,
+                actual_session__planned_session__class_section=enrollment.class_section,
+                status="absent"
+            ).count()
+            
+            attendance_percentage = (present_count / total_sessions * 100) if total_sessions > 0 else 0
+            
+            enrollment_stats.append({
+                'enrollment': enrollment,
+                'total_sessions': total_sessions,
+                'present_count': present_count,
+                'absent_count': absent_count,
+                'attendance_percentage': round(attendance_percentage, 1)
+            })
+        
+        context['enrollment_stats'] = enrollment_stats
+        
         return context
 
 

@@ -30,8 +30,24 @@
 </div>
 
 {% if planned_session %}
+<!-- Debug Information (remove in production) -->
+{% comment %}
+<div class="alert alert-info mt-2">
+  <small>
+    <strong>Debug Info:</strong><br>
+    Today: {{ today_date }}<br>
+    Session Day: {{ current_day }}<br>
+    Status: {{ session_status }}<br>
+    Is Today: {{ is_today }}<br>
+    {% if actual_session %}
+    Actual Session Date: {{ actual_session_date }}<br>
+    {% endif %}
+  </small>
+</div>
+{% endcomment %}
+
 <div class="row">
-  <!-- Session Control Panel -->
+  <!-- Session Control Panel (Left Side) -->
   <div class="col-md-4">
     <div class="card shadow-sm">
       <div class="card-body">
@@ -41,10 +57,14 @@
             Day {{ current_day }}
           </span>
 
-          {% if session_status == "holiday" %}
+          {% if session_status == "holiday" and is_today %}
+            <span class="badge bg-warning">Holiday (Today)</span>
+          {% elif session_status == "holiday" %}
             <span class="badge bg-warning">Holiday</span>
           {% elif session_status == "cancelled" %}
             <span class="badge bg-danger">Cancelled</span>
+          {% elif session_status == "conducted" and is_today %}
+            <span class="badge bg-success">Completed (Today)</span>
           {% elif session_status == "conducted" %}
             <span class="badge bg-success">Completed</span>
           {% else %}
@@ -52,10 +72,63 @@
           {% endif %}
         </div>
 
+        <!-- PROGRESS INDICATOR -->
+        {% if progress_metrics %}
+        <div class="mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <small class="text-muted">Progress</small>
+            <small class="text-muted">{{ progress_metrics.completion_percentage|floatformat:1 }}%</small>
+          </div>
+          <div class="progress" style="height: 6px;">
+            <div class="progress-bar bg-success" role="progressbar" 
+                 style="width: {{ progress_metrics.completion_percentage }}%"></div>
+          </div>
+          <small class="text-muted">
+            {{ progress_metrics.conducted_sessions }} conducted, 
+            {{ progress_metrics.cancelled_sessions }} cancelled, 
+            {{ progress_metrics.pending_sessions }} pending
+          </small>
+        </div>
+        {% endif %}
+
         <!-- TOPIC -->
         <h6 class="fw-semibold mt-2">
           {{ planned_session.title|default:"Day Session" }}
         </h6>
+
+        <!-- WORKFLOW NAVIGATION -->
+        <div class="workflow-nav mb-3">
+          <div class="nav nav-pills flex-column" id="workflowTabs" role="tablist">
+            <button class="nav-link active" id="lesson-plan-tab" data-bs-toggle="pill" 
+                    data-bs-target="#lesson-plan" type="button" role="tab">
+              <i class="fas fa-file-pdf me-2"></i>📋 Lesson Plan
+            </button>
+            <button class="nav-link" id="preparation-tab" data-bs-toggle="pill" 
+                    data-bs-target="#preparation" type="button" role="tab">
+              <i class="fas fa-check-circle me-2"></i>✅ Preparation
+            </button>
+            <button class="nav-link" id="rewards-tab" data-bs-toggle="pill" 
+                    data-bs-target="#rewards" type="button" role="tab">
+              <i class="fas fa-gift me-2"></i>🎁 Rewards
+            </button>
+            <button class="nav-link" id="conduct-tab" data-bs-toggle="pill" 
+                    data-bs-target="#conduct" type="button" role="tab">
+              <i class="fas fa-play me-2"></i>📝 Conduct
+            </button>
+            <button class="nav-link" id="feedback-tab" data-bs-toggle="pill" 
+                    data-bs-target="#feedback" type="button" role="tab">
+              <i class="fas fa-comment me-2"></i>💭 Feedback
+            </button>
+          </div>
+        </div>
+
+        <!-- WORKFLOW PROGRESS -->
+        <div class="workflow-progress mb-3">
+          <div class="progress" style="height: 8px;">
+            <div class="progress-bar bg-info" role="progressbar" style="width: 20%" id="workflowProgressBar"></div>
+          </div>
+          <small class="text-muted">Workflow Progress: <span id="workflowProgressText">20%</span></small>
+        </div>
 
         <!-- SESSION STEPS -->
         {% if planned_session.steps.exists %}
@@ -79,7 +152,7 @@
           </div>
         {% endif %}
 
-        <!-- DESCRIPTION / STEPS -->
+        <!-- DESCRIPTION / NOTES -->
         {% if planned_session.description %}
           <div class="alert alert-info border mt-2">
             <strong>📘 Session Notes:</strong><br>
@@ -89,45 +162,13 @@
           </div>
         {% endif %}
 
-        <!-- INFO MESSAGE -->
-        {% if actual_session and session_status != "pending" %}
-          {% if is_today %}
-            <div class="alert alert-info my-2">
-              🌤️ This session was marked
-              <strong>{{ session_status|title }}</strong> today ({{ actual_session.date }}).<br>
-              {% if session_status == "conducted" %}
-                <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-sm btn-primary mt-1">
-                  View Attendance
-                </a>
-              {% endif %}
-            </div>
-          {% else %}
-            <div class="alert alert-info my-2">
-              ⏪ This session was earlier marked
-              <strong>{{ session_status|title }}</strong> on {{ actual_session.date }}.<br>
-              You can conduct it now.
-            </div>
-          {% endif %}
-        {% endif %}
-
-        <!-- VIDEO -->
-        {% if video_id %}
-          <div class="ratio ratio-16x9 my-3">
-            <iframe
-              src="https://www.youtube.com/embed/{{ video_id }}"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-            </iframe>
-          </div>
-        {% endif %}
-
-        <!-- ACTIONS -->
-        <div class="d-flex flex-wrap gap-2 mt-3">
+        <!-- FINAL ACTIONS (Only show when ready) -->
+        <div class="final-actions mt-3" id="finalActions" style="display: none;">
           {% if session_status == "pending" %}
-            <!-- NORMAL FLOW -->
-            <form method="post" action="{% url 'start_session' planned_session.id %}">
+            <!-- CONDUCT SESSION -->
+            <form method="post" action="{% url 'start_session' planned_session.id %}" id="conductForm">
               {% csrf_token %}
-              <button class="btn btn-success btn-sm">
+              <button class="btn btn-success btn-sm w-100 mb-2" type="submit">
                 ▶ Conduct Session
               </button>
             </form>
@@ -135,38 +176,92 @@
             <form method="post" action="{% url 'start_session' planned_session.id %}">
               {% csrf_token %}
               <input type="hidden" name="status" value="holiday">
-              <button class="btn btn-outline-warning btn-sm">
+              <button class="btn btn-outline-warning btn-sm w-100 mb-2">
                 🌤️ Mark Holiday
               </button>
             </form>
 
+            <!-- CANCEL SESSION WITH REASON -->
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary btn-sm dropdown-toggle w-100" type="button" 
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                ❌ Cancel Session
+              </button>
+              <div class="dropdown-menu p-3" style="min-width: 300px;">
+                <form method="post" action="{% url 'start_session' planned_session.id %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="status" value="cancelled">
+                  
+                  <div class="mb-3">
+                    <label class="form-label"><strong>Cancellation Reason:</strong></label>
+                    <select name="cancellation_reason" class="form-select form-select-sm" required>
+                      <option value="">Select reason...</option>
+                      {% for reason_code, reason_text in cancellation_reasons %}
+                        <option value="{{ reason_code }}">{{ reason_text }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label class="form-label">Additional Notes:</label>
+                    <textarea name="remarks" class="form-control form-control-sm" rows="2" 
+                              placeholder="Optional additional details..."></textarea>
+                  </div>
+                  
+                  <div class="alert alert-warning py-2">
+                    <small><strong>⚠️ Warning:</strong> This session will be permanently removed from the sequence.</small>
+                  </div>
+                  
+                  <button type="submit" class="btn btn-danger btn-sm">
+                    Confirm Cancellation
+                  </button>
+                </form>
+              </div>
+            </div>
+
+          {% elif session_status == "conducted" and is_today %}
+            <!-- SESSION COMPLETED TODAY -->
+            <div class="alert alert-success mt-2 w-100">
+              ✅ <strong>Session completed today!</strong><br>
+              <small>Next session will be available tomorrow.</small>
+            </div>
+            <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-primary btn-sm w-100">
+              <i class="fas fa-users"></i> View/Edit Attendance
+            </a>
+
+          {% elif session_status == "holiday" and is_today %}
+            <!-- MARKED AS HOLIDAY TODAY - CAN STILL CONDUCT -->
+            <div class="alert alert-warning mt-2 w-100">
+              🌤️ <strong>Marked as holiday today.</strong><br>
+              <small>You can still conduct this session if needed.</small>
+            </div>
             <form method="post" action="{% url 'start_session' planned_session.id %}">
               {% csrf_token %}
-              <input type="hidden" name="status" value="cancelled">
-              <button class="btn btn-outline-secondary btn-sm">
-                ❌ Cancel Session
+              <input type="hidden" name="status" value="conducted">
+              <button class="btn btn-success btn-sm w-100">
+                ▶ Conduct Session Now
               </button>
             </form>
 
           {% elif session_status == "conducted" %}
-            <!-- SESSION COMPLETED -->
-            <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-primary btn-sm">
+            <!-- SESSION COMPLETED (PREVIOUS DAY) -->
+            <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-primary btn-sm w-100">
               <i class="fas fa-users"></i> View/Edit Attendance
             </a>
 
-          {% elif is_today %}
-            <!-- SAME DAY HOLIDAY/CANCEL -->
-            <div class="alert alert-warning mt-2 w-100">
-              🚫 Today is marked as <strong>{{ session_status }}</strong>.<br>
-              Session will continue on the next working day.
+          {% elif session_status == "cancelled" %}
+            <!-- SESSION CANCELLED -->
+            <div class="alert alert-danger mt-2 w-100">
+              ❌ <strong>Session cancelled.</strong><br>
+              <small>This session was permanently cancelled.</small>
             </div>
 
           {% else %}
-            <!-- SHIFTED SESSION -->
+            <!-- FALLBACK - CONDUCT SESSION -->
             <form method="post" action="{% url 'start_session' planned_session.id %}">
               {% csrf_token %}
               <input type="hidden" name="status" value="conducted">
-              <button class="btn btn-success btn-sm">
+              <button class="btn btn-success btn-sm w-100">
                 ▶ Conduct Session Now
               </button>
             </form>
@@ -176,22 +271,597 @@
     </div>
   </div>
 
-  <!-- Curriculum Content -->
+  <!-- Main Workflow Content Area -->
   <div class="col-md-8">
     <div class="card shadow-sm">
       <div class="card-header">
         <h6 class="mb-0">
-          <i class="fas fa-book"></i> Day {{ current_day }} - <span id="curriculumLanguageLabel">English</span> Curriculum Content
+          <i class="fas fa-tasks"></i> Session Workflow - Day {{ current_day }}
         </h6>
       </div>
-      <div class="card-body p-0">
-        <div id="curriculumContent" style="max-height: 600px; overflow-y: auto;">
-          <!-- Content will be loaded here dynamically -->
-          <div class="text-center p-4">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading curriculum content...</span>
+      <div class="card-body">
+        <div class="tab-content" id="workflowTabContent">
+          
+          <!-- LESSON PLAN TAB -->
+          <div class="tab-pane fade show active" id="lesson-plan" role="tabpanel">
+            <h6><i class="fas fa-file-pdf me-2"></i>Lesson Plan Management</h6>
+            
+            <!-- Download Template -->
+            <div class="mb-3">
+             
+            
+              <a href="/static/pdf/lesson_plan_template.pdf" 
+                 class="btn btn-outline-primary btn-sm" target="_blank">
+                <i class="fas fa-download me-1"></i>Download Day {{ current_day }} Template
+              </a>
+              <small class="text-muted d-block mt-1">
+                If template not found, use the <a href="/static/pdf/lesson_plan_template.pdf" target="_blank">generic template</a>
+              </small>
             </div>
-            <p class="mt-2">Loading Day {{ current_day }} content...</p>
+
+            <!-- Upload Completed Plan -->
+            <div class="mb-3">
+              <h6 class="text-success">📤 Upload Completed Lesson Template Plan</h6>
+              <form id="lessonPlanUploadForm" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="planned_session_id" value="{{ planned_session.id }}">
+                
+                <div class="mb-2">
+                  <input type="file" class="form-control form-control-sm" 
+                         name="lesson_plan_file" accept=".pdf,.doc,.docx" required>
+                </div>
+                
+                <div class="mb-2">
+                  <textarea name="upload_notes" class="form-control form-control-sm" 
+                            rows="2" placeholder="Optional notes about your lesson plan..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-success btn-sm">
+                  <i class="fas fa-upload me-1"></i>Upload Lesson Plan
+                </button>
+              </form>
+              
+              <div id="uploadResult" class="mt-2"></div>
+            </div>
+
+            <!-- Existing Uploads -->
+            {% if lesson_plan_uploads %}
+            <div class="mb-3">
+              <h6 class="text-info">📋 Previous Uploads</h6>
+              {% for upload in lesson_plan_uploads %}
+              <div class="alert alert-light d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>{{ upload.file_name }}</strong><br>
+                  <small class="text-muted">
+                    Uploaded: {{ upload.upload_date }} | Size: {{ upload.file_size|filesizeformat }}
+                    {% if upload.is_approved %}
+                      <span class="badge bg-success ms-1">Approved</span>
+                    {% endif %}
+                  </small>
+                </div>
+                <a href="{{ upload.lesson_plan_file.url }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                  <i class="fas fa-eye"></i>
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="text-center">
+              <button class="btn btn-primary" onclick="nextWorkflowStep('preparation')">
+                Next: Preparation Checklist <i class="fas fa-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- PREPARATION TAB -->
+          <div class="tab-pane fade" id="preparation" role="tabpanel">
+            <h6><i class="fas fa-check-circle me-2"></i>Session Preparation Checklist</h6>
+            
+            <form id="preparationForm">
+              {% csrf_token %}
+              <input type="hidden" name="planned_session_id" value="{{ planned_session.id }}">
+              
+              <div class="checklist-container">
+                <div class="form-check mb-3">
+                  <input class="form-check-input checkpoint-item" type="checkbox" 
+                         name="lesson_plan_reviewed" id="checkpoint1" 
+                         {% if preparation_checklist.lesson_plan_reviewed %}checked{% endif %}>
+                  <label class="form-check-label" for="checkpoint1">
+                    <strong>📖 Lesson plan reviewed</strong><br>
+                    <small class="text-muted">I have reviewed the lesson plan and understand today's objectives</small>
+                  </label>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input checkpoint-item" type="checkbox" 
+                         name="materials_prepared" id="checkpoint2"
+                         {% if preparation_checklist.materials_prepared %}checked{% endif %}>
+                  <label class="form-check-label" for="checkpoint2">
+                    <strong>📦 Materials prepared</strong><br>
+                    <small class="text-muted">All required materials and resources are ready</small>
+                  </label>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input checkpoint-item" type="checkbox" 
+                         name="technology_tested" id="checkpoint3"
+                         {% if preparation_checklist.technology_tested %}checked{% endif %}>
+                  <label class="form-check-label" for="checkpoint3">
+                    <strong>💻 Technology tested</strong><br>
+                    <small class="text-muted">Computer, projector, and internet connection are working</small>
+                  </label>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input checkpoint-item" type="checkbox" 
+                         name="classroom_setup_ready" id="checkpoint4"
+                         {% if preparation_checklist.classroom_setup_ready %}checked{% endif %}>
+                  <label class="form-check-label" for="checkpoint4">
+                    <strong>🏫 Classroom setup ready</strong><br>
+                    <small class="text-muted">Classroom is arranged and ready for the session</small>
+                  </label>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input checkpoint-item" type="checkbox" 
+                         name="student_list_reviewed" id="checkpoint5"
+                         {% if preparation_checklist.student_list_reviewed %}checked{% endif %}>
+                  <label class="form-check-label" for="checkpoint5">
+                    <strong>👥 Student list reviewed</strong><br>
+                    <small class="text-muted">I know which students are enrolled and their attendance patterns</small>
+                  </label>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input checkpoint-item" type="checkbox" 
+                         name="previous_session_feedback_reviewed" id="checkpoint6"
+                         {% if preparation_checklist.previous_session_feedback_reviewed %}checked{% endif %}>
+                  <label class="form-check-label" for="checkpoint6">
+                    <strong>📝 Previous feedback reviewed</strong><br>
+                    <small class="text-muted">I have reviewed feedback from the last session</small>
+                  </label>
+                </div>
+              </div>
+
+              <div class="preparation-progress mb-3">
+                <div class="progress">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 0%" id="preparationProgressBar"></div>
+                </div>
+                <small class="text-muted">Preparation Progress: <span id="preparationProgressText">0%</span></small>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Preparation Notes:</label>
+                <textarea name="preparation_notes" class="form-control form-control-sm" rows="3" 
+                          placeholder="Any special notes or anticipated challenges...">{{ preparation_checklist.preparation_notes|default:"" }}</textarea>
+              </div>
+            </form>
+
+            <div class="text-center">
+              <button class="btn btn-primary" onclick="nextWorkflowStep('rewards')" id="preparationNextBtn" disabled>
+                Next: Student Rewards <i class="fas fa-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- REWARDS TAB -->
+          <div class="tab-pane fade" id="rewards" role="tabpanel">
+            <h6><i class="fas fa-gift me-2"></i>Student Rewards & Recognition</h6>
+            
+            <form id="rewardsForm" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="hidden" name="planned_session_id" value="{{ planned_session.id }}">
+              
+              <div class="mb-3">
+                <label class="form-label">Reward Type:</label>
+                <div class="btn-group w-100" role="group">
+                  <input type="radio" class="btn-check" name="reward_type" id="rewardPhoto" value="photo">
+                  <label class="btn btn-outline-primary" for="rewardPhoto">📸 Photo</label>
+                  
+                  <input type="radio" class="btn-check" name="reward_type" id="rewardText" value="text" checked>
+                  <label class="btn btn-outline-primary" for="rewardText">📝 Text</label>
+                  
+                  <input type="radio" class="btn-check" name="reward_type" id="rewardBoth" value="both">
+                  <label class="btn btn-outline-primary" for="rewardBoth">📸📝 Both</label>
+                </div>
+              </div>
+
+              <div class="mb-3" id="photoUploadSection" style="display: none;">
+                <label class="form-label">Upload Reward Photo:</label>
+                <input type="file" class="form-control" name="reward_photo" accept="image/*">
+                <small class="text-muted">Upload a photo of students receiving rewards or their work</small>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Reward Description: <span class="text-danger">*</span></label>
+                <textarea name="reward_description" class="form-control" rows="3" required
+                          placeholder="Describe the rewards given to students (stickers, certificates, praise, etc.)"></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Student Names:</label>
+                <textarea name="student_names" class="form-control" rows="2"
+                          placeholder="Names of students who received special recognition..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-success">
+                <i class="fas fa-save me-1"></i>Save Rewards
+              </button>
+            </form>
+
+            <!-- Previous Rewards -->
+            {% if session_rewards %}
+            <div class="mt-4">
+              <h6 class="text-info">🏆 Previous Rewards</h6>
+              {% for reward in session_rewards %}
+              <div class="alert alert-light">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <strong>{{ reward.reward_description|truncatechars:50 }}</strong><br>
+                    <small class="text-muted">{{ reward.reward_date }} | Students: {{ reward.student_names|default:"Not specified" }}</small>
+                  </div>
+                  {% if reward.reward_photo %}
+                  <img src="{{ reward.reward_photo.url }}" alt="Reward" style="width: 60px; height: 60px; object-fit: cover;" class="rounded">
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="text-center mt-3">
+              <button class="btn btn-primary" onclick="nextWorkflowStep('conduct')">
+                Next: Conduct Session <i class="fas fa-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- CONDUCT TAB -->
+          <div class="tab-pane fade" id="conduct" role="tabpanel">
+            <h6><i class="fas fa-play me-2"></i>Conduct Session</h6>
+            
+            <!-- Curriculum Content -->
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="text-primary mb-0">📚 Day {{ current_day }} Curriculum Content</h6>
+                <div>
+                  {% if has_admin_content %}
+                    <span class="badge bg-success me-1" title="Content managed by admin">
+                      <i class="fas fa-user-cog me-1"></i>Admin Managed
+                    </span>
+                  {% else %}
+                    <span class="badge bg-warning me-1" title="Static curriculum file">
+                      <i class="fas fa-file-alt me-1"></i>Static Content
+                    </span>
+                  {% endif %}
+                  <span class="badge bg-info" id="curriculumLanguageLabel">English</span>
+                </div>
+              </div>
+              
+             
+              {% if content_metadata %}
+              <div class="content-metadata mb-2">
+                <small class="text-muted">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Source: {{ content_source|title }}
+                  {% if content_metadata.last_updated %}
+                    • Last updated: {{ content_metadata.last_updated|date:"M d, Y H:i" }}
+                  {% endif %}
+                  {% if content_metadata.usage_count > 0 %}
+                    • Accessed {{ content_metadata.usage_count }} time{{ content_metadata.usage_count|pluralize }}
+                  {% endif %}
+                </small>
+              </div>
+              {% endif %}
+              
+              <div id="curriculumContent" style="max-height: 500px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.375rem; padding: 1rem;">
+                <!-- Content will be loaded here dynamically -->
+                <div class="text-center p-4">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading curriculum content...</span>
+                  </div>
+                  <p class="mt-2">Loading Day {{ current_day }} content...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Real-time Session Feedback -->
+            <div class="mb-3">
+              <h6 class="text-success">📊 Real-time Session Tracking</h6>
+              <form id="sessionTrackingForm">
+                {% csrf_token %}
+                <input type="hidden" name="planned_session_id" value="{{ planned_session.id }}">
+                
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <label class="form-label">Student Engagement (1-5):</label>
+                    <select name="student_engagement_level" class="form-select form-select-sm">
+                      <option value="">Select...</option>
+                      <option value="1">1 - Very Low</option>
+                      <option value="2">2 - Low</option>
+                      <option value="3">3 - Average</option>
+                      <option value="4">4 - High</option>
+                      <option value="5">5 - Very High</option>
+                    </select>
+                  </div>
+                  
+                  <div class="col-md-6 mb-2">
+                    <label class="form-label">Understanding Level (1-5):</label>
+                    <select name="student_understanding_level" class="form-select form-select-sm">
+                      <option value="">Select...</option>
+                      <option value="1">1 - Very Poor</option>
+                      <option value="2">2 - Poor</option>
+                      <option value="3">3 - Average</option>
+                      <option value="4">4 - Good</option>
+                      <option value="5">5 - Excellent</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mb-2">
+                  <label class="form-label">Student Questions/Comments:</label>
+                  <textarea name="student_questions" class="form-control form-control-sm" rows="2"
+                            placeholder="Note any questions or interesting comments from students..."></textarea>
+                </div>
+
+                <div class="mb-2">
+                  <label class="form-label">Challenging Topics:</label>
+                  <textarea name="challenging_topics" class="form-control form-control-sm" rows="2"
+                            placeholder="Topics that students found difficult..."></textarea>
+                </div>
+              </form>
+            </div>
+
+            <!-- Video Section -->
+            {% if video_id %}
+            <div class="mb-3">
+              <h6 class="text-info">🎥 Session Video</h6>
+              <div class="ratio ratio-16x9">
+                <iframe
+                  src="https://www.youtube.com/embed/{{ video_id }}"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              </div>
+            </div>
+            {% endif %}
+
+            <div class="text-center">
+              <button class="btn btn-primary" onclick="nextWorkflowStep('feedback')">
+                Next: Session Feedback <i class="fas fa-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- FEEDBACK TAB -->
+          <div class="tab-pane fade" id="feedback" role="tabpanel">
+            <h6><i class="fas fa-comment me-2"></i>Session Feedback & Completion</h6>
+            
+            <!-- Feedback Collection Status -->
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <div class="card border-primary">
+                  <div class="card-body text-center py-3">
+                    <h6 class="text-primary mb-2">🧑‍🎓 Student Feedback</h6>
+                    <div class="feedback-status" id="studentFeedbackStatus">
+                      <span class="badge bg-secondary">0 responses</span>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm mt-2" onclick="showStudentFeedbackModal()">
+                      <i class="fas fa-plus me-1"></i>Collect Student Feedback
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card border-success">
+                  <div class="card-body text-center py-3">
+                    <h6 class="text-success mb-2">👩‍🏫 Teacher Reflection</h6>
+                    <div class="feedback-status" id="teacherFeedbackStatus">
+                      <span class="badge bg-secondary">Not completed</span>
+                    </div>
+                    <button class="btn btn-outline-success btn-sm mt-2" onclick="showTeacherFeedbackForm()">
+                      <i class="fas fa-edit me-1"></i>Complete Reflection
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Teacher Feedback Form -->
+            <div id="teacherFeedbackForm" style="display: none;">
+              <div class="card border-success mb-4">
+                <div class="card-header bg-success text-white">
+                  <h6 class="mb-0"><i class="fas fa-chalkboard-teacher me-2"></i>Teacher Session Reflection</h6>
+                </div>
+                <div class="card-body">
+                  <form id="teacherReflectionForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="actual_session_id" value="{{ actual_session.id|default:'' }}">
+                    
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label">1️⃣ Was the class engaged? <span class="text-danger">*</span></label>
+                        <select name="class_engagement" class="form-select" required>
+                          <option value="">Select...</option>
+                          <option value="highly">Highly</option>
+                          <option value="moderate">Moderate</option>
+                          <option value="low">Low</option>
+                        </select>
+                      </div>
+                      
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label">2️⃣ Was the session completed as planned? <span class="text-danger">*</span></label>
+                        <select name="session_completion" class="form-select" required>
+                          <option value="">Select...</option>
+                          <option value="yes">Yes</option>
+                          <option value="partly">Partly</option>
+                          <option value="no">No</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">3️⃣ Which part students struggled with most? <span class="text-danger">*</span></label>
+                      <textarea name="student_struggles" class="form-control" rows="3" required
+                                placeholder="Describe the topics or activities students found difficult..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">4️⃣ What worked well in this session? <span class="text-danger">*</span></label>
+                      <textarea name="successful_elements" class="form-control" rows="3" required
+                                placeholder="Describe the successful aspects of the session..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">5️⃣ What should be improved for next time? <span class="text-danger">*</span></label>
+                      <textarea name="improvement_areas" class="form-control" rows="3" required
+                                placeholder="Suggestions for improving future sessions..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">6️⃣ Any support/resources required? (optional)</label>
+                      <textarea name="resource_needs" class="form-control" rows="2"
+                                placeholder="Additional support or resources needed..."></textarea>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="button" class="btn btn-secondary me-2" onclick="hideTeacherFeedbackForm()">
+                        Cancel
+                      </button>
+                      <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save me-1"></i>Save Teacher Reflection
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Student Feedback Summary -->
+            <div id="studentFeedbackSummary" style="display: none;">
+              <div class="card border-primary mb-4">
+                <div class="card-header bg-primary text-white">
+                  <h6 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Student Feedback Summary</h6>
+                </div>
+                <div class="card-body" id="studentFeedbackContent">
+                  <!-- Student feedback summary will be loaded here -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Session Completion -->
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle me-2"></i>
+              <strong>Complete both teacher reflection and student feedback collection to finalize this session.</strong>
+            </div>
+
+            <div class="text-center">
+              <button type="button" class="btn btn-success btn-lg" id="completeSessionBtn" disabled>
+                <i class="fas fa-check-circle me-2"></i>Complete Session
+              </button>
+            </div>
+          </div>
+
+          <!-- Student Feedback Modal -->
+          <div class="modal fade" id="studentFeedbackModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title">🧑‍🎓 Student Feedback Collection</h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Instructions:</strong> Have each student complete this feedback form. Their responses are anonymous.
+                  </div>
+                  
+                  <form id="studentFeedbackForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="actual_session_id" value="{{ actual_session.id|default:'' }}">
+                    <input type="hidden" name="anonymous_student_id" id="anonymousStudentId">
+                    
+                    <div class="mb-3">
+                      <label class="form-label">1️⃣ Rate the session (1–5) <span class="text-danger">*</span></label>
+                      <div class="rating-buttons">
+                        <div class="btn-group w-100" role="group">
+                          <input type="radio" class="btn-check" name="session_rating" id="rating1" value="1" required>
+                          <label class="btn btn-outline-danger" for="rating1">1 - Poor</label>
+                          
+                          <input type="radio" class="btn-check" name="session_rating" id="rating2" value="2" required>
+                          <label class="btn btn-outline-warning" for="rating2">2 - Fair</label>
+                          
+                          <input type="radio" class="btn-check" name="session_rating" id="rating3" value="3" required>
+                          <label class="btn btn-outline-info" for="rating3">3 - Good</label>
+                          
+                          <input type="radio" class="btn-check" name="session_rating" id="rating4" value="4" required>
+                          <label class="btn btn-outline-primary" for="rating4">4 - Very Good</label>
+                          
+                          <input type="radio" class="btn-check" name="session_rating" id="rating5" value="5" required>
+                          <label class="btn btn-outline-success" for="rating5">5 - Excellent</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">2️⃣ Was the topic easy to understand? <span class="text-danger">*</span></label>
+                      <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="topic_understanding" id="understand1" value="yes" required>
+                        <label class="btn btn-outline-success" for="understand1">Yes</label>
+                        
+                        <input type="radio" class="btn-check" name="topic_understanding" id="understand2" value="somewhat" required>
+                        <label class="btn btn-outline-warning" for="understand2">Somewhat</label>
+                        
+                        <input type="radio" class="btn-check" name="topic_understanding" id="understand3" value="no" required>
+                        <label class="btn btn-outline-danger" for="understand3">No</label>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">3️⃣ Did the teacher explain clearly? <span class="text-danger">*</span></label>
+                      <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="teacher_clarity" id="clarity1" value="yes" required>
+                        <label class="btn btn-outline-success" for="clarity1">Yes</label>
+                        
+                        <input type="radio" class="btn-check" name="teacher_clarity" id="clarity2" value="sometimes" required>
+                        <label class="btn btn-outline-warning" for="clarity2">Sometimes</label>
+                        
+                        <input type="radio" class="btn-check" name="teacher_clarity" id="clarity3" value="no" required>
+                        <label class="btn btn-outline-danger" for="clarity3">No</label>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">4️⃣ What did you like most in this session? <span class="text-danger">*</span></label>
+                      <textarea name="session_highlights" class="form-control" rows="3" required
+                                placeholder="Tell us what you enjoyed most about today's session..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">5️⃣ What can be improved in the next session? <span class="text-danger">*</span></label>
+                      <textarea name="improvement_suggestions" class="form-control" rows="3" required
+                                placeholder="How can we make the next session better?"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">6️⃣ Do you have any suggestions? (optional)</label>
+                      <textarea name="additional_suggestions" class="form-control" rows="2"
+                                placeholder="Any other suggestions or comments..."></textarea>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">
+                        Cancel
+                      </button>
+                      <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane me-1"></i>Submit Feedback
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -200,19 +870,50 @@
 </div>
 
 {% else %}
-<div class="alert alert-success">
-  🎉 All planned sessions are completed for this class.
+{% if error %}
+<div class="alert alert-danger text-center">
+  <h4><span class="material-symbols-outlined text-4xl mb-3">error</span></h4>
+  <h4>⚠️ Session Setup Required</h4>
+  <p class="mb-3">{{ error_message|default:"This class needs session initialization." }}</p>
+  <div class="mt-3">
+    <p class="text-sm text-muted mb-3">Contact your administrator to set up the 1-150 day session sequence for this class.</p>
+    <a href="{% url 'facilitator_classes' %}" class="btn btn-primary">
+      <span class="material-symbols-outlined mr-1">arrow_back</span>
+      Back to Classes
+    </a>
+  </div>
+</div>
+{% else %}
+<div class="alert alert-success text-center">
+  <h4>🎉 Congratulations!</h4>
+  <p class="mb-0">{{ completion_message|default:"All planned sessions are completed for this class." }}</p>
+  {% if progress_metrics %}
+  <small class="text-muted">
+    Final Stats: {{ progress_metrics.conducted_sessions }} conducted, {{ progress_metrics.cancelled_sessions }} cancelled
+  </small>
+  {% endif %}
 </div>
 {% endif %}
+{% endif %}
 
-<!-- JavaScript for Language Switching -->
+<!-- JavaScript for Comprehensive Workflow -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let currentLanguage = 'english';
-    const currentDay = parseInt('{{ current_day|default:"1" }}') || 1;
+    let currentDay = parseInt('{{ current_day|default:"1" }}') || 1;
+    const classSectionId = '{{ class_section.id }}';
     const curriculumUrl = "{% url 'curriculum_content_api' %}";
     const contentDiv = document.getElementById('curriculumContent');
     const languageLabel = document.getElementById('curriculumLanguageLabel');
+    
+    // Workflow state management
+    let workflowState = {
+        lessonPlan: false,
+        preparation: false,
+        rewards: false,
+        conduct: false,
+        feedback: false
+    };
     
     // Language selector event listeners
     const languageInputs = document.querySelectorAll('input[name="language"]');
@@ -224,12 +925,48 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Workflow tab management
+    function nextWorkflowStep(stepName) {
+        // Activate the tab
+        const tabButton = document.getElementById(stepName + '-tab');
+        const tabPane = document.getElementById(stepName);
+        
+        // Remove active from all tabs
+        document.querySelectorAll('.nav-link').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(pane => {
+            pane.classList.remove('show', 'active');
+        });
+        
+        // Activate target tab
+        tabButton.classList.add('active');
+        tabPane.classList.add('show', 'active');
+        
+        // Update workflow progress
+        updateWorkflowProgress();
+    }
+    
+    function updateWorkflowProgress() {
+        const steps = ['lesson-plan', 'preparation', 'rewards', 'conduct', 'feedback'];
+        const activeTab = document.querySelector('.nav-link.active').id.replace('-tab', '');
+        const currentIndex = steps.indexOf(activeTab);
+        const progress = ((currentIndex + 1) / steps.length) * 100;
+        
+        document.getElementById('workflowProgressBar').style.width = progress + '%';
+        document.getElementById('workflowProgressText').textContent = Math.round(progress) + '%';
+        
+        // Show final actions when on feedback tab
+        if (activeTab === 'feedback') {
+            document.getElementById('finalActions').style.display = 'block';
+        } else {
+            document.getElementById('finalActions').style.display = 'none';
+        }
+    }
+    
+    // Language switching
     function switchLanguage(language) {
         currentLanguage = language;
         languageLabel.textContent = language === 'hindi' ? 'Hindi' : 'English';
         loadCurriculumContent(currentDay, language);
-        
-        // Show notification
         showLanguageNotification(language);
     }
     
@@ -254,44 +991,446 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function loadCurriculumContent(day, language) {
         contentDiv.innerHTML = `
-            <div class="text-center p-4">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
+            <div class="curriculum-content-loading">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3 mb-0">Loading Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} content...</p>
                 </div>
-                <p class="mt-2">Loading Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} content...</p>
             </div>
         `;
         
         try {
-            const response = await fetch(`${curriculumUrl}?day=${day}&language=${language}`);
+            const response = await fetch(`${curriculumUrl}?day=${day}&language=${language}&class_section_id=${classSectionId}`);
             if (!response.ok) throw new Error('Failed to load content');
             
             const content = await response.text();
             contentDiv.innerHTML = content;
             
+            // Update day navigation if it exists
+            updateDayNavigation(day);
+            
+            // Show success notification
+            showNotification(`Loaded Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} content`, 'success');
+            
         } catch (error) {
             console.error('Error loading curriculum content:', error);
             contentDiv.innerHTML = `
-                <div class="alert alert-danger m-3">
-                    <h6>Error Loading Content</h6>
+                <div class="curriculum-error">
+                    <h6><i class="fas fa-exclamation-triangle me-2"></i>Error Loading Content</h6>
                     <p>Failed to load Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} curriculum content.</p>
-                    <button class="btn btn-outline-danger btn-sm" onclick="loadCurriculumContent(${day}, '${language}')">
-                        Retry
-                    </button>
+                    <div class="mt-3">
+                        <button class="btn btn-outline-danger btn-sm" onclick="loadCurriculumContent(${day}, '${language}')">
+                            <i class="fas fa-redo me-1"></i>Retry
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="loadCurriculumContent(1, '${language}')">
+                            <i class="fas fa-home me-1"></i>Go to Day 1
+                        </button>
+                    </div>
                 </div>
             `;
         }
     }
     
-    // Load initial content
-    loadCurriculumContent(currentDay, currentLanguage);
+    function updateDayNavigation(day) {
+        // Update day selector if it exists
+        const daySelector = document.querySelector('.day-navigation-bar select');
+        if (daySelector) {
+            daySelector.value = day;
+        }
+        
+        // Update navigation buttons in the main navigation bar
+        const navBar = document.querySelector('.day-navigation-bar');
+        if (navBar) {
+            const prevBtn = navBar.querySelector('button:first-child');
+            const nextBtn = navBar.querySelector('button:last-child');
+            
+            if (prevBtn) {
+                prevBtn.disabled = day <= 1;
+                prevBtn.innerHTML = `<i class="fas fa-chevron-left me-1"></i>Day ${Math.max(1, day - 1)}`;
+                prevBtn.onclick = () => loadCurriculumContent(Math.max(1, day - 1), currentLanguage);
+            }
+            
+            if (nextBtn) {
+                nextBtn.disabled = day >= 150;
+                nextBtn.innerHTML = `Day ${Math.min(150, day + 1)} <i class="fas fa-chevron-right ms-1"></i>`;
+                nextBtn.onclick = () => loadCurriculumContent(Math.min(150, day + 1), currentLanguage);
+            }
+        }
+        
+        // Update current day display
+        currentDay = day;
+    }
     
-    // Make function globally available for retry button
+    // Lesson Plan Upload
+    const lessonPlanForm = document.getElementById('lessonPlanUploadForm');
+    if (lessonPlanForm) {
+        lessonPlanForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const resultDiv = document.getElementById('uploadResult');
+            
+            try {
+                resultDiv.innerHTML = '<div class="alert alert-info">Uploading lesson plan...</div>';
+                
+                const response = await fetch('{% url "upload_lesson_plan" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.innerHTML = '<div class="alert alert-success">Lesson plan uploaded successfully!</div>';
+                    workflowState.lessonPlan = true;
+                    this.reset();
+                } else {
+                    resultDiv.innerHTML = `<div class="alert alert-danger">Error: ${result.error}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="alert alert-danger">Upload failed. Please try again.</div>';
+            }
+        });
+    }
+    
+    // Preparation Checklist
+    const checkpointItems = document.querySelectorAll('.checkpoint-item');
+    checkpointItems.forEach(item => {
+        item.addEventListener('change', function() {
+            updatePreparationProgress();
+            saveCheckpointProgress();
+        });
+    });
+    
+    function updatePreparationProgress() {
+        const totalCheckpoints = checkpointItems.length;
+        const completedCheckpoints = document.querySelectorAll('.checkpoint-item:checked').length;
+        const progress = (completedCheckpoints / totalCheckpoints) * 100;
+        
+        document.getElementById('preparationProgressBar').style.width = progress + '%';
+        document.getElementById('preparationProgressText').textContent = Math.round(progress) + '%';
+        
+        const nextBtn = document.getElementById('preparationNextBtn');
+        if (progress === 100) {
+            nextBtn.disabled = false;
+            workflowState.preparation = true;
+        } else {
+            nextBtn.disabled = true;
+            workflowState.preparation = false;
+        }
+    }
+    
+    async function saveCheckpointProgress() {
+        const formData = new FormData(document.getElementById('preparationForm'));
+        
+        try {
+            await fetch('{% url "save_preparation_checklist" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            });
+        } catch (error) {
+            console.error('Error saving checkpoint progress:', error);
+        }
+    }
+    
+    // Rewards Form
+    const rewardsForm = document.getElementById('rewardsForm');
+    const rewardTypeInputs = document.querySelectorAll('input[name="reward_type"]');
+    const photoSection = document.getElementById('photoUploadSection');
+    
+    rewardTypeInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            if (this.value === 'photo' || this.value === 'both') {
+                photoSection.style.display = 'block';
+            } else {
+                photoSection.style.display = 'none';
+            }
+        });
+    });
+    
+    if (rewardsForm) {
+        rewardsForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('{% url "save_session_reward" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification('Rewards saved successfully!', 'success');
+                    workflowState.rewards = true;
+                } else {
+                    showNotification('Error saving rewards: ' + result.error, 'danger');
+                }
+            } catch (error) {
+                showNotification('Error saving rewards. Please try again.', 'danger');
+            }
+        });
+    }
+    
+    // Session Tracking Form
+    const sessionTrackingForm = document.getElementById('sessionTrackingForm');
+    if (sessionTrackingForm) {
+        // Auto-save session tracking data
+        const trackingInputs = sessionTrackingForm.querySelectorAll('select, textarea');
+        trackingInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                saveSessionTracking();
+            });
+        });
+    }
+    
+    async function saveSessionTracking() {
+        const formData = new FormData(sessionTrackingForm);
+        
+        try {
+            await fetch('{% url "save_session_tracking" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            });
+        } catch (error) {
+            console.error('Error saving session tracking:', error);
+        }
+    }
+    
+    // Session Feedback Form
+    const feedbackForm = document.getElementById('sessionFeedbackForm');
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('{% url "save_session_feedback" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    workflowState.feedback = true;
+                    showNotification('Session feedback saved successfully!', 'success');
+                    
+                    // Enable the conduct session button
+                    const conductForm = document.getElementById('conductForm');
+                    if (conductForm) {
+                        conductForm.style.display = 'block';
+                        showNotification('You can now conduct the session!', 'info');
+                    }
+                } else {
+                    showNotification('Error saving feedback: ' + result.error, 'danger');
+                }
+            } catch (error) {
+                showNotification('Error saving feedback. Please try again.', 'danger');
+            }
+        });
+    }
+    
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+        notification.style.cssText = 'top: 20px; right: 20px; z-index: 1050; min-width: 250px;';
+        notification.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 5000);
+    }
+    
+    // Initialize
+    loadCurriculumContent(currentDay, currentLanguage);
+    updatePreparationProgress();
+    updateWorkflowProgress();
+    
+    // Make functions globally available
     window.loadCurriculumContent = loadCurriculumContent;
+    window.nextWorkflowStep = nextWorkflowStep;
+    
+    // Feedback System Functions
+    window.showStudentFeedbackModal = function() {
+        // Generate anonymous student ID
+        const anonymousId = 'student_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        document.getElementById('anonymousStudentId').value = anonymousId;
+        
+        // Show modal
+        const modal = new bootstrap.Modal(document.getElementById('studentFeedbackModal'));
+        modal.show();
+    };
+    
+    window.showTeacherFeedbackForm = function() {
+        document.getElementById('teacherFeedbackForm').style.display = 'block';
+        document.getElementById('teacherFeedbackForm').scrollIntoView({ behavior: 'smooth' });
+    };
+    
+    window.hideTeacherFeedbackForm = function() {
+        document.getElementById('teacherFeedbackForm').style.display = 'none';
+    };
+    
+    // Student Feedback Form Handler
+    const studentFeedbackForm = document.getElementById('studentFeedbackForm');
+    if (studentFeedbackForm) {
+        studentFeedbackForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('{% url "save_student_feedback" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification('Student feedback submitted successfully!', 'success');
+                    
+                    // Close modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('studentFeedbackModal'));
+                    modal.hide();
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Update feedback status
+                    updateStudentFeedbackStatus();
+                } else {
+                    showNotification('Error submitting feedback: ' + result.error, 'danger');
+                }
+            } catch (error) {
+                showNotification('Error submitting feedback. Please try again.', 'danger');
+            }
+        });
+    }
+    
+    // Teacher Feedback Form Handler
+    const teacherReflectionForm = document.getElementById('teacherReflectionForm');
+    if (teacherReflectionForm) {
+        teacherReflectionForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('{% url "save_teacher_feedback" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification('Teacher reflection saved successfully!', 'success');
+                    
+                    // Hide form
+                    hideTeacherFeedbackForm();
+                    
+                    // Update feedback status
+                    updateTeacherFeedbackStatus();
+                    
+                    // Check if session can be completed
+                    checkSessionCompletion();
+                } else {
+                    showNotification('Error saving reflection: ' + result.error, 'danger');
+                }
+            } catch (error) {
+                showNotification('Error saving reflection. Please try again.', 'danger');
+            }
+        });
+    }
+    
+    async function updateStudentFeedbackStatus() {
+        try {
+            const response = await fetch('{% url "get_feedback_status" %}?session_id={{ actual_session.id|default:"" }}');
+            const data = await response.json();
+            
+            const statusElement = document.getElementById('studentFeedbackStatus');
+            if (data.student_feedback_count > 0) {
+                statusElement.innerHTML = `<span class="badge bg-success">${data.student_feedback_count} responses</span>`;
+            } else {
+                statusElement.innerHTML = '<span class="badge bg-secondary">0 responses</span>';
+            }
+            
+            // Show summary if feedback exists
+            if (data.student_feedback_count > 0) {
+                document.getElementById('studentFeedbackSummary').style.display = 'block';
+                document.getElementById('studentFeedbackContent').innerHTML = data.student_summary_html;
+            }
+        } catch (error) {
+            console.error('Error updating student feedback status:', error);
+        }
+    }
+    
+    async function updateTeacherFeedbackStatus() {
+        try {
+            const response = await fetch('{% url "get_feedback_status" %}?session_id={{ actual_session.id|default:"" }}');
+            const data = await response.json();
+            
+            const statusElement = document.getElementById('teacherFeedbackStatus');
+            if (data.teacher_feedback_completed) {
+                statusElement.innerHTML = '<span class="badge bg-success">Completed</span>';
+            } else {
+                statusElement.innerHTML = '<span class="badge bg-secondary">Not completed</span>';
+            }
+        } catch (error) {
+            console.error('Error updating teacher feedback status:', error);
+        }
+    }
+    
+    function checkSessionCompletion() {
+        // Enable complete session button if both feedbacks are done
+        // This will be implemented based on feedback status
+        const completeBtn = document.getElementById('completeSessionBtn');
+        // For now, enable after teacher feedback is completed
+        completeBtn.disabled = false;
+    }
+    
+    // Initialize feedback status
+    updateStudentFeedbackStatus();
+    updateTeacherFeedbackStatus();
 });
 </script>
 
 <style>
+/* Curriculum Content Styling */
 .curriculum-table {
   font-size: 13px;
 }
@@ -338,7 +1477,119 @@ document.addEventListener('DOMContentLoaded', function() {
   background: #f8f9fa;
 }
 
-/* Mobile responsive */
+/* Enhanced Day Navigation */
+.day-navigation-bar {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.day-navigation-bar .btn {
+  transition: all 0.2s ease;
+}
+
+.day-navigation-bar .btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.day-navigation-bar .form-select {
+  border: 1px solid #ced4da;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.day-navigation-bar .form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Curriculum Day Content */
+.curriculum-day-content {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.curriculum-day-content .day-header {
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+.curriculum-day-content .day-navigation button {
+  transition: all 0.2s ease;
+}
+
+.curriculum-day-content .day-navigation button:hover:not(:disabled) {
+  background-color: #0d6efd;
+  color: white;
+  transform: scale(1.05);
+}
+
+.curriculum-day-content .day-footer {
+  border-top: 1px solid #e9ecef;
+  padding-top: 15px;
+  background: #f8f9fa;
+  border-radius: 0 0 8px 8px;
+  margin: 0 -1rem -1rem -1rem;
+  padding: 15px 1rem;
+}
+
+/* Content Source Indicators */
+.content-source-info {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);
+  border-left: 4px solid #2196f3;
+  padding: 12px 16px;
+  margin-bottom: 15px;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.admin-actions {
+  background: linear-gradient(135deg, #e7f3ff 0%, #f0f8ff 100%);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 15px;
+  border: 1px solid #b3d9ff;
+}
+
+.admin-actions .btn {
+  margin-right: 8px;
+  margin-bottom: 4px;
+}
+
+/* Loading States */
+.curriculum-content-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.curriculum-content-loading .spinner-border {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Error States */
+.curriculum-error {
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  color: #c53030;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.curriculum-error .btn {
+  margin: 5px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .curriculum-table {
     font-size: 11px;
@@ -346,6 +1597,237 @@ document.addEventListener('DOMContentLoaded', function() {
   .curriculum-table td {
     padding: 4px 6px;
   }
+  
+  .day-navigation-bar {
+    padding: 8px !important;
+  }
+  
+  .day-navigation-bar .d-flex {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .day-navigation-bar .btn {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .curriculum-day-content .day-header h4 {
+    font-size: 1.1rem;
+  }
+  
+  .curriculum-day-content .day-navigation {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .curriculum-day-content .day-navigation button {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Workflow Navigation Styles */
+.workflow-nav .nav-link {
+  text-align: left;
+  margin-bottom: 0.25rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.workflow-nav .nav-link:not(.active) {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  color: #6c757d;
+}
+
+.workflow-nav .nav-link.active {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: white;
+}
+
+.workflow-nav .nav-link:hover:not(.active) {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+/* Workflow Progress */
+.workflow-progress .progress {
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Preparation Checklist Styles */
+.checklist-container .form-check {
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  background-color: #f8f9fa;
+  transition: all 0.2s ease;
+}
+
+.checklist-container .form-check:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.checklist-container .form-check-input:checked + .form-check-label {
+  color: #198754;
+  font-weight: 500;
+}
+
+.checklist-container .form-check-input:checked ~ * {
+  color: #198754;
+}
+
+/* Tab Content Styling */
+.tab-content {
+  min-height: 500px;
+}
+
+.tab-pane {
+  padding: 1rem 0;
+}
+
+/* Form Styling */
+.form-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-success {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+/* Alert Styling */
+.alert {
+  border-radius: 0.375rem;
+}
+
+/* Progress Bar Animations */
+.progress-bar {
+  transition: width 0.6s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .curriculum-table {
+    font-size: 11px;
+  }
+  .curriculum-table td {
+    padding: 4px 6px;
+  }
+  
+  .workflow-nav .nav-link {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .tab-content {
+    min-height: 400px;
+  }
+  
+  .checklist-container .form-check {
+    padding: 0.75rem;
+  }
+}
+
+/* File Upload Styling */
+.form-control[type="file"] {
+  padding: 0.375rem 0.75rem;
+}
+
+/* Notification Positioning */
+.position-fixed {
+  z-index: 1050;
+}
+
+/* Workflow Step Indicators */
+.workflow-nav .nav-link i {
+  width: 1.2rem;
+}
+
+/* Session Status Badges */
+.badge {
+  font-size: 0.75em;
+}
+
+/* Card Enhancements */
+.card {
+  border: 1px solid rgba(0,0,0,.125);
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+}
+
+.card-header {
+  background-color: rgba(0,0,0,.03);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+/* Loading States */
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Form Validation States */
+.is-valid {
+  border-color: #198754;
+}
+
+.is-invalid {
+  border-color: #dc3545;
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+  border-radius: 0.375rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+}
+
+/* Image Styling for Rewards */
+img.rounded {
+  border: 2px solid #dee2e6;
+}
+
+/* Text Truncation */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Accessibility Improvements */
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Animation for workflow transitions */
+.tab-pane {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tab-pane.show.active {
+  opacity: 1;
 }
 </style>
 

@@ -12,14 +12,16 @@ from django.urls import reverse
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Prefetch, Count, Q, Exists, OuterRef, Max
+from django.db import transaction
 from django.utils.decorators import method_decorator
 from django.views.decorators.vary import vary_on_headers
 import csv
 import openpyxl
 import os
 import json
+import logging
 from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm, AssignFacilitatorForm
-from .models import User, Role, School, ClassSection, FacilitatorSchool,Student,Enrollment,PlannedSession,SessionStep, ActualSession, Attendance
+from .models import User, Role, School, ClassSection, FacilitatorSchool,Student,Enrollment,PlannedSession,SessionStep, ActualSession, Attendance, CANCELLATION_REASONS
 from .models import CurriculumSession, SessionTemplate, SessionUsageLog, ImportHistory, SessionVersionHistory
 from .mixins import PerformanceOptimizedMixin, OptimizedListMixin, CachedViewMixin, AjaxOptimizedMixin, DatabaseOptimizedMixin, cache_expensive_operation, monitor_performance
 from datetime import date
@@ -27,11 +29,16 @@ import re
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils import timezone
 import time
+
+logger = logging.getLogger(__name__)
 import logging
 
 logger = logging.getLogger(__name__)
 
 User = get_user_model()
+
+# Import the session management classes
+from .session_management import SessionSequenceCalculator, SessionStatusManager
 
 # -------------------------------
 # Role-Based Dashboard Configuration
@@ -774,22 +781,93 @@ def today_session(request, class_section_id):
     class_section = get_object_or_404(ClassSection, id=class_section_id)
     today = timezone.now().date()
 
-    # ✅ Next planned session NOT conducted yet
-    planned_session = (
-        PlannedSession.objects
-        .filter(class_section=class_section, is_active=True)
-        .exclude(actual_sessions__status="conducted")
-        .order_by("day_number")
-        .first()
-    )
+    # Use the new SessionSequenceCalculator
+    from .session_management import SessionSequenceCalculator
+    from .services.curriculum_content_resolver import CurriculumContentResolver
+    from .services.session_integration_service import SessionIntegrationService
+    
+    # Check if class has any planned sessions, if not create them
+    existing_sessions_count = PlannedSession.objects.filter(
+        class_section=class_section,
+        is_active=True
+    ).count()
+    
+    if existing_sessions_count == 0:
+        # Auto-generate 1-150 sessions for this class
+        from .session_management import SessionBulkManager
+        
+        try:
+            with transaction.atomic():
+                # Create all 150 sessions
+                sessions_to_create = []
+                for day_number in range(1, 151):
+                    session = PlannedSession(
+                        class_section=class_section,
+                        day_number=day_number,
+                        title=f"Day {day_number} Session",
+                        description=f"Session for day {day_number}",
+                        sequence_position=day_number,
+                        is_required=True,
+                        is_active=True
+                    )
+                    sessions_to_create.append(session)
+                
+                # Bulk create all sessions
+                PlannedSession.objects.bulk_create(sessions_to_create)
+                
+                messages.success(request, f"✅ Initialized 150 sessions for {class_section.school.name} - {class_section.class_level}-{class_section.section}")
+                logger.info(f"Auto-generated 150 sessions for {class_section}")
+            
+        except Exception as e:
+            logger.error(f"Error auto-generating sessions for {class_section}: {e}")
+            messages.error(request, "Failed to initialize sessions. Please contact admin.")
+            return render(request, "facilitator/Today_session.html", {
+                "class_section": class_section,
+                "error": True,
+                "error_message": "Failed to initialize class sessions. Please contact admin."
+            })
+    
+    # Get next pending session using the enhanced logic
+    planned_session = SessionSequenceCalculator.get_next_pending_session(class_section)
 
     if not planned_session:
-        return render(request, "facilitator/Today_session.html", {
-            "class_section": class_section,
-            "completed": True
-        })
+        # Check if we truly have all sessions completed
+        total_sessions = PlannedSession.objects.filter(
+            class_section=class_section,
+            is_active=True
+        ).count()
+        
+        completed_sessions = ActualSession.objects.filter(
+            planned_session__class_section=class_section,
+            status__in=['conducted', 'cancelled']
+        ).count()
+        
+        if total_sessions > 0 and completed_sessions >= total_sessions:
+            # All sessions truly completed - show completion message
+            return render(request, "facilitator/Today_session.html", {
+                "class_section": class_section,
+                "completed": True,
+                "completion_message": "🎉 All 150 sessions completed for this class!"
+            })
+        else:
+            # Something is wrong with session sequence, try to repair
+            from .session_management import SessionBulkManager
+            repair_result = SessionBulkManager.repair_sequence_gaps(class_section, request.user)
+            
+            if repair_result['success'] and repair_result['created_count'] > 0:
+                messages.info(request, f"Repaired {repair_result['created_count']} missing sessions.")
+                # Try to get next session again
+                planned_session = SessionSequenceCalculator.get_next_pending_session(class_section)
+            
+            if not planned_session:
+                # Still no session found, show error
+                return render(request, "facilitator/Today_session.html", {
+                    "class_section": class_section,
+                    "error": True,
+                    "error_message": "No sessions available. Please contact admin to set up class sessions."
+                })
 
-    # ✅ latest actual session for this planned session
+    # Get latest actual session for this planned session
     actual_session = planned_session.actual_sessions.order_by("-date").first()
 
     session_status = "pending"
@@ -799,7 +877,7 @@ def today_session(request, class_section_id):
         session_status = actual_session.status
         is_today = actual_session.date == today
 
-    # ✅ Get first video from session steps (if any)
+    # Get first video from session steps (if any)
     first_step_with_video = planned_session.steps.filter(
         youtube_url__isnull=False
     ).exclude(youtube_url='').first()
@@ -808,8 +886,53 @@ def today_session(request, class_section_id):
     if first_step_with_video:
         video_id = extract_youtube_id(first_step_with_video.youtube_url)
     
-    # ✅ Get curriculum content for this day
-    curriculum_content = get_curriculum_content_for_day(planned_session.day_number)
+    # Initialize our new services
+    content_resolver = CurriculumContentResolver()
+    integration_service = SessionIntegrationService()
+    
+    # Get integrated session data (combines PlannedSession with CurriculumSession)
+    integrated_data = integration_service.get_integrated_session_data(planned_session)
+    
+    # Log curriculum access for analytics
+    integration_service.log_curriculum_access(planned_session, request.user, request)
+    
+    # Get curriculum content metadata for the frontend
+    content_metadata = content_resolver.get_content_metadata(
+        planned_session.day_number, 
+        integration_service._get_class_language(class_section)
+    )
+    
+    # Get progress metrics
+    progress_metrics = SessionSequenceCalculator.calculate_progress(class_section)
+    
+    # Get workflow-related data
+    from .models import LessonPlanUpload, SessionReward, SessionFeedback, SessionPreparationChecklist
+    
+    # Get lesson plan uploads for this session
+    lesson_plan_uploads = LessonPlanUpload.objects.filter(
+        planned_session=planned_session,
+        facilitator=request.user
+    ).order_by('-upload_date')
+    
+    # Get session rewards for this session (if actual session exists)
+    session_rewards = []
+    if actual_session:
+        session_rewards = SessionReward.objects.filter(
+            actual_session=actual_session
+        ).order_by('-reward_date')
+    
+    # Get preparation checklist for this session
+    preparation_checklist = SessionPreparationChecklist.objects.filter(
+        planned_session=planned_session,
+        facilitator=request.user
+    ).first()
+    
+    if not preparation_checklist:
+        # Create empty checklist for template
+        preparation_checklist = SessionPreparationChecklist(
+            planned_session=planned_session,
+            facilitator=request.user
+        )
 
     return render(request, "facilitator/Today_session.html", {
         "class_section": class_section,
@@ -818,8 +941,22 @@ def today_session(request, class_section_id):
         "session_status": session_status,
         "is_today": is_today,
         "video_id": video_id,
-        "curriculum_content": curriculum_content,
         "current_day": planned_session.day_number,
+        "progress_metrics": progress_metrics,
+        "cancellation_reasons": CANCELLATION_REASONS,
+        "lesson_plan_uploads": lesson_plan_uploads,
+        "session_rewards": session_rewards,
+        "preparation_checklist": preparation_checklist,
+        # New curriculum integration data
+        "integrated_data": integrated_data,
+        "content_metadata": content_metadata,
+        "has_admin_content": integrated_data.has_admin_content,
+        "content_source": integrated_data.content_source,
+        # Day navigation data
+        "day_range": range(1, 151),  # Days 1-150
+        # Debug information
+        "today_date": today,
+        "actual_session_date": actual_session.date if actual_session else None,
     })
 
 
@@ -864,30 +1001,57 @@ def start_session(request, planned_session_id):
         return redirect("no_permission")
 
     planned = get_object_or_404(PlannedSession, id=planned_session_id)
-
     status = request.POST.get("status", "conducted")
     remarks = request.POST.get("remarks", "")
+    cancellation_reason = request.POST.get("cancellation_reason", "")
 
-    actual_session, created = ActualSession.objects.get_or_create(
-        planned_session=planned,
-        date=timezone.now().date(),
-        defaults={
-            "facilitator": request.user,
-            "status": status,
-            "remarks": remarks
-        }
-    )
+    # Import the new session management logic
+    from .session_management import SessionStatusManager
+    from django.core.exceptions import ValidationError
 
-    # Always update status if changed
-    actual_session.status = status
-    actual_session.remarks = remarks
-    actual_session.save()
+    try:
+        if status == "conducted":
+            actual_session = SessionStatusManager.conduct_session(
+                planned_session=planned,
+                facilitator=request.user,
+                remarks=remarks
+            )
+            messages.success(request, "Session conducted successfully!")
+            return redirect("mark_attendance", actual_session.id)
+            
+        elif status == "holiday":
+            actual_session = SessionStatusManager.mark_holiday(
+                planned_session=planned,
+                facilitator=request.user,
+                reason=remarks
+            )
+            messages.success(request, "Session marked as holiday. You can conduct it later.")
+            
+        elif status == "cancelled":
+            if not cancellation_reason:
+                messages.error(request, "Please select a cancellation reason.")
+                return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
+            
+            actual_session = SessionStatusManager.cancel_session(
+                planned_session=planned,
+                facilitator=request.user,
+                cancellation_reason=cancellation_reason,
+                remarks=remarks
+            )
+            messages.success(request, f"Session cancelled permanently: {dict(CANCELLATION_REASONS)[cancellation_reason]}")
+        
+        else:
+            messages.error(request, "Invalid session status.")
+            return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
+            
+    except ValidationError as e:
+        messages.error(request, str(e))
+        return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
+    except Exception as e:
+        messages.error(request, f"Error processing session: {str(e)}")
+        return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
 
-    if status == "conducted":
-        return redirect("mark_attendance", actual_session.id)
-
-    messages.success(request, f"Session marked as {status}.")
-    return redirect("facilitator_classes")
+    return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
 
 @login_required
 def mark_attendance(request, actual_session_id):
@@ -895,34 +1059,83 @@ def mark_attendance(request, actual_session_id):
         messages.error(request, "Permission denied.")
         return redirect("no_permission")
     
-
     session = get_object_or_404(ActualSession, id=actual_session_id)
 
     if session.status != "conducted":
-           messages.error(request, "Cannot mark attendance — session is not conducted.")
-           return redirect("facilitator_classes")
-
+        messages.error(request, "Cannot mark attendance — session is not conducted.")
+        return redirect("facilitator_classes")
 
     enrollments = Enrollment.objects.filter(
         class_section=session.planned_session.class_section,
         is_active=True
-    ).select_related("student")
+    ).select_related("student").prefetch_related(
+        Prefetch(
+            'attendances',
+            queryset=Attendance.objects.filter(actual_session=session),
+            to_attr='session_attendances'
+        )
+    )
 
     if request.method == "POST":
-        for enrollment in enrollments:
-            status = request.POST.get(str(enrollment.id))
-            if status:
-                Attendance.objects.update_or_create(
-                    actual_session=session,
-                    enrollment=enrollment,
-                    defaults={"status": status}
-                )
+        saved_count = 0
+        skipped_count = 0
+        updated_count = 0
+        
+        try:
+            with transaction.atomic():
+                for enrollment in enrollments:
+                    status = request.POST.get(str(enrollment.id))
+                    
+                    # Only save if a status is selected (not empty/not marked)
+                    if status and status in ['present', 'absent', 'leave']:
+                        attendance, created = Attendance.objects.update_or_create(
+                            actual_session=session,
+                            enrollment=enrollment,
+                            defaults={"status": status}
+                        )
+                        
+                        if created:
+                            saved_count += 1
+                        else:
+                            updated_count += 1
+                    else:
+                        # If status is empty, delete existing attendance if any
+                        Attendance.objects.filter(
+                            actual_session=session,
+                            enrollment=enrollment
+                        ).delete()
+                        skipped_count += 1
 
-        messages.success(request, "Attendance saved successfully.")
-        return redirect(
-            "class_attendance",
-            class_section_id=session.planned_session.class_section.id
-        )
+                # Update session attendance_marked flag
+                session.attendance_marked = True
+                session.save()
+
+                # Create success message with details
+                message_parts = []
+                if saved_count > 0:
+                    message_parts.append(f"{saved_count} new attendance records saved")
+                if updated_count > 0:
+                    message_parts.append(f"{updated_count} attendance records updated")
+                if skipped_count > 0:
+                    message_parts.append(f"{skipped_count} students not marked")
+                
+                success_message = "Attendance saved successfully! " + ", ".join(message_parts) + "."
+                messages.success(request, success_message)
+                
+                return redirect("facilitator_today_session", class_section_id=session.planned_session.class_section.id)
+                
+        except Exception as e:
+            messages.error(request, f"Error saving attendance: {str(e)}")
+            logger.error(f"Error saving attendance for session {session.id}: {e}")
+
+    # For GET request, get existing attendance data
+    for enrollment in enrollments:
+        # Get existing attendance for this enrollment in this session
+        existing_attendance = Attendance.objects.filter(
+            actual_session=session,
+            enrollment=enrollment
+        ).first()
+        enrollment.existing_attendance = existing_attendance
 
     return render(request, "facilitator/mark_attendance.html", {
         "session": session,
@@ -976,28 +1189,11 @@ def facilitator_attendance(request):
         messages.error(request, "Permission denied.")
         return redirect("no_permission")
 
-    # Debug: Check current user details
-    messages.info(request, f"Debug: Current user: {request.user.full_name} ({request.user.email}), Role: {request.user.role.name}")
-
-    # Get facilitator's assigned schools with debugging
+    # Get facilitator's assigned schools
     assigned_schools = FacilitatorSchool.objects.filter(
         facilitator=request.user,
         is_active=True
     ).select_related("school")
-
-    # Debug: Check query results
-    messages.info(request, f"Debug: Found {assigned_schools.count()} school assignments")
-    for fs in assigned_schools:
-        messages.info(request, f"Debug: Assigned to {fs.school.name} (Active: {fs.is_active})")
-
-    # Also check ALL FacilitatorSchool records for this user (including inactive)
-    all_assignments = FacilitatorSchool.objects.filter(
-        facilitator=request.user
-    ).select_related("school")
-    
-    messages.info(request, f"Debug: Total assignments (including inactive): {all_assignments.count()}")
-    for fs in all_assignments:
-        messages.info(request, f"Debug: {fs.school.name} - Active: {fs.is_active}, Created: {fs.created_at}")
 
     # Check if facilitator has any school assignments
     if not assigned_schools.exists():
@@ -1785,12 +1981,13 @@ def facilitator_curriculum_session(request, class_section_id):
 
 @login_required
 def curriculum_content_api(request):
-    """API endpoint to serve curriculum content for specific days with caching"""
+    """Enhanced API endpoint to serve curriculum content using CurriculumContentResolver"""
     if request.user.role.name.upper() not in ["ADMIN", "FACILITATOR"]:
         return JsonResponse({"error": "Permission denied"}, status=403)
     
     day = request.GET.get('day', 1)
     language = request.GET.get('language', 'english').lower()
+    class_section_id = request.GET.get('class_section_id')
     
     try:
         day = int(day)
@@ -1801,54 +1998,137 @@ def curriculum_content_api(request):
     if language not in ['english', 'hindi']:
         language = 'english'
     
-    # Check cache first (include user in cache key for security)
-    cache_key = f"curriculum_{language}_day_{day}_{request.user.id}"
-    cached_content = cache.get(cache_key)
-    if cached_content:
-        return HttpResponse(cached_content)
+    # Get class section if provided (for better language detection)
+    class_section = None
+    if class_section_id:
+        try:
+            class_section = ClassSection.objects.get(id=class_section_id)
+        except ClassSection.DoesNotExist:
+            pass
     
-    # Determine curriculum file path based on language
-    if language == 'hindi':
-        curriculum_file_path = os.path.join(settings.BASE_DIR, 'Templates/admin/session/Hindi_ ALL DAYS.html')
-    else:
-        curriculum_file_path = os.path.join(settings.BASE_DIR, 'Templates/admin/session/English_ ALL DAYS.html')
+    # Use our new CurriculumContentResolver
+    from .services.curriculum_content_resolver import CurriculumContentResolver
+    from .services.session_integration_service import SessionIntegrationService
+    
+    content_resolver = CurriculumContentResolver()
+    integration_service = SessionIntegrationService()
     
     try:
-        with open(curriculum_file_path, 'r', encoding='utf-8') as file:
-            content = file.read()
+        # Resolve content using our new service
+        content_result = content_resolver.resolve_content(day, language, class_section)
         
-        # Extract specific day content using regex
-        # Different patterns for English and Hindi
-        if language == 'hindi':
-            # Hindi uses "दिन 1", "दिन 2", etc. (with possible leading space)
-            day_pattern = rf'<td class="s0">\s*दिन {day}\s*</td>'
-            next_day_pattern = rf'<td class="s0">\s*दिन {day + 1}\s*</td>'
-        else:
-            # English uses "Day 1", "Day 2", etc.
-            day_pattern = rf'<td class="s0">\s*Day {day}\s*</td>'
-            next_day_pattern = rf'<td class="s0">\s*Day {day + 1}\s*</td>'
+        # Get content metadata
+        metadata = content_resolver.get_content_metadata(day, language)
         
-        import re
+        # Create enhanced response with source indicators
+        source_badge = {
+            'admin_managed': '<span class="badge bg-success">Admin Managed</span>',
+            'static_fallback': '<span class="badge bg-warning">Static Content</span>',
+            'error_fallback': '<span class="badge bg-danger">Error</span>'
+        }.get(content_result.source, '<span class="badge bg-secondary">Unknown</span>')
         
-        # Find start of current day
-        day_match = re.search(day_pattern, content, re.IGNORECASE)
-        if not day_match:
-            error_content = f'<div class="alert alert-warning m-3">Day {day} content not found for {language.title()}.</div>'
-            return HttpResponse(error_content)
+        # Return content directly since _extract_day_content already provides proper wrapper
+        # Return content directly since _extract_day_content already provides proper wrapper
+        wrapped_content = f'''
+        <div class="api-content-wrapper" data-day="{day}" data-language="{language}" data-source="{content_result.source}">
+            {_format_content_with_source_info(content_result, metadata)}
+            
+            <div class="content-body">
+                {content_result.content}
+            </div>
+            
+            {_add_admin_management_links(content_result, day, language, request.user)}
+        </div>
+        '''
         
-        start_pos = day_match.start()
+        return HttpResponse(wrapped_content)
         
-        # Find start of next day (or end of content)
-        next_day_match = re.search(next_day_pattern, content, re.IGNORECASE)
-        if next_day_match:
-            end_pos = next_day_match.start()
-        else:
-            # If it's the last day, find the end of table
-            end_pos = content.find('</tbody>')
-            if end_pos == -1:
-                end_pos = len(content)
-        
-        # Extract day content
+    except Exception as e:
+        logger.error(f"Error in curriculum_content_api: {str(e)}")
+        error_content = f'''
+        <div class="alert alert-danger m-3">
+            <h6>Error Loading Content</h6>
+            <p>Failed to load Day {day} {language.title()} curriculum content.</p>
+            <small class="text-muted">Error: {str(e)}</small>
+            <button class="btn btn-outline-danger btn-sm mt-2" onclick="loadCurriculumContent({day}, '{language}')">
+                <i class="fas fa-redo"></i> Retry
+            </button>
+        </div>
+        '''
+        return HttpResponse(error_content)
+
+
+def _format_content_with_source_info(content_result, metadata):
+    """Format content with source information."""
+    if content_result.source == 'admin_managed':
+        last_updated = metadata.last_updated.strftime('%Y-%m-%d %H:%M') if metadata.last_updated else 'Unknown'
+        return f'''
+        <div class="content-source-info">
+            <small class="text-muted">
+                <i class="fas fa-info-circle me-1"></i>
+                <strong>Admin-managed content</strong> • 
+                Last updated: {last_updated} • 
+                Usage count: {metadata.usage_count}
+                {f" • Title: {metadata.title}" if metadata.title else ""}
+            </small>
+        </div>
+        '''
+    elif content_result.source == 'static_fallback':
+        return f'''
+        <div class="content-source-info">
+            <small class="text-muted">
+                <i class="fas fa-file-alt me-1"></i>
+                <strong>Static content</strong> • 
+                Loaded from curriculum files • 
+                No admin-managed content available for this day
+            </small>
+        </div>
+        '''
+    else:
+        return f'''
+        <div class="content-source-info">
+            <small class="text-danger">
+                <i class="fas fa-exclamation-triangle me-1"></i>
+                <strong>Fallback content</strong> • 
+                There was an issue loading the primary content
+            </small>
+        </div>
+        '''
+
+
+def _add_admin_management_links(content_result, day, language, user):
+    """Add admin management links if user has permissions."""
+    if user.role.name.upper() != "ADMIN":
+        return ""
+    
+    if content_result.source == 'admin_managed' and content_result.curriculum_session:
+        return f'''
+        <div class="admin-actions">
+            <small class="text-muted d-block mb-2">
+                <i class="fas fa-tools me-1"></i>Admin Actions:
+            </small>
+            <a href="/admin/curriculum/session/{content_result.curriculum_session.id}/edit/" 
+               class="btn btn-outline-primary btn-sm me-2" target="_blank">
+                <i class="fas fa-edit me-1"></i>Edit Content
+            </a>
+            <a href="/admin/curriculum/session/{content_result.curriculum_session.id}/preview/" 
+               class="btn btn-outline-info btn-sm" target="_blank">
+                <i class="fas fa-eye me-1"></i>Preview
+            </a>
+        </div>
+        '''
+    else:
+        return f'''
+        <div class="admin-actions">
+            <small class="text-muted d-block mb-2">
+                <i class="fas fa-plus me-1"></i>Admin Actions:
+            </small>
+            <a href="/admin/curriculum/session/create/?day={day}&language={language}" 
+               class="btn btn-outline-success btn-sm" target="_blank">
+                <i class="fas fa-plus me-1"></i>Create Admin Content
+            </a>
+        </div>
+        '''
         day_content = content[start_pos:end_pos]
         
         # Wrap in a proper HTML structure for display
@@ -1897,17 +2177,6 @@ def curriculum_content_api(request):
         </style>
         '''
         
-        # Cache the content for 1 hour (with user-specific cache key)
-        cache.set(cache_key, wrapped_content, 60 * 60)
-        
-        return HttpResponse(wrapped_content)
-        
-    except FileNotFoundError:
-        return HttpResponse(f'<div class="alert alert-danger m-3">{language.title()} curriculum file not found.</div>')
-    except Exception as e:
-        return HttpResponse(f'<div class="alert alert-danger m-3">Error loading {language} content: {str(e)}</div>')
-
-
 @login_required 
 def facilitator_session_quick_nav(request, class_section_id):
     """Quick navigation API for facilitator sessions"""
@@ -2007,15 +2276,54 @@ def facilitator_students_list(request, class_section_id):
         messages.error(request, "You don't have access to this class.")
         return redirect("facilitator_schools")
 
-    # Get students in this class
+    # Get students in this class with attendance statistics
     enrollments = Enrollment.objects.filter(
         class_section=class_section,
         is_active=True
-    ).select_related("student").order_by("student__full_name")
+    ).select_related(
+        "student", 
+        "school", 
+        "class_section__school"
+    ).prefetch_related(
+        "attendances__actual_session"
+    ).order_by("student__full_name")
+    
+    # Get total conducted sessions for this class (single query)
+    total_sessions = ActualSession.objects.filter(
+        planned_session__class_section=class_section,
+        status="conducted"
+    ).count()
+    
+    # Calculate attendance statistics for each student
+    enrollment_stats = []
+    for enrollment in enrollments:
+        # Count attendance records for this student (using prefetched data when possible)
+        present_count = Attendance.objects.filter(
+            enrollment=enrollment,
+            actual_session__planned_session__class_section=class_section,
+            status="present"
+        ).count()
+        
+        absent_count = Attendance.objects.filter(
+            enrollment=enrollment,
+            actual_session__planned_session__class_section=class_section,
+            status="absent"
+        ).count()
+        
+        attendance_percentage = (present_count / total_sessions * 100) if total_sessions > 0 else 0
+        
+        enrollment_stats.append({
+            'enrollment': enrollment,
+            'total_sessions': total_sessions,
+            'present_count': present_count,
+            'absent_count': absent_count,
+            'attendance_percentage': round(attendance_percentage, 1)
+        })
 
     return render(request, "facilitator/students/list.html", {
         "class_section": class_section,
-        "enrollments": enrollments
+        "enrollments": enrollments,
+        "enrollment_stats": enrollment_stats
     })
 
 
@@ -2130,7 +2438,7 @@ def facilitator_student_edit(request, class_section_id, student_id):
             student.save()
             enrollment.save()
             messages.success(request, f"Student {student.full_name} updated successfully!")
-            return redirect("facilitator_students_list", class_section_id=enrollment.class_section.id)
+            return redirect("facilitator_class_students_list", class_section_id=enrollment.class_section.id)
         except Exception as e:
             messages.error(request, f"Error updating student: {str(e)}")
 
@@ -2282,7 +2590,7 @@ def admin_curriculum_sessions_list(request):
 @login_required
 def admin_curriculum_session_create(request):
     """
-    Admin view to create a new curriculum session
+    Enhanced admin view to create curriculum sessions with school/class filtering
     """
     if request.user.role.name.upper() != "ADMIN":
         messages.error(request, "Permission denied.")
@@ -2294,43 +2602,109 @@ def admin_curriculum_session_create(request):
         language = request.POST.get("language")
         content = request.POST.get("content", "")
         learning_objectives = request.POST.get("learning_objectives", "")
+        activities = request.POST.get("activities", "")
+        resources = request.POST.get("resources", "")
         status = request.POST.get("status", "draft")
+        
+        # New bulk creation features
+        create_multiple = request.POST.get("create_multiple") == "on"
+        end_day_number = request.POST.get("end_day_number")
+        target_schools = request.POST.getlist("target_schools")
+        target_classes = request.POST.getlist("target_classes")
 
         try:
             day_number = int(day_number)
             
-            # Check for duplicate day number within same language
-            if CurriculumSession.objects.filter(day_number=day_number, language=language).exists():
-                messages.error(request, f"A session for Day {day_number} in {language.title()} already exists.")
-                return render(request, "admin/sessions/curriculum_form.html", {
-                    'language_choices': CurriculumSession.LANGUAGE_CHOICES,
-                    'status_choices': CurriculumSession.STATUS_CHOICES,
-                    'form_data': request.POST
-                })
+            if create_multiple and end_day_number:
+                # Bulk creation for multiple days
+                end_day = int(end_day_number)
+                if end_day < day_number:
+                    messages.error(request, "End day must be greater than start day.")
+                    return render(request, "admin/sessions/curriculum_form.html", {
+                        'language_choices': CurriculumSession.LANGUAGE_CHOICES,
+                        'status_choices': CurriculumSession.STATUS_CHOICES,
+                        'schools': School.objects.all().order_by('name'),
+                        'form_data': request.POST
+                    })
+                
+                created_sessions = []
+                skipped_sessions = []
+                
+                for day in range(day_number, end_day + 1):
+                    # Check for duplicate
+                    if CurriculumSession.objects.filter(day_number=day, language=language).exists():
+                        skipped_sessions.append(day)
+                        continue
+                    
+                    # Create session for this day
+                    session = CurriculumSession.objects.create(
+                        title=f"{title} - Day {day}",
+                        day_number=day,
+                        language=language,
+                        content=content.replace("{DAY}", str(day)) if content else "",
+                        learning_objectives=learning_objectives.replace("{DAY}", str(day)) if learning_objectives else "",
+                        activities={"template": activities} if activities else {},
+                        resources={"template": resources} if resources else {},
+                        status=status,
+                        created_by=request.user
+                    )
+                    created_sessions.append(session)
+                
+                # Success message
+                success_msg = f"Created {len(created_sessions)} curriculum sessions"
+                if skipped_sessions:
+                    success_msg += f" (Skipped {len(skipped_sessions)} existing sessions: Days {', '.join(map(str, skipped_sessions))})"
+                
+                # Auto-create planned sessions for all classes that don't have them
+                auto_create_planned_sessions_for_all_classes()
+                
+                messages.success(request, success_msg)
+                return redirect("admin_curriculum_sessions_list")
+            
+            else:
+                # Single session creation
+                if CurriculumSession.objects.filter(day_number=day_number, language=language).exists():
+                    messages.error(request, f"A session for Day {day_number} in {language.title()} already exists.")
+                    return render(request, "admin/sessions/curriculum_form.html", {
+                        'language_choices': CurriculumSession.LANGUAGE_CHOICES,
+                        'status_choices': CurriculumSession.STATUS_CHOICES,
+                        'schools': School.objects.all().order_by('name'),
+                        'form_data': request.POST
+                    })
 
-            # Create the session
-            session = CurriculumSession.objects.create(
-                title=title,
-                day_number=day_number,
-                language=language,
-                content=content,
-                learning_objectives=learning_objectives,
-                status=status,
-                created_by=request.user
-            )
+                # Create the session
+                session = CurriculumSession.objects.create(
+                    title=title,
+                    day_number=day_number,
+                    language=language,
+                    content=content,
+                    learning_objectives=learning_objectives,
+                    activities={"content": activities} if activities else {},
+                    resources={"content": resources} if resources else {},
+                    status=status,
+                    created_by=request.user
+                )
 
-            messages.success(request, f"Curriculum session '{title}' created successfully!")
-            return redirect("admin_curriculum_sessions_list")
+                # Auto-create planned sessions for all classes that don't have them
+                auto_create_planned_sessions_for_all_classes()
+
+                messages.success(request, f"Curriculum session '{title}' created successfully!")
+                return redirect("admin_curriculum_sessions_list")
 
         except ValueError:
             messages.error(request, "Invalid day number. Please enter a number between 1 and 150.")
         except Exception as e:
             messages.error(request, f"Error creating session: {str(e)}")
 
+    # GET request - show form
     context = {
         'language_choices': CurriculumSession.LANGUAGE_CHOICES,
         'status_choices': CurriculumSession.STATUS_CHOICES,
-        'is_create': True
+        'schools': School.objects.all().order_by('name'),
+        'is_create': True,
+        # Pre-fill from URL parameters
+        'prefill_day': request.GET.get('day'),
+        'prefill_language': request.GET.get('language'),
     }
 
     return render(request, "admin/sessions/curriculum_form.html", context)
@@ -2824,38 +3198,60 @@ def admin_sessions_overview(request):
 @login_required
 @monitor_performance
 def ajax_school_classes_admin(request):
-    """AJAX endpoint to get classes for a specific school (admin version) - Optimized"""
+    """AJAX endpoint to get classes for specific school(s) (admin version) - Enhanced"""
     if request.user.role.name.upper() != "ADMIN":
         return JsonResponse({"error": "Permission denied"}, status=403)
     
+    # Support both single school_id and multiple schools parameters
     school_id = request.GET.get("school_id")
-    if not school_id:
-        return JsonResponse({"error": "School ID required"}, status=400)
+    schools_param = request.GET.get("schools")
     
-    # Use caching for frequently accessed data
-    cache_key = f"school_classes_{school_id}"
-    classes_data = cache.get(cache_key)
+    if not school_id and not schools_param:
+        return JsonResponse({"error": "School ID or schools parameter required"}, status=400)
     
-    if classes_data is None:
-        try:
+    try:
+        if schools_param:
+            # Multiple schools for curriculum targeting
+            school_ids = schools_param.split(',')
+            cache_key = f"multiple_school_classes_{'_'.join(sorted(school_ids))}"
+        else:
+            # Single school for backward compatibility
+            school_ids = [school_id]
+            cache_key = f"school_classes_{school_id}"
+        
+        classes_data = cache.get(cache_key)
+        
+        if classes_data is None:
             classes = ClassSection.objects.filter(
-                school_id=school_id,
+                school_id__in=school_ids,
                 is_active=True
-            ).values(
-                "id", "class_level", "section"
-            ).order_by("class_level", "section")
+            ).select_related('school').order_by('school__name', 'class_level', 'section')
             
-            classes_data = list(classes)
+            classes_data = []
+            for cls in classes:
+                classes_data.append({
+                    'id': str(cls.id),
+                    'class_level': cls.class_level,
+                    'section': cls.section or '',
+                    'display_name': cls.display_name or f"{cls.class_level}{cls.section or ''}",
+                    'school_name': cls.school.name,
+                    'school_id': str(cls.school.id)
+                })
+            
             # Cache for 10 minutes
             cache.set(cache_key, classes_data, 600)
-            
-        except Exception as e:
-            logger.error(f"Error fetching classes for school {school_id}: {str(e)}")
-            return JsonResponse({"error": str(e)}, status=500)
-    
-    response = JsonResponse({"classes": classes_data})
-    response['Cache-Control'] = 'max-age=600'  # 10 minutes browser cache
-    return response
+        
+        response = JsonResponse({
+            "success": True,
+            "classes": classes_data,
+            "count": len(classes_data)
+        })
+        response['Cache-Control'] = 'max-age=600'  # 10 minutes browser cache
+        return response
+        
+    except Exception as e:
+        logger.error(f"Error fetching classes for schools {school_ids}: {str(e)}")
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 @login_required
@@ -2982,3 +3378,700 @@ def api_curriculum_sessions_filter(request):
             'error': 'Failed to filter sessions',
             'message': str(e)
         }, status=500)
+
+# =========================
+# SESSION WORKFLOW VIEWS
+# =========================
+
+@login_required
+def upload_lesson_plan(request):
+    """Upload lesson plan for a planned session"""
+    if request.user.role.name.upper() != "FACILITATOR":
+        return JsonResponse({"success": False, "error": "Permission denied"}, status=403)
+    
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "Invalid request method"}, status=405)
+    
+    try:
+        planned_session_id = request.POST.get('planned_session_id')
+        planned_session = get_object_or_404(PlannedSession, id=planned_session_id)
+        
+        # Verify facilitator has access to this class
+        if not FacilitatorSchool.objects.filter(
+            facilitator=request.user,
+            school=planned_session.class_section.school,
+            is_active=True
+        ).exists():
+            return JsonResponse({"success": False, "error": "Access denied"}, status=403)
+        
+        lesson_plan_file = request.FILES.get('lesson_plan_file')
+        if not lesson_plan_file:
+            return JsonResponse({"success": False, "error": "No file uploaded"}, status=400)
+        
+        # Validate file type
+        allowed_extensions = ['.pdf', '.doc', '.docx']
+        file_extension = os.path.splitext(lesson_plan_file.name)[1].lower()
+        if file_extension not in allowed_extensions:
+            return JsonResponse({"success": False, "error": "Invalid file type. Only PDF, DOC, and DOCX files are allowed."}, status=400)
+        
+        # Validate file size (max 10MB)
+        if lesson_plan_file.size > 10 * 1024 * 1024:
+            return JsonResponse({"success": False, "error": "File too large. Maximum size is 10MB."}, status=400)
+        
+        upload_notes = request.POST.get('upload_notes', '')
+        
+        # Create or update lesson plan upload
+        from .models import LessonPlanUpload
+        lesson_plan_upload, created = LessonPlanUpload.objects.update_or_create(
+            planned_session=planned_session,
+            facilitator=request.user,
+            defaults={
+                'lesson_plan_file': lesson_plan_file,
+                'file_name': lesson_plan_file.name,
+                'file_size': lesson_plan_file.size,
+                'upload_notes': upload_notes,
+                'is_approved': False
+            }
+        )
+        
+        return JsonResponse({
+            "success": True,
+            "message": "Lesson plan uploaded successfully",
+            "upload_id": str(lesson_plan_upload.id),
+            "file_name": lesson_plan_upload.file_name,
+            "file_size": lesson_plan_upload.file_size
+        })
+        
+    except Exception as e:
+        logger.error(f"Error uploading lesson plan: {e}")
+        return JsonResponse({"success": False, "error": "Upload failed. Please try again."}, status=500)
+
+
+@login_required
+def save_preparation_checklist(request):
+    """Save preparation checklist progress"""
+    if request.user.role.name.upper() != "FACILITATOR":
+        return JsonResponse({"success": False, "error": "Permission denied"}, status=403)
+    
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "Invalid request method"}, status=405)
+    
+    try:
+        planned_session_id = request.POST.get('planned_session_id')
+        planned_session = get_object_or_404(PlannedSession, id=planned_session_id)
+        
+        # Verify facilitator has access to this class
+        if not FacilitatorSchool.objects.filter(
+            facilitator=request.user,
+            school=planned_session.class_section.school,
+            is_active=True
+        ).exists():
+            return JsonResponse({"success": False, "error": "Access denied"}, status=403)
+        
+        from .models import SessionPreparationChecklist
+        
+        # Get or create preparation checklist
+        checklist, created = SessionPreparationChecklist.objects.get_or_create(
+            planned_session=planned_session,
+            facilitator=request.user,
+            defaults={
+                'preparation_start_time': timezone.now()
+            }
+        )
+        
+        # Update checkpoint values
+        checklist.lesson_plan_reviewed = request.POST.get('lesson_plan_reviewed') == 'on'
+        checklist.materials_prepared = request.POST.get('materials_prepared') == 'on'
+        checklist.technology_tested = request.POST.get('technology_tested') == 'on'
+        checklist.classroom_setup_ready = request.POST.get('classroom_setup_ready') == 'on'
+        checklist.student_list_reviewed = request.POST.get('student_list_reviewed') == 'on'
+        checklist.previous_session_feedback_reviewed = request.POST.get('previous_session_feedback_reviewed') == 'on'
+        checklist.preparation_notes = request.POST.get('preparation_notes', '')
+        
+        # Update timestamps for completed checkpoints
+        current_time = timezone.now().isoformat()
+        checkpoints_completed_at = checklist.checkpoints_completed_at or {}
+        
+        checkpoint_fields = [
+            'lesson_plan_reviewed', 'materials_prepared', 'technology_tested',
+            'classroom_setup_ready', 'student_list_reviewed', 'previous_session_feedback_reviewed'
+        ]
+        
+        for field in checkpoint_fields:
+            if getattr(checklist, field) and field not in checkpoints_completed_at:
+                checkpoints_completed_at[field] = current_time
+            elif not getattr(checklist, field) and field in checkpoints_completed_at:
+                del checkpoints_completed_at[field]
+        
+        checklist.checkpoints_completed_at = checkpoints_completed_at
+        
+        # Check if all checkpoints are completed
+        all_completed = all(getattr(checklist, field) for field in checkpoint_fields)
+        if all_completed and not checklist.preparation_complete_time:
+            checklist.preparation_complete_time = timezone.now()
+            
+            # Calculate total preparation time
+            if checklist.preparation_start_time:
+                time_diff = checklist.preparation_complete_time - checklist.preparation_start_time
+                checklist.total_preparation_minutes = int(time_diff.total_seconds() / 60)
+        
+        checklist.save()
+        
+        return JsonResponse({
+            "success": True,
+            "message": "Preparation checklist saved",
+            "completion_percentage": checklist.completion_percentage,
+            "all_completed": all_completed
+        })
+        
+    except Exception as e:
+        logger.error(f"Error saving preparation checklist: {e}")
+        return JsonResponse({"success": False, "error": "Failed to save checklist"}, status=500)
+
+
+@login_required
+def save_session_reward(request):
+    """Save session reward information"""
+    if request.user.role.name.upper() != "FACILITATOR":
+        return JsonResponse({"success": False, "error": "Permission denied"}, status=403)
+    
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "Invalid request method"}, status=405)
+    
+    try:
+        planned_session_id = request.POST.get('planned_session_id')
+        planned_session = get_object_or_404(PlannedSession, id=planned_session_id)
+        
+        # Verify facilitator has access to this class
+        if not FacilitatorSchool.objects.filter(
+            facilitator=request.user,
+            school=planned_session.class_section.school,
+            is_active=True
+        ).exists():
+            return JsonResponse({"success": False, "error": "Access denied"}, status=403)
+        
+        # Get or create actual session (for rewards, we need a session that's being conducted)
+        actual_session, created = ActualSession.objects.get_or_create(
+            planned_session=planned_session,
+            date=timezone.now().date(),
+            defaults={
+                'facilitator': request.user,
+                'status': 'conducted',  # Assume session is being conducted when rewards are given
+                'remarks': 'Session in progress - rewards recorded'
+            }
+        )
+        
+        reward_type = request.POST.get('reward_type', 'text')
+        reward_description = request.POST.get('reward_description', '')
+        student_names = request.POST.get('student_names', '')
+        reward_photo = request.FILES.get('reward_photo')
+        
+        if not reward_description:
+            return JsonResponse({"success": False, "error": "Reward description is required"}, status=400)
+        
+        from .models import SessionReward
+        
+        # Create reward record
+        reward = SessionReward.objects.create(
+            actual_session=actual_session,
+            facilitator=request.user,
+            reward_type=reward_type,
+            reward_description=reward_description,
+            student_names=student_names,
+            reward_photo=reward_photo,
+            is_visible_to_admin=True
+        )
+        
+        return JsonResponse({
+            "success": True,
+            "message": "Reward information saved successfully",
+            "reward_id": str(reward.id)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error saving session reward: {e}")
+        return JsonResponse({"success": False, "error": "Failed to save reward information"}, status=500)
+
+
+@login_required
+def save_session_tracking(request):
+    """Save real-time session tracking data"""
+    if request.user.role.name.upper() != "FACILITATOR":
+        return JsonResponse({"success": False, "error": "Permission denied"}, status=403)
+    
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "Invalid request method"}, status=405)
+    
+    try:
+        planned_session_id = request.POST.get('planned_session_id')
+        planned_session = get_object_or_404(PlannedSession, id=planned_session_id)
+        
+        # Verify facilitator has access to this class
+        if not FacilitatorSchool.objects.filter(
+            facilitator=request.user,
+            school=planned_session.class_section.school,
+            is_active=True
+        ).exists():
+            return JsonResponse({"success": False, "error": "Access denied"}, status=403)
+        
+        from .models import SessionFeedback
+        
+        # Get or create session feedback for tracking
+        feedback, created = SessionFeedback.objects.get_or_create(
+            actual_session__planned_session=planned_session,
+            facilitator=request.user,
+            defaults={
+                'student_engagement_level': 3,
+                'student_understanding_level': 3,
+                'session_completion_percentage': 0,
+                'time_management_rating': 3,
+                'content_difficulty_rating': 3,
+                'facilitator_satisfaction': 3,
+                'what_went_well': '',
+                'areas_for_improvement': '',
+                'is_complete': False
+            }
+        )
+        
+        # Update tracking fields
+        if request.POST.get('student_engagement_level'):
+            feedback.student_engagement_level = int(request.POST.get('student_engagement_level'))
+        
+        if request.POST.get('student_understanding_level'):
+            feedback.student_understanding_level = int(request.POST.get('student_understanding_level'))
+        
+        feedback.student_questions = request.POST.get('student_questions', feedback.student_questions)
+        feedback.challenging_topics = request.POST.get('challenging_topics', feedback.challenging_topics)
+        feedback.student_participation_notes = request.POST.get('student_participation_notes', feedback.student_participation_notes)
+        
+        feedback.save()
+        
+        return JsonResponse({
+            "success": True,
+            "message": "Session tracking data saved"
+        })
+        
+    except Exception as e:
+        logger.error(f"Error saving session tracking: {e}")
+        return JsonResponse({"success": False, "error": "Failed to save tracking data"}, status=500)
+
+
+@login_required
+def save_session_feedback(request):
+    """Save comprehensive session feedback"""
+    if request.user.role.name.upper() != "FACILITATOR":
+        return JsonResponse({"success": False, "error": "Permission denied"}, status=403)
+    
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "Invalid request method"}, status=405)
+    
+    try:
+        planned_session_id = request.POST.get('planned_session_id')
+        planned_session = get_object_or_404(PlannedSession, id=planned_session_id)
+        
+        # Verify facilitator has access to this class
+        if not FacilitatorSchool.objects.filter(
+            facilitator=request.user,
+            school=planned_session.class_section.school,
+            is_active=True
+        ).exists():
+            return JsonResponse({"success": False, "error": "Access denied"}, status=403)
+        
+        # Get or create actual session
+        actual_session, created = ActualSession.objects.get_or_create(
+            planned_session=planned_session,
+            date=timezone.now().date(),
+            defaults={
+                'facilitator': request.user,
+                'status': 'conducted',
+                'remarks': 'Session completed with feedback'
+            }
+        )
+        
+        from .models import SessionFeedback
+        
+        # Validate required fields
+        required_fields = [
+            'session_completion_percentage', 'time_management_rating', 'content_difficulty_rating',
+            'facilitator_satisfaction', 'what_went_well', 'areas_for_improvement'
+        ]
+        
+        for field in required_fields:
+            if not request.POST.get(field):
+                return JsonResponse({"success": False, "error": f"{field.replace('_', ' ').title()} is required"}, status=400)
+        
+        # Create or update feedback
+        feedback, created = SessionFeedback.objects.update_or_create(
+            actual_session=actual_session,
+            facilitator=request.user,
+            defaults={
+                'student_engagement_level': int(request.POST.get('student_engagement_level', 3)),
+                'student_understanding_level': int(request.POST.get('student_understanding_level', 3)),
+                'student_participation_notes': request.POST.get('student_participation_notes', ''),
+                'learning_objectives_met': request.POST.get('learning_objectives_met') == 'on',
+                'challenging_topics': request.POST.get('challenging_topics', ''),
+                'student_questions': request.POST.get('student_questions', ''),
+                'session_completion_percentage': int(request.POST.get('session_completion_percentage')),
+                'time_management_rating': int(request.POST.get('time_management_rating')),
+                'content_difficulty_rating': int(request.POST.get('content_difficulty_rating')),
+                'facilitator_satisfaction': int(request.POST.get('facilitator_satisfaction')),
+                'what_went_well': request.POST.get('what_went_well'),
+                'areas_for_improvement': request.POST.get('areas_for_improvement'),
+                'next_session_preparation': request.POST.get('next_session_preparation', ''),
+                'additional_notes': request.POST.get('additional_notes', ''),
+                'is_complete': True
+            }
+        )
+        
+        return JsonResponse({
+            "success": True,
+            "message": "Session feedback saved successfully. You can now conduct the session.",
+            "feedback_id": str(feedback.id)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error saving session feedback: {e}")
+        return JsonResponse({"success": False, "error": "Failed to save feedback"}, status=500)
+
+
+@login_required
+def save_student_feedback(request):
+    """Save anonymous student feedback for a session"""
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "Invalid request method"}, status=405)
+    
+    try:
+        actual_session_id = request.POST.get('actual_session_id')
+        actual_session = get_object_or_404(ActualSession, id=actual_session_id)
+        
+        # Validate required fields
+        required_fields = [
+            'session_rating', 'topic_understanding', 'teacher_clarity',
+            'session_highlights', 'improvement_suggestions', 'anonymous_student_id'
+        ]
+        
+        for field in required_fields:
+            if not request.POST.get(field):
+                return JsonResponse({"success": False, "error": f"{field.replace('_', ' ').title()} is required"}, status=400)
+        
+        from .models import StudentFeedback
+        
+        # Create student feedback
+        feedback = StudentFeedback.objects.create(
+            actual_session=actual_session,
+            anonymous_student_id=request.POST.get('anonymous_student_id'),
+            session_rating=int(request.POST.get('session_rating')),
+            topic_understanding=request.POST.get('topic_understanding'),
+            teacher_clarity=request.POST.get('teacher_clarity'),
+            session_highlights=request.POST.get('session_highlights'),
+            improvement_suggestions=request.POST.get('improvement_suggestions'),
+            additional_suggestions=request.POST.get('additional_suggestions', ''),
+            ip_address=request.META.get('REMOTE_ADDR')
+        )
+        
+        # Update analytics
+        from .models import FeedbackAnalytics
+        analytics, created = FeedbackAnalytics.objects.get_or_create(
+            actual_session=actual_session
+        )
+        analytics.calculate_analytics()
+        
+        return JsonResponse({
+            "success": True,
+            "message": "Student feedback submitted successfully!",
+            "feedback_id": str(feedback.id)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error saving student feedback: {e}")
+        return JsonResponse({"success": False, "error": "Failed to save student feedback"}, status=500)
+
+
+@login_required
+def save_teacher_feedback(request):
+    """Save teacher reflection feedback for a session"""
+    if request.user.role.name.upper() != "FACILITATOR":
+        return JsonResponse({"success": False, "error": "Permission denied"}, status=403)
+    
+    if request.method != "POST":
+        return JsonResponse({"success": False, "error": "Invalid request method"}, status=405)
+    
+    try:
+        actual_session_id = request.POST.get('actual_session_id')
+        actual_session = get_object_or_404(ActualSession, id=actual_session_id)
+        
+        # Verify facilitator has access to this session
+        if actual_session.facilitator != request.user:
+            return JsonResponse({"success": False, "error": "Access denied"}, status=403)
+        
+        # Validate required fields
+        required_fields = [
+            'class_engagement', 'session_completion', 'student_struggles',
+            'successful_elements', 'improvement_areas'
+        ]
+        
+        for field in required_fields:
+            if not request.POST.get(field):
+                return JsonResponse({"success": False, "error": f"{field.replace('_', ' ').title()} is required"}, status=400)
+        
+        from .models import TeacherFeedback
+        
+        # Create or update teacher feedback
+        feedback, created = TeacherFeedback.objects.update_or_create(
+            actual_session=actual_session,
+            facilitator=request.user,
+            defaults={
+                'class_engagement': request.POST.get('class_engagement'),
+                'session_completion': request.POST.get('session_completion'),
+                'student_struggles': request.POST.get('student_struggles'),
+                'successful_elements': request.POST.get('successful_elements'),
+                'improvement_areas': request.POST.get('improvement_areas'),
+                'resource_needs': request.POST.get('resource_needs', '')
+            }
+        )
+        
+        # Update analytics
+        from .models import FeedbackAnalytics
+        analytics, created = FeedbackAnalytics.objects.get_or_create(
+            actual_session=actual_session
+        )
+        analytics.calculate_analytics()
+        
+        return JsonResponse({
+            "success": True,
+            "message": "Teacher reflection saved successfully!",
+            "feedback_id": str(feedback.id)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error saving teacher feedback: {e}")
+        return JsonResponse({"success": False, "error": "Failed to save teacher feedback"}, status=500)
+
+
+@login_required
+def get_feedback_status(request):
+    """Get feedback status for a session"""
+    try:
+        session_id = request.GET.get('session_id')
+        if not session_id:
+            return JsonResponse({"success": False, "error": "Session ID required"}, status=400)
+        
+        actual_session = get_object_or_404(ActualSession, id=session_id)
+        
+        from .models import StudentFeedback, TeacherFeedback
+        
+        # Get student feedback count
+        student_feedback_count = StudentFeedback.objects.filter(actual_session=actual_session).count()
+        
+        # Get teacher feedback status
+        teacher_feedback_completed = TeacherFeedback.objects.filter(
+            actual_session=actual_session,
+            facilitator=request.user
+        ).exists()
+        
+        # Generate student feedback summary HTML
+        student_summary_html = ""
+        if student_feedback_count > 0:
+            student_feedback = StudentFeedback.objects.filter(actual_session=actual_session)
+            
+            # Calculate averages
+            avg_rating = sum(f.session_rating for f in student_feedback) / student_feedback_count
+            understanding_yes = student_feedback.filter(topic_understanding='yes').count()
+            clarity_yes = student_feedback.filter(teacher_clarity='yes').count()
+            
+            student_summary_html = f"""
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <div class="text-primary">
+                        <h4>{avg_rating:.1f}/5</h4>
+                        <small>Average Rating</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-success">
+                        <h4>{understanding_yes}/{student_feedback_count}</h4>
+                        <small>Understood Topic</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-info">
+                        <h4>{clarity_yes}/{student_feedback_count}</h4>
+                        <small>Found Teacher Clear</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-warning">
+                        <h4>{student_feedback_count}</h4>
+                        <small>Total Responses</small>
+                    </div>
+                </div>
+            </div>
+            """
+        
+        return JsonResponse({
+            "success": True,
+            "student_feedback_count": student_feedback_count,
+            "teacher_feedback_completed": teacher_feedback_completed,
+            "student_summary_html": student_summary_html
+        })
+        
+    except Exception as e:
+        logger.error(f"Error getting feedback status: {e}")
+        return JsonResponse({"success": False, "error": "Failed to get feedback status"}, status=500)
+        day_content = content[start_pos:end_pos]
+        
+        # Cache the content for 1 hour
+        cache.set(cache_key, day_content, 60 * 60)
+        
+        return day_content
+        
+    except Exception as e:
+        logger.error(f"Error loading Hindi curriculum content for day {day_number}: {e}")
+        return None
+
+@login_required
+def initialize_class_sessions(request):
+    """Initialize 1-150 sessions for classes that don't have them"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+    
+    if request.method == "POST":
+        try:
+            # Get all class sections that don't have planned sessions
+            classes_without_sessions = []
+            all_classes = ClassSection.objects.all().select_related('school')
+            
+            for class_section in all_classes:
+                session_count = PlannedSession.objects.filter(
+                    class_section=class_section,
+                    is_active=True
+                ).count()
+                
+                if session_count == 0:
+                    classes_without_sessions.append(class_section)
+            
+            if not classes_without_sessions:
+                messages.info(request, "All classes already have sessions initialized.")
+                return redirect("admin_dashboard")
+            
+            # Initialize sessions for classes that need them
+            total_created = 0
+            success_count = 0
+            
+            for class_section in classes_without_sessions:
+                try:
+                    with transaction.atomic():
+                        # Create all 150 sessions
+                        sessions_to_create = []
+                        for day_number in range(1, 151):
+                            session = PlannedSession(
+                                class_section=class_section,
+                                day_number=day_number,
+                                title=f"Day {day_number} Session",
+                                description=f"Session for day {day_number}",
+                                sequence_position=day_number,
+                                is_required=True,
+                                is_active=True
+                            )
+                            sessions_to_create.append(session)
+                        
+                        # Bulk create all sessions
+                        PlannedSession.objects.bulk_create(sessions_to_create)
+                        total_created += 150
+                        success_count += 1
+                        
+                        logger.info(f"Initialized 150 sessions for {class_section}")
+                        
+                except Exception as e:
+                    logger.error(f"Error initializing sessions for {class_section}: {e}")
+                    messages.warning(request, f"Failed to initialize sessions for {class_section}: {str(e)}")
+            
+            if success_count > 0:
+                messages.success(request, f"✅ Successfully initialized {total_created} sessions for {success_count} classes.")
+            
+            return redirect("admin_dashboard")
+            
+        except Exception as e:
+            logger.error(f"Error in bulk session initialization: {e}")
+            messages.error(request, f"Error initializing sessions: {str(e)}")
+            return redirect("admin_dashboard")
+    
+    # GET request - show confirmation page
+    classes_without_sessions = []
+    all_classes = ClassSection.objects.all().select_related('school')
+    
+    for class_section in all_classes:
+        session_count = PlannedSession.objects.filter(
+            class_section=class_section,
+            is_active=True
+        ).count()
+        
+        if session_count == 0:
+            classes_without_sessions.append(class_section)
+    
+    return render(request, "admin/sessions/initialize_sessions.html", {
+        "classes_without_sessions": classes_without_sessions,
+        "total_sessions_to_create": len(classes_without_sessions) * 150
+    })
+
+def auto_create_planned_sessions_for_all_classes():
+    """
+    Automatically create 1-150 planned sessions for all classes that don't have them
+    This ensures facilitators always have sessions to conduct
+    """
+    try:
+        # Get all class sections
+        all_classes = ClassSection.objects.all()
+        
+        classes_updated = 0
+        total_sessions_created = 0
+        
+        for class_section in all_classes:
+            # Check if this class already has planned sessions
+            existing_count = PlannedSession.objects.filter(
+                class_section=class_section,
+                is_active=True
+            ).count()
+            
+            if existing_count == 0:
+                # Create all 150 sessions for this class
+                try:
+                    with transaction.atomic():
+                        sessions_to_create = []
+                        for day_number in range(1, 151):
+                            session = PlannedSession(
+                                class_section=class_section,
+                                day_number=day_number,
+                                title=f"Day {day_number} Session",
+                                description=f"Session for day {day_number}",
+                                sequence_position=day_number,
+                                is_required=True,
+                                is_active=True
+                            )
+                            sessions_to_create.append(session)
+                        
+                        # Bulk create all sessions
+                        PlannedSession.objects.bulk_create(sessions_to_create)
+                        classes_updated += 1
+                        total_sessions_created += 150
+                        
+                        logger.info(f"Auto-created 150 planned sessions for {class_section}")
+                        
+                except Exception as e:
+                    logger.error(f"Error creating planned sessions for {class_section}: {e}")
+        
+        if classes_updated > 0:
+            logger.info(f"Auto-created {total_sessions_created} planned sessions for {classes_updated} classes")
+        
+        return {
+            'classes_updated': classes_updated,
+            'total_sessions_created': total_sessions_created
+        }
+        
+    except Exception as e:
+        logger.error(f"Error in auto_create_planned_sessions_for_all_classes: {e}")
+        return {
+            'classes_updated': 0,
+            'total_sessions_created': 0
+        }

@@ -2,6 +2,11 @@
  * Performance optimization utilities for CLAS application
  */
 
+// Suppress console output in production
+if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    console.log = console.warn = console.info = function() {};
+}
+
 class PerformanceOptimizer {
     constructor() {
         this.cache = new Map();
