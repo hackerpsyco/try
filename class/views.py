@@ -2277,7 +2277,7 @@ def facilitator_curriculum_session(request, class_section_id):
         messages.error(request, "You don't have access to this class.")
         return redirect("facilitator_classes")
 
-    # Get requested day or current pending day
+    # Get requested day or default to Day 1
     requested_day = request.GET.get('day')
     if requested_day:
         try:
@@ -2285,15 +2285,7 @@ def facilitator_curriculum_session(request, class_section_id):
         except ValueError:
             current_day_number = 1
     else:
-        # Get next pending session
-        next_session = (
-            PlannedSession.objects
-            .filter(class_section=class_section, is_active=True)
-            .exclude(actual_sessions__status="conducted")
-            .order_by("day_number")
-            .first()
-        )
-        current_day_number = next_session.day_number if next_session else 1
+        current_day_number = 1  # Always start with Day 1
 
     # Get planned session for current day
     planned_session = PlannedSession.objects.filter(
@@ -2311,19 +2303,9 @@ def facilitator_curriculum_session(request, class_section_id):
         if actual_session:
             session_status = actual_session.status
 
-    # Get session statuses for all days (for navigator)
-    all_sessions = PlannedSession.objects.filter(
-        class_section=class_section,
-        is_active=True
-    ).prefetch_related('actual_sessions')
-    
-    session_statuses = {}
-    for session in all_sessions:
-        latest_actual = session.actual_sessions.order_by("-date").first()
-        if latest_actual:
-            session_statuses[session.day_number] = latest_actual.status
-        else:
-            session_statuses[session.day_number] = "pending"
+    # Don't load all session statuses - let frontend handle navigation
+    # This removes the performance bottleneck of loading all 150 days
+    session_statuses = {}  # Empty - frontend will handle day navigation
 
     # Navigation helpers
     prev_day = current_day_number - 1 if current_day_number > 1 else None
@@ -2337,7 +2319,7 @@ def facilitator_curriculum_session(request, class_section_id):
         'current_day_number': current_day_number,
         'prev_day': prev_day,
         'next_day': next_day,
-        'session_statuses': json.dumps(session_statuses),
+        'session_statuses': json.dumps(session_statuses),  # Empty for performance
     }
 
     return render(request, "facilitator/curriculum_session.html", context)

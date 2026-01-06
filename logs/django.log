@@ -7199,3 +7199,929 @@ WARNING 2026-01-06 14:42:03,618 mixins 18452 28068 Slow function: api_dashboard_
 INFO 2026-01-06 14:42:03,619 basehttp 18452 28068 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
 WARNING 2026-01-06 14:42:07,662 mixins 18452 27740 Slow function: schools took 5.69s
 INFO 2026-01-06 14:42:07,664 basehttp 18452 27740 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-06 18:37:47,947 autoreload 31412 30856 Watching for file changes with StatReloader
+INFO 2026-01-06 18:37:59,057 basehttp 31412 14004 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 18:37:59,134 basehttp 31412 14004 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-06 18:38:17,757 basehttp 31412 32196 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 18:39:04,200 basehttp 31412 27180 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 18:39:04,299 basehttp 31412 44204 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+WARNING 2026-01-06 18:39:04,851 basehttp 31412 44204 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-06 18:41:21,047 basehttp 31412 44384 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+INFO 2026-01-06 18:41:29,236 session_management 31412 36160 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-06 18:41:32,395 session_management 31412 36160 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-06 18:41:32,396 session_management 31412 36160 Progress metrics for kvs school - 1A (2024-2025): 0.0% complete
+INFO 2026-01-06 18:41:33,338 basehttp 31412 36160 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/ HTTP/1.1" 200 70399
+INFO 2026-01-06 18:41:35,079 curriculum_content_resolver 31412 36160 Successfully loaded static file for english, extracting Day 1 content
+WARNING 2026-01-06 18:41:36,174 log 31412 8228 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-06 18:41:36,219 basehttp 31412 8228 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+INFO 2026-01-06 18:41:37,581 curriculum_content_resolver 31412 36160 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 18:41:37,951 basehttp 31412 36160 "GET /api/curriculum/content/?day=1&language=english&class_section_id=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 1977778
+WARNING 2026-01-06 18:41:38,092 log 31412 36160 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 18:41:38,095 log 31412 2504 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 18:41:38,099 log 31412 8228 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/_600347483_1.jpg
+WARNING 2026-01-06 18:41:38,100 basehttp 31412 36160 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34932
+WARNING 2026-01-06 18:41:38,100 basehttp 31412 2504 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34932
+WARNING 2026-01-06 18:41:38,101 basehttp 31412 8228 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/_600347483_1.jpg HTTP/1.1" 404 34905
+WARNING 2026-01-06 18:41:43,780 log 31412 25044 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-06 18:41:43,781 basehttp 31412 25044 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+INFO 2026-01-06 18:41:44,904 basehttp 31412 8228 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-06 18:41:46,287 basehttp 31412 8976 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 18:43:28,740 basehttp 31412 23520 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 18:43:49,144 basehttp 31412 23520 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 18:44:28,961 basehttp 31412 16068 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+INFO 2026-01-06 18:46:13,816 basehttp 31412 18996 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 28343
+INFO 2026-01-06 18:46:17,708 basehttp 31412 30904 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 1977778
+WARNING 2026-01-06 18:46:17,845 log 31412 30904 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 18:46:17,865 log 31412 10496 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 18:46:17,856 log 31412 39080 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 18:46:17,866 basehttp 31412 30904 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 18:46:17,866 basehttp 31412 10496 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+WARNING 2026-01-06 18:46:17,867 basehttp 31412 39080 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 18:47:39,427 curriculum_content_resolver 31412 19160 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-06 18:47:42,139 curriculum_content_resolver 31412 19160 Loaded static fallback content for Day 2 english
+INFO 2026-01-06 18:47:42,500 basehttp 31412 19160 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 1965067
+WARNING 2026-01-06 18:47:42,677 log 31412 34012 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 18:47:42,688 log 31412 5900 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 18:47:42,689 basehttp 31412 34012 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 18:47:42,689 basehttp 31412 5900 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+WARNING 2026-01-06 18:50:06,837 log 31412 8516 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 18:50:06,861 log 31412 8424 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 18:50:06,881 basehttp 31412 8516 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 18:50:06,914 log 31412 11400 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 18:50:06,916 basehttp 31412 8424 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 18:50:06,924 basehttp 31412 11400 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+INFO 2026-01-06 18:50:09,871 basehttp 31412 11400 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 28343
+WARNING 2026-01-06 18:50:10,638 log 31412 11400 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 18:50:10,665 log 31412 8424 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 18:50:10,667 log 31412 8516 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 18:50:10,668 basehttp 31412 11400 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 18:50:10,668 basehttp 31412 8424 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 18:50:10,669 basehttp 31412 8516 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+INFO 2026-01-06 18:50:24,224 basehttp 31412 42708 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-06 18:50:24,235 basehttp 31412 42708 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 18:51:51,329 basehttp 31412 46728 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 18:52:03,413 basehttp 31412 7084 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 18:52:11,891 basehttp 31412 7084 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+INFO 2026-01-06 18:53:13,939 basehttp 31412 7084 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 29939
+INFO 2026-01-06 18:53:18,685 basehttp 31412 29772 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 1977778
+WARNING 2026-01-06 18:53:18,821 log 31412 12036 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 18:53:18,832 log 31412 29772 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 18:53:18,846 log 31412 24096 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 18:53:18,847 basehttp 31412 12036 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 18:53:18,848 basehttp 31412 29772 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 18:53:18,849 basehttp 31412 24096 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+WARNING 2026-01-06 18:53:22,408 log 31412 24096 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 18:53:22,419 log 31412 12036 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 18:53:22,428 log 31412 29772 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 18:53:22,429 basehttp 31412 24096 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 18:53:22,430 basehttp 31412 12036 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+WARNING 2026-01-06 18:53:22,430 basehttp 31412 29772 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 18:53:59,848 curriculum_content_resolver 31412 29772 Successfully loaded static file for english, extracting Day 50 content
+INFO 2026-01-06 18:54:02,042 curriculum_content_resolver 31412 29772 Loaded static fallback content for Day 50 english
+INFO 2026-01-06 18:54:02,317 basehttp 31412 29772 "GET /api/curriculum/content/?day=50&language=english HTTP/1.1" 200 1334005
+WARNING 2026-01-06 18:54:02,419 log 31412 29772 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 18:54:02,420 basehttp 31412 29772 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 18:54:11,426 curriculum_content_resolver 31412 29772 Successfully loaded static file for hindi, extracting Day 50 content
+INFO 2026-01-06 18:54:14,571 curriculum_content_resolver 31412 29772 Loaded static fallback content for Day 50 hindi
+INFO 2026-01-06 18:54:15,008 basehttp 31412 29772 "GET /api/curriculum/content/?day=50&language=hindi HTTP/1.1" 200 2203007
+WARNING 2026-01-06 18:54:15,144 log 31412 29772 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-06 18:54:15,147 basehttp 31412 29772 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 19:19:54,863 autoreload 20284 25496 Watching for file changes with StatReloader
+INFO 2026-01-06 19:20:35,359 basehttp 20284 31652 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 19:21:13,469 basehttp 20284 9540 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 19:21:28,621 basehttp 20284 23016 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 19:22:05,766 basehttp 20284 25396 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+ERROR 2026-01-06 19:23:00,844 log 20284 25244 Internal Server Error: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2303, in facilitator_curriculum_session
+    ).first()
+      ~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1099, in first
+    for obj in queryset[:1]:
+               ~~~~~~~~^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 402, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+ERROR 2026-01-06 19:23:01,053 log 20284 27164 Internal Server Error: /Facilitator/classes/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 57, in _view_wrapper
+    test_pass = test_func(request.user)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 80, in <lambda>
+    lambda u: u.is_authenticated,
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+ERROR 2026-01-06 19:23:01,073 basehttp 20284 25244 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 500 144130
+INFO 2026-01-06 19:23:01,088 basehttp 20284 27164 - Broken pipe from ('127.0.0.1', 50896)
+WARNING 2026-01-06 19:23:05,812 log 20284 28040 Not Found: /favicon.ico
+WARNING 2026-01-06 19:23:05,817 basehttp 20284 28040 "GET /favicon.ico HTTP/1.1" 404 34677
+INFO 2026-01-06 19:26:52,955 basehttp 20284 29664 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 19:26:55,482 basehttp 20284 29664 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+WARNING 2026-01-06 19:27:05,082 log 20284 28052 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-06 19:27:05,083 basehttp 20284 28052 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-06 19:27:25,223 basehttp 20284 34404 - Broken pipe from ('127.0.0.1', 51773)
+INFO 2026-01-06 19:27:52,315 autoreload 23452 34412 Watching for file changes with StatReloader
+WARNING 2026-01-06 19:27:59,547 log 23452 36588 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-06 19:27:59,549 basehttp 23452 36588 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-06 19:28:04,338 basehttp 23452 13572 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-06 19:28:04,350 basehttp 23452 13572 "GET / HTTP/1.1" 200 2258
+WARNING 2026-01-06 19:28:04,482 log 23452 13572 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-06 19:28:04,484 basehttp 23452 13572 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-06 19:28:11,602 basehttp 23452 13572 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 19:28:21,643 basehttp 23452 13572 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+WARNING 2026-01-06 19:28:21,777 log 23452 13572 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-06 19:28:21,778 basehttp 23452 13572 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-06 19:28:29,348 basehttp 23452 13572 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+WARNING 2026-01-06 19:28:29,483 log 23452 13572 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-06 19:28:29,485 basehttp 23452 13572 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-06 19:29:31,689 basehttp 23452 13572 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 17575
+WARNING 2026-01-06 19:29:31,842 log 23452 13572 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-06 19:29:31,843 basehttp 23452 13572 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-06 19:29:33,377 curriculum_content_resolver 23452 13572 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 19:29:35,444 curriculum_content_resolver 23452 13572 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 19:29:35,788 basehttp 23452 13572 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 1977778
+WARNING 2026-01-06 19:29:35,921 log 23452 13572 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 19:29:35,931 log 23452 36588 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 19:29:35,943 log 23452 27324 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 19:29:35,943 basehttp 23452 13572 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:29:35,945 basehttp 23452 36588 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:29:35,945 basehttp 23452 27324 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+INFO 2026-01-06 19:31:15,511 autoreload 23452 34412 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-06 19:31:16,933 autoreload 40044 17092 Watching for file changes with StatReloader
+INFO 2026-01-06 19:32:38,573 basehttp 40044 28304 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-06 19:32:38,592 basehttp 40044 28304 "GET / HTTP/1.1" 200 2258
+WARNING 2026-01-06 19:32:38,768 log 40044 28304 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-06 19:32:38,769 basehttp 40044 28304 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-06 19:32:46,250 basehttp 40044 28304 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 19:32:55,240 basehttp 40044 28304 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+WARNING 2026-01-06 19:32:55,466 log 40044 28304 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-06 19:32:55,468 basehttp 40044 28304 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-06 19:33:39,603 basehttp 40044 28304 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+WARNING 2026-01-06 19:33:39,796 log 40044 28304 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-06 19:33:39,797 basehttp 40044 28304 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-06 19:33:44,521 basehttp 40044 28304 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 17575
+WARNING 2026-01-06 19:33:44,689 log 40044 28304 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-06 19:33:44,690 basehttp 40044 28304 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-06 19:33:46,162 curriculum_content_resolver 40044 28304 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 19:33:48,156 curriculum_content_resolver 40044 28304 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 19:33:48,517 basehttp 40044 28304 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 1977778
+WARNING 2026-01-06 19:33:48,682 log 40044 28304 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 19:33:48,694 log 40044 35132 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 19:33:48,695 log 40044 26572 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 19:33:48,697 basehttp 40044 35132 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+WARNING 2026-01-06 19:33:48,697 basehttp 40044 28304 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:33:48,697 basehttp 40044 26572 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 19:41:43,123 autoreload 13664 44680 Watching for file changes with StatReloader
+INFO 2026-01-06 19:41:56,664 basehttp 13664 25480 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-06 19:41:56,683 basehttp 13664 25480 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 19:42:50,323 basehttp 13664 25480 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 19:43:00,358 basehttp 13664 25480 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 19:43:04,353 basehttp 13664 25480 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+INFO 2026-01-06 19:43:13,775 basehttp 13664 25480 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 20615
+INFO 2026-01-06 19:43:15,415 curriculum_content_resolver 13664 25480 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 19:43:18,150 curriculum_content_resolver 13664 25480 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 19:43:18,490 basehttp 13664 25480 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 1977778
+WARNING 2026-01-06 19:43:18,643 log 13664 25480 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 19:43:18,644 log 13664 44440 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 19:43:18,644 log 13664 28548 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 19:43:18,646 basehttp 13664 44440 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:43:18,646 basehttp 13664 25480 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:43:18,647 basehttp 13664 28548 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+INFO 2026-01-06 19:45:17,229 basehttp 13664 28548 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-06 19:45:17,243 basehttp 13664 28548 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 19:45:24,234 basehttp 13664 28548 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 19:45:34,208 basehttp 13664 28548 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 19:45:58,282 basehttp 13664 28548 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+INFO 2026-01-06 19:46:03,355 basehttp 13664 28548 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 21672
+INFO 2026-01-06 19:46:05,673 basehttp 13664 28548 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 1977778
+WARNING 2026-01-06 19:46:05,831 log 13664 25480 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 19:46:05,839 log 13664 28548 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 19:46:05,852 log 13664 44440 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 19:46:05,853 basehttp 13664 28548 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:46:05,854 basehttp 13664 25480 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+WARNING 2026-01-06 19:46:05,854 basehttp 13664 44440 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 19:46:32,643 curriculum_content_resolver 13664 44440 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-06 19:46:34,823 curriculum_content_resolver 13664 44440 Loaded static fallback content for Day 2 english
+INFO 2026-01-06 19:46:35,205 basehttp 13664 44440 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 1965067
+WARNING 2026-01-06 19:46:35,353 log 13664 44440 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 19:46:35,365 log 13664 25480 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 19:46:35,366 basehttp 13664 44440 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:46:35,367 basehttp 13664 25480 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+INFO 2026-01-06 19:53:50,671 autoreload 44800 17876 Watching for file changes with StatReloader
+INFO 2026-01-06 19:54:07,202 basehttp 44800 6300 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-06 19:54:07,221 basehttp 44800 6300 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 19:54:25,387 basehttp 44800 6300 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 19:54:34,198 basehttp 44800 6300 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 19:54:45,912 basehttp 44800 6300 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+INFO 2026-01-06 19:54:50,723 basehttp 44800 6300 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 25907
+INFO 2026-01-06 19:54:52,550 curriculum_content_resolver 44800 6300 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 19:54:54,658 curriculum_content_resolver 44800 6300 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 19:54:55,032 basehttp 44800 6300 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 1977778
+WARNING 2026-01-06 19:54:55,273 log 44800 44996 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 19:54:55,273 log 44800 6300 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 19:54:55,273 log 44800 42292 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 19:54:55,275 basehttp 44800 44996 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:54:55,275 basehttp 44800 42292 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+WARNING 2026-01-06 19:54:55,275 basehttp 44800 6300 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:56:06,982 log 44800 30128 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 19:56:06,990 log 44800 26656 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 19:56:07,001 log 44800 20244 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 19:56:07,003 basehttp 44800 30128 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:56:07,003 basehttp 44800 26656 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 19:56:07,004 basehttp 44800 20244 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+INFO 2026-01-06 19:56:51,917 autoreload 44800 17876 C:\Users\piyus\CLAS\CLAS\class\services\curriculum_content_resolver.py changed, reloading.
+INFO 2026-01-06 19:56:53,213 autoreload 32424 32972 Watching for file changes with StatReloader
+INFO 2026-01-06 19:57:53,410 basehttp 32424 9036 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-06 19:57:53,428 basehttp 32424 9036 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 19:58:01,543 basehttp 32424 9036 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 19:58:11,331 basehttp 32424 9036 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 19:58:35,090 basehttp 32424 9036 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+INFO 2026-01-06 19:58:43,692 basehttp 32424 9036 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 25907
+INFO 2026-01-06 19:58:45,025 curriculum_content_resolver 32424 9036 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 19:58:46,947 curriculum_content_resolver 32424 9036 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 19:58:47,275 basehttp 32424 9036 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 1988
+INFO 2026-01-06 19:58:58,649 curriculum_content_resolver 32424 9036 Successfully loaded static file for hindi, extracting Day 1 content
+INFO 2026-01-06 19:59:00,511 curriculum_content_resolver 32424 9036 Loaded static fallback content for Day 1 hindi
+INFO 2026-01-06 19:59:01,611 basehttp 32424 9036 "GET /api/curriculum/content/?day=1&language=hindi HTTP/1.1" 200 1986
+INFO 2026-01-06 20:01:14,427 basehttp 32424 9036 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/?language=english HTTP/1.1" 200 25907
+INFO 2026-01-06 20:03:20,488 curriculum_content_resolver 19936 20556 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 20:03:21,872 curriculum_content_resolver 19936 20556 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 20:03:22,232 curriculum_content_resolver 19936 20556 Successfully loaded static file for hindi, extracting Day 1 content
+INFO 2026-01-06 20:03:23,844 curriculum_content_resolver 19936 20556 Loaded static fallback content for Day 1 hindi
+INFO 2026-01-06 20:05:54,193 curriculum_content_resolver 10232 44708 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 20:05:55,418 curriculum_content_resolver 10232 44708 Found 5251 rows in curriculum table
+INFO 2026-01-06 20:05:55,419 curriculum_content_resolver 10232 44708 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-06 20:05:55,421 curriculum_content_resolver 10232 44708 Found next day boundary at row 36, day 2
+INFO 2026-01-06 20:05:55,421 curriculum_content_resolver 10232 44708 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-06 20:05:55,424 curriculum_content_resolver 10232 44708 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 20:05:56,041 curriculum_content_resolver 10232 44708 Successfully loaded static file for hindi, extracting Day 1 content
+INFO 2026-01-06 20:05:57,460 curriculum_content_resolver 10232 44708 Found 5250 rows in curriculum table
+INFO 2026-01-06 20:05:57,473 curriculum_content_resolver 10232 44708 Found next day boundary at row 36, day 2
+INFO 2026-01-06 20:05:57,474 curriculum_content_resolver 10232 44708 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-06 20:05:57,478 curriculum_content_resolver 10232 44708 Loaded static fallback content for Day 1 hindi
+INFO 2026-01-06 20:06:50,415 curriculum_content_resolver 44804 18052 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 20:06:51,726 curriculum_content_resolver 44804 18052 Found 5251 rows in curriculum table
+INFO 2026-01-06 20:06:51,727 curriculum_content_resolver 44804 18052 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-06 20:06:51,729 curriculum_content_resolver 44804 18052 Found next day boundary at row 36, day 2
+INFO 2026-01-06 20:06:51,729 curriculum_content_resolver 44804 18052 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-06 20:06:51,733 curriculum_content_resolver 44804 18052 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 20:06:52,053 curriculum_content_resolver 44804 18052 Successfully loaded static file for hindi, extracting Day 1 content
+INFO 2026-01-06 20:06:52,641 autoreload 20164 28824 Watching for file changes with StatReloader
+INFO 2026-01-06 20:06:53,588 curriculum_content_resolver 44804 18052 Found 5250 rows in curriculum table
+INFO 2026-01-06 20:06:53,597 curriculum_content_resolver 44804 18052 Found next day boundary at row 36, day 2
+INFO 2026-01-06 20:06:53,598 curriculum_content_resolver 44804 18052 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-06 20:06:53,603 curriculum_content_resolver 44804 18052 Loaded static fallback content for Day 1 hindi
+INFO 2026-01-06 20:07:03,034 basehttp 20164 14416 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/?language=english HTTP/1.1" 200 25907
+INFO 2026-01-06 20:07:04,442 curriculum_content_resolver 20164 14416 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 20:07:05,767 curriculum_content_resolver 20164 14416 Found 5251 rows in curriculum table
+INFO 2026-01-06 20:07:05,769 curriculum_content_resolver 20164 14416 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-06 20:07:05,771 curriculum_content_resolver 20164 14416 Found next day boundary at row 36, day 2
+INFO 2026-01-06 20:07:05,771 curriculum_content_resolver 20164 14416 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-06 20:07:05,779 curriculum_content_resolver 20164 14416 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 20:07:06,076 basehttp 20164 14416 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14551
+WARNING 2026-01-06 20:07:06,097 log 20164 14416 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:07:06,098 basehttp 20164 14416 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:08:08,982 curriculum_content_resolver 20164 14416 Successfully loaded static file for english, extracting Day 4 content
+INFO 2026-01-06 20:08:10,248 curriculum_content_resolver 20164 14416 Found 5251 rows in curriculum table
+INFO 2026-01-06 20:08:10,254 curriculum_content_resolver 20164 14416 Found Day 4 at row 106, cell text: 'Day 4'
+INFO 2026-01-06 20:08:10,257 curriculum_content_resolver 20164 14416 Found next day boundary at row 141, day 5
+INFO 2026-01-06 20:08:10,257 curriculum_content_resolver 20164 14416 Extracting 35 rows for Day 4 (from row 106 to 141)
+INFO 2026-01-06 20:08:10,262 curriculum_content_resolver 20164 14416 Loaded static fallback content for Day 4 english
+INFO 2026-01-06 20:08:10,694 basehttp 20164 14416 "GET /api/curriculum/content/?day=4&language=english HTTP/1.1" 200 14871
+WARNING 2026-01-06 20:08:10,720 log 20164 14416 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 20:08:10,721 basehttp 20164 14416 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:12:26,086 basehttp 20164 14416 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/?language=english&day=4 HTTP/1.1" 200 29566
+WARNING 2026-01-06 20:12:26,913 log 20164 11596 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 20:12:26,914 basehttp 20164 11596 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:12:27,415 basehttp 20164 14416 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14551
+WARNING 2026-01-06 20:12:27,435 log 20164 14416 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:12:27,436 basehttp 20164 14416 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:14:01,968 basehttp 20164 14416 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/?language=english&day=4 HTTP/1.1" 200 29566
+WARNING 2026-01-06 20:14:02,320 log 20164 11596 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:14:02,321 basehttp 20164 11596 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:14:03,462 basehttp 20164 14416 "GET /api/curriculum/content/?day=4&language=english HTTP/1.1" 200 14871
+WARNING 2026-01-06 20:14:03,484 log 20164 14416 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 20:14:03,485 basehttp 20164 14416 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 20:14:05,307 log 20164 14416 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:14:05,324 log 20164 11596 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 20:14:05,324 basehttp 20164 14416 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 20:14:05,325 basehttp 20164 11596 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:14:14,225 curriculum_content_resolver 20164 11596 Successfully loaded static file for english, extracting Day 3 content
+INFO 2026-01-06 20:14:15,230 curriculum_content_resolver 20164 11596 Found 5251 rows in curriculum table
+INFO 2026-01-06 20:14:15,234 curriculum_content_resolver 20164 11596 Found Day 3 at row 71, cell text: 'Day 3'
+INFO 2026-01-06 20:14:15,236 curriculum_content_resolver 20164 11596 Found next day boundary at row 106, day 4
+INFO 2026-01-06 20:14:15,236 curriculum_content_resolver 20164 11596 Extracting 35 rows for Day 3 (from row 71 to 106)
+INFO 2026-01-06 20:14:15,241 curriculum_content_resolver 20164 11596 Loaded static fallback content for Day 3 english
+INFO 2026-01-06 20:14:15,544 basehttp 20164 11596 "GET /api/curriculum/content/?day=3&language=english HTTP/1.1" 200 14666
+WARNING 2026-01-06 20:14:15,562 log 20164 11596 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg
+WARNING 2026-01-06 20:14:15,564 basehttp 20164 11596 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/_600347483_1.jpg HTTP/1.1" 404 34920
+INFO 2026-01-06 20:14:47,194 basehttp 20164 11596 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 20:14:51,394 basehttp 20164 11596 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+INFO 2026-01-06 20:14:56,209 basehttp 20164 11596 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 29566
+WARNING 2026-01-06 20:14:56,537 log 20164 11596 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:14:56,538 basehttp 20164 11596 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:15:17,449 autoreload 28676 43696 Watching for file changes with StatReloader
+WARNING 2026-01-06 20:15:29,001 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:15:29,002 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+ERROR 2026-01-06 20:18:08,567 log 28676 34044 Internal Server Error: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2325, in facilitator_curriculum_session
+    return render(request, "facilitator/curriculum_session.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 753: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-06 20:18:08,584 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 500 179313
+ERROR 2026-01-06 20:18:14,404 log 28676 34044 Internal Server Error: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2325, in facilitator_curriculum_session
+    return render(request, "facilitator/curriculum_session.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 753: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-06 20:18:14,412 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 500 179005
+ERROR 2026-01-06 20:18:24,825 log 28676 34044 Internal Server Error: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2325, in facilitator_curriculum_session
+    return render(request, "facilitator/curriculum_session.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 755: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-06 20:18:24,831 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 500 179005
+ERROR 2026-01-06 20:18:44,699 log 28676 34044 Internal Server Error: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2325, in facilitator_curriculum_session
+    return render(request, "facilitator/curriculum_session.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 755: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-06 20:18:44,706 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 500 179005
+ERROR 2026-01-06 20:18:50,325 log 28676 34044 Internal Server Error: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 2325, in facilitator_curriculum_session
+    return render(request, "facilitator/curriculum_session.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 755: 'endblock'. Did you forget to register or load this tag?
+ERROR 2026-01-06 20:18:50,332 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 500 179005
+INFO 2026-01-06 20:21:15,830 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 33033
+INFO 2026-01-06 20:21:17,366 curriculum_content_resolver 28676 34044 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 20:21:18,625 curriculum_content_resolver 28676 34044 Found 5251 rows in curriculum table
+INFO 2026-01-06 20:21:18,626 curriculum_content_resolver 28676 34044 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-06 20:21:18,629 curriculum_content_resolver 28676 34044 Found next day boundary at row 36, day 2
+INFO 2026-01-06 20:21:18,629 curriculum_content_resolver 28676 34044 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-06 20:21:18,634 curriculum_content_resolver 28676 34044 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 20:21:18,988 basehttp 28676 34044 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14551
+WARNING 2026-01-06 20:21:19,014 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:21:19,016 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:21:50,192 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 33033
+WARNING 2026-01-06 20:21:50,525 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:21:50,526 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:21:51,506 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/ HTTP/1.1" 200 33033
+WARNING 2026-01-06 20:21:51,852 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:21:51,854 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 20:21:53,431 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:21:53,432 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:21:59,951 curriculum_content_resolver 28676 34044 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-06 20:22:01,539 curriculum_content_resolver 28676 34044 Found 5251 rows in curriculum table
+INFO 2026-01-06 20:22:01,542 curriculum_content_resolver 28676 34044 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-06 20:22:01,544 curriculum_content_resolver 28676 34044 Found next day boundary at row 71, day 3
+INFO 2026-01-06 20:22:01,545 curriculum_content_resolver 28676 34044 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-06 20:22:01,551 curriculum_content_resolver 28676 34044 Loaded static fallback content for Day 2 english
+INFO 2026-01-06 20:22:01,893 basehttp 28676 34044 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 14758
+WARNING 2026-01-06 20:22:01,915 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 20:22:01,916 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 20:22:06,075 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:22:06,077 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:22:18,175 basehttp 28676 34044 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+INFO 2026-01-06 20:22:24,525 basehttp 28676 34044 "GET /Facilitator/classes/ HTTP/1.1" 200 6292
+WARNING 2026-01-06 20:22:26,899 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:22:26,901 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 20:22:32,335 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:22:32,337 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:22:41,876 curriculum_content_resolver 28676 34044 Successfully loaded static file for english, extracting Day 7 content
+INFO 2026-01-06 20:22:42,909 curriculum_content_resolver 28676 34044 Found 5251 rows in curriculum table
+INFO 2026-01-06 20:22:42,922 curriculum_content_resolver 28676 34044 Found Day 7 at row 211, cell text: 'Day 7'
+INFO 2026-01-06 20:22:42,925 curriculum_content_resolver 28676 34044 Found next day boundary at row 246, day 8
+INFO 2026-01-06 20:22:42,925 curriculum_content_resolver 28676 34044 Extracting 35 rows for Day 7 (from row 211 to 246)
+INFO 2026-01-06 20:22:42,930 curriculum_content_resolver 28676 34044 Loaded static fallback content for Day 7 english
+INFO 2026-01-06 20:22:43,344 basehttp 28676 34044 "GET /api/curriculum/content/?day=7&language=english HTTP/1.1" 200 14863
+WARNING 2026-01-06 20:22:43,363 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 20:22:43,364 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:23:41,842 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/?day=7 HTTP/1.1" 200 33033
+WARNING 2026-01-06 20:23:42,259 log 28676 34044 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 20:23:42,267 log 28676 32728 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg
+WARNING 2026-01-06 20:23:42,269 basehttp 28676 32728 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_1.jpg HTTP/1.1" 404 34947
+WARNING 2026-01-06 20:23:42,269 basehttp 28676 34044 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:23:50,959 curriculum_content_resolver 28676 32728 Successfully loaded static file for hindi, extracting Day 7 content
+INFO 2026-01-06 20:23:52,777 curriculum_content_resolver 28676 32728 Found 5250 rows in curriculum table
+INFO 2026-01-06 20:23:52,814 curriculum_content_resolver 28676 32728 Found next day boundary at row 246, day 8
+INFO 2026-01-06 20:23:52,814 curriculum_content_resolver 28676 32728 Extracting 35 rows for Day 7 (from row 211 to 246)
+INFO 2026-01-06 20:23:52,821 curriculum_content_resolver 28676 32728 Loaded static fallback content for Day 7 hindi
+INFO 2026-01-06 20:23:53,205 basehttp 28676 32728 "GET /api/curriculum/content/?day=7&language=hindi HTTP/1.1" 200 23351
+WARNING 2026-01-06 20:23:53,225 log 28676 32728 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-06 20:23:53,226 basehttp 28676 32728 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:24:00,892 curriculum_content_resolver 28676 32728 Successfully loaded static file for hindi, extracting Day 8 content
+INFO 2026-01-06 20:24:02,548 curriculum_content_resolver 28676 32728 Found 5250 rows in curriculum table
+INFO 2026-01-06 20:24:02,574 curriculum_content_resolver 28676 32728 Found next day boundary at row 281, day 9
+INFO 2026-01-06 20:24:02,574 curriculum_content_resolver 28676 32728 Extracting 35 rows for Day 8 (from row 246 to 281)
+INFO 2026-01-06 20:24:02,578 curriculum_content_resolver 28676 32728 Loaded static fallback content for Day 8 hindi
+INFO 2026-01-06 20:24:02,932 basehttp 28676 32728 "GET /api/curriculum/content/?day=8&language=hindi HTTP/1.1" 200 21967
+WARNING 2026-01-06 20:24:02,949 log 28676 32728 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_717991741_1.jpg
+WARNING 2026-01-06 20:24:02,950 basehttp 28676 32728 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/curriculum/resources/cellImage_717991741_1.jpg HTTP/1.1" 404 34947
+INFO 2026-01-06 20:25:42,371 basehttp 28676 32728 "GET /facilitator/my-schools/ HTTP/1.1" 200 9713
+INFO 2026-01-06 20:27:17,911 basehttp 28676 34044 "GET /facilitator/dashboard/ HTTP/1.1" 200 22894
+ERROR 2026-01-06 20:27:27,008 log 28676 32728 Internal Server Error: /facilitator/attendance/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 1405, in facilitator_attendance
+    return render(request, "facilitator/attendance_filter.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 210, in render
+    return template.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 173, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'facilitator_school_detail' with arguments '('',)' not found. 2 pattern(s) tried: ['facilitator/my\\-schools/(?P<pk>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/\\Z', 'facilitator/school/(?P<school_id>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/\\Z']
+INFO 2026-01-06 20:27:27,019 basehttp 28676 32728 - Broken pipe from ('127.0.0.1', 49168)
+INFO 2026-01-06 20:28:04,092 basehttp 28676 34044 "GET /facilitator/dashboard/ HTTP/1.1" 200 23076
+INFO 2026-01-06 20:30:11,790 basehttp 28676 34044 "GET /facilitator/students/ HTTP/1.1" 200 26035
+INFO 2026-01-06 20:30:39,552 basehttp 28676 34044 "GET /facilitator/my-schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/ HTTP/1.1" 200 12034
+INFO 2026-01-06 20:32:22,667 basehttp 28676 34044 "GET /Facilitator/classes/ HTTP/1.1" 200 6059
+INFO 2026-01-06 20:32:45,906 basehttp 28676 34044 "GET /facilitator/my-schools/ HTTP/1.1" 200 9257
+INFO 2026-01-06 20:32:48,926 basehttp 28676 34044 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-06 20:32:48,939 basehttp 28676 34044 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 20:32:49,009 basehttp 28676 34044 "GET /static/images/wes-logo.jpg HTTP/1.1" 304 0
+INFO 2026-01-06 20:32:56,197 basehttp 28676 34044 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 20:33:06,461 basehttp 28676 34044 "GET /facilitator/dashboard/ HTTP/1.1" 200 22655
+INFO 2026-01-06 20:33:31,472 basehttp 28676 34044 "GET /Facilitator/classes/ HTTP/1.1" 200 6059
+INFO 2026-01-06 20:33:55,958 basehttp 28676 34044 "GET /Facilitator/classes/ HTTP/1.1" 200 6499
+INFO 2026-01-06 20:34:05,679 basehttp 28676 34044 - Broken pipe from ('127.0.0.1', 61254)
+INFO 2026-01-06 20:34:07,828 basehttp 28676 10824 - Broken pipe from ('127.0.0.1', 49339)
+INFO 2026-01-06 20:34:07,994 basehttp 28676 16716 "GET /facilitator/my-schools/ HTTP/1.1" 200 9703
+INFO 2026-01-06 20:34:10,797 basehttp 28676 1616 - Broken pipe from ('127.0.0.1', 52559)
+INFO 2026-01-06 20:34:11,105 basehttp 28676 47808 - Broken pipe from ('127.0.0.1', 59526)
+INFO 2026-01-06 20:34:14,687 basehttp 28676 16716 "GET /facilitator/students/ HTTP/1.1" 200 26035
+INFO 2026-01-06 20:34:27,765 basehttp 28676 16716 "GET /facilitator/my-schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/ HTTP/1.1" 200 12034
+INFO 2026-01-06 20:39:36,979 autoreload 11676 41628 Watching for file changes with StatReloader
+INFO 2026-01-06 20:39:56,122 basehttp 11676 34636 - Broken pipe from ('127.0.0.1', 60366)
+INFO 2026-01-06 20:39:56,403 basehttp 11676 7960 "GET /facilitator/dashboard/ HTTP/1.1" 200 23091
+INFO 2026-01-06 20:40:07,560 basehttp 11676 7960 "GET /facilitator/my-schools/ HTTP/1.1" 200 9705
+INFO 2026-01-06 20:41:10,501 basehttp 11676 7960 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-06 20:41:10,511 basehttp 11676 7960 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 20:41:29,894 basehttp 11676 7960 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 20:41:40,768 basehttp 11676 7960 "GET /facilitator/dashboard/ HTTP/1.1" 200 23091
+INFO 2026-01-06 20:41:46,773 basehttp 11676 7960 "GET /facilitator/my-schools/ HTTP/1.1" 200 9699
+INFO 2026-01-06 20:41:56,725 basehttp 11676 7960 "GET /facilitator/my-schools/ HTTP/1.1" 200 9699
+INFO 2026-01-06 20:42:02,346 basehttp 11676 7960 "GET /facilitator/my-schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/ HTTP/1.1" 200 12036

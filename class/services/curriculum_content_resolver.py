@@ -268,6 +268,7 @@ class CurriculumContentResolver:
         try:
             static_file_path = self.STATIC_CONTENT_PATHS.get(language.lower())
             if not static_file_path:
+                logger.warning(f"No static content path configured for language: {language}")
                 return f"<p>No static content available for language: {language}</p>"
             
             # Build full path to static file
@@ -281,10 +282,17 @@ class CurriculumContentResolver:
             with open(full_path, 'r', encoding='utf-8') as file:
                 content = file.read()
             
+            logger.info(f"Successfully loaded static file for {language}, extracting Day {day} content")
+            
             # Extract content for specific day if the file contains multiple days
             # This is a simplified approach - you might need more sophisticated parsing
             day_content = self._extract_day_content(content, day)
-            return day_content or f"<p>Content for Day {day} not found in static file.</p>"
+            
+            if not day_content or day_content.strip() == "":
+                logger.warning(f"No content extracted for Day {day} in {language}")
+                return f"<p>Content for Day {day} not found in static file.</p>"
+            
+            return day_content
             
         except Exception as e:
             logger.error(f"Error loading static content for Day {day} {language}: {str(e)}")
@@ -373,6 +381,7 @@ class CurriculumContentResolver:
         """
         Extract content for a specific day from a file that contains multiple days.
         Handles HTML table structure from Google Sheets exports.
+        Supports both English and Hindi day patterns.
         """
         try:
             from bs4 import BeautifulSoup
@@ -384,41 +393,56 @@ class CurriculumContentResolver:
             table = soup.find('table', class_='waffle')
             if not table:
                 # Fallback to simple text search if no table found
+                logger.warning("No table with class 'waffle' found, using simple text extraction")
                 return self._extract_day_content_simple(full_content, day)
             
             # Find all rows in the table
             rows = table.find_all('tr')
+            logger.info(f"Found {len(rows)} rows in curriculum table")
             
-            # Look for the row that contains "Day X" in any cell (usually first cell)
+            # Define day patterns for different languages
+            day_patterns = [
+                f"Day {day}",      # English
+                f"दिन {day}",       # Hindi
+                f" दिन {day}",      # Hindi with space
+                f"Day{day}",       # English without space
+                f"दिन{day}",        # Hindi without space
+            ]
+            
+            # Look for the row that contains day pattern in any cell (usually first cell)
             day_row_index = -1
             next_day_row_index = -1
             
+            # First pass: Find the target day - check all cells, not just first
             for i, row in enumerate(rows):
                 cells = row.find_all(['td', 'th'])
                 if cells:
-                    # Check all cells for day pattern, but prioritize first cell
-                    for cell in cells[:2]:  # Check first 2 cells
+                    # Check all cells in the row for day pattern
+                    for cell in cells:
                         cell_text = cell.get_text(strip=True)
                         
-                        # Check if this is our target day
-                        if cell_text == f"Day {day}":
-                            day_row_index = i
-                            break
+                        # Check if this is our target day using any pattern
+                        for pattern in day_patterns:
+                            if cell_text == pattern:
+                                day_row_index = i
+                                logger.info(f"Found Day {day} at row {i}, cell text: '{cell_text}'")
+                                break
                         
-                        # Check if this is the next day (to know where to stop)
-                        elif day_row_index != -1 and cell_text.startswith("Day "):
-                            try:
-                                found_day = int(cell_text.replace("Day ", "").strip())
-                                if found_day > day:
-                                    next_day_row_index = i
-                                    break
-                            except ValueError:
-                                continue
+                        if day_row_index != -1:
+                            break
                     
-                    if day_row_index != -1 and next_day_row_index != -1:
+                    if day_row_index != -1:
                         break
             
             if day_row_index == -1:
+                # Log the first few rows for debugging
+                logger.warning(f"Day {day} not found. First 5 rows content:")
+                for i, row in enumerate(rows[:5]):
+                    cells = row.find_all(['td', 'th'])
+                    if cells:
+                        first_cell = cells[0].get_text(strip=True)
+                        logger.warning(f"Row {i}: '{first_cell}'")
+                
                 # Day not found, return helpful error message
                 return f"""
                 <div class="alert alert-warning">
@@ -430,9 +454,10 @@ class CurriculumContentResolver:
                             <li>The day number is outside the available range (1-150)</li>
                             <li>The content structure has changed</li>
                             <li>The file is corrupted or incomplete</li>
+                            <li>Day pattern not recognized (searched for both "Day {day}" and "दिन {day}")</li>
                         </ul>
                         <div class="d-flex gap-2">
-                            <button class="btn btn-outline-primary btn-sm" onclick="loadCurriculumContent(1, '{self._get_current_language()}')">
+                            <button class="btn btn-outline-primary btn-sm" onclick="window.curriculum.loadCurriculumContent(1, 'english')">
                                 <i class="fas fa-arrow-left me-1"></i>Go to Day 1
                             </button>
                             <button class="btn btn-outline-secondary btn-sm" onclick="location.reload()">
@@ -443,9 +468,42 @@ class CurriculumContentResolver:
                 </div>
                 """
             
+            # Second pass: Find the next day boundary (starting from day_row_index + 1)
+            for i in range(day_row_index + 1, len(rows)):
+                row = rows[i]
+                cells = row.find_all(['td', 'th'])
+                if cells:
+                    # Check all cells for next day pattern
+                    for cell in cells:
+                        cell_text = cell.get_text(strip=True)
+                        
+                        # Check for any day pattern that indicates a new day
+                        if cell_text.startswith("Day ") or cell_text.startswith("दिन "):
+                            try:
+                                # Extract number from both English and Hindi patterns
+                                if cell_text.startswith("Day "):
+                                    found_day = int(cell_text.replace("Day ", "").strip())
+                                elif cell_text.startswith("दिन "):
+                                    found_day = int(cell_text.replace("दिन ", "").strip())
+                                else:
+                                    continue
+                                    
+                                # If we found any day number greater than our target day, this is our boundary
+                                if found_day > day:
+                                    next_day_row_index = i
+                                    logger.info(f"Found next day boundary at row {i}, day {found_day}")
+                                    break
+                            except ValueError:
+                                continue
+                    
+                    if next_day_row_index != -1:
+                        break
+            
             # Extract rows from day_row_index to next_day_row_index (or end)
             end_index = next_day_row_index if next_day_row_index != -1 else len(rows)
             day_rows = rows[day_row_index:end_index]
+            
+            logger.info(f"Extracting {len(day_rows)} rows for Day {day} (from row {day_row_index} to {end_index})")
             
             # Convert the extracted rows back to HTML with enhanced styling
             day_content_html = []
@@ -504,13 +562,19 @@ class CurriculumContentResolver:
     def _extract_day_content_simple(self, full_content: str, day: int) -> str:
         """
         Simple text-based extraction as fallback when HTML parsing fails.
+        Supports both English and Hindi day patterns.
         """
         try:
-            # Look for day markers in the content
+            # Look for day markers in the content - support both English and Hindi
             day_markers = [
-                f">Day {day}<",  # HTML cell content
-                f"Day {day}",    # Simple text
-                f"day {day}",    # Lowercase
+                f">Day {day}<",      # HTML cell content English
+                f">दिन {day}<",       # HTML cell content Hindi
+                f"Day {day}",        # Simple text English
+                f"दिन {day}",         # Simple text Hindi
+                f"day {day}",        # Lowercase English
+                f" दिन {day}",        # Hindi with space
+                f">Day{day}<",       # HTML without space English
+                f">दिन{day}<",        # HTML without space Hindi
             ]
             
             content_lower = full_content.lower()
@@ -529,41 +593,66 @@ class CurriculumContentResolver:
                 <div class="alert alert-info">
                     <h5>Day {day} Content</h5>
                     <p>Unable to locate specific content for Day {day} in the curriculum file.</p>
-                    <p>Showing a sample of available content:</p>
-                    <div class="content-sample" style="max-height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: #f9f9f9;">
-                        {full_content[:1500]}{'...' if len(full_content) > 1500 else ''}
+                    <p>This might be because:</p>
+                    <ul>
+                        <li>Day {day} content is not available in the static file</li>
+                        <li>The day format is different than expected</li>
+                        <li>The file structure has changed</li>
+                    </ul>
+                    <div class="mt-3">
+                        <button class="btn btn-outline-primary btn-sm" onclick="window.curriculum.loadCurriculumContent(1, 'english')">
+                            <i class="fas fa-arrow-left me-1"></i>Go to Day 1
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="location.reload()">
+                            <i class="fas fa-redo me-1"></i>Retry
+                        </button>
                     </div>
-                    <small class="text-muted">
-                        Note: This is static content. For better day-specific content, 
-                        ask your administrator to create admin-managed curriculum sessions.
-                    </small>
                 </div>
                 """
             
-            # Find the end of the day content (next day marker or reasonable chunk)
+            # Find the end of the day content (next day marker)
             next_day_start = -1
-            for next_day in range(day + 1, day + 5):  # Check next few days
-                next_marker = f">Day {next_day}<"
-                next_marker_pos = content_lower.find(next_marker.lower(), day_start + 1)
-                if next_marker_pos != -1:
-                    next_day_start = next_marker_pos
+            
+            # Look for the next day boundary more precisely
+            for next_day in range(day + 1, day + 10):  # Check next 9 days
+                next_day_markers = [
+                    f">Day {next_day}<",   # English HTML
+                    f">दिन {next_day}<",    # Hindi HTML
+                    f"Day {next_day}",     # English simple
+                    f"दिन {next_day}",      # Hindi simple
+                ]
+                
+                for next_marker in next_day_markers:
+                    next_marker_pos = content_lower.find(next_marker.lower(), day_start + 1)
+                    if next_marker_pos != -1:
+                        next_day_start = next_marker_pos
+                        break
+                
+                if next_day_start != -1:
                     break
             
             if next_day_start != -1:
                 extracted = full_content[day_start:next_day_start].strip()
             else:
-                # Take a reasonable chunk from day start
-                extracted = full_content[day_start:day_start + 3000].strip()
+                # Take a reasonable chunk from day start (limit to prevent showing multiple days)
+                extracted = full_content[day_start:day_start + 2000].strip()
             
             # Wrap in a container with proper styling
             return f"""
             <div class="curriculum-day-content" data-day="{day}">
                 <div class="static-content-wrapper">
-                    {extracted}
+                    <div class="alert alert-info alert-sm mb-3">
+                        <small><i class="fas fa-info-circle me-1"></i>
+                        Showing Day {day} content from static curriculum file.
+                        </small>
+                    </div>
+                    <div class="content-body">
+                        {extracted}
+                    </div>
                 </div>
                 <div class="mt-3">
                     <small class="text-muted">
-                        <i class="fas fa-info-circle"></i>
+                        <i class="fas fa-file-alt"></i>
                         Static curriculum content. For enhanced features, ask your administrator to create admin-managed content.
                     </small>
                 </div>
@@ -577,6 +666,13 @@ class CurriculumContentResolver:
                 <h5>Content Loading Error</h5>
                 <p>There was an error loading the curriculum content for Day {day}.</p>
                 <p>Error details: {str(e)}</p>
-                <p>Please try refreshing the page or contact your administrator.</p>
+                <div class="mt-3">
+                    <button class="btn btn-outline-primary btn-sm" onclick="window.curriculum.loadCurriculumContent(1, 'english')">
+                        <i class="fas fa-arrow-left me-1"></i>Go to Day 1
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="location.reload()">
+                        <i class="fas fa-redo me-1"></i>Retry
+                    </button>
+                </div>
             </div>
             """

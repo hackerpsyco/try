@@ -20,8 +20,15 @@
             Dashboard
         </a>
 
+        <!-- My Classes -->
+        <a class="nav-link {% if 'facilitator_schools_list' in request.resolver_match.url_name or 'facilitator_school_detail' in request.resolver_match.url_name %}active{% endif %}"
+           href="{% url 'facilitator_schools_list' %}">
+            <span class="material-symbols-outlined">school</span>
+            My Classes
+        </a>
+
         <!-- My Schools -->
-        <a class="nav-link {% if 'facilitator_schools' in request.resolver_match.url_name %}active{% endif %}"
+        <a class="nav-link {% if 'facilitator_schools' in request.resolver_match.url_name and 'facilitator_schools_list' not in request.resolver_match.url_name %}active{% endif %}"
            href="{% url 'facilitator_schools_list' %}">
             <span class="material-symbols-outlined">domain</span>
             My Schools
@@ -34,14 +41,14 @@
             Students
         </a>
 
-       
-
         <!-- Today's Sessions -->
-        <a class="nav-link {% if 'today' in request.resolver_match.url_name %}active{% endif %}"
+        <a class="nav-link {% if 'today' in request.resolver_match.url_name or 'facilitator_classes' in request.resolver_match.url_name %}active{% endif %}"
            href="{% url 'facilitator_classes' %}">
             <span class="material-symbols-outlined">today</span>
             Today's Sessions
         </a>
+
+
 
         <!-- Attendance Management -->
         <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_attendance' %}active{% endif %}"
