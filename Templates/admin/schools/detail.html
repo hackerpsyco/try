@@ -277,52 +277,78 @@
 <script>
 function toggleFacilitatorStatus(assignmentId, activate) {
     if (confirm(`Are you sure you want to ${activate ? 'activate' : 'deactivate'} this facilitator?`)) {
-        fetch(`/admin/facilitator-assignment/${assignmentId}/toggle-status/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ is_active: activate })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            } else {
-                alert('Error: ' + (data.error || 'Something went wrong'));
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to update status');
-        });
+        // Show loading state
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = activate ? 'Activating...' : 'Deactivating...';
+        button.disabled = true;
+        
+        // Create a form and submit it
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/admin/facilitator-assignment/${assignmentId}/toggle/`;
+        
+        // Add CSRF token
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrfmiddlewaretoken';
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+        
+        // Add is_active parameter
+        const statusInput = document.createElement('input');
+        statusInput.type = 'hidden';
+        statusInput.name = 'is_active';
+        statusInput.value = activate ? 'true' : 'false';
+        form.appendChild(statusInput);
+        
+        // Submit form
+        document.body.appendChild(form);
+        form.submit();
     }
 }
 
 function removeFacilitator(assignmentId) {
     if (confirm('Are you sure you want to remove this facilitator? This action cannot be undone.')) {
-        fetch(`/admin/facilitator-assignment/${assignmentId}/remove/`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            } else {
-                alert('Error: ' + (data.error || 'Something went wrong'));
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to remove facilitator');
-        });
+        // Show loading state
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = 'Removing...';
+        button.disabled = true;
+        
+        // Create a form and submit it
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/admin/facilitator-assignment/${assignmentId}/delete/`;
+        
+        // Add CSRF token
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrfmiddlewaretoken';
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+        
+        // Submit form
+        document.body.appendChild(form);
+        form.submit();
     }
 }
+
+// Add visual feedback for better UX
+document.addEventListener('DOMContentLoaded', function() {
+    // Add hover effects to action buttons
+    const actionButtons = document.querySelectorAll('button[onclick*="toggleFacilitatorStatus"], button[onclick*="removeFacilitator"]');
+    actionButtons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-1px)';
+        });
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+});
 </script>
 
 {% endblock %}

@@ -265,8 +265,13 @@ def add_school(request):
     if request.method == "POST":
         form = AddSchoolForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "School added successfully!")
+            school = form.save()
+            
+            # Clear schools cache to refresh data
+            cache_key = f"schools_list_{request.user.id}"
+            cache.delete(cache_key)
+            
+            messages.success(request, f"School '{school.name}' added successfully!")
             return redirect("schools")
     else:
         form = AddSchoolForm()
@@ -285,8 +290,13 @@ def edit_school(request, school_id):
     if request.method == "POST":
         form = AddSchoolForm(request.POST, instance=school)
         if form.is_valid():
-            form.save()
-            messages.success(request, "School updated successfully!")
+            updated_school = form.save()
+            
+            # Clear schools cache to refresh data
+            cache_key = f"schools_list_{request.user.id}"
+            cache.delete(cache_key)
+            
+            messages.success(request, f"School '{updated_school.name}' updated successfully!")
             return redirect("schools")
     else:
         form = AddSchoolForm(instance=school)
@@ -304,8 +314,14 @@ def delete_school(request, school_id):
     school = get_object_or_404(School, id=school_id)
 
     if request.method == "POST":
+        school_name = school.name
         school.delete()
-        messages.success(request, "School deleted successfully!")
+        
+        # Clear schools cache to refresh data
+        cache_key = f"schools_list_{request.user.id}"
+        cache.delete(cache_key)
+        
+        messages.success(request, f"School '{school_name}' deleted successfully!")
         return redirect("schools")
 
     messages.error(request, "Invalid request.")
@@ -347,11 +363,14 @@ def class_sections_list(request, school_id=None):
         class_sections = ClassSection.objects.filter(
             school=school
         ).order_by("class_level", "section")
+        
+        # Custom ordering for better display
+        class_sections = sorted(class_sections, key=lambda x: (x.class_level_order, x.section or 'A'))
     else:
         school = None
-        class_sections = ClassSection.objects.all().order_by(
-            "school__name", "class_level", "section"
-        )
+        class_sections = ClassSection.objects.all().select_related('school')
+        # Custom ordering for all classes
+        class_sections = sorted(class_sections, key=lambda x: (x.school.name, x.class_level_order, x.section or 'A'))
 
     return render(request, "admin/classes/list.html", {
         "school": school,
@@ -388,13 +407,13 @@ def class_section_add(request, school_id):
                 section=section
             ).exists():
                 # Add non-field error to show in template
-                form.add_error(None, f"Class {class_level} - {section} already exists for this school.")
+                form.add_error(None, f"Class {class_level} - Section {section} already exists for this school.")
             else:
                 # Save new class section
                 class_section = form.save(commit=False)
                 class_section.school = school
                 class_section.save()
-                messages.success(request, "Class section added successfully!")
+                messages.success(request, f"Class {class_level} - Section {section} added successfully!")
                 return redirect("class_sections_list_by_school", school_id=school.id)
     else:
         form = ClassSectionForm()
@@ -403,6 +422,7 @@ def class_section_add(request, school_id):
         "form": form,
         "school": school
     })
+
 
 
 @login_required
@@ -445,15 +465,31 @@ def edit_class_section(request, pk):
     return render(request, "admin/classes/edit_class_section.html", {"form": form, "class_section": class_section})
 
 
-def assign_facilitator(request):
+def assign_facilitator(request, class_section_id=None):
     if request.method == "POST":
         form = AssignFacilitatorForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Facilitator assigned successfully.")
-            return redirect("assign-facilitator")
+            assignment = form.save()
+            
+            # Clear schools cache to refresh facilitator counts
+            cache_key = f"schools_list_{request.user.id}"
+            cache.delete(cache_key)
+            
+            if class_section_id:
+                # Class-level assignment
+                messages.success(request, f"Facilitator assigned to class successfully.")
+                return redirect("class_sections_list")
+            else:
+                # School-level assignment
+                messages.success(request, f"Facilitator assigned to {assignment.school.name} successfully.")
+                return redirect("schools")
     else:
         form = AssignFacilitatorForm()
+        
+        # Pre-select class if provided
+        if class_section_id:
+            class_section = get_object_or_404(ClassSection, id=class_section_id)
+            form.fields['school'].initial = class_section.school
 
     return render(request, "admin/assign_facilitator.html", {
         "form": form
@@ -657,16 +693,45 @@ def student_import(request, school_id):
 
     
 @login_required
+@login_required
+@monitor_performance
 def sessions_view(request, class_section_id):
     if request.user.role.name.upper() != "ADMIN":
         messages.error(request, "Permission denied.")
         return redirect("no_permission")
 
     class_section = get_object_or_404(ClassSection, id=class_section_id)
+    
+    # Get pagination parameters
+    page = int(request.GET.get('page', 1))
+    per_page = int(request.GET.get('per_page', 25))  # Show 25 sessions per page by default
+    
+    # Cache key for this class section
+    cache_key = f"class_sessions_{class_section_id}_{page}_{per_page}"
+    cached_data = cache.get(cache_key)
+    
+    if cached_data:
+        return render(request, "admin/classes/class_sessions.html", cached_data)
 
+    # Get total count first (fast query)
+    total_sessions = PlannedSession.objects.filter(class_section=class_section).count()
+    
+    # Calculate pagination
+    start_index = (page - 1) * per_page
+    end_index = start_index + per_page
+    
+    # Get only the sessions for current page with optimized query
     planned_sessions = (
         PlannedSession.objects
         .filter(class_section=class_section)
+        .select_related('class_section', 'class_section__school')
+        .prefetch_related(
+            Prefetch(
+                'actual_sessions',
+                queryset=ActualSession.objects.select_related('facilitator').order_by('-date')
+            ),
+            'steps'
+        )
         .annotate(
             is_conducted=Exists(
                 ActualSession.objects.filter(
@@ -675,10 +740,10 @@ def sessions_view(request, class_section_id):
                 )
             )
         )
-        .prefetch_related("actual_sessions")
-        .order_by("day_number")
+        .order_by("day_number")[start_index:end_index]
     )
 
+    # Process status for current page sessions only
     for ps in planned_sessions:
         ps.status_info = "pending"
         ps.status_class = "secondary"
@@ -687,8 +752,8 @@ def sessions_view(request, class_section_id):
             ps.status_info = "completed"
             ps.status_class = "success"
         else:
-            # ✅ get latest actual session ONLY
-            last_actual = ps.actual_sessions.order_by("-date").first()
+            # Get latest actual session ONLY
+            last_actual = ps.actual_sessions.first()  # Already ordered by -date
 
             if last_actual:
                 if last_actual.status == "holiday":
@@ -698,17 +763,61 @@ def sessions_view(request, class_section_id):
                     ps.status_info = "cancelled"
                     ps.status_class = "danger"
 
-    # ✅ first truly pending session
-    next_pending = next(
-        (ps for ps in planned_sessions if ps.status_info == "pending"),
-        None
-    )
+    # Calculate summary stats (cached separately for performance)
+    stats_cache_key = f"class_stats_{class_section_id}"
+    stats = cache.get(stats_cache_key)
+    
+    if not stats:
+        # Get summary statistics
+        conducted_count = ActualSession.objects.filter(
+            planned_session__class_section=class_section,
+            status="conducted"
+        ).count()
+        
+        cancelled_count = ActualSession.objects.filter(
+            planned_session__class_section=class_section,
+            status="cancelled"
+        ).count()
+        
+        pending_count = total_sessions - conducted_count - cancelled_count
+        
+        stats = {
+            'total_sessions': total_sessions,
+            'conducted_count': conducted_count,
+            'cancelled_count': cancelled_count,
+            'pending_count': max(0, pending_count)
+        }
+        
+        # Cache stats for 5 minutes
+        cache.set(stats_cache_key, stats, 300)
 
-    return render(request, "admin/classes/class_sessions.html", {
+    # Pagination info
+    total_pages = (total_sessions + per_page - 1) // per_page
+    has_previous = page > 1
+    has_next = page < total_pages
+    
+    context = {
         "class_section": class_section,
         "planned_sessions": planned_sessions,
-        "next_pending": next_pending,
-    })
+        "pagination": {
+            'current_page': page,
+            'per_page': per_page,
+            'total_pages': total_pages,
+            'total_sessions': total_sessions,
+            'has_previous': has_previous,
+            'has_next': has_next,
+            'previous_page': page - 1 if has_previous else None,
+            'next_page': page + 1 if has_next else None,
+            'start_index': start_index + 1,
+            'end_index': min(end_index, total_sessions)
+        },
+        'stats': stats
+    }
+    
+    # Cache the context for 2 minutes
+    cache.set(cache_key, context, 120)
+    
+    return render(request, "admin/classes/class_sessions.html", context)
 def extract_youtube_id(url):
     if not url:
         return None
@@ -1529,6 +1638,252 @@ def planned_session_delete(request, session_id):
         "class_section": class_section,
     })
 
+
+@login_required
+def initialize_class_sessions(request, class_section_id):
+    """Initialize all 150 sessions for a class"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                # Check if sessions already exist
+                existing_sessions_count = PlannedSession.objects.filter(
+                    class_section=class_section,
+                    is_active=True
+                ).count()
+                
+                if existing_sessions_count > 0:
+                    messages.warning(
+                        request, 
+                        f"Class already has {existing_sessions_count} sessions. Delete existing sessions first if you want to reinitialize."
+                    )
+                    return redirect("class_sections_list_by_school", class_section.school.id)
+                
+                # Create all 150 sessions
+                sessions_to_create = []
+                for day_number in range(1, 151):
+                    session = PlannedSession(
+                        class_section=class_section,
+                        day_number=day_number,
+                        title=f"Day {day_number} Session",
+                        description=f"Session for day {day_number}",
+                        sequence_position=day_number,
+                        is_required=True,
+                        is_active=True
+                    )
+                    sessions_to_create.append(session)
+                
+                # Bulk create all sessions
+                PlannedSession.objects.bulk_create(sessions_to_create)
+                
+                messages.success(
+                    request, 
+                    f"✅ Successfully initialized 150 sessions for {class_section.school.name} - {class_section.class_level}-{class_section.section}"
+                )
+                logger.info(f"Admin initialized 150 sessions for {class_section}")
+                
+        except Exception as e:
+            logger.error(f"Error initializing sessions for {class_section}: {e}")
+            messages.error(request, "Failed to initialize sessions. Please try again.")
+    
+    return redirect("class_sections_list_by_school", class_section.school.id)
+
+
+@login_required
+def delete_all_class_sessions(request, class_section_id):
+    """Delete all sessions for a class"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                # Get all planned sessions for this class
+                planned_sessions = PlannedSession.objects.filter(
+                    class_section=class_section,
+                    is_active=True
+                )
+                
+                if not planned_sessions.exists():
+                    messages.warning(request, "No sessions found to delete.")
+                    return redirect("class_sections_list_by_school", class_section.school.id)
+                
+                # Count related data that will be deleted
+                total_planned = planned_sessions.count()
+                total_actual_sessions = 0
+                total_attendance = 0
+                
+                for session in planned_sessions:
+                    actual_sessions_count = session.actual_sessions.count()
+                    total_actual_sessions += actual_sessions_count
+                    
+                    for actual_session in session.actual_sessions.all():
+                        total_attendance += actual_session.attendances.count()
+                
+                # Delete all sessions (cascade will handle ActualSession and Attendance)
+                planned_sessions.delete()
+                
+                # Provide detailed feedback
+                message = f"✅ Successfully deleted {total_planned} planned session(s)"
+                if total_actual_sessions > 0:
+                    message += f" and {total_actual_sessions} actual session(s) with {total_attendance} attendance record(s)"
+                message += f" for {class_section.school.name} - {class_section.class_level}-{class_section.section}"
+                
+                messages.success(request, message)
+                logger.info(f"Admin deleted all sessions for {class_section}")
+                
+        except Exception as e:
+            logger.error(f"Error deleting all sessions for {class_section}: {e}")
+            messages.error(request, "Failed to delete sessions. Please try again.")
+    
+    return redirect("class_sections_list_by_school", class_section.school.id)
+
+
+@login_required
+def bulk_initialize_school_sessions(request, school_id):
+    """Initialize sessions for all classes in a school"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    school = get_object_or_404(School, id=school_id)
+
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                # Get all class sections for this school
+                class_sections = ClassSection.objects.filter(school=school)
+                
+                if not class_sections.exists():
+                    messages.warning(request, f"No classes found for {school.name}")
+                    return redirect("class_sections_list_by_school", school.id)
+                
+                initialized_count = 0
+                skipped_count = 0
+                total_sessions_created = 0
+                
+                for class_section in class_sections:
+                    # Check if sessions already exist
+                    existing_sessions_count = PlannedSession.objects.filter(
+                        class_section=class_section,
+                        is_active=True
+                    ).count()
+                    
+                    if existing_sessions_count > 0:
+                        skipped_count += 1
+                        continue
+                    
+                    # Create all 150 sessions for this class
+                    sessions_to_create = []
+                    for day_number in range(1, 151):
+                        session = PlannedSession(
+                            class_section=class_section,
+                            day_number=day_number,
+                            title=f"Day {day_number} Session",
+                            description=f"Session for day {day_number}",
+                            sequence_position=day_number,
+                            is_required=True,
+                            is_active=True
+                        )
+                        sessions_to_create.append(session)
+                    
+                    # Bulk create sessions for this class
+                    PlannedSession.objects.bulk_create(sessions_to_create)
+                    initialized_count += 1
+                    total_sessions_created += 150
+                
+                # Provide feedback
+                if initialized_count > 0:
+                    messages.success(
+                        request, 
+                        f"✅ Successfully initialized sessions for {initialized_count} class(es) in {school.name}. "
+                        f"Created {total_sessions_created} total sessions. "
+                        f"{skipped_count} class(es) skipped (already had sessions)."
+                    )
+                else:
+                    messages.info(
+                        request, 
+                        f"All {class_sections.count()} class(es) in {school.name} already have sessions initialized."
+                    )
+                
+                logger.info(f"Bulk initialized sessions for {initialized_count} classes in {school}")
+                
+        except Exception as e:
+            logger.error(f"Error bulk initializing sessions for school {school}: {e}")
+            messages.error(request, "Failed to initialize sessions. Please try again.")
+    
+    return redirect("class_sections_list_by_school", school.id)
+
+
+@login_required
+def bulk_delete_school_sessions(request, school_id):
+    """Delete all sessions for all classes in a school"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    school = get_object_or_404(School, id=school_id)
+
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                # Get all class sections for this school
+                class_sections = ClassSection.objects.filter(school=school)
+                
+                if not class_sections.exists():
+                    messages.warning(request, f"No classes found for {school.name}")
+                    return redirect("class_sections_list_by_school", school.id)
+                
+                # Get all planned sessions for all classes in this school
+                planned_sessions = PlannedSession.objects.filter(
+                    class_section__school=school,
+                    is_active=True
+                )
+                
+                if not planned_sessions.exists():
+                    messages.warning(request, f"No sessions found to delete for {school.name}")
+                    return redirect("class_sections_list_by_school", school.id)
+                
+                # Count related data that will be deleted
+                total_planned = planned_sessions.count()
+                total_actual_sessions = 0
+                total_attendance = 0
+                classes_affected = set()
+                
+                for session in planned_sessions:
+                    classes_affected.add(session.class_section)
+                    actual_sessions_count = session.actual_sessions.count()
+                    total_actual_sessions += actual_sessions_count
+                    
+                    for actual_session in session.actual_sessions.all():
+                        total_attendance += actual_session.attendances.count()
+                
+                # Delete all sessions (cascade will handle ActualSession and Attendance)
+                planned_sessions.delete()
+                
+                # Provide detailed feedback
+                message = f"✅ Successfully deleted {total_planned} planned session(s) from {len(classes_affected)} class(es) in {school.name}"
+                if total_actual_sessions > 0:
+                    message += f" and {total_actual_sessions} actual session(s) with {total_attendance} attendance record(s)"
+                
+                messages.success(request, message)
+                logger.info(f"Bulk deleted all sessions for school {school}")
+                
+        except Exception as e:
+            logger.error(f"Error bulk deleting sessions for school {school}: {e}")
+            messages.error(request, "Failed to delete sessions. Please try again.")
+    
+    return redirect("class_sections_list_by_school", school.id)
+
+
 @login_required
 def planned_session_import(request, class_section_id):
 
@@ -1736,6 +2091,10 @@ def toggle_facilitator_assignment(request, assignment_id):
         assignment.is_active = new_status
         assignment.save()
         
+        # Clear schools cache to refresh facilitator counts
+        cache_key = f"schools_list_{request.user.id}"
+        cache.delete(cache_key)
+        
         status_text = "activated" if new_status else "deactivated"
         messages.success(request, f"Facilitator assignment {status_text} successfully.")
     
@@ -1755,6 +2114,11 @@ def delete_facilitator_assignment(request, assignment_id):
     if request.method == "POST":
         facilitator_name = assignment.facilitator.full_name
         assignment.delete()
+        
+        # Clear schools cache to refresh facilitator counts
+        cache_key = f"schools_list_{request.user.id}"
+        cache.delete(cache_key)
+        
         messages.success(request, f"Facilitator {facilitator_name} removed from school successfully.")
     
     return redirect("school_detail", school_id=school_id)
@@ -2095,7 +2459,6 @@ def _format_content_with_source_info(content_result, metadata):
         </div>
         '''
 
-
 def _add_admin_management_links(content_result, day, language, user):
     """Add admin management links if user has permissions."""
     if user.role.name.upper() != "ADMIN":
@@ -2118,64 +2481,162 @@ def _add_admin_management_links(content_result, day, language, user):
         </div>
         '''
     else:
-        return f'''
-        <div class="admin-actions">
-            <small class="text-muted d-block mb-2">
-                <i class="fas fa-plus me-1"></i>Admin Actions:
-            </small>
-            <a href="/admin/curriculum/session/create/?day={day}&language={language}" 
-               class="btn btn-outline-success btn-sm" target="_blank">
-                <i class="fas fa-plus me-1"></i>Create Admin Content
-            </a>
+        return ''
+
+def wrap_curriculum_content(day_content, day, language):
+       # Or if images are stored locally in static/media:
+   
+    """Wrap curriculum content with proper HTML structure."""
+    wrapped_content = f'''
+    <div class="day-section" data-day="{day}" data-language="{language}">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Day {day} - {language.title()} Curriculum</h5>
+            <span class="badge bg-info">{language.title()}</span>
         </div>
-        '''
-        day_content = content[start_pos:end_pos]
+        <div class="table-responsive">
+            <table class="table table-bordered curriculum-table">
+                <tbody>
+                    {day_content}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <style>
+    .curriculum-table {{
+        font-size: 14px;
+    }}
+    .curriculum-table td {{
+        padding: 8px;
+        vertical-align: top;
+    }}
+    .curriculum-table .s0 {{
+        background-color: #d9ead3;
+        font-weight: bold;
+        font-size: 18px;
+        text-align: center;
+    }}
+    .curriculum-table .s1 {{
+        background-color: #d9ead3;
+        font-weight: bold;
+        text-align: center;
+    }}
+    .curriculum-table .s4 {{
+        background-color: #ffffff;
+        font-weight: bold;
+        text-align: center;
+    }}
+    .curriculum-table .s7 {{
+        background-color: #fde49a;
+    }}
+    .curriculum-table .s11 {{
+        background-color: #d9f1f3;
+    }}
+    .curriculum-table .s21 {{
+        background-color: #fef1cc;
+    }}
+    
+    /* IMPORTANT: Override Google Sheets default link styles */
+    .ritz .waffle a {{
+        color: #0066cc !important;
+    }}
+    
+    /* Link Highlighting Styles */
+    .curriculum-table a {{
+        color: #0066cc !important;
+        text-decoration: underline !important;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }}
+    .curriculum-table a:hover {{
+        color: #ffffff !important;
+        background-color: #0066cc !important;
+        text-decoration: none !important;
+        padding: 2px 4px;
+        border-radius: 3px;
+    }}
+    .curriculum-table a:visited {{
+        color: #551a8b !important;
+    }}
+    
+    /* External link indicator */
+    .curriculum-table a[href^="http"]::before {{
+        content: "🔗 ";
+        font-size: 0.9em;
+    }}
+    
+    /* Make links more visible in colored backgrounds */
+    .curriculum-table .s7 a,
+    .curriculum-table .s11 a,
+    .curriculum-table .s12 a,
+    .curriculum-table .s17 a,
+    .curriculum-table .s19 a,
+    .curriculum-table .s21 a,
+    .curriculum-table .s30 a,
+    .curriculum-table .s48 a {{
+        background-color: rgba(255, 255, 255, 0.8) !important;
+        padding: 2px 4px !important;
+        border-radius: 2px;
+        border: 1px solid #0066cc !important;
+    }}
+    
+    /* Specific styles for underlined links */
+    .s30 a, .s48 a {{
+        color: #1155cc !important;
+        font-weight: bold !important;
+    }}
+    </style>
+    
+    <script>
+    // Auto-highlight all links in curriculum content
+    (function() {{
+        // Wait for DOM to be fully loaded
+        if (document.readyState === 'loading') {{
+            document.addEventListener('DOMContentLoaded', highlightLinks);
+        }} else {{
+            highlightLinks();
+        }}
         
-        # Wrap in a proper HTML structure for display
-        wrapped_content = f'''
-        <div class="day-section" data-day="{day}" data-language="{language}">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="mb-0">Day {day} - {language.title()} Curriculum</h5>
-                <span class="badge bg-info">{language.title()}</span>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-bordered curriculum-table">
-                    <tbody>
-                        {day_content}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <style>
-        .curriculum-table {{
-            font-size: 14px;
+        function highlightLinks() {{
+            const curriculumLinks = document.querySelectorAll('.curriculum-table a, .ritz .waffle a');
+            
+            curriculumLinks.forEach(link => {{
+                // Force link color
+                link.style.color = '#0066cc';
+                link.style.textDecoration = 'underline';
+                link.style.fontWeight = '500';
+                
+                // Add external link indicator
+                if (link.href && link.hostname !== window.location.hostname) {{
+                    link.setAttribute('target', '_blank');
+                    link.setAttribute('rel', 'noopener noreferrer');
+                    link.classList.add('external-link');
+                }}
+                
+                // Enhanced hover effect
+                link.addEventListener('mouseenter', function() {{
+                    this.style.backgroundColor = '#0066cc';
+                    this.style.color = '#ffffff';
+                    this.style.padding = '2px 4px';
+                    this.style.borderRadius = '3px';
+                }});
+                
+                link.addEventListener('mouseleave', function() {{
+                    this.style.backgroundColor = 'transparent';
+                    this.style.color = '#0066cc';
+                    this.style.padding = '0';
+                }});
+                
+                // Track link clicks
+                link.addEventListener('click', function(e) {{
+                    console.log('Curriculum link clicked:', this.href);
+                }});
+            }});
         }}
-        .curriculum-table td {{
-            padding: 8px;
-            vertical-align: top;
-        }}
-        .curriculum-table .s0 {{
-            background-color: #d9ead3;
-            font-weight: bold;
-            font-size: 18px;
-            text-align: center;
-        }}
-        .curriculum-table .s1 {{
-            background-color: #d9ead3;
-            font-weight: bold;
-            text-align: center;
-        }}
-        .curriculum-table .s4 {{
-            background-color: #ffffff;
-            font-weight: bold;
-            text-align: center;
-        }}
-        .curriculum-table a {{
-            color: #0066cc;
-            text-decoration: underline;
-        }}
-        </style>
-        '''
+    }})();
+    </script>
+    '''
+    
+    return wrapped_content
         
 @login_required 
 def facilitator_session_quick_nav(request, class_section_id):
@@ -4075,3 +4536,302 @@ def auto_create_planned_sessions_for_all_classes():
             'classes_updated': 0,
             'total_sessions_created': 0
         }
+
+# -------------------------------
+# Bulk Session Management Views
+# -------------------------------
+
+@login_required
+def initialize_class_sessions(request, class_section_id):
+    """Initialize 150 sessions for a specific class"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+
+    if request.method == "POST":
+        try:
+            from .session_management import SessionBulkManager
+            
+            # Check if sessions already exist
+            existing_sessions_count = PlannedSession.objects.filter(
+                class_section=class_section,
+                is_active=True
+            ).count()
+            
+            if existing_sessions_count > 0:
+                messages.warning(
+                    request, 
+                    f"Class {class_section.class_level}-{class_section.section} already has {existing_sessions_count} sessions. No new sessions created."
+                )
+            else:
+                # Generate sessions using SessionBulkManager
+                result = SessionBulkManager.generate_sessions_for_class(
+                    class_section=class_section,
+                    created_by=request.user
+                )
+                
+                if result['success']:
+                    messages.success(
+                        request, 
+                        f"✅ Successfully initialized {result['created_count']} sessions for {class_section.class_level}-{class_section.section}"
+                    )
+                    logger.info(f"Admin {request.user.email} initialized {result['created_count']} sessions for {class_section}")
+                else:
+                    messages.error(
+                        request, 
+                        f"Failed to initialize sessions: {', '.join(result['errors'])}"
+                    )
+                    
+        except Exception as e:
+            logger.error(f"Error initializing sessions for {class_section}: {e}")
+            messages.error(request, "Failed to initialize sessions. Please try again.")
+
+    return redirect("class_sections_list_by_school", school_id=class_section.school.id)
+
+
+@login_required
+def delete_all_class_sessions(request, class_section_id):
+    """Delete all sessions for a specific class"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                # Get all planned sessions for this class
+                planned_sessions = PlannedSession.objects.filter(
+                    class_section=class_section
+                )
+                
+                # Count what will be deleted
+                planned_count = planned_sessions.count()
+                actual_count = ActualSession.objects.filter(
+                    planned_session__class_section=class_section
+                ).count()
+                attendance_count = Attendance.objects.filter(
+                    actual_session__planned_session__class_section=class_section
+                ).count()
+                
+                # Delete all sessions (cascade will handle ActualSession and Attendance)
+                planned_sessions.delete()
+                
+                messages.success(
+                    request, 
+                    f"🗑️ Successfully deleted all sessions for {class_section.class_level}-{class_section.section}. "
+                    f"Removed {planned_count} planned sessions, {actual_count} actual sessions, and {attendance_count} attendance records."
+                )
+                logger.warning(f"Admin {request.user.email} deleted all sessions for {class_section}")
+                
+        except Exception as e:
+            logger.error(f"Error deleting sessions for {class_section}: {e}")
+            messages.error(request, "Failed to delete sessions. Please try again.")
+
+    return redirect("class_sections_list_by_school", school_id=class_section.school.id)
+
+
+@login_required
+def bulk_initialize_school_sessions(request, school_id):
+    """Initialize sessions for all classes in a school"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    school = get_object_or_404(School, id=school_id)
+
+    if request.method == "POST":
+        try:
+            from .session_management import SessionBulkManager
+            
+            # Get all classes in this school
+            class_sections = ClassSection.objects.filter(school=school)
+            
+            if not class_sections.exists():
+                messages.warning(request, f"No classes found in {school.name}")
+                return redirect("class_sections_list_by_school", school_id=school.id)
+            
+            total_created = 0
+            total_skipped = 0
+            processed_classes = []
+            
+            with transaction.atomic():
+                for class_section in class_sections:
+                    # Check if sessions already exist
+                    existing_sessions_count = PlannedSession.objects.filter(
+                        class_section=class_section,
+                        is_active=True
+                    ).count()
+                    
+                    if existing_sessions_count > 0:
+                        total_skipped += 1
+                        processed_classes.append(f"{class_section.class_level}-{class_section.section} (already has {existing_sessions_count} sessions)")
+                    else:
+                        # Generate sessions
+                        result = SessionBulkManager.generate_sessions_for_class(
+                            class_section=class_section,
+                            created_by=request.user
+                        )
+                        
+                        if result['success']:
+                            total_created += result['created_count']
+                            processed_classes.append(f"{class_section.class_level}-{class_section.section} (created {result['created_count']} sessions)")
+                        else:
+                            processed_classes.append(f"{class_section.class_level}-{class_section.section} (failed: {', '.join(result['errors'])})")
+            
+            # Provide detailed feedback
+            if total_created > 0:
+                messages.success(
+                    request, 
+                    f"🚀 Bulk initialization completed for {school.name}! "
+                    f"Created sessions for {len(class_sections) - total_skipped} classes. "
+                    f"Total sessions created: {total_created}. "
+                    f"Classes skipped (already had sessions): {total_skipped}"
+                )
+            else:
+                messages.info(
+                    request, 
+                    f"All classes in {school.name} already have sessions initialized. No new sessions created."
+                )
+            
+            logger.info(f"Admin {request.user.email} bulk initialized sessions for school {school.name}: {total_created} sessions created")
+                
+        except Exception as e:
+            logger.error(f"Error bulk initializing sessions for school {school}: {e}")
+            messages.error(request, "Failed to initialize sessions. Please try again.")
+
+    return redirect("class_sections_list_by_school", school_id=school.id)
+
+
+@login_required
+def bulk_delete_school_sessions(request, school_id):
+    """Delete all sessions for all classes in a school"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+
+    school = get_object_or_404(School, id=school_id)
+
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                # Get all classes in this school
+                class_sections = ClassSection.objects.filter(school=school)
+                
+                if not class_sections.exists():
+                    messages.warning(request, f"No classes found in {school.name}")
+                    return redirect("class_sections_list_by_school", school_id=school.id)
+                
+                # Count what will be deleted
+                total_planned = PlannedSession.objects.filter(
+                    class_section__school=school
+                ).count()
+                total_actual = ActualSession.objects.filter(
+                    planned_session__class_section__school=school
+                ).count()
+                total_attendance = Attendance.objects.filter(
+                    actual_session__planned_session__class_section__school=school
+                ).count()
+                
+                # Delete all sessions for all classes in this school
+                PlannedSession.objects.filter(
+                    class_section__school=school
+                ).delete()
+                
+                messages.success(
+                    request, 
+                    f"🗑️ Successfully deleted ALL sessions for {school.name}! "
+                    f"Removed {total_planned} planned sessions, {total_actual} actual sessions, "
+                    f"and {total_attendance} attendance records across {class_sections.count()} classes."
+                )
+                logger.warning(f"Admin {request.user.email} bulk deleted all sessions for school {school.name}")
+                
+        except Exception as e:
+            logger.error(f"Error bulk deleting sessions for school {school}: {e}")
+            messages.error(request, "Failed to delete sessions. Please try again.")
+
+    return redirect("class_sections_list_by_school", school_id=school.id)
+
+@login_required
+def api_class_sessions_lazy(request, class_section_id):
+    """API endpoint for lazy loading class sessions"""
+    if request.user.role.name.upper() != "ADMIN":
+        return JsonResponse({"error": "Permission denied"}, status=403)
+    
+    try:
+        class_section = get_object_or_404(ClassSection, id=class_section_id)
+        page = int(request.GET.get('page', 1))
+        per_page = min(int(request.GET.get('per_page', 25)), 100)  # Max 100 per page
+        
+        # Cache key
+        cache_key = f"api_class_sessions_{class_section_id}_{page}_{per_page}"
+        cached_data = cache.get(cache_key)
+        
+        if cached_data:
+            return JsonResponse(cached_data)
+        
+        # Get paginated sessions
+        start_index = (page - 1) * per_page
+        end_index = start_index + per_page
+        
+        sessions = PlannedSession.objects.filter(
+            class_section=class_section
+        ).select_related('class_section').prefetch_related(
+            'actual_sessions', 'steps'
+        ).order_by('day_number')[start_index:end_index]
+        
+        sessions_data = []
+        for session in sessions:
+            # Determine status
+            status_info = "pending"
+            status_class = "secondary"
+            
+            if session.actual_sessions.filter(status="conducted").exists():
+                status_info = "completed"
+                status_class = "success"
+            else:
+                last_actual = session.actual_sessions.order_by("-date").first()
+                if last_actual:
+                    if last_actual.status == "holiday":
+                        status_info = "holiday"
+                        status_class = "warning"
+                    elif last_actual.status == "cancelled":
+                        status_info = "cancelled"
+                        status_class = "danger"
+            
+            sessions_data.append({
+                'id': str(session.id),
+                'day_number': session.day_number,
+                'title': session.title or f"Day {session.day_number} Session",
+                'status_info': status_info,
+                'status_class': status_class,
+                'activities_count': session.steps.count(),
+                'edit_url': f'/admin/planned-session/{session.id}/edit/',
+                'delete_url': f'/admin/planned-session/{session.id}/delete/'
+            })
+        
+        total_count = PlannedSession.objects.filter(class_section=class_section).count()
+        
+        response_data = {
+            'sessions': sessions_data,
+            'pagination': {
+                'current_page': page,
+                'per_page': per_page,
+                'total_sessions': total_count,
+                'total_pages': (total_count + per_page - 1) // per_page,
+                'has_next': end_index < total_count,
+                'has_previous': page > 1
+            }
+        }
+        
+        # Cache for 2 minutes
+        cache.set(cache_key, response_data, 120)
+        
+        return JsonResponse(response_data)
+        
+    except Exception as e:
+        logger.error(f"Error in api_class_sessions_lazy: {e}")
+        return JsonResponse({"error": "Failed to load sessions"}, status=500)

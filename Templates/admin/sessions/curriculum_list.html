@@ -1,39 +1,96 @@
 {% extends "admin/shared/base.html" %}
 {% load static %}
 
+{% csrf_token %}
+
 {% block extra_css %}
 <style>
 /* Only keeping curriculum table styles that require exact color matching */
 .curriculum-table td {
   border: 1px solid #dee2e6;
 }
-.curriculum-table .s0 {
-  background-color: #d9ead3 !important;
+.curriculum-table .s0 { background-color: #d9ead3 !important; }
+.curriculum-table .s1 { background-color: #d9ead3 !important; }
+.curriculum-table .s4 { background-color: #ffffff !important; }
+.curriculum-table .s7 { background-color: #fde49a !important; }
+.curriculum-table .s11 { background-color: #d9f1f3 !important; }
+.curriculum-table .s21 { background-color: #fef1cc !important; }
+
+/* Loading animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
-.curriculum-table .s1 {
-  background-color: #d9ead3 !important;
+
+/* CRITICAL: Override Google Sheets link hiding */
+.ritz .waffle a {
+  color: #0066cc !important;
+  text-decoration: underline !important;
 }
-.curriculum-table .s4 {
-  background-color: #ffffff !important;
+
+/* Link styles for curriculum content */
+#curriculumContent a,
+.curriculum-table a,
+.waffle a,
+.day-section a {
+  color: #0066cc !important;
+  text-decoration: underline !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
-.curriculum-table .s7 {
-  background-color: #fde49a !important;
+
+#curriculumContent a:hover,
+.curriculum-table a:hover,
+.waffle a:hover,
+.day-section a:hover {
+  color: #ffffff !important;
+  background-color: #0066cc !important;
+  text-decoration: none !important;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
-.curriculum-table .s11 {
-  background-color: #d9f1f3 !important;
+
+#curriculumContent a:visited,
+.curriculum-table a:visited,
+.waffle a:visited,
+.day-section a:visited {
+  color: #551a8b !important;
 }
-.curriculum-table .s21 {
-  background-color: #fef1cc !important;
+
+/* External link indicator */
+#curriculumContent a[href^="http"]::before,
+.curriculum-table a[href^="http"]::before,
+.waffle a[href^="http"]::before {
+  content: "🔗 ";
+  font-size: 0.85em;
+}
+
+/* Make links visible in colored cells */
+.s7 a, .s11 a, .s12 a, .s17 a, .s19 a, .s21 a, .s30 a, .s48 a {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  padding: 2px 6px !important;
+  border-radius: 3px;
+  border: 1px solid #0066cc !important;
+  display: inline-block;
+  margin: 1px 0;
+}
+
+/* Special styles for underlined link cells */
+.s30 a, .s48 a {
+  color: #1155cc !important;
+  font-weight: bold !important;
 }
 </style>
 {% endblock %}
 
 {% block content %}
-<div><a href="{% url 'admin_sessions_filter' %}" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium">
-            <span class="material-symbols-outlined text-lg mr-1">arrow_back</span>
-            Back to List
-        </a>
+<div class="mb-4">
+    <a href="{% url 'admin_sessions_filter' %}" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium inline-flex items-center">
+        <span class="material-symbols-outlined text-lg mr-1">arrow_back</span>
+        Back to List
+    </a>
 </div>
+
 <div class="max-w-full mx-auto px-4">
     <!-- Header -->
     <div class="mb-6">
@@ -80,9 +137,18 @@
     <div class="mb-6">
         <div class="bg-white rounded-lg shadow-sm border border-gray-200">
             <div class="p-4">
-                <h6 class="text-base font-semibold text-gray-900 mb-3">Quick Day Navigation</h6>
-                <div id="dayNavigator" class="flex flex-wrap gap-1 max-h-40 overflow-y-auto">
-                    <!-- Days will be loaded here via JavaScript -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                    <h6 class="text-base font-semibold text-gray-900">Day Navigation</h6>
+                    <div class="flex items-center gap-2">
+                        <label class="text-sm text-gray-600">Jump to day:</label>
+                        <input type="number" id="jumpToDay" min="1" max="150" 
+                               class="w-16 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                               placeholder="1">
+                        <button onclick="jumpToSpecificDay()" 
+                                class="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">
+                            Go
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,14 +160,8 @@
             <div class="p-4">
                 <h6 class="text-base font-semibold text-gray-900 mb-3">Admin Actions</h6>
                 <div class="flex flex-wrap gap-2">
-                    <a href="{% url 'admin_curriculum_session_create' %}" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700 transition-colors">
-                        <i class="fas fa-plus mr-2"></i> Create New Session
-                    </a>
                     <button onclick="refreshCurriculumData()" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-blue-700 bg-white border border-blue-700 hover:bg-blue-50 transition-colors">
                         <i class="fas fa-sync-alt mr-2"></i> Refresh Data
-                    </button>
-                    <button onclick="exportCurriculumData()" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-cyan-700 bg-white border border-cyan-700 hover:bg-cyan-50 transition-colors">
-                        <i class="fas fa-download mr-2"></i> Export Data
                     </button>
                     <a href="{% url 'admin_sessions_filter' %}" class="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors">
                         <i class="fas fa-arrow-left mr-2"></i> Back to Sessions
@@ -117,10 +177,10 @@
             <div class="px-4 py-3 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <h6 class="text-base font-semibold text-gray-900" id="curriculumTitle">Day 1 - English Curriculum Content</h6>
                 <div class="flex rounded-md shadow-sm">
-                    <button onclick="adminCurriculumNav.navigateToDay(adminCurriculumNav.currentDay - 1)" id="prevDayBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    <button onclick="navigateToPreviousDay()" id="prevDayBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                         <i class="fas fa-chevron-left mr-1"></i> Previous
                     </button>
-                    <button onclick="adminCurriculumNav.navigateToDay(adminCurriculumNav.currentDay + 1)" id="nextDayBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border-l-0 border border-gray-300 rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    <button onclick="navigateToNextDay()" id="nextDayBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border-l-0 border border-gray-300 rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                         Next <i class="fas fa-chevron-right ml-1"></i>
                     </button>
                 </div>
@@ -152,7 +212,7 @@
 </script>
 
 <script>
-// Enhanced Admin Curriculum Navigator
+// Simple Admin Curriculum Navigator
 class AdminCurriculumNavigator {
     constructor() {
         this.data = JSON.parse(document.getElementById('adminCurriculumData').textContent);
@@ -165,7 +225,6 @@ class AdminCurriculumNavigator {
     }
 
     init() {
-        this.generateDayNavigator();
         this.setupLanguageSelector();
         this.loadCurriculumContent(this.currentDay, this.currentLanguage);
         this.updateNavigationButtons();
@@ -191,7 +250,6 @@ class AdminCurriculumNavigator {
         
         this.loadCurriculumContent(this.currentDay, language);
         this.updateTitle();
-        this.generateDayNavigator();
         
         this.showLanguageNotification(language);
     }
@@ -219,37 +277,6 @@ class AdminCurriculumNavigator {
         }, 3000);
     }
 
-    generateDayNavigator() {
-        const navigator = document.getElementById('dayNavigator');
-        navigator.innerHTML = '';
-
-        for (let day = 1; day <= this.totalDays; day++) {
-            const button = document.createElement('button');
-            const hasSession = this.hasSessionForDay(day, this.currentLanguage);
-            
-            // Base classes
-            let btnClasses = 'min-w-[35px] px-2 py-1 text-xs rounded-md font-medium transition-colors';
-            
-            if (day === this.currentDay) {
-                btnClasses += ' bg-blue-600 text-white font-bold';
-            } else if (hasSession) {
-                btnClasses += ' bg-green-500 text-white hover:bg-green-600';
-            } else {
-                btnClasses += ' bg-white text-gray-700 border border-gray-300 hover:bg-gray-50';
-            }
-            
-            button.className = btnClasses;
-            button.textContent = day;
-            button.title = `Day ${day} - ${hasSession ? 'Session Available' : 'No Session'}`;
-            
-            button.addEventListener('click', () => {
-                this.navigateToDay(day);
-            });
-
-            navigator.appendChild(button);
-        }
-    }
-
     hasSessionForDay(day, language) {
         const sessions = this.sessionsData[language] || [];
         return sessions.some(session => session.day_number === day);
@@ -272,6 +299,7 @@ class AdminCurriculumNavigator {
             
             if (this.cache.has(cacheKey)) {
                 contentDiv.innerHTML = this.cache.get(cacheKey);
+                this.highlightLinks();
                 return;
             }
 
@@ -284,13 +312,16 @@ class AdminCurriculumNavigator {
             const adminContent = this.wrapContentWithAdminActions(content, day, language);
             contentDiv.innerHTML = adminContent;
             
+            // Highlight links after content is loaded
+            this.highlightLinks();
+            
         } catch (error) {
             contentDiv.innerHTML = `
                 <div class="m-6 p-4 bg-red-50 border border-red-200 rounded-lg">
                     <h6 class="text-lg font-semibold text-red-800 mb-2">Error Loading Content</h6>
                     <p class="text-red-700 mb-4">Failed to load Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} curriculum content.</p>
                     <div class="flex gap-2">
-                        <button onclick="adminCurriculumNav.loadCurriculumContent(${day}, '${language}')" class="px-4 py-2 text-sm font-medium text-red-700 bg-white border border-red-700 rounded-md hover:bg-red-50">
+                        <button onclick="window.adminCurriculumNav.loadCurriculumContent(${day}, '${language}')" class="px-4 py-2 text-sm font-medium text-red-700 bg-white border border-red-700 rounded-md hover:bg-red-50">
                             Retry
                         </button>
                         <a href="/admin/curriculum-sessions/create/?day=${day}&language=${language}" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700">
@@ -300,6 +331,41 @@ class AdminCurriculumNavigator {
                 </div>
             `;
         }
+    }
+
+    highlightLinks() {
+        // Force link styling with JavaScript
+        setTimeout(() => {
+            const allLinks = document.querySelectorAll('#curriculumContent a, .curriculum-table a, .ritz a, .waffle a');
+            
+            allLinks.forEach(link => {
+                // Force link visibility
+                link.style.color = '#0066cc';
+                link.style.textDecoration = 'underline';
+                link.style.fontWeight = '500';
+                link.style.cursor = 'pointer';
+                
+                // Add external link attributes
+                if (link.href && link.hostname !== window.location.hostname) {
+                    link.setAttribute('target', '_blank');
+                    link.setAttribute('rel', 'noopener noreferrer');
+                }
+                
+                // Enhanced hover effects
+                link.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#0066cc';
+                    this.style.color = '#ffffff';
+                    this.style.padding = '2px 6px';
+                    this.style.borderRadius = '4px';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                    this.style.color = '#0066cc';
+                    this.style.padding = '0';
+                });
+            });
+        }, 100);
     }
 
     wrapContentWithAdminActions(content, day, language) {
@@ -332,18 +398,7 @@ class AdminCurriculumNavigator {
             `;
         } else {
             adminActions = `
-                <div class="m-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div>
-                            <strong class="text-yellow-900 text-sm font-semibold">No Session Available</strong>
-                            <span class="text-yellow-800"> for Day ${day} in ${language === 'hindi' ? 'Hindi' : 'English'}</span>
-                            <br><small class="text-yellow-600 text-xs">Create a session to add curriculum content for this day.</small>
-                        </div>
-                        <a href="/admin/curriculum-sessions/create/?day=${day}&language=${language}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 whitespace-nowrap">
-                            <i class="fas fa-plus mr-2"></i> Create Session
-                        </a>
-                    </div>
-                </div>
+               
             `;
         }
         
@@ -365,10 +420,10 @@ class AdminCurriculumNavigator {
         this.currentDay = day;
         
         document.getElementById('currentDayBadge').textContent = day;
+        document.getElementById('jumpToDay').value = day;
+        
         this.updateTitle();
         this.updateNavigationButtons();
-        
-        this.generateDayNavigator();
         this.loadCurriculumContent(day, this.currentLanguage);
     }
 
@@ -385,32 +440,35 @@ class AdminCurriculumNavigator {
         prevBtn.disabled = this.currentDay <= 1;
         nextBtn.disabled = this.currentDay >= this.totalDays;
     }
-
-    preloadAdjacentDays() {
-        const preloadDays = [this.currentDay - 1, this.currentDay + 1];
-        preloadDays.forEach(day => {
-            if (day >= 1 && day <= this.totalDays) {
-                ['english', 'hindi'].forEach(lang => {
-                    const cacheKey = `${lang}_${day}`;
-                    if (!this.cache.has(cacheKey)) {
-                        fetch(`${this.data.curriculumUrl}?day=${day}&language=${lang}`)
-                            .then(response => response.text())
-                            .then(content => this.cache.set(cacheKey, content))
-                            .catch(() => {});
-                    }
-                });
-            }
-        });
-    }
 }
 
 // Global functions
-function refreshCurriculumData() {
-    location.reload();
+function jumpToSpecificDay() {
+    const dayInput = document.getElementById('jumpToDay');
+    const day = parseInt(dayInput.value);
+    
+    if (day >= 1 && day <= 150) {
+        window.adminCurriculumNav.navigateToDay(day);
+    } else {
+        alert('Please enter a day between 1 and 150');
+        dayInput.focus();
+    }
 }
 
-function exportCurriculumData() {
-    alert('Export functionality will be implemented soon.');
+function navigateToPreviousDay() {
+    if (window.adminCurriculumNav.currentDay > 1) {
+        window.adminCurriculumNav.navigateToDay(window.adminCurriculumNav.currentDay - 1);
+    }
+}
+
+function navigateToNextDay() {
+    if (window.adminCurriculumNav.currentDay < 150) {
+        window.adminCurriculumNav.navigateToDay(window.adminCurriculumNav.currentDay + 1);
+    }
+}
+
+function refreshCurriculumData() {
+    location.reload();
 }
 
 // Initialize
@@ -430,9 +488,29 @@ document.addEventListener('DOMContentLoaded', function() {
         window.adminCurriculumNav.navigateToDay(urlDay);
     }
     
-    setTimeout(() => {
-        window.adminCurriculumNav.preloadAdjacentDays();
-    }, 1000);
+    // Add keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        // Only handle keyboard shortcuts when not typing in input fields
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        
+        switch(e.key) {
+            case 'ArrowLeft':
+                e.preventDefault();
+                navigateToPreviousDay();
+                break;
+            case 'ArrowRight':
+                e.preventDefault();
+                navigateToNextDay();
+                break;
+        }
+    });
+    
+    // Add Enter key support for jump to day input
+    document.getElementById('jumpToDay').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            jumpToSpecificDay();
+        }
+    });
 });
 
 // Handle browser navigation

@@ -63,6 +63,25 @@ class SessionImportProcessor:
     def generate_import_report(results: ImportResult) -> ImportReport
 ```
 
+### SessionDeletionManager
+**Purpose**: Handles safe deletion of curriculum sessions with impact analysis
+**Key Methods**:
+- `analyze_deletion_impact()`: Analyzes what data will be affected by deletion
+- `delete_individual_session()`: Deletes a single session with all related data
+- `bulk_delete_class_sessions()`: Deletes all sessions for a specific class
+- `bulk_delete_school_sessions()`: Deletes all sessions for all classes in a school
+- `export_before_deletion()`: Creates backup export before deletion
+
+**Interface**:
+```python
+class SessionDeletionManager:
+    def analyze_deletion_impact(session_ids: List[int]) -> DeletionImpact
+    def delete_individual_session(session_id: int, user: User) -> DeletionResult
+    def bulk_delete_class_sessions(class_id: int, user: User) -> DeletionResult
+    def bulk_delete_school_sessions(school_id: int, user: User) -> DeletionResult
+    def export_before_deletion(session_ids: List[int]) -> ExportFile
+```
+
 ### SessionTemplateManager
 **Purpose**: Manages reusable session templates and content standardization
 **Key Methods**:

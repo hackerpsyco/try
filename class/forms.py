@@ -85,20 +85,44 @@ class EditSchoolForm(forms.ModelForm):
 
 # ---------------- Class Section Form ----------------
 class ClassSectionForm(forms.ModelForm):
+    CLASS_LEVEL_CHOICES = [
+        ('LKG', 'LKG (Lower Kindergarten)'),
+        ('UKG', 'UKG (Upper Kindergarten)'),
+        ('1', 'Class 1'),
+        ('2', 'Class 2'),
+        ('3', 'Class 3'),
+        ('4', 'Class 4'),
+        ('5', 'Class 5'),
+        ('6', 'Class 6'),
+        ('7', 'Class 7'),
+        ('8', 'Class 8'),
+        ('9', 'Class 9'),
+        ('10', 'Class 10'),
+    ]
+    
+    SECTION_CHOICES = [
+        ('A', 'Section A'),
+        ('B', 'Section B'),
+    ]
+    
+    class_level = forms.ChoiceField(
+        choices=CLASS_LEVEL_CHOICES,
+        widget=forms.Select(attrs={
+            "class": "form-control",
+        })
+    )
+    
+    section = forms.ChoiceField(
+        choices=SECTION_CHOICES,
+        initial='A',  # Default to Section A
+        widget=forms.Select(attrs={
+            "class": "form-control",
+        })
+    )
+
     class Meta:
         model = ClassSection
         fields = ["class_level", "section"]
-        widgets = {
-            "class_level": forms.TextInput(attrs={
-    "class": "form-control",
-    "placeholder": "1, 2, KG",
-}),
-
-            "section": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "A, B, C (optional)",
-            }),
-        }
 
     def clean_section(self):
         section = self.cleaned_data.get("section")
@@ -107,19 +131,20 @@ class ClassSectionForm(forms.ModelForm):
         return section
 
 class AssignFacilitatorForm(forms.ModelForm):
-
     class Meta:
         model = FacilitatorSchool
-        fields = ["facilitator", "school", "is_primary", "is_active"]
+        fields = ["facilitator", "school"]
+        widgets = {
+            "facilitator": forms.Select(attrs={
+                "class": "form-control",
+            }),
+            "school": forms.Select(attrs={
+                "class": "form-control",
+            }),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        # Only facilitators (role_id = 2)
-        self.fields["facilitator"].queryset = User.objects.filter(role_id=2)
-
-        # Optional UI improvements
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({
-                "class": "form-control"
-            })
+        self.fields["facilitator"].queryset = User.objects.filter(
+            role__name__iexact="FACILITATOR"
+        )

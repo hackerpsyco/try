@@ -102,12 +102,36 @@ The Admin Curriculum Session Management system provides administrators with comp
 
 ### Requirement 8
 
+**User Story:** As an administrator, I want to delete curriculum sessions for specific classes or schools, so that I can remove incorrect or outdated session data and maintain clean curriculum records.
+
+#### Acceptance Criteria
+
+1. WHEN an administrator selects sessions for deletion, THE Session_Management_System SHALL display a confirmation dialog showing session details and deletion impact
+2. WHEN deleting individual sessions, THE Session_Management_System SHALL remove the session and all associated data including version history and usage logs
+3. WHEN performing bulk deletion for a class, THE Session_Management_System SHALL delete all sessions for that class while preserving sessions for other classes
+4. WHEN performing bulk deletion for a school, THE Session_Management_System SHALL delete all sessions for all classes within that school
+5. WHEN sessions are deleted, THE Session_Management_System SHALL update facilitator curriculum displays to reflect the removal immediately
+
+### Requirement 9
+
+**User Story:** As an administrator, I want to see the impact of session deletions before confirming, so that I can understand what data will be lost and make informed decisions.
+
+#### Acceptance Criteria
+
+1. WHEN viewing deletion confirmation, THE Session_Management_System SHALL display the number of version history records that will be deleted
+2. WHEN confirming deletion, THE Session_Management_System SHALL show the number of usage log entries that will be removed
+3. WHEN deleting sessions with templates, THE Session_Management_System SHALL indicate that template links will be removed but templates themselves will be preserved
+4. WHEN performing bulk deletions, THE Session_Management_System SHALL show a summary of all sessions, classes, and associated data that will be affected
+5. WHEN deletion impact is displayed, THE Session_Management_System SHALL provide options to export data before deletion for backup purposes
+
+### Requirement 10
+
 **User Story:** As an administrator, I want the session management system to integrate with the existing admin interface, so that I can access curriculum management alongside other administrative functions.
 
 #### Acceptance Criteria
 
 1. WHEN administrators access the system, THE Session_Management_System SHALL display curriculum management options in the admin navigation menu
-2. WHEN navigation is rendered, THE Session_Management_System SHALL include links for "Sessions", "Templates", and "Import" sections
+2. WHEN navigation is rendered, THE Session_Management_System SHALL include links for "Sessions", "Templates", "Import", and "Delete" sections
 3. WHEN admin interface is displayed, THE Session_Management_System SHALL maintain consistent styling and layout with existing admin components
 4. WHEN session management is accessed, THE Session_Management_System SHALL verify administrator permissions before granting access
 5. WHEN integrated with admin interface, THE Session_Management_System SHALL provide seamless transitions between different administrative functions

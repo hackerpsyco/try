@@ -9,7 +9,13 @@
 
       <div class="lg:col-span-3">
         <h4 class="text-xl font-bold text-gray-900">Schools List</h4>
-        <p class="text-sm text-gray-500 mt-1">{{ schools|length }} schools</p>
+        <p class="text-sm text-gray-500 mt-1">
+          <span id="schoolCount">{{ schools|length }}</span> schools
+          <span id="refreshIndicator" class="hidden ml-2 text-blue-600">
+            <span class="animate-spin inline-block w-3 h-3 border border-blue-600 border-t-transparent rounded-full"></span>
+            Refreshing...
+          </span>
+        </p>
       </div>
 
       <div class="lg:col-span-4">
@@ -70,9 +76,9 @@
         </span>
 
         <div class="text-sm text-gray-600 space-y-2 mb-6">
-          <div class="flex justify-center gap-2"><span class="material-symbols-outlined text-[18px]">group</span> Students: <strong>{{ school.enrolled_students }}</strong></div>
-          <div class="flex justify-center gap-2"><span class="material-symbols-outlined text-[18px]">person</span> Facilitators: <strong>{{ school.facilitators.count }}</strong></div>
-          <div class="flex justify-center gap-2"><span class="material-symbols-outlined text-[18px]">calendar_today</span> Last: <strong>{{ school.last_session|date:"d M Y"|default:"N/A" }}</strong></div>
+          <div class="flex justify-center gap-2"><span class="material-symbols-outlined text-[18px]">group</span> Students: <strong>{{ school.total_students|default:0 }}</strong></div>
+          <div class="flex justify-center gap-2"><span class="material-symbols-outlined text-[18px]">person</span> Facilitators: <strong>{{ school.active_facilitators|default:0 }}</strong></div>
+          <div class="flex justify-center gap-2"><span class="material-symbols-outlined text-[18px]">class</span> Classes: <strong>{{ school.total_classes|default:0 }}</strong></div>
         </div>
 
         <div class="mt-auto flex gap-2">
@@ -139,7 +145,7 @@
   <div class="fixed inset-0 bg-black bg-opacity-50" onclick="closeAssignModal()"></div>
 
   <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-md">
-    <form method="post" action="{% url 'users_view' %}">{% csrf_token %}
+    <form method="post" action="{% url 'assign_school_facilitator' %}" id="assignForm">{% csrf_token %}
       <div class="px-6 py-4 border-b flex justify-between">
         <h5 class="font-semibold text-lg">Assign Facilitator</h5>
         <button type="button" onclick="closeAssignModal()">×</button>
@@ -147,11 +153,11 @@
 
       <div class="px-6 py-4 space-y-4">
         <div>
-          <label>Facilitator</label>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Facilitator</label>
           {{ form.facilitator }}
         </div>
         <div>
-          <label>School</label>
+          <label class="block text-sm font-medium text-gray-700 mb-1">School</label>
           {{ form.school }}
         </div>
       </div>
@@ -190,7 +196,7 @@ document.addEventListener("click", e => {
 
 function openDeleteModal(id, name) {
   document.getElementById("deleteSchoolName").textContent = name;
-  document.getElementById("deleteForm").action = `/admin/schools/delete/${id}/`;
+  document.getElementById("deleteForm").action = `/admin/schools/${id}/delete/`;
   document.getElementById("deleteModal").classList.remove("hidden");
   document.body.style.overflow = "hidden";
 }
@@ -200,12 +206,14 @@ function closeDeleteModal() {
   document.body.style.overflow = "";
 }
 
-function openAssignModal(id = null) {
+function openAssignModal(schoolId = null) {
   document.getElementById("assignModal").classList.remove("hidden");
   document.body.style.overflow = "hidden";
-  if (id) {
-    const select = document.querySelector('[name="school"]');
-    if (select) select.value = id;
+  if (schoolId) {
+    const schoolSelect = document.querySelector('#assignForm [name="school"]');
+    if (schoolSelect) {
+      schoolSelect.value = schoolId;
+    }
   }
 }
 
@@ -214,11 +222,104 @@ function closeAssignModal() {
   document.body.style.overflow = "";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("#assignModal select").forEach(s =>
-    s.className = "w-full px-4 py-2.5 border rounded-lg"
-  );
+// Handle form submissions with real-time updates
+document.getElementById("deleteForm").addEventListener("submit", function(e) {
+  // Show loading state
+  const submitBtn = this.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = "Deleting...";
+  submitBtn.disabled = true;
+  
+  // Show refresh indicator
+  showRefreshIndicator();
 });
+
+document.getElementById("assignForm").addEventListener("submit", function(e) {
+  // Show loading state
+  const submitBtn = this.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = "Assigning...";
+  submitBtn.disabled = true;
+  
+  // Show refresh indicator
+  showRefreshIndicator();
+});
+
+function showRefreshIndicator() {
+  const indicator = document.getElementById('refreshIndicator');
+  if (indicator) {
+    indicator.classList.remove('hidden');
+  }
+}
+
+function hideRefreshIndicator() {
+  const indicator = document.getElementById('refreshIndicator');
+  if (indicator) {
+    indicator.classList.add('hidden');
+  }
+}
+
+// Auto-refresh page after successful operations
+window.addEventListener('pageshow', function(event) {
+  // Check if we came back from a form submission
+  if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+    // Refresh the page to show updated data
+    window.location.reload();
+  }
+});
+
+// Check for success/error messages and refresh if needed
+document.addEventListener("DOMContentLoaded", () => {
+  // Style the form elements
+  document.querySelectorAll("#assignModal select").forEach(s =>
+    s.className = "w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+  );
+  
+  // Check for messages indicating successful operations
+  const messages = document.querySelectorAll('.alert, .message, [class*="success"], [class*="error"]');
+  if (messages.length > 0) {
+    // If there are messages, it means an operation was performed
+    // Clear any cached data by adding a timestamp to future requests
+    const timestamp = Date.now();
+    const currentUrl = new URL(window.location);
+    if (!currentUrl.searchParams.has('_refresh')) {
+      currentUrl.searchParams.set('_refresh', timestamp);
+      window.history.replaceState({}, '', currentUrl);
+    }
+  }
+});
+
+// Add visual feedback for actions
+function showNotification(message, type = 'success') {
+  const notification = document.createElement('div');
+  notification.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-white ${
+    type === 'success' ? 'bg-green-500' : 'bg-red-500'
+  }`;
+  notification.textContent = message;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+
+// Monitor for successful operations
+const originalFetch = window.fetch;
+window.fetch = function(...args) {
+  return originalFetch.apply(this, args).then(response => {
+    if (response.ok && (response.url.includes('/delete/') || response.url.includes('/assign'))) {
+      // Successful operation, show notification
+      showNotification('Operation completed successfully!');
+      
+      // Refresh page after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+    return response;
+  });
+};
 </script>
 
 {% endblock %}

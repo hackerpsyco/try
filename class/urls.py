@@ -25,7 +25,12 @@ from .views import (
     planned_session_edit,
     planned_session_delete,
     planned_session_import,
+    initialize_class_sessions,
+    delete_all_class_sessions,
     bulk_delete_sessions,
+    bulk_initialize_school_sessions,
+    bulk_delete_school_sessions,
+    api_class_sessions_lazy,
     download_sample_csv,
     toggle_facilitator_assignment,
     delete_facilitator_assignment,
@@ -187,6 +192,11 @@ urlpatterns = [
         name="assign_facilitator"
     ),
     path(
+        "admin/schools/assign-facilitator/",
+        assign_facilitator,
+        name="assign_school_facilitator"
+    ),
+    path(
     "admin/attendance/",
     admin_attendance_filter,
     name="admin_attendance_filter"
@@ -290,6 +300,31 @@ path(
     "admin/classes/<uuid:class_section_id>/planned-sessions/import/",
     planned_session_import,
     name="planned_session_import"
+),
+path(
+    "admin/classes/<uuid:class_section_id>/sessions/initialize/",
+    initialize_class_sessions,
+    name="initialize_class_sessions"
+),
+path(
+    "admin/classes/<uuid:class_section_id>/sessions/delete-all/",
+    delete_all_class_sessions,
+    name="delete_all_class_sessions"
+),
+path(
+    "admin/schools/<uuid:school_id>/bulk-initialize-sessions/",
+    bulk_initialize_school_sessions,
+    name="bulk_initialize_school_sessions"
+),
+path(
+    "admin/schools/<uuid:school_id>/bulk-delete-sessions/",
+    bulk_delete_school_sessions,
+    name="bulk_delete_school_sessions"
+),
+path(
+    "api/classes/<uuid:class_section_id>/sessions/",
+    api_class_sessions_lazy,
+    name="api_class_sessions_lazy"
 ),
 path(
     "admin/classes/<uuid:class_section_id>/planned-sessions/bulk-delete/",
