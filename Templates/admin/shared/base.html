@@ -1,7 +1,5 @@
 
 {% load static %}
-{% load static tailwind_tags %}
-{% load message_tags %}
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 <head>
@@ -9,54 +7,174 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Admin Dashboard{% endblock %}</title>
     
-    <!-- Preload critical resources for performance -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" as="style">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Critical CSS inline for performance -->
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpg" href="{% static 'images/wes-logo.jpg' %}">
+    
+    <!-- Critical CSS inline for proper layout -->
     <style>
-        /* Critical above-the-fold styles */
-        html { height: 100%; }
-        body { 
+        /* Reset and base styles */
+        html, body { 
             height: 100%; 
-            font-family: 'Lexend', sans-serif; 
-            background-color: #f9fafb; 
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-family: 'Inter', sans-serif; 
+            background-color: #f9fafb !important; 
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
-        .sidebar { transition: transform 0.3s ease-in-out; }
-        /* Loading spinner improvements */
+        
+        /* Container layout - NO MARGINS OR FIXED POSITIONING */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+        
+        /* Sidebar - proper responsive behavior */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+            flex-shrink: 0;
+        }
+        
+        /* Mobile sidebar - slide from left */
+        @media (max-width: 1023px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                transform: translateX(-100%);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            /* Main content takes full width on mobile */
+            .main-content {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+        
+        /* Desktop sidebar - normal flow */
+        @media (min-width: 1024px) {
+            .sidebar {
+                position: relative;
+                transform: none !important;
+            }
+            
+            /* Main content flows next to sidebar */
+            .main-content {
+                flex: 1;
+                min-width: 0;
+            }
+        }
+        
+        /* Mobile overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Mobile topbar */
+        .mobile-topbar {
+            display: none;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        @media (max-width: 1023px) {
+            .mobile-topbar {
+                display: flex;
+            }
+        }
+        
+        /* Content wrapper - proper spacing */
+        .content-wrapper {
+            background: #f9fafb;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .content-wrapper {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .content-wrapper {
+                padding: 2rem;
+            }
+        }
+        
+        /* Remove excessive spacing from feedback sections */
+        .feedback-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .feedback-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Compact card spacing */
+        .stats-card {
+            padding: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .stats-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Loading spinner */
         .loading-spinner { 
-            display: inline-block; width: 1rem; height: 1rem; 
-            border: 2px solid #e5e7eb; border-top-color: #3b82f6; 
-            border-radius: 50%; animation: spin 1s linear infinite; 
+            display: inline-block; 
+            width: 1rem; 
+            height: 1rem; 
+            border: 2px solid #e5e7eb; 
+            border-top-color: #3b82f6; 
+            border-radius: 50%; 
+            animation: spin 1s linear infinite; 
         }
         
-        .loading-spinner.w-5 {
-            width: 1.25rem;
-            height: 1.25rem;
+        @keyframes spin { 
+            to { transform: rotate(360deg); } 
         }
-        
-        .loading-spinner.w-8 {
-            width: 2rem;
-            height: 2rem;
-            border-width: 3px;
-        }
-        
-        @keyframes spin { to { transform: rotate(360deg); } }
-        
-        /* Mobile sidebar optimization */
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.show { transform: translateX(0); }
-        }
-        @media (min-width: 769px) {
-            .sidebar { transform: none !important; }
-        }
-        
-        /* Performance optimizations */
-        * { box-sizing: border-box; }
-        img { max-width: 100%; height: auto; }
         
         /* Message animations */
         .animate-fade-in {
@@ -68,72 +186,79 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .message-exit {
-            transition: all 0.3s ease-in-out;
-            opacity: 0;
-            transform: translateY(-10px);
+        /* Button styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
         }
         
-        /* Reduce motion for accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        
+        /* Fix message spacing */
+        .alert {
+            margin-bottom: 0.75rem;
+        }
+        
+        .alert:last-child {
+            margin-bottom: 0;
         }
     </style>
     
-    <!-- Tailwind CSS -->
-    {% tailwind_css %}
-    
-    <!-- Load fonts asynchronously for performance -->
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" media="print" onload="this.media='all'">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpg" href="{% static 'images/wes-logo.jpg' %}">
-    
     <!-- Additional CSS -->
     {% block extra_css %}{% endblock %}
-    
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
-<body class="antialiased font-['Lexend'] bg-gray-50 h-full">
+<body class="antialiased font-inter bg-gray-50 h-full">
 
-<!-- Optimized sidebar overlay for mobile -->
-<div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-[998] hidden opacity-0 transition-opacity duration-300 lg:hidden"></div>
+<!-- Mobile overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<div class="flex min-h-screen h-full">
+<!-- Mobile topbar -->
+<div class="mobile-topbar">
+    <button id="sidebarToggle" class="p-2 rounded-lg hover:bg-gray-100">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+    <h1 class="text-lg font-semibold text-gray-900">Admin Dashboard</h1>
+    <div class="w-8"></div> <!-- Spacer for centering -->
+</div>
+
+<!-- Main app container with proper flex layout -->
+<div class="app-container">
     {% include 'admin/shared/sidebar.html' %}
     
-    <main class="flex-1 flex flex-col min-w-0">
-        {% include 'admin/shared/topbar.html' %}
-
-        <div class="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto">
-            <!-- Messages with improved styling and auto-clear functionality -->
-            {% clean_old_messages request %}
+    <main class="main-content">
+        <div class="content-wrapper">
+            <!-- Messages with reduced spacing -->
             {% if messages %}
-                <div class="mb-6 space-y-3" id="messagesContainer">
-                    {% for message in messages|filter_debug_messages %}
-                        {% if message|is_recent_message:60 %}
-                            <div class="alert alert-{{ message.tags }} p-4 rounded-lg border-l-4 animate-fade-in {% if message.tags == 'error' %}bg-red-50 border-red-400 text-red-700{% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-400 text-yellow-700{% elif message.tags == 'success' %}bg-green-50 border-green-400 text-green-700{% else %}bg-blue-50 border-blue-400 text-blue-700{% endif %}" data-message-time="{{ message.extra_tags|default:'' }}">
-                                <div class="flex items-center">
-                                    <span class="material-symbols-outlined mr-2 text-lg">
-                                        {% if message.tags == 'error' %}error
-                                        {% elif message.tags == 'warning' %}warning
-                                        {% elif message.tags == 'success' %}check_circle
-                                        {% else %}info{% endif %}
-                                    </span>
-                                    {{ message }}
-                                    <button onclick="this.parentElement.parentElement.remove()" class="ml-auto text-current opacity-50 hover:opacity-100" title="Dismiss">
-                                        <span class="material-symbols-outlined text-lg">close</span>
-                                    </button>
-                                </div>
+                <div class="mb-4 space-y-2" id="messagesContainer">
+                    {% for message in messages %}
+                        <div class="alert p-3 rounded-lg border-l-4 animate-fade-in flex items-center justify-between {% if message.tags == 'error' %}bg-red-50 border-red-400 text-red-700{% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-400 text-yellow-700{% elif message.tags == 'success' %}bg-green-50 border-green-400 text-green-700{% else %}bg-blue-50 border-blue-400 text-blue-700{% endif %}">
+                            <div class="flex items-center">
+                                <span class="material-symbols-outlined mr-2 text-lg">
+                                    {% if message.tags == 'error' %}error
+                                    {% elif message.tags == 'warning' %}warning
+                                    {% elif message.tags == 'success' %}check_circle
+                                    {% else %}info{% endif %}
+                                </span>
+                                {{ message }}
                             </div>
-                        {% endif %}
+                            <button onclick="this.parentElement.remove()" class="ml-4 text-current opacity-50 hover:opacity-100" title="Dismiss">
+                                <span class="material-symbols-outlined text-lg">close</span>
+                            </button>
+                        </div>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -143,7 +268,7 @@
     </main>
 </div>
 
-<!-- Optimized JavaScript -->
+<!-- Optimized JavaScript for mobile -->
 <script>
 (function() {
     'use strict';
@@ -153,30 +278,36 @@
     const sidebar = document.querySelector(".sidebar");
     const overlay = document.getElementById("sidebarOverlay");
     
-    // Optimized sidebar toggle
+    // Mobile sidebar toggle
     function toggleSidebar() {
-        sidebar.classList.toggle("show");
-        overlay.classList.toggle("hidden");
-        overlay.classList.toggle("opacity-100");
+        if (!sidebar || !overlay) return;
         
-        // Prevent body scroll when sidebar is open on mobile
-        if (window.innerWidth <= 768) {
-            document.body.style.overflow = sidebar.classList.contains("show") ? 'hidden' : '';
+        const isOpen = sidebar.classList.contains("show");
+        
+        if (isOpen) {
+            // Close sidebar
+            sidebar.classList.remove("show");
+            overlay.classList.remove("show");
+            document.body.style.overflow = '';
+        } else {
+            // Open sidebar
+            sidebar.classList.add("show");
+            overlay.classList.add("show");
+            document.body.style.overflow = 'hidden';
         }
     }
     
-    // Event listeners with passive option for better performance
+    // Event listeners
     if (toggleBtn) {
-        toggleBtn.addEventListener("click", toggleSidebar, { passive: true });
+        toggleBtn.addEventListener("click", toggleSidebar);
     }
     
     if (overlay) {
         overlay.addEventListener("click", function() {
             sidebar.classList.remove("show");
-            overlay.classList.add("hidden");
-            overlay.classList.remove("opacity-100");
+            overlay.classList.remove("show");
             document.body.style.overflow = '';
-        }, { passive: true });
+        });
     }
     
     // Handle window resize
@@ -184,49 +315,49 @@
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(function() {
-            if (window.innerWidth > 768) {
+            if (window.innerWidth >= 1024) {
+                // Desktop - ensure sidebar is visible and overlay is hidden
+                sidebar.classList.remove("show");
+                overlay.classList.remove("show");
                 document.body.style.overflow = '';
-                overlay.classList.add("hidden");
-                overlay.classList.remove("opacity-100");
             }
         }, 150);
-    }, { passive: true });
+    });
     
-    // Optimize image loading
-    if ('loading' in HTMLImageElement.prototype) {
-        const images = document.querySelectorAll('img[data-src]');
-        images.forEach(img => {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
+    // Auto-dismiss messages after 5 seconds
+    setTimeout(function() {
+        const messages = document.querySelectorAll('.alert');
+        messages.forEach(function(message) {
+            if (message.classList.contains('bg-green-50')) { // Success messages
+                setTimeout(function() {
+                    message.style.opacity = '0';
+                    message.style.transform = 'translateY(-10px)';
+                    setTimeout(function() {
+                        message.remove();
+                    }, 300);
+                }, 5000);
+            }
         });
+    }, 1000);
+    
+    // Ensure proper mobile layout on load
+    function checkMobileLayout() {
+        if (window.innerWidth < 1024) {
+            sidebar.classList.remove("show");
+            overlay.classList.remove("show");
+            document.body.style.overflow = '';
+        }
     }
     
-    // Performance monitoring
-    if ('performance' in window && 'getEntriesByType' in performance) {
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                if (perfData && perfData.loadEventEnd - perfData.loadEventStart > 3000) {
-                    console.warn('Page load took longer than 3 seconds:', 
-                        Math.round(perfData.loadEventEnd - perfData.loadEventStart), 'ms');
-                }
-            }, 0);
-        });
-    }
+    // Run on load and resize
+    checkMobileLayout();
+    window.addEventListener('resize', checkMobileLayout);
     
-    // Initialize message system
-    // Message handling is now managed by message-manager.js
 })();
 </script>
 
 <!-- Additional JavaScript -->
 {% block extra_js %}{% endblock %}
-
-<!-- Load message manager script -->
-<script src="{% static 'js/message-manager.js' %}" defer></script>
-
-<!-- Load performance optimization script -->
-<script src="{% static 'js/performance.js' %}" defer></script>
 
 </body>
 </html>

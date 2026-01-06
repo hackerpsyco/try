@@ -178,7 +178,7 @@
                             <span class="badge bg-primary">Last 10 Sessions</span>
                         </div>
                         <div class="card-body">
-                            {% if recent_attendance %}
+                            {% if attendance_records %}
                                 <div class="table-responsive">
                                     <table class="table table-sm">
                                         <thead>
@@ -190,7 +190,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for attendance in recent_attendance %}
+                                            {% for attendance in attendance_records %}
                                                 <tr>
                                                     <td>{{ attendance.actual_session.date|date:"M d, Y" }}</td>
                                                     <td>

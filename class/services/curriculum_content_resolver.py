@@ -292,6 +292,9 @@ class CurriculumContentResolver:
                 logger.warning(f"No content extracted for Day {day} in {language}")
                 return f"<p>Content for Day {day} not found in static file.</p>"
             
+            # Fix image paths to use static files
+            day_content = self._fix_image_paths(day_content)
+            
             return day_content
             
         except Exception as e:
@@ -676,3 +679,55 @@ class CurriculumContentResolver:
                 </div>
             </div>
             """
+    
+    def _fix_image_paths(self, content: str) -> str:
+        """
+        Fix image paths in curriculum content to use static files.
+        Replaces relative image paths with Django static file paths.
+        """
+        import re
+        from django.templatetags.static import static
+        
+        try:
+            # Replace all cellImage references with the wes-logo.jpg from static folder
+            # Pattern to match: src="resources/cellImage_*.jpg"
+            image_pattern = r'src="resources/cellImage_[^"]*\.jpg"'
+            
+            # Replace with static image path
+            static_image_path = static('images/wes-logo.jpg')
+            replacement = f'src="{static_image_path}"'
+            
+            # Perform the replacement
+            fixed_content = re.sub(image_pattern, replacement, content)
+            
+            # Also fix any other resources/ paths to use static
+            resources_pattern = r'src="resources/([^"]*)"'
+            def replace_resources(match):
+                filename = match.group(1)
+                # Try to use the static file, fallback to wes-logo.jpg
+                try:
+                    return f'src="{static("images/" + filename)}"'
+                except:
+                    return f'src="{static("images/wes-logo.jpg")}"'
+            
+            fixed_content = re.sub(resources_pattern, replace_resources, fixed_content)
+            
+            # Fix CSS references too
+            css_pattern = r'href="resources/([^"]*\.css)"'
+            def replace_css(match):
+                filename = match.group(1)
+                # Use static CSS path
+                try:
+                    return f'href="{static("css/" + filename)}"'
+                except:
+                    return f'href="{static("css/admin_dashboard.css")}"'
+            
+            fixed_content = re.sub(css_pattern, replace_css, fixed_content)
+            
+            logger.info("Fixed image and resource paths in curriculum content")
+            return fixed_content
+            
+        except Exception as e:
+            logger.error(f"Error fixing image paths: {str(e)}")
+            # Return original content if fixing fails
+            return content

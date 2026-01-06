@@ -11,6 +11,9 @@ from .views import (
 
     # Admin – students
     students_list, student_add, student_edit, student_delete, student_import,
+    
+    # Admin - Feedback & Analytics
+    admin_feedback_dashboard, admin_student_feedback_list, admin_teacher_feedback_list, admin_feedback_analytics,
 
     # Sessions & attendance
     sessions_view,          # admin class sessions
@@ -107,6 +110,13 @@ urlpatterns = [
     path("admin/dashboard/", dashboard, name="admin_dashboard"),
     path("supervisor/dashboard/", dashboard, name="supervisor_dashboard"),
     path("facilitator/dashboard/", facilitator_views.facilitator_dashboard, name="facilitator_dashboard"),
+    
+    # Feedback & Analytics
+    # ======================
+    path("admin/feedback/", admin_feedback_dashboard, name="admin_feedback_dashboard"),
+    path("admin/feedback/student/", admin_student_feedback_list, name="admin_student_feedback_list"),
+    path("admin/feedback/teacher/", admin_teacher_feedback_list, name="admin_teacher_feedback_list"),
+    path("admin/feedback/analytics/", admin_feedback_analytics, name="admin_feedback_analytics"),
 
     # ======================
     # Users (ADMIN)

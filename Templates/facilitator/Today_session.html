@@ -292,10 +292,10 @@
             
               <a href="/static/pdf/lesson_plan_template.pdf" 
                  class="btn btn-outline-primary btn-sm" target="_blank">
-                <i class="fas fa-download me-1"></i>Download Day {{ current_day }} Template
+                <i class="fas fa-download me-1"></i>Download lesson plan Template day {{ current_day }}
               </a>
               <small class="text-muted d-block mt-1">
-                If template not found, use the <a href="/static/pdf/lesson_plan_template.pdf" target="_blank">generic template</a>
+                If template found, use the <a href="/static/pdf/lesson_plan_template.pdf" target="_blank">generic template</a>
               </small>
             </div>
 
@@ -1284,8 +1284,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const anonymousId = 'student_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         document.getElementById('anonymousStudentId').value = anonymousId;
         
-        // Show modal
-        const modal = new bootstrap.Modal(document.getElementById('studentFeedbackModal'));
+        // Show modal and fix accessibility
+        const modalElement = document.getElementById('studentFeedbackModal');
+        const modal = new bootstrap.Modal(modalElement);
+        
+        // Remove aria-hidden when modal is shown to fix accessibility warning
+        modalElement.addEventListener('shown.bs.modal', function() {
+            modalElement.removeAttribute('aria-hidden');
+        });
+        
+        // Add aria-hidden back when modal is hidden
+        modalElement.addEventListener('hidden.bs.modal', function() {
+            modalElement.setAttribute('aria-hidden', 'true');
+        });
+        
         modal.show();
     };
     
@@ -1379,7 +1391,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function updateStudentFeedbackStatus() {
         try {
-            const response = await fetch('{% url "get_feedback_status" %}?session_id={{ actual_session.id|default:"" }}');
+            const sessionId = '{{ actual_session.id|default:"" }}';
+            if (!sessionId) {
+                // No actual session yet, hide feedback sections
+                document.getElementById('studentFeedbackStatus').innerHTML = '<span class="badge bg-secondary">No session started</span>';
+                return;
+            }
+            
+            const response = await fetch('{% url "get_feedback_status" %}?session_id=' + sessionId);
             const data = await response.json();
             
             const statusElement = document.getElementById('studentFeedbackStatus');
@@ -1401,7 +1420,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function updateTeacherFeedbackStatus() {
         try {
-            const response = await fetch('{% url "get_feedback_status" %}?session_id={{ actual_session.id|default:"" }}');
+            const sessionId = '{{ actual_session.id|default:"" }}';
+            if (!sessionId) {
+                // No actual session yet, hide feedback sections
+                document.getElementById('teacherFeedbackStatus').innerHTML = '<span class="badge bg-secondary">No session started</span>';
+                return;
+            }
+            
+            const response = await fetch('{% url "get_feedback_status" %}?session_id=' + sessionId);
             const data = await response.json();
             
             const statusElement = document.getElementById('teacherFeedbackStatus');

@@ -139,54 +139,7 @@
     </form>
   </div>
 
-  <!-- Curriculum Sessions -->
-  <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6 card-hover">
-    <div class="flex items-center gap-3 mb-4">
-      <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-        <span class="material-symbols-outlined text-green-600 text-2xl">menu_book</span>
-      </div>
-      <div>
-        <h5 class="text-lg font-semibold text-gray-900">Curriculum Sessions</h5>
-        <p class="text-sm text-gray-500">Manage master curriculum content</p>
-      </div>
-    </div>
-    
-    <div class="space-y-3 mb-4">
-      <div class="flex items-center text-sm text-gray-600">
-        <span class="material-symbols-outlined text-green-600 text-lg mr-2">check_circle</span>
-        Language-based organization (Hindi/English)
-      </div>
-      <div class="flex items-center text-sm text-gray-600">
-        <span class="material-symbols-outlined text-green-600 text-lg mr-2">check_circle</span>
-        Day-wise content (1-150 days)
-      </div>
-      <div class="flex items-center text-sm text-gray-600">
-        <span class="material-symbols-outlined text-green-600 text-lg mr-2">check_circle</span>
-        Template management & versioning
-      </div>
-    </div>
-
-    <!-- Quick Stats with loading states -->
-    <div class="grid grid-cols-2 gap-3 mb-4">
-      <div class="text-center p-3 stats-card hindi rounded-lg">
-        <div class="text-lg font-bold" id="hindiSessionCount">{{ hindi_sessions|default:0 }}</div>
-        <div class="text-xs opacity-90">Hindi Sessions</div>
-      </div>
-      <div class="text-center p-3 stats-card english rounded-lg">
-        <div class="text-lg font-bold" id="englishSessionCount">{{ english_sessions|default:0 }}</div>
-        <div class="text-xs opacity-90">English Sessions</div>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <a href="{% url 'admin_curriculum_sessions_list' %}?v={{ request.GET.v|default:'1' }}" 
-         class="w-full px-5 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 text-center block transition-colors duration-200">
-        Manage Curriculum Sessions
-      </a>
-
-    </div>
-  </div>
-</div>
+ 
 
 <!-- Recent Activity with lazy loading -->
 <div class="bg-white border border-gray-200 rounded-xl shadow-sm">

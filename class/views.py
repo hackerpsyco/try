@@ -1293,7 +1293,7 @@ def facilitator_classes(request):
 
 @login_required
 def facilitator_attendance(request):
-    """Enhanced attendance filtering interface for facilitators"""
+    """Enhanced attendance filtering interface for facilitators with date filtering"""
     if request.user.role.name.upper() != "FACILITATOR":
         messages.error(request, "Permission denied.")
         return redirect("no_permission")
@@ -1308,12 +1308,68 @@ def facilitator_attendance(request):
     if not assigned_schools.exists():
         messages.warning(request, f"No active schools assigned to facilitator {request.user.full_name}. Please contact admin to assign schools.")
 
+    # Get date filtering parameters
+    from datetime import datetime, timedelta
+    from django.utils import timezone
+    
+    period = request.GET.get("period", "all")
+    start_date = request.GET.get("start_date")
+    end_date = request.GET.get("end_date")
+    
+    # Calculate date ranges based on period
+    today = timezone.now().date()
+    date_filter = None
+    attendance_date_filter = None
+    
+    if period == "today":
+        date_filter = {"date": today}
+        attendance_date_filter = {"actual_session__date": today}
+    elif period == "this_week":
+        week_start = today - timedelta(days=today.weekday())
+        week_end = week_start + timedelta(days=6)
+        date_filter = {"date__range": [week_start, week_end]}
+        attendance_date_filter = {"actual_session__date__range": [week_start, week_end]}
+    elif period == "last_week":
+        week_start = today - timedelta(days=today.weekday() + 7)
+        week_end = week_start + timedelta(days=6)
+        date_filter = {"date__range": [week_start, week_end]}
+        attendance_date_filter = {"actual_session__date__range": [week_start, week_end]}
+    elif period == "this_month":
+        month_start = today.replace(day=1)
+        if today.month == 12:
+            month_end = today.replace(year=today.year + 1, month=1, day=1) - timedelta(days=1)
+        else:
+            month_end = today.replace(month=today.month + 1, day=1) - timedelta(days=1)
+        date_filter = {"date__range": [month_start, month_end]}
+        attendance_date_filter = {"actual_session__date__range": [month_start, month_end]}
+    elif period == "last_month":
+        if today.month == 1:
+            month_start = today.replace(year=today.year - 1, month=12, day=1)
+            month_end = today.replace(day=1) - timedelta(days=1)
+        else:
+            month_start = today.replace(month=today.month - 1, day=1)
+            month_end = today.replace(day=1) - timedelta(days=1)
+        date_filter = {"date__range": [month_start, month_end]}
+        attendance_date_filter = {"actual_session__date__range": [month_start, month_end]}
+    elif period == "custom" and start_date and end_date:
+        try:
+            start_date_obj = datetime.strptime(start_date, "%Y-%m-%d").date()
+            end_date_obj = datetime.strptime(end_date, "%Y-%m-%d").date()
+            date_filter = {"date__range": [start_date_obj, end_date_obj]}
+            attendance_date_filter = {"actual_session__date__range": [start_date_obj, end_date_obj]}
+        except ValueError:
+            messages.error(request, "Invalid date format.")
+            period = "all"
+
     context = {
         "assigned_schools": assigned_schools,
+        "selected_period": period,
+        "start_date": start_date,
+        "end_date": end_date,
     }
 
     # If filters are applied, get the filtered data
-    school_id = request.GET.get("school")
+    school_id = request.GET.get("school") or request.GET.get("school_fallback")
     class_section_id = request.GET.get("class_section")
     
     if school_id:
@@ -1347,27 +1403,33 @@ def facilitator_attendance(request):
                 is_active=True
             ).select_related("student").order_by("student__full_name")
             
-            # Calculate attendance statistics for each student
+            # Calculate attendance statistics for each student with date filtering
             enrollment_stats = []
             for enrollment in enrollments:
-                # Count total conducted sessions for this class
-                total_sessions = ActualSession.objects.filter(
+                # Base query for sessions
+                sessions_query = ActualSession.objects.filter(
                     planned_session__class_section=class_section,
                     status="conducted"
-                ).count()
+                )
                 
-                # Count attendance records for this student
-                present_count = Attendance.objects.filter(
-                    enrollment=enrollment,
-                    actual_session__planned_session__class_section=class_section,
-                    status="present"
-                ).count()
+                # Apply date filter if specified
+                if date_filter:
+                    sessions_query = sessions_query.filter(**date_filter)
                 
-                absent_count = Attendance.objects.filter(
+                total_sessions = sessions_query.count()
+                
+                # Base query for attendance
+                attendance_query = Attendance.objects.filter(
                     enrollment=enrollment,
-                    actual_session__planned_session__class_section=class_section,
-                    status="absent"
-                ).count()
+                    actual_session__planned_session__class_section=class_section
+                )
+                
+                # Apply date filter to attendance if specified
+                if attendance_date_filter:
+                    attendance_query = attendance_query.filter(**attendance_date_filter)
+                
+                present_count = attendance_query.filter(status="present").count()
+                absent_count = attendance_query.filter(status="absent").count()
                 
                 attendance_percentage = (present_count / total_sessions * 100) if total_sessions > 0 else 0
                 
@@ -1383,10 +1445,17 @@ def facilitator_attendance(request):
             
             # Get recent attendance sessions for this class with detailed attendance
             recent_sessions_data = []
-            recent_sessions = ActualSession.objects.filter(
+            recent_sessions_query = ActualSession.objects.filter(
                 planned_session__class_section=class_section,
                 status="conducted"
-            ).select_related("planned_session").order_by("-date")[:10]
+            ).select_related("planned_session")
+            
+            # Apply date filter to recent sessions
+            if date_filter:
+                recent_sessions_query = recent_sessions_query.filter(**date_filter)
+                context["filtered_sessions_count"] = recent_sessions_query.count()
+            
+            recent_sessions = recent_sessions_query.order_by("-date")[:20]
             
             for session in recent_sessions:
                 present_count = session.attendances.filter(status="present").count()
@@ -1401,6 +1470,13 @@ def facilitator_attendance(request):
                 })
             
             context["recent_sessions_data"] = recent_sessions_data
+            
+            # Add date range context for display
+            if period == "this_week" or period == "last_week":
+                context["week_start"] = week_start if 'week_start' in locals() else None
+                context["week_end"] = week_end if 'week_end' in locals() else None
+            elif period == "this_month" or period == "last_month":
+                context["month_start"] = month_start if 'month_start' in locals() else None
 
     return render(request, "facilitator/attendance_filter.html", context)
 
@@ -1488,20 +1564,50 @@ def ajax_facilitator_schools(request):
 def ajax_school_classes(request):
     """AJAX endpoint to get classes for a specific school"""
     if request.user.role.name.upper() != "FACILITATOR":
-        return JsonResponse({"error": "Permission denied"}, status=403)
+        return JsonResponse({
+            "error": "Permission denied - User role is not FACILITATOR",
+            "user_role": request.user.role.name,
+            "debug": True
+        }, status=403)
     
     school_id = request.GET.get("school_id")
     if not school_id:
-        return JsonResponse({"error": "School ID required"}, status=400)
+        return JsonResponse({
+            "error": "School ID required",
+            "received_params": dict(request.GET),
+            "debug": True
+        }, status=400)
+    
+    # Check if school exists
+    try:
+        school = School.objects.get(id=school_id)
+    except School.DoesNotExist:
+        return JsonResponse({
+            "error": f"School with ID {school_id} does not exist",
+            "debug": True
+        }, status=404)
     
     # Verify facilitator has access to this school
-    if not FacilitatorSchool.objects.filter(
+    facilitator_school = FacilitatorSchool.objects.filter(
         facilitator=request.user,
         school_id=school_id,
         is_active=True
-    ).exists():
-        return JsonResponse({"error": "Access denied to this school"}, status=403)
+    ).first()
     
+    if not facilitator_school:
+        # Get all schools assigned to this facilitator for debugging
+        assigned_schools = list(FacilitatorSchool.objects.filter(
+            facilitator=request.user,
+            is_active=True
+        ).values_list('school_id', 'school__name'))
+        
+        return JsonResponse({
+            "error": f"Access denied to school '{school.name}' (ID: {school_id})",
+            "assigned_schools": assigned_schools,
+            "debug": True
+        }, status=403)
+    
+    # Get classes for this school
     classes = ClassSection.objects.filter(
         school_id=school_id,
         is_active=True
@@ -1509,8 +1615,21 @@ def ajax_school_classes(request):
         "id", "class_level", "section"
     ).order_by("class_level", "section")
     
+    classes_list = list(classes)
+    
+    # Add debug information
+    total_classes_in_school = ClassSection.objects.filter(school_id=school_id).count()
+    
     return JsonResponse({
-        "classes": list(classes)
+        "classes": classes_list,
+        "debug_info": {
+            "school_name": school.name,
+            "total_classes_in_school": total_classes_in_school,
+            "active_classes_count": len(classes_list),
+            "facilitator_access_confirmed": True,
+            "facilitator_school_assignment_id": str(facilitator_school.id)
+        },
+        "success": True
     })
 
 
@@ -4047,6 +4166,9 @@ def save_session_tracking(request):
     
     try:
         planned_session_id = request.POST.get('planned_session_id')
+        if not planned_session_id:
+            return JsonResponse({"success": False, "error": "Missing planned_session_id"}, status=400)
+            
         planned_session = get_object_or_404(PlannedSession, id=planned_session_id)
         
         # Verify facilitator has access to this class
@@ -4057,11 +4179,22 @@ def save_session_tracking(request):
         ).exists():
             return JsonResponse({"success": False, "error": "Access denied"}, status=403)
         
+        # Get or create actual session first
+        actual_session, created = ActualSession.objects.get_or_create(
+            planned_session=planned_session,
+            date=timezone.now().date(),
+            defaults={
+                'facilitator': request.user,
+                'status': 'conducted',
+                'remarks': 'Session in progress'
+            }
+        )
+        
         from .models import SessionFeedback
         
         # Get or create session feedback for tracking
         feedback, created = SessionFeedback.objects.get_or_create(
-            actual_session__planned_session=planned_session,
+            actual_session=actual_session,
             facilitator=request.user,
             defaults={
                 'student_engagement_level': 3,
@@ -4185,6 +4318,16 @@ def save_student_feedback(request):
     
     try:
         actual_session_id = request.POST.get('actual_session_id')
+        if not actual_session_id:
+            return JsonResponse({"success": False, "error": "Missing actual_session_id"}, status=400)
+        
+        # Validate UUID format
+        try:
+            import uuid
+            uuid.UUID(actual_session_id)
+        except ValueError:
+            return JsonResponse({"success": False, "error": "Invalid session ID format"}, status=400)
+            
         actual_session = get_object_or_404(ActualSession, id=actual_session_id)
         
         # Validate required fields
@@ -4197,12 +4340,33 @@ def save_student_feedback(request):
             if not request.POST.get(field):
                 return JsonResponse({"success": False, "error": f"{field.replace('_', ' ').title()} is required"}, status=400)
         
+        # Clean anonymous student ID to prevent invalid characters
+        anonymous_student_id = request.POST.get('anonymous_student_id')
+        # Remove any non-ASCII characters that might cause issues
+        import re
+        anonymous_student_id = re.sub(r'[^\w\-_]', '', anonymous_student_id)
+        
+        if not anonymous_student_id:
+            return JsonResponse({"success": False, "error": "Invalid anonymous student ID"}, status=400)
+        
         from .models import StudentFeedback
+        
+        # Check for duplicate feedback (prevent multiple submissions)
+        existing_feedback = StudentFeedback.objects.filter(
+            actual_session=actual_session,
+            anonymous_student_id=anonymous_student_id
+        ).first()
+        
+        if existing_feedback:
+            return JsonResponse({
+                "success": False, 
+                "error": "Feedback already submitted for this session"
+            }, status=400)
         
         # Create student feedback
         feedback = StudentFeedback.objects.create(
             actual_session=actual_session,
-            anonymous_student_id=request.POST.get('anonymous_student_id'),
+            anonymous_student_id=anonymous_student_id,
             session_rating=int(request.POST.get('session_rating')),
             topic_understanding=request.POST.get('topic_understanding'),
             teacher_clarity=request.POST.get('teacher_clarity'),
@@ -4817,3 +4981,267 @@ def api_class_sessions_lazy(request, class_section_id):
     except Exception as e:
         logger.error(f"Error in api_class_sessions_lazy: {e}")
         return JsonResponse({"error": "Failed to load sessions"}, status=500)
+
+# ==============================================
+# ADMIN FEEDBACK & ANALYTICS VIEWS
+# ==============================================
+
+@login_required
+def admin_feedback_dashboard(request):
+    """Admin dashboard for viewing all feedback and analytics"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+    
+    from .models import StudentFeedback, TeacherFeedback, FeedbackAnalytics
+    from django.db.models import Count, Avg
+    from datetime import datetime, timedelta
+    
+    # Get date range (last 30 days by default)
+    end_date = timezone.now().date()
+    start_date = end_date - timedelta(days=30)
+    
+    # Override with request parameters if provided
+    if request.GET.get('start_date'):
+        start_date = datetime.strptime(request.GET.get('start_date'), '%Y-%m-%d').date()
+    if request.GET.get('end_date'):
+        end_date = datetime.strptime(request.GET.get('end_date'), '%Y-%m-%d').date()
+    
+    # Student feedback statistics
+    student_feedback_stats = {
+        'total_count': StudentFeedback.objects.filter(
+            submitted_at__date__range=[start_date, end_date]
+        ).count(),
+        'average_rating': StudentFeedback.objects.filter(
+            submitted_at__date__range=[start_date, end_date]
+        ).aggregate(avg_rating=Avg('session_rating'))['avg_rating'] or 0,
+        'understanding_yes_count': StudentFeedback.objects.filter(
+            submitted_at__date__range=[start_date, end_date],
+            topic_understanding='yes'
+        ).count(),
+        'clarity_yes_count': StudentFeedback.objects.filter(
+            submitted_at__date__range=[start_date, end_date],
+            teacher_clarity='yes'
+        ).count(),
+    }
+    
+    # Teacher feedback statistics
+    teacher_feedback_stats = {
+        'total_count': TeacherFeedback.objects.filter(
+            submitted_at__date__range=[start_date, end_date]
+        ).count(),
+        'high_engagement_count': TeacherFeedback.objects.filter(
+            submitted_at__date__range=[start_date, end_date],
+            class_engagement='highly'
+        ).count(),
+        'completed_sessions_count': TeacherFeedback.objects.filter(
+            submitted_at__date__range=[start_date, end_date],
+            session_completion='yes'
+        ).count(),
+    }
+    
+    # Recent feedback
+    recent_student_feedback = StudentFeedback.objects.filter(
+        submitted_at__date__range=[start_date, end_date]
+    ).select_related('actual_session__planned_session__class_section__school').order_by('-submitted_at')[:10]
+    
+    recent_teacher_feedback = TeacherFeedback.objects.filter(
+        submitted_at__date__range=[start_date, end_date]
+    ).select_related('actual_session__planned_session__class_section__school', 'facilitator').order_by('-submitted_at')[:10]
+    
+    context = {
+        'student_feedback_stats': student_feedback_stats,
+        'teacher_feedback_stats': teacher_feedback_stats,
+        'recent_student_feedback': recent_student_feedback,
+        'recent_teacher_feedback': recent_teacher_feedback,
+        'start_date': start_date,
+        'end_date': end_date,
+    }
+    
+    return render(request, 'admin/feedback/dashboard.html', context)
+
+
+@login_required
+def admin_student_feedback_list(request):
+    """Admin view for all student feedback"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+    
+    from .models import StudentFeedback
+    
+    # Get all student feedback with related data
+    feedback_list = StudentFeedback.objects.select_related(
+        'actual_session__planned_session__class_section__school',
+        'actual_session__facilitator'
+    ).order_by('-submitted_at')
+    
+    # Apply filters
+    school_filter = request.GET.get('school')
+    rating_filter = request.GET.get('rating')
+    date_filter = request.GET.get('date')
+    
+    if school_filter:
+        feedback_list = feedback_list.filter(
+            actual_session__planned_session__class_section__school_id=school_filter
+        )
+    
+    if rating_filter:
+        feedback_list = feedback_list.filter(session_rating=rating_filter)
+    
+    if date_filter:
+        feedback_list = feedback_list.filter(submitted_at__date=date_filter)
+    
+    # Pagination
+    from django.core.paginator import Paginator
+    paginator = Paginator(feedback_list, 25)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+        'schools': School.objects.all(),
+        'filters': {
+            'school': school_filter,
+            'rating': rating_filter,
+            'date': date_filter,
+        }
+    }
+    
+    return render(request, 'admin/feedback/student_list.html', context)
+
+
+@login_required
+def admin_teacher_feedback_list(request):
+    """Admin view for all teacher feedback"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+    
+    from .models import TeacherFeedback
+    
+    # Get all teacher feedback with related data
+    feedback_list = TeacherFeedback.objects.select_related(
+        'actual_session__planned_session__class_section__school',
+        'facilitator'
+    ).order_by('-submitted_at')
+    
+    # Apply filters
+    school_filter = request.GET.get('school')
+    facilitator_filter = request.GET.get('facilitator')
+    engagement_filter = request.GET.get('engagement')
+    date_filter = request.GET.get('date')
+    
+    if school_filter:
+        feedback_list = feedback_list.filter(
+            actual_session__planned_session__class_section__school_id=school_filter
+        )
+    
+    if facilitator_filter:
+        feedback_list = feedback_list.filter(facilitator_id=facilitator_filter)
+    
+    if engagement_filter:
+        feedback_list = feedback_list.filter(class_engagement=engagement_filter)
+    
+    if date_filter:
+        feedback_list = feedback_list.filter(submitted_at__date=date_filter)
+    
+    # Pagination
+    from django.core.paginator import Paginator
+    paginator = Paginator(feedback_list, 25)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+        'schools': School.objects.all(),
+        'facilitators': User.objects.filter(role__name='FACILITATOR'),
+        'filters': {
+            'school': school_filter,
+            'facilitator': facilitator_filter,
+            'engagement': engagement_filter,
+            'date': date_filter,
+        }
+    }
+    
+    return render(request, 'admin/feedback/teacher_list.html', context)
+
+
+@login_required
+def admin_feedback_analytics(request):
+    """Admin view for feedback analytics and reports"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "Permission denied.")
+        return redirect("no_permission")
+    
+    from .models import StudentFeedback, TeacherFeedback, FeedbackAnalytics
+    from django.db.models import Count, Avg, Q
+    from datetime import datetime, timedelta
+    
+    # Get date range
+    end_date = timezone.now().date()
+    start_date = end_date - timedelta(days=30)
+    
+    if request.GET.get('start_date'):
+        start_date = datetime.strptime(request.GET.get('start_date'), '%Y-%m-%d').date()
+    if request.GET.get('end_date'):
+        end_date = datetime.strptime(request.GET.get('end_date'), '%Y-%m-%d').date()
+    
+    # Analytics by school
+    school_analytics = []
+    for school in School.objects.all():
+        student_feedback_count = StudentFeedback.objects.filter(
+            actual_session__planned_session__class_section__school=school,
+            submitted_at__date__range=[start_date, end_date]
+        ).count()
+        
+        teacher_feedback_count = TeacherFeedback.objects.filter(
+            actual_session__planned_session__class_section__school=school,
+            submitted_at__date__range=[start_date, end_date]
+        ).count()
+        
+        avg_student_rating = StudentFeedback.objects.filter(
+            actual_session__planned_session__class_section__school=school,
+            submitted_at__date__range=[start_date, end_date]
+        ).aggregate(avg_rating=Avg('session_rating'))['avg_rating'] or 0
+        
+        school_analytics.append({
+            'school': school,
+            'student_feedback_count': student_feedback_count,
+            'teacher_feedback_count': teacher_feedback_count,
+            'avg_student_rating': round(avg_student_rating, 2),
+        })
+    
+    # Analytics by facilitator
+    facilitator_analytics = []
+    for facilitator in User.objects.filter(role__name='FACILITATOR'):
+        teacher_feedback_count = TeacherFeedback.objects.filter(
+            facilitator=facilitator,
+            submitted_at__date__range=[start_date, end_date]
+        ).count()
+        
+        sessions_with_student_feedback = StudentFeedback.objects.filter(
+            actual_session__facilitator=facilitator,
+            submitted_at__date__range=[start_date, end_date]
+        ).values('actual_session').distinct().count()
+        
+        avg_student_rating = StudentFeedback.objects.filter(
+            actual_session__facilitator=facilitator,
+            submitted_at__date__range=[start_date, end_date]
+        ).aggregate(avg_rating=Avg('session_rating'))['avg_rating'] or 0
+        
+        facilitator_analytics.append({
+            'facilitator': facilitator,
+            'teacher_feedback_count': teacher_feedback_count,
+            'sessions_with_student_feedback': sessions_with_student_feedback,
+            'avg_student_rating': round(avg_student_rating, 2),
+        })
+    
+    context = {
+        'school_analytics': school_analytics,
+        'facilitator_analytics': facilitator_analytics,
+        'start_date': start_date,
+        'end_date': end_date,
+    }
+    
+    return render(request, 'admin/feedback/analytics.html', context)

@@ -8125,3 +8125,1483 @@ INFO 2026-01-06 20:41:40,768 basehttp 11676 7960 "GET /facilitator/dashboard/ HT
 INFO 2026-01-06 20:41:46,773 basehttp 11676 7960 "GET /facilitator/my-schools/ HTTP/1.1" 200 9699
 INFO 2026-01-06 20:41:56,725 basehttp 11676 7960 "GET /facilitator/my-schools/ HTTP/1.1" 200 9699
 INFO 2026-01-06 20:42:02,346 basehttp 11676 7960 "GET /facilitator/my-schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/ HTTP/1.1" 200 12036
+INFO 2026-01-06 22:28:52,769 autoreload 28828 30828 Watching for file changes with StatReloader
+INFO 2026-01-06 22:30:16,660 autoreload 21388 15416 Watching for file changes with StatReloader
+INFO 2026-01-06 22:33:52,834 autoreload 16288 27604 Watching for file changes with StatReloader
+INFO 2026-01-06 22:40:04,269 autoreload 15760 14552 Watching for file changes with StatReloader
+INFO 2026-01-06 22:43:08,798 basehttp 15760 38304 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 22:43:42,798 basehttp 15760 38304 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 22:43:47,248 basehttp 15760 38304 "GET /admin/dashboard/ HTTP/1.1" 200 36422
+INFO 2026-01-06 22:43:47,309 basehttp 15760 38304 "GET /static/css/dist/styles.css?v=1767719626 HTTP/1.1" 200 33131
+INFO 2026-01-06 22:43:47,332 basehttp 15760 38304 "GET /static/js/message-manager.js HTTP/1.1" 304 0
+INFO 2026-01-06 22:43:47,334 basehttp 15760 42684 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-06 22:43:50,081 mixins 15760 38304 Slow function: admin_curriculum_sessions_list took 1.64s
+INFO 2026-01-06 22:43:50,082 basehttp 15760 38304 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+WARNING 2026-01-06 22:43:53,058 mixins 15760 42684 Slow function: api_dashboard_stats took 2.57s
+INFO 2026-01-06 22:43:53,059 basehttp 15760 42684 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+INFO 2026-01-06 22:43:53,717 basehttp 15760 38304 "GET /admin/sessions/ HTTP/1.1" 200 27379
+INFO 2026-01-06 22:43:53,768 basehttp 15760 38304 "GET /static/css/dist/styles.css?v=1767719633 HTTP/1.1" 200 33131
+INFO 2026-01-06 22:43:55,117 basehttp 15760 38304 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 36408
+WARNING 2026-01-06 22:43:56,629 mixins 15760 24084 Slow function: schools took 6.26s
+INFO 2026-01-06 22:43:56,630 basehttp 15760 24084 "GET /admin/schools/ HTTP/1.1" 200 37353
+WARNING 2026-01-06 22:44:12,801 mixins 15760 24084 Slow function: ajax_school_classes_admin took 0.86s
+INFO 2026-01-06 22:44:12,802 basehttp 15760 24084 "GET /api/school-classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 230
+WARNING 2026-01-06 22:44:20,586 mixins 15760 24084 Slow function: sessions_view took 3.70s
+INFO 2026-01-06 22:44:20,588 basehttp 15760 24084 "GET /admin/classes/64546ee9-82bf-488e-9a38-0d06bbf9f706/sessions/ HTTP/1.1" 200 62048
+INFO 2026-01-06 22:44:20,634 basehttp 15760 24084 "GET /static/css/dist/styles.css?v=1767719660 HTTP/1.1" 200 33131
+WARNING 2026-01-06 22:49:33,398 mixins 15760 33880 Slow function: sessions_view took 3.26s
+INFO 2026-01-06 22:49:33,400 basehttp 15760 33880 "GET /admin/classes/64546ee9-82bf-488e-9a38-0d06bbf9f706/sessions/?page=6&per_page=25 HTTP/1.1" 200 62161
+INFO 2026-01-06 22:49:33,485 basehttp 15760 33880 "GET /static/css/dist/styles.css?v=1767719973 HTTP/1.1" 200 33131
+WARNING 2026-01-06 22:49:36,448 mixins 15760 33880 Slow function: api_dashboard_stats took 1.85s
+INFO 2026-01-06 22:49:36,449 basehttp 15760 33880 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-06 22:49:38,566 mixins 15760 46536 Slow function: admin_curriculum_sessions_list took 1.71s
+INFO 2026-01-06 22:49:38,568 basehttp 15760 46536 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+WARNING 2026-01-06 22:49:42,039 mixins 15760 33680 Slow function: schools took 5.46s
+INFO 2026-01-06 22:49:42,041 basehttp 15760 33680 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-06 22:49:47,765 basehttp 15760 33680 "GET /admin/planned-session/c7e9672c-677c-4527-a5b9-97d092ea20fb/edit/ HTTP/1.1" 200 14786
+INFO 2026-01-06 22:49:47,824 basehttp 15760 33680 "GET /static/css/dist/styles.css?v=1767719987 HTTP/1.1" 200 33131
+WARNING 2026-01-06 22:49:55,819 mixins 15760 33680 Slow function: sessions_view took 3.50s
+INFO 2026-01-06 22:49:55,821 basehttp 15760 33680 "GET /admin/classes/64546ee9-82bf-488e-9a38-0d06bbf9f706/sessions/ HTTP/1.1" 200 62048
+INFO 2026-01-06 22:49:55,897 basehttp 15760 33680 "GET /static/css/dist/styles.css?v=1767719995 HTTP/1.1" 200 33131
+INFO 2026-01-06 22:54:28,895 basehttp 15760 33680 "GET /admin/classes/64546ee9-82bf-488e-9a38-0d06bbf9f706/sessions/ HTTP/1.1" 200 62048
+INFO 2026-01-06 22:54:42,009 basehttp 15760 45048 "GET /admin/schools/ HTTP/1.1" 200 37353
+WARNING 2026-01-06 22:54:44,749 mixins 15760 33680 Slow function: api_dashboard_stats took 2.12s
+INFO 2026-01-06 22:54:44,750 basehttp 15760 33680 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-06 22:54:46,654 mixins 15760 12340 Slow function: admin_curriculum_sessions_list took 1.62s
+INFO 2026-01-06 22:54:46,656 basehttp 15760 12340 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+INFO 2026-01-06 22:54:49,501 basehttp 15760 45048 "GET /admin/sessions/ HTTP/1.1" 200 27379
+INFO 2026-01-06 22:54:49,598 basehttp 15760 45048 "GET /static/css/dist/styles.css?v=1767720288 HTTP/1.1" 200 33131
+INFO 2026-01-06 22:54:51,059 basehttp 15760 45048 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 36408
+INFO 2026-01-06 22:54:51,775 basehttp 15760 45048 "GET /static/css/dist/styles.css?v=1767720286 HTTP/1.1" 200 33131
+INFO 2026-01-06 22:54:53,276 curriculum_content_resolver 15760 45048 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-06 22:54:54,666 curriculum_content_resolver 15760 45048 Found 5251 rows in curriculum table
+INFO 2026-01-06 22:54:54,667 curriculum_content_resolver 15760 45048 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-06 22:54:54,669 curriculum_content_resolver 15760 45048 Found next day boundary at row 36, day 2
+INFO 2026-01-06 22:54:54,669 curriculum_content_resolver 15760 45048 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-06 22:54:54,674 curriculum_content_resolver 15760 45048 Loaded static fallback content for Day 1 english
+INFO 2026-01-06 22:54:54,959 basehttp 15760 45048 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14551
+WARNING 2026-01-06 22:54:54,981 log 15760 45048 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 22:54:54,982 basehttp 15760 45048 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34827
+WARNING 2026-01-06 22:54:56,210 mixins 15760 12340 Slow function: schools took 5.56s
+INFO 2026-01-06 22:54:56,212 basehttp 15760 12340 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-06 22:54:58,234 basehttp 15760 12340 "GET /static/css/dist/styles.css?v=1767720291 HTTP/1.1" 200 33131
+INFO 2026-01-06 22:55:03,146 basehttp 15760 12340 "GET /admin/schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/ HTTP/1.1" 200 28523
+INFO 2026-01-06 22:55:03,209 basehttp 15760 12340 "GET /static/css/dist/styles.css?v=1767720302 HTTP/1.1" 200 33131
+INFO 2026-01-06 22:55:08,410 basehttp 15760 12340 "GET /admin/schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/classes/ HTTP/1.1" 200 21435
+INFO 2026-01-06 22:55:08,469 basehttp 15760 12340 "GET /static/css/dist/styles.css?v=1767720307 HTTP/1.1" 200 33131
+WARNING 2026-01-06 22:55:32,304 log 15760 12340 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-06 22:55:32,305 basehttp 15760 12340 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34827
+INFO 2026-01-06 23:01:19,443 basehttp 15760 41344 "GET /admin/dashboard/ HTTP/1.1" 200 36422
+INFO 2026-01-06 23:01:19,496 basehttp 15760 41344 "GET /static/css/dist/styles.css?v=1767720678 HTTP/1.1" 200 33131
+WARNING 2026-01-06 23:01:22,632 mixins 15760 41344 Slow function: api_dashboard_stats took 2.05s
+INFO 2026-01-06 23:01:22,634 basehttp 15760 41344 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-06 23:01:24,955 mixins 15760 21184 Slow function: admin_curriculum_sessions_list took 1.86s
+INFO 2026-01-06 23:01:24,958 basehttp 15760 21184 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+WARNING 2026-01-06 23:01:28,418 mixins 15760 29944 Slow function: schools took 5.76s
+INFO 2026-01-06 23:01:28,419 basehttp 15760 29944 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-06 23:08:57,884 basehttp 15760 45980 "GET /admin/users/ HTTP/1.1" 200 40190
+INFO 2026-01-06 23:08:57,937 basehttp 15760 45980 "GET /static/css/dist/styles.css?v=1767721131 HTTP/1.1" 200 33131
+WARNING 2026-01-06 23:09:01,872 mixins 15760 45980 Slow function: api_dashboard_stats took 2.23s
+INFO 2026-01-06 23:09:01,873 basehttp 15760 45980 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-06 23:09:03,316 mixins 15760 10124 Slow function: admin_curriculum_sessions_list took 1.69s
+INFO 2026-01-06 23:09:03,318 basehttp 15760 10124 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+WARNING 2026-01-06 23:09:07,521 mixins 15760 38392 Slow function: schools took 5.83s
+INFO 2026-01-06 23:09:07,523 basehttp 15760 38392 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-06 23:14:49,902 basehttp 15760 2296 "GET /admin/users/ HTTP/1.1" 302 0
+WARNING 2026-01-06 23:14:49,932 log 15760 2296 Not Found: /accounts/login/
+WARNING 2026-01-06 23:14:49,933 basehttp 15760 2296 "GET /accounts/login/?next=/admin/users/ HTTP/1.1" 404 34708
+WARNING 2026-01-06 23:14:50,155 log 15760 2296 Not Found: /favicon.ico
+WARNING 2026-01-06 23:14:50,156 basehttp 15760 2296 "GET /favicon.ico HTTP/1.1" 404 34677
+INFO 2026-01-06 23:17:19,874 basehttp 15760 2296 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-06 23:17:19,918 basehttp 15760 2296 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-06 23:17:19,920 basehttp 15760 1016 "GET /static/images/wes-logo.jpg HTTP/1.1" 304 0
+INFO 2026-01-06 23:21:14,319 basehttp 15760 1016 "POST / HTTP/1.1" 302 0
+INFO 2026-01-06 23:21:18,688 basehttp 15760 1016 "GET /admin/dashboard/ HTTP/1.1" 200 36422
+INFO 2026-01-06 23:21:18,734 basehttp 15760 1016 "GET /static/css/dist/styles.css?v=1767721877 HTTP/1.1" 200 33131
+INFO 2026-01-06 23:21:18,738 basehttp 15760 2296 "GET /static/js/message-manager.js HTTP/1.1" 200 8409
+INFO 2026-01-06 23:21:18,742 basehttp 15760 45892 "GET /static/js/performance.js HTTP/1.1" 200 14309
+WARNING 2026-01-06 23:21:23,846 mixins 15760 45892 Slow function: api_dashboard_stats took 2.11s
+INFO 2026-01-06 23:21:23,848 basehttp 15760 45892 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-06 23:21:24,472 mixins 15760 2296 Slow function: admin_curriculum_sessions_list took 1.65s
+INFO 2026-01-06 23:21:24,474 basehttp 15760 2296 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+WARNING 2026-01-06 23:21:26,109 mixins 15760 1016 Slow function: schools took 6.37s
+INFO 2026-01-06 23:21:26,111 basehttp 15760 1016 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-06 23:22:07,003 basehttp 15760 1016 "GET /admin/users/ HTTP/1.1" 200 40190
+INFO 2026-01-06 23:22:07,029 basehttp 15760 1016 "GET /static/css/dist/styles.css?v=1767721921 HTTP/1.1" 200 33131
+INFO 2026-01-06 23:25:42,251 basehttp 15760 1016 "GET /static/css/dist/styles.css?v=1767721881 HTTP/1.1" 200 33131
+INFO 2026-01-06 23:37:50,713 basehttp 15760 25580 "GET /admin/schools/9c32b69b-fab5-433a-a70d-888b545e0b48/ HTTP/1.1" 200 22915
+INFO 2026-01-06 23:37:50,748 basehttp 15760 25580 "GET /static/css/dist/styles.css?v=1767722870 HTTP/1.1" 200 33131
+WARNING 2026-01-06 23:37:53,537 mixins 15760 25580 Slow function: api_dashboard_stats took 2.03s
+INFO 2026-01-06 23:37:53,539 basehttp 15760 25580 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-06 23:37:55,185 mixins 15760 47816 Slow function: admin_curriculum_sessions_list took 1.58s
+INFO 2026-01-06 23:37:55,186 basehttp 15760 47816 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+WARNING 2026-01-06 23:37:58,786 mixins 15760 16612 Slow function: schools took 5.26s
+INFO 2026-01-06 23:37:58,789 basehttp 15760 16612 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-06 23:37:58,794 basehttp 15760 16612 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-06 23:37:58,817 basehttp 15760 16612 "GET /static/css/dist/styles.css?v=1767722874 HTTP/1.1" 200 33131
+INFO 2026-01-06 23:38:02,571 basehttp 15760 16612 "GET /admin/schools/edcecea9-a918-4494-b9c0-adee97790e9a/ HTTP/1.1" 200 22915
+INFO 2026-01-06 23:38:02,607 basehttp 15760 16612 "GET /static/css/dist/styles.css?v=1767722882 HTTP/1.1" 200 33131
+INFO 2026-01-06 23:44:03,023 basehttp 15760 43048 "GET /admin/schools/edcecea9-a918-4494-b9c0-adee97790e9a/classes/ HTTP/1.1" 200 21435
+INFO 2026-01-06 23:44:03,067 basehttp 15760 43048 "GET /static/css/dist/styles.css?v=1767723242 HTTP/1.1" 200 33131
+WARNING 2026-01-06 23:44:06,130 mixins 15760 43048 Slow function: api_dashboard_stats took 2.21s
+INFO 2026-01-06 23:44:06,132 basehttp 15760 43048 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-06 23:44:07,482 mixins 15760 2120 Slow function: admin_curriculum_sessions_list took 1.60s
+INFO 2026-01-06 23:44:07,483 basehttp 15760 2120 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+WARNING 2026-01-06 23:44:11,996 mixins 15760 39440 Slow function: schools took 5.93s
+INFO 2026-01-06 23:44:11,998 basehttp 15760 39440 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-07 00:29:17,283 basehttp 15760 31496 "GET /admin/schools/edcecea9-a918-4494-b9c0-adee97790e9a/classes/add/ HTTP/1.1" 302 0
+WARNING 2026-01-07 00:29:17,324 log 15760 31496 Not Found: /accounts/login/
+WARNING 2026-01-07 00:29:17,325 basehttp 15760 31496 "GET /accounts/login/?next=/admin/schools/edcecea9-a918-4494-b9c0-adee97790e9a/classes/add/ HTTP/1.1" 404 34759
+INFO 2026-01-07 00:29:20,805 basehttp 15760 31496 "GET /admin/schools/edcecea9-a918-4494-b9c0-adee97790e9a/ HTTP/1.1" 302 0
+WARNING 2026-01-07 00:29:20,823 log 15760 31496 Not Found: /accounts/login/
+WARNING 2026-01-07 00:29:20,825 basehttp 15760 31496 "GET /accounts/login/?next=/admin/schools/edcecea9-a918-4494-b9c0-adee97790e9a/ HTTP/1.1" 404 34747
+INFO 2026-01-07 00:29:31,484 autoreload 2792 32020 Watching for file changes with StatReloader
+INFO 2026-01-07 00:29:40,596 basehttp 2792 36228 "GET /admin/schools/ HTTP/1.1" 302 0
+WARNING 2026-01-07 00:29:40,626 log 2792 36228 Not Found: /accounts/login/
+WARNING 2026-01-07 00:29:40,627 basehttp 2792 36228 "GET /accounts/login/?next=/admin/schools/ HTTP/1.1" 404 34710
+WARNING 2026-01-07 00:29:42,670 log 2792 36228 Not Found: /accounts/login/
+WARNING 2026-01-07 00:29:42,671 basehttp 2792 36228 "GET /accounts/login/?next=/admin/schools/ HTTP/1.1" 404 34710
+INFO 2026-01-07 00:29:44,613 basehttp 2792 36228 "GET /admin/users/ HTTP/1.1" 302 0
+WARNING 2026-01-07 00:29:44,634 log 2792 36228 Not Found: /accounts/login/
+WARNING 2026-01-07 00:29:44,637 basehttp 2792 36228 "GET /accounts/login/?next=/admin/users/ HTTP/1.1" 404 34708
+INFO 2026-01-07 00:29:44,743 basehttp 2792 36228 "GET /admin/dashboard/ HTTP/1.1" 302 0
+WARNING 2026-01-07 00:29:44,766 log 2792 36228 Not Found: /accounts/login/
+WARNING 2026-01-07 00:29:44,767 basehttp 2792 36228 "GET /accounts/login/?next=/admin/dashboard/ HTTP/1.1" 404 34712
+INFO 2026-01-07 00:29:44,969 basehttp 2792 36228 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-07 00:29:56,221 basehttp 2792 36228 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 00:29:59,581 basehttp 2792 36228 "GET /admin/dashboard/ HTTP/1.1" 200 36422
+INFO 2026-01-07 00:29:59,627 basehttp 2792 36228 "GET /static/css/dist/styles.css?v=1767725999 HTTP/1.1" 200 33131
+WARNING 2026-01-07 00:30:02,189 mixins 2792 36228 Slow function: api_dashboard_stats took 1.91s
+INFO 2026-01-07 00:30:02,192 basehttp 2792 36228 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-07 00:30:03,755 mixins 2792 33752 Slow function: admin_curriculum_sessions_list took 1.57s
+INFO 2026-01-07 00:30:03,757 basehttp 2792 33752 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+WARNING 2026-01-07 00:30:07,195 mixins 2792 44564 Slow function: schools took 5.01s
+INFO 2026-01-07 00:30:07,197 basehttp 2792 44564 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-07 00:33:40,203 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726003 HTTP/1.1" 200 33131
+INFO 2026-01-07 00:33:48,775 basehttp 2792 44564 "GET /admin/schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/ HTTP/1.1" 200 28523
+INFO 2026-01-07 00:33:48,808 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726228 HTTP/1.1" 200 33131
+INFO 2026-01-07 00:33:55,432 basehttp 2792 44564 "GET /admin/schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/classes/ HTTP/1.1" 200 21428
+INFO 2026-01-07 00:33:55,466 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726234 HTTP/1.1" 200 33131
+INFO 2026-01-07 00:33:59,008 basehttp 2792 44564 "GET /admin/schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/classes/add/ HTTP/1.1" 200 16930
+INFO 2026-01-07 00:33:59,039 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726239 HTTP/1.1" 200 33131
+INFO 2026-01-07 00:34:23,452 basehttp 2792 44564 "POST /admin/schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/classes/add/ HTTP/1.1" 200 17147
+INFO 2026-01-07 00:34:23,472 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726263 HTTP/1.1" 200 33131
+INFO 2026-01-07 00:34:37,724 signals 2792 44564 Auto-generating sessions for new class: kvs school - 2A (2024-2025)
+INFO 2026-01-07 00:34:44,790 session_management 2792 44564 Generated 150 sessions for kvs school - 2A (2024-2025)
+INFO 2026-01-07 00:34:45,097 signals 2792 44564 Successfully auto-generated 150 sessions for kvs school - 2A (2024-2025)
+INFO 2026-01-07 00:34:46,037 basehttp 2792 44564 "POST /admin/schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/classes/add/ HTTP/1.1" 302 0
+INFO 2026-01-07 00:34:48,993 basehttp 2792 44564 "GET /admin/schools/1fadd26b-ea53-48ca-b38a-993f1482aaff/classes/ HTTP/1.1" 200 26241
+INFO 2026-01-07 00:34:49,022 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726287 HTTP/1.1" 200 33131
+INFO 2026-01-07 00:35:13,107 basehttp 2792 44564 "GET /admin/attendance/ HTTP/1.1" 200 17847
+INFO 2026-01-07 00:35:13,136 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726312 HTTP/1.1" 200 33131
+WARNING 2026-01-07 00:35:15,859 mixins 2792 44564 Slow function: api_dashboard_stats took 2.12s
+INFO 2026-01-07 00:35:15,861 basehttp 2792 44564 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-07 00:35:18,363 mixins 2792 30904 Slow function: admin_curriculum_sessions_list took 1.83s
+INFO 2026-01-07 00:35:18,364 basehttp 2792 30904 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+WARNING 2026-01-07 00:35:24,787 mixins 2792 17112 Slow function: schools took 7.16s
+INFO 2026-01-07 00:35:24,788 basehttp 2792 30904 - Broken pipe from ('127.0.0.1', 50461)
+INFO 2026-01-07 00:35:24,790 basehttp 2792 17112 "GET /admin/schools/ HTTP/1.1" 200 37353
+INFO 2026-01-07 00:35:26,470 basehttp 2792 44564 "GET /admin/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 24596
+INFO 2026-01-07 00:35:26,495 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726325 HTTP/1.1" 200 33131
+INFO 2026-01-07 00:36:27,553 basehttp 2792 44564 "GET /admin/sessions/ HTTP/1.1" 200 27379
+INFO 2026-01-07 00:36:27,582 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726387 HTTP/1.1" 200 33131
+INFO 2026-01-07 00:36:28,952 basehttp 2792 44564 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 36408
+WARNING 2026-01-07 00:36:32,788 mixins 2792 44564 Slow function: ajax_school_classes_admin took 1.09s
+INFO 2026-01-07 00:36:32,789 basehttp 2792 44564 "GET /api/school-classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 418
+WARNING 2026-01-07 00:38:11,091 mixins 2792 44564 Slow function: sessions_view took 5.78s
+INFO 2026-01-07 00:38:11,093 basehttp 2792 44564 "GET /admin/classes/64546ee9-82bf-488e-9a38-0d06bbf9f706/sessions/ HTTP/1.1" 200 56323
+INFO 2026-01-07 00:38:11,118 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726490 HTTP/1.1" 200 33131
+WARNING 2026-01-07 00:41:12,897 mixins 2792 44564 Slow function: admin_curriculum_sessions_list took 1.62s
+INFO 2026-01-07 00:41:12,899 basehttp 2792 44564 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34695
+INFO 2026-01-07 00:41:12,937 basehttp 2792 44564 "GET /static/css/dist/styles.css?v=1767726672 HTTP/1.1" 200 33131
+INFO 2026-01-07 00:41:14,602 curriculum_content_resolver 2792 44564 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-07 00:41:16,201 curriculum_content_resolver 2792 44564 Found 5251 rows in curriculum table
+INFO 2026-01-07 00:41:16,202 curriculum_content_resolver 2792 44564 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-07 00:41:16,206 curriculum_content_resolver 2792 44564 Found next day boundary at row 36, day 2
+INFO 2026-01-07 00:41:16,206 curriculum_content_resolver 2792 44564 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-07 00:41:16,213 curriculum_content_resolver 2792 44564 Loaded static fallback content for Day 1 english
+INFO 2026-01-07 00:41:17,314 basehttp 2792 44564 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14551
+WARNING 2026-01-07 00:41:17,337 log 2792 44564 Not Found: /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-07 00:41:17,338 basehttp 2792 44564 "GET /admin/curriculum-sessions/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34827
+WARNING 2026-01-07 00:41:23,965 mixins 2792 18224 Slow function: api_dashboard_stats took 2.57s
+INFO 2026-01-07 00:41:23,966 basehttp 2792 18224 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+ERROR 2026-01-07 00:42:30,839 log 2792 18224 Internal Server Error: /logout/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 57, in _view_wrapper
+    test_pass = test_func(request.user)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 80, in <lambda>
+    lambda u: u.is_authenticated,
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: could not translate host name "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" to address: Name or service not known
+
+ERROR 2026-01-07 00:42:30,893 basehttp 2792 18224 "GET /logout/ HTTP/1.1" 500 210272
+ERROR 2026-01-07 00:44:28,883 log 2792 25152 Internal Server Error: /admin/schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: SSL SYSCALL error: EOF detected
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 57, in _view_wrapper
+    test_pass = test_func(request.user)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 80, in <lambda>
+    lambda u: u.is_authenticated,
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: SSL SYSCALL error: EOF detected
+
+INFO 2026-01-07 00:44:28,894 basehttp 2792 25152 - Broken pipe from ('127.0.0.1', 59918)
+INFO 2026-01-07 00:45:53,408 autoreload 45568 12988 Watching for file changes with StatReloader
+INFO 2026-01-07 00:46:36,540 basehttp 45568 46152 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 00:46:36,555 basehttp 45568 46152 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-07 00:47:06,956 basehttp 45568 46152 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 00:47:17,912 basehttp 45568 46152 "GET /facilitator/dashboard/ HTTP/1.1" 200 23849
+INFO 2026-01-07 00:47:17,980 basehttp 45568 46152 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+WARNING 2026-01-07 00:47:18,230 basehttp 45568 46152 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-07 00:54:03,393 basehttp 45568 3952 - Broken pipe from ('127.0.0.1', 49344)
+INFO 2026-01-07 00:54:03,393 basehttp 45568 32936 "GET /facilitator/my-schools/ HTTP/1.1" 200 9699
+INFO 2026-01-07 00:54:03,795 basehttp 45568 29376 - Broken pipe from ('127.0.0.1', 58602)
+INFO 2026-01-07 00:54:03,795 basehttp 45568 28564 - Broken pipe from ('127.0.0.1', 55521)
+ERROR 2026-01-07 00:54:06,788 log 45568 45728 Internal Server Error: /facilitator/my-schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 138, in dispatch
+    if not request.user.is_authenticated:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+ERROR 2026-01-07 00:54:06,788 log 45568 18404 Internal Server Error: /facilitator/my-schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 138, in dispatch
+    if not request.user.is_authenticated:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+INFO 2026-01-07 00:54:06,806 basehttp 45568 45728 - Broken pipe from ('127.0.0.1', 61205)
+INFO 2026-01-07 00:54:06,811 basehttp 45568 18404 - Broken pipe from ('127.0.0.1', 59536)
+ERROR 2026-01-07 00:54:07,610 log 45568 25212 Internal Server Error: /facilitator/my-schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 138, in dispatch
+    if not request.user.is_authenticated:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+INFO 2026-01-07 00:54:07,619 basehttp 45568 25212 - Broken pipe from ('127.0.0.1', 49914)
+ERROR 2026-01-07 00:54:08,457 log 45568 11668 Internal Server Error: /facilitator/my-schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 138, in dispatch
+    if not request.user.is_authenticated:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+INFO 2026-01-07 00:54:08,465 basehttp 45568 11668 - Broken pipe from ('127.0.0.1', 55615)
+INFO 2026-01-07 00:55:45,626 autoreload 23460 42040 Watching for file changes with StatReloader
+INFO 2026-01-07 00:57:35,047 basehttp 23460 30652 "GET /facilitator/students/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 26468
+INFO 2026-01-07 00:58:44,749 basehttp 23460 30652 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+INFO 2026-01-07 01:00:42,534 session_management 23460 30652 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-07 01:00:45,298 session_management 23460 30652 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-07 01:00:45,298 session_management 23460 30652 Progress metrics for kvs school - 1A (2024-2025): 0.0% complete
+INFO 2026-01-07 01:00:46,425 basehttp 23460 30652 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/ HTTP/1.1" 200 70596
+INFO 2026-01-07 01:00:47,843 curriculum_content_resolver 23460 30652 Successfully loaded static file for english, extracting Day 1 content
+WARNING 2026-01-07 01:00:49,006 log 23460 33788 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-07 01:00:49,034 basehttp 23460 33788 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+INFO 2026-01-07 01:00:49,388 curriculum_content_resolver 23460 30652 Found 5251 rows in curriculum table
+INFO 2026-01-07 01:00:49,389 curriculum_content_resolver 23460 30652 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-07 01:00:49,392 curriculum_content_resolver 23460 30652 Found next day boundary at row 36, day 2
+INFO 2026-01-07 01:00:49,393 curriculum_content_resolver 23460 30652 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-07 01:00:49,399 curriculum_content_resolver 23460 30652 Loaded static fallback content for Day 1 english
+WARNING 2026-01-07 01:00:49,598 log 23460 33788 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-07 01:00:49,599 basehttp 23460 33788 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+INFO 2026-01-07 01:00:49,680 basehttp 23460 30652 "GET /api/curriculum/content/?day=1&language=english&class_section_id=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 14551
+WARNING 2026-01-07 01:00:49,702 log 23460 30652 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-07 01:00:49,703 basehttp 23460 30652 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34932
+WARNING 2026-01-07 01:02:43,639 log 23460 33788 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-07 01:02:43,641 basehttp 23460 33788 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34932
+WARNING 2026-01-07 01:02:44,134 log 23460 30652 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-07 01:02:44,135 basehttp 23460 30652 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+WARNING 2026-01-07 01:02:44,668 log 23460 30652 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-07 01:02:44,669 basehttp 23460 30652 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+WARNING 2026-01-07 01:02:45,569 log 23460 33788 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-07 01:02:45,570 basehttp 23460 33788 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34932
+WARNING 2026-01-07 01:02:46,043 log 23460 30652 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-07 01:02:46,044 basehttp 23460 30652 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+WARNING 2026-01-07 01:02:46,583 log 23460 30652 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-07 01:02:46,584 basehttp 23460 30652 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+WARNING 2026-01-07 01:02:47,374 log 23460 33788 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-07 01:02:47,375 basehttp 23460 33788 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34932
+WARNING 2026-01-07 01:02:47,889 log 23460 30652 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-07 01:02:47,890 basehttp 23460 30652 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+WARNING 2026-01-07 01:02:48,428 log 23460 30652 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-07 01:02:48,429 basehttp 23460 30652 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+INFO 2026-01-07 01:08:05,219 basehttp 23460 47444 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 128
+INFO 2026-01-07 01:08:05,908 basehttp 23460 18396 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-07 01:08:06,189 basehttp 23460 38908 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 01:08:07,455 basehttp 23460 16552 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 01:08:07,716 basehttp 23460 31872 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-07 01:08:08,697 basehttp 23460 18396 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 01:08:09,298 basehttp 23460 10164 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 01:08:17,098 basehttp 23460 10164 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-07 01:09:31,238 basehttp 23460 10164 "GET /facilitator/attendance/ HTTP/1.1" 200 10015
+INFO 2026-01-07 01:09:35,540 basehttp 23460 10164 "GET /api/facilitator/classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 181
+INFO 2026-01-07 01:09:42,080 basehttp 23460 10164 - Broken pipe from ('127.0.0.1', 55235)
+INFO 2026-01-07 01:09:43,321 basehttp 23460 18396 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 13056
+INFO 2026-01-07 01:15:05,790 basehttp 23460 32736 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 13190
+INFO 2026-01-07 01:15:12,838 basehttp 23460 32736 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/student/7148cd21-7224-4af8-9e41-aa0f8627f05a/ HTTP/1.1" 200 15997
+INFO 2026-01-07 01:15:25,447 basehttp 23460 32736 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/student/d4332521-d022-4265-b0c0-828b565b86e2/ HTTP/1.1" 200 15993
+INFO 2026-01-07 01:17:16,561 autoreload 23460 42040 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 01:17:18,400 autoreload 31304 27736 Watching for file changes with StatReloader
+INFO 2026-01-07 01:18:32,647 basehttp 31304 24372 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 17570
+INFO 2026-01-07 01:18:38,782 basehttp 31304 24372 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=today&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 13621
+INFO 2026-01-07 01:21:28,568 basehttp 31304 24372 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=today&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 13621
+INFO 2026-01-07 01:21:30,056 basehttp 31304 24372 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=today&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 13621
+INFO 2026-01-07 01:21:45,769 basehttp 31304 24372 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=all&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 14949
+INFO 2026-01-07 01:21:54,579 basehttp 31304 24372 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=today&start_date=&end_date= HTTP/1.1" 200 14949
+INFO 2026-01-07 01:22:36,840 autoreload 27476 45912 Watching for file changes with StatReloader
+INFO 2026-01-07 01:23:05,892 basehttp 27476 36080 "GET /facilitator/dashboard/ HTTP/1.1" 200 23849
+INFO 2026-01-07 01:23:12,310 basehttp 27476 36080 "GET /facilitator/attendance/ HTTP/1.1" 200 18276
+INFO 2026-01-07 01:24:58,650 basehttp 27476 36080 "GET /facilitator/my-schools/ HTTP/1.1" 200 9699
+INFO 2026-01-07 01:25:10,692 basehttp 27476 36080 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 01:25:10,701 basehttp 27476 36080 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-07 01:25:36,666 autoreload 27476 45912 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 01:25:38,561 autoreload 38032 12624 Watching for file changes with StatReloader
+INFO 2026-01-07 01:27:07,823 basehttp 38032 2608 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 01:27:18,064 basehttp 38032 2608 "GET /facilitator/dashboard/ HTTP/1.1" 200 23849
+INFO 2026-01-07 01:27:36,997 basehttp 38032 2608 "GET /facilitator/attendance/ HTTP/1.1" 200 22226
+INFO 2026-01-07 01:27:45,405 basehttp 38032 2608 "GET /api/facilitator/classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 181
+INFO 2026-01-07 01:27:54,624 basehttp 38032 2608 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=all&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 27754
+INFO 2026-01-07 01:27:59,227 basehttp 38032 2608 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=all&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 22543
+INFO 2026-01-07 01:28:05,452 basehttp 38032 2608 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=last_week&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 22543
+INFO 2026-01-07 01:28:12,597 basehttp 38032 2608 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=today&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 22543
+INFO 2026-01-07 01:28:21,452 basehttp 38032 2608 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=today&load_classes=1&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 22543
+INFO 2026-01-07 01:31:28,022 autoreload 18964 45572 Watching for file changes with StatReloader
+INFO 2026-01-07 01:31:38,615 basehttp 18964 416 "GET /facilitator/my-schools/ HTTP/1.1" 200 9699
+INFO 2026-01-07 01:32:16,825 basehttp 18964 416 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=all&load_classes=1&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 20208
+WARNING 2026-01-07 01:32:25,447 log 18964 416 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:32:25,448 basehttp 18964 416 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+WARNING 2026-01-07 01:32:31,832 log 18964 416 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:32:31,835 basehttp 18964 416 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+WARNING 2026-01-07 01:32:32,150 log 18964 416 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:32:32,151 basehttp 18964 416 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+WARNING 2026-01-07 01:32:32,398 log 18964 416 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:32:32,399 basehttp 18964 416 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+WARNING 2026-01-07 01:32:47,253 log 18964 416 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:32:47,256 basehttp 18964 416 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:32:57,719 basehttp 18964 416 "GET /api/facilitator/classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 181
+INFO 2026-01-07 01:34:21,371 autoreload 18964 45572 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 01:34:22,792 autoreload 12988 23708 Watching for file changes with StatReloader
+INFO 2026-01-07 01:34:48,061 basehttp 12988 22752 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 01:34:48,074 basehttp 12988 22752 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-07 01:35:18,883 basehttp 12988 22752 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 01:35:29,288 basehttp 12988 22752 "GET /facilitator/dashboard/ HTTP/1.1" 200 23849
+INFO 2026-01-07 01:36:18,012 basehttp 12988 22752 "GET /facilitator/attendance/ HTTP/1.1" 200 21153
+INFO 2026-01-07 01:36:24,380 basehttp 12988 22752 "GET /api/facilitator/classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 414
+INFO 2026-01-07 01:36:32,677 basehttp 12988 22752 - Broken pipe from ('127.0.0.1', 56339)
+ERROR 2026-01-07 01:36:45,412 log 12988 1744 Internal Server Error: /facilitator/attendance/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 1410, in facilitator_attendance
+    sessions_query = sessions_query.filter(**date_filter)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'actual_session' into field. Choices are: attendance_marked, attendances, can_be_rescheduled, cancellation_category, cancellation_reason, conducted_at, created_at, date, duration_minutes, facilitator, facilitator_id, feedback, feedback_analytics, id, is_permanent_cancellation, planned_session, planned_session_id, remarks, rewards, status, status_change_reason, status_changed_by, status_changed_by_id, student_feedback, teacher_feedback
+INFO 2026-01-07 01:36:45,426 basehttp 12988 1744 - Broken pipe from ('127.0.0.1', 58680)
+ERROR 2026-01-07 01:36:46,625 log 12988 47364 Internal Server Error: /facilitator/attendance/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 1410, in facilitator_attendance
+    sessions_query = sessions_query.filter(**date_filter)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'actual_session' into field. Choices are: attendance_marked, attendances, can_be_rescheduled, cancellation_category, cancellation_reason, conducted_at, created_at, date, duration_minutes, facilitator, facilitator_id, feedback, feedback_analytics, id, is_permanent_cancellation, planned_session, planned_session_id, remarks, rewards, status, status_change_reason, status_changed_by, status_changed_by_id, student_feedback, teacher_feedback
+ERROR 2026-01-07 01:36:46,631 basehttp 12988 47364 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=today&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 500 128744
+WARNING 2026-01-07 01:36:46,981 log 12988 47364 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:36:46,983 basehttp 12988 47364 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:39:21,759 autoreload 12988 23708 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 01:39:22,976 autoreload 34016 27584 Watching for file changes with StatReloader
+INFO 2026-01-07 01:39:35,947 autoreload 34016 27584 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 01:39:37,512 autoreload 3108 46472 Watching for file changes with StatReloader
+INFO 2026-01-07 01:39:43,962 autoreload 3108 46472 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 01:39:45,724 autoreload 26816 16588 Watching for file changes with StatReloader
+INFO 2026-01-07 01:39:56,654 autoreload 26816 16588 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 01:39:58,154 autoreload 39020 20444 Watching for file changes with StatReloader
+INFO 2026-01-07 01:40:03,922 autoreload 39020 20444 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 01:40:05,788 autoreload 15376 30692 Watching for file changes with StatReloader
+INFO 2026-01-07 01:40:16,368 autoreload 15376 30692 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 01:40:17,738 autoreload 14476 46832 Watching for file changes with StatReloader
+INFO 2026-01-07 01:41:07,939 basehttp 14476 32736 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=today&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 27285
+INFO 2026-01-07 01:41:17,560 basehttp 14476 32736 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=this_week&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 21478
+INFO 2026-01-07 01:41:34,762 basehttp 14476 32736 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&period=today&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 21478
+INFO 2026-01-07 01:45:21,054 basehttp 14476 12912 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 01:45:21,062 basehttp 14476 12912 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-07 01:45:49,642 basehttp 14476 12912 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 01:46:01,520 basehttp 14476 12912 "GET /facilitator/dashboard/ HTTP/1.1" 200 23849
+INFO 2026-01-07 01:46:09,201 basehttp 14476 12912 "GET /facilitator/attendance/ HTTP/1.1" 200 21772
+INFO 2026-01-07 01:46:29,697 autoreload 3064 33820 Watching for file changes with StatReloader
+INFO 2026-01-07 01:46:41,111 basehttp 3064 11192 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 01:46:41,122 basehttp 3064 11192 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-07 01:47:03,064 basehttp 3064 11192 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 01:47:13,343 basehttp 3064 11192 "GET /facilitator/dashboard/ HTTP/1.1" 200 23849
+INFO 2026-01-07 01:47:17,811 basehttp 3064 11192 "GET /facilitator/attendance/ HTTP/1.1" 200 21772
+WARNING 2026-01-07 01:47:34,918 log 3064 11192 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:47:34,919 basehttp 3064 11192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:48:35,021 basehttp 3064 11192 "GET /facilitator/attendance/ HTTP/1.1" 200 22254
+WARNING 2026-01-07 01:48:35,089 log 3064 11192 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:48:35,091 basehttp 3064 11192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+WARNING 2026-01-07 01:49:06,226 log 3064 11192 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:49:06,227 basehttp 3064 11192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+WARNING 2026-01-07 01:49:08,338 log 3064 11192 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:49:08,339 basehttp 3064 11192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:49:21,307 basehttp 3064 11192 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 01:49:21,322 basehttp 3064 11192 "GET / HTTP/1.1" 200 2258
+WARNING 2026-01-07 01:49:21,395 log 3064 11192 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:49:21,397 basehttp 3064 11192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:49:42,431 basehttp 3064 11192 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 01:49:52,437 basehttp 3064 11192 "GET /facilitator/dashboard/ HTTP/1.1" 200 23849
+WARNING 2026-01-07 01:49:52,513 log 3064 11192 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:49:52,514 basehttp 3064 11192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:50:00,117 basehttp 3064 11192 "GET /facilitator/attendance/ HTTP/1.1" 200 22687
+WARNING 2026-01-07 01:50:00,199 log 3064 11192 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:50:00,200 basehttp 3064 11192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+WARNING 2026-01-07 01:50:37,841 log 3064 11192 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:50:37,843 basehttp 3064 11192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+WARNING 2026-01-07 01:51:52,084 log 3064 11192 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:51:52,088 basehttp 3064 11192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+WARNING 2026-01-07 01:51:55,837 log 3064 11192 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:51:55,838 basehttp 3064 11192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:52:10,556 autoreload 29140 20608 Watching for file changes with StatReloader
+INFO 2026-01-07 01:52:27,344 basehttp 29140 25460 "GET /facilitator/dashboard/ HTTP/1.1" 200 23849
+WARNING 2026-01-07 01:52:27,409 log 29140 25460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:52:27,410 basehttp 29140 25460 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+WARNING 2026-01-07 01:52:32,330 log 29140 25460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:52:32,332 basehttp 29140 25460 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:53:03,209 basehttp 29140 25460 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 01:53:03,218 basehttp 29140 25460 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-07 01:53:21,236 basehttp 29140 25460 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 01:53:31,449 basehttp 29140 25460 "GET /facilitator/dashboard/ HTTP/1.1" 200 23849
+WARNING 2026-01-07 01:53:31,539 log 29140 25460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:53:31,543 basehttp 29140 25460 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:53:37,007 basehttp 29140 25460 "GET /facilitator/attendance/ HTTP/1.1" 200 22418
+WARNING 2026-01-07 01:53:37,085 log 29140 25460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:53:37,087 basehttp 29140 25460 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:53:42,536 basehttp 29140 25460 "GET /api/facilitator/classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 414
+INFO 2026-01-07 01:53:50,526 basehttp 29140 25460 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=all&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 27954
+WARNING 2026-01-07 01:53:50,618 log 29140 25460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:53:50,619 basehttp 29140 25460 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:54:01,688 basehttp 29140 25460 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=this_week&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 28575
+WARNING 2026-01-07 01:54:01,797 log 29140 25460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:54:01,798 basehttp 29140 25460 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:54:20,528 basehttp 29140 25460 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=today&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 28550
+WARNING 2026-01-07 01:54:20,622 log 29140 25460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:54:20,624 basehttp 29140 25460 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:54:26,364 basehttp 29140 25460 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+WARNING 2026-01-07 01:54:26,445 log 29140 25460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:54:26,447 basehttp 29140 25460 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:54:31,381 session_management 29140 25460 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-07 01:54:34,146 session_management 29140 25460 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-07 01:54:34,146 session_management 29140 25460 Progress metrics for kvs school - 1A (2024-2025): 0.0% complete
+INFO 2026-01-07 01:54:35,073 basehttp 29140 25460 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/ HTTP/1.1" 200 70654
+WARNING 2026-01-07 01:54:35,158 log 29140 25460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 01:54:35,160 basehttp 29140 25460 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 01:54:36,813 curriculum_content_resolver 29140 25460 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-07 01:54:38,135 curriculum_content_resolver 29140 25460 Found 5251 rows in curriculum table
+INFO 2026-01-07 01:54:38,136 curriculum_content_resolver 29140 25460 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-07 01:54:38,138 curriculum_content_resolver 29140 25460 Found next day boundary at row 36, day 2
+INFO 2026-01-07 01:54:38,138 curriculum_content_resolver 29140 25460 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-07 01:54:38,142 curriculum_content_resolver 29140 25460 Loaded static fallback content for Day 1 english
+WARNING 2026-01-07 01:54:38,151 log 29140 30028 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-07 01:54:38,152 basehttp 29140 30028 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+INFO 2026-01-07 01:54:38,551 basehttp 29140 25460 "GET /api/curriculum/content/?day=1&language=english&class_section_id=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 14551
+WARNING 2026-01-07 01:54:38,570 log 29140 25460 Not Found: /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg
+WARNING 2026-01-07 01:54:38,571 basehttp 29140 25460 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/resources/cellImage_600347483_0.jpg HTTP/1.1" 404 34932
+WARNING 2026-01-07 01:54:38,855 log 29140 30028 Bad Request: /api/get-feedback-status/
+WARNING 2026-01-07 01:54:38,856 basehttp 29140 30028 "GET /api/get-feedback-status/?session_id= HTTP/1.1" 400 50
+INFO 2026-01-07 02:00:43,717 autoreload 29140 20608 C:\Users\piyus\CLAS\CLAS\class\services\curriculum_content_resolver.py changed, reloading.
+INFO 2026-01-07 02:00:45,304 autoreload 45428 20436 Watching for file changes with StatReloader
+INFO 2026-01-07 02:02:12,222 autoreload 10196 39568 Watching for file changes with StatReloader
+INFO 2026-01-07 02:02:26,022 session_management 10196 38140 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-07 02:02:28,781 session_management 10196 38140 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-07 02:02:28,781 session_management 10196 38140 Progress metrics for kvs school - 1A (2024-2025): 0.0% complete
+INFO 2026-01-07 02:02:29,797 basehttp 10196 38140 - Broken pipe from ('127.0.0.1', 58016)
+INFO 2026-01-07 02:02:30,217 session_management 10196 42596 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-07 02:02:33,655 session_management 10196 42596 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-07 02:02:33,656 session_management 10196 42596 Progress metrics for kvs school - 1A (2024-2025): 0.0% complete
+INFO 2026-01-07 02:02:34,620 basehttp 10196 42596 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/ HTTP/1.1" 200 71316
+WARNING 2026-01-07 02:02:34,678 log 10196 42596 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:02:34,680 basehttp 10196 42596 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 02:02:36,568 curriculum_content_resolver 10196 42596 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-07 02:02:37,839 curriculum_content_resolver 10196 42596 Found 5251 rows in curriculum table
+INFO 2026-01-07 02:02:37,840 curriculum_content_resolver 10196 42596 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-07 02:02:37,842 curriculum_content_resolver 10196 42596 Found next day boundary at row 36, day 2
+INFO 2026-01-07 02:02:37,843 curriculum_content_resolver 10196 42596 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-07 02:02:37,847 curriculum_content_resolver 10196 42596 Fixed image and resource paths in curriculum content
+INFO 2026-01-07 02:02:37,848 curriculum_content_resolver 10196 42596 Loaded static fallback content for Day 1 english
+INFO 2026-01-07 02:02:38,459 basehttp 10196 42596 "GET /api/curriculum/content/?day=1&language=english&class_section_id=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 14543
+INFO 2026-01-07 02:03:06,022 basehttp 10196 42596 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+WARNING 2026-01-07 02:03:06,095 log 10196 42596 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:03:06,097 basehttp 10196 42596 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 02:03:10,869 session_management 10196 42596 Next pending session for kvs school - 2A (2024-2025): Day 1
+INFO 2026-01-07 02:03:16,399 session_management 10196 42596 Next pending session for kvs school - 2A (2024-2025): Day 1
+INFO 2026-01-07 02:03:16,399 session_management 10196 42596 Progress metrics for kvs school - 2A (2024-2025): 0.0% complete
+INFO 2026-01-07 02:03:17,528 basehttp 10196 42596 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 71271
+WARNING 2026-01-07 02:03:17,612 log 10196 42596 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:03:17,614 basehttp 10196 42596 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 02:03:20,053 basehttp 10196 42596 "GET /api/curriculum/content/?day=1&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14543
+INFO 2026-01-07 02:03:29,609 basehttp 10196 42596 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 128
+INFO 2026-01-07 02:03:31,966 basehttp 10196 18436 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 02:03:32,880 basehttp 10196 42596 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 02:03:33,833 basehttp 10196 23064 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-07 02:03:35,706 basehttp 10196 18436 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-07 02:03:36,336 basehttp 10196 38908 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+ERROR 2026-01-07 02:03:59,307 views 10196 38908 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (d600edad-d58c-4986-98c7-ccf357191c4d, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:33:58.064127+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:03:59,308 log 10196 38908 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:03:59,309 basehttp 10196 38908 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:04:01,821 views 10196 18436 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (60fd7324-04c7-44df-a014-59acde00aa47, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:34:00.732156+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:04:01,823 log 10196 18436 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:04:01,824 basehttp 10196 18436 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:04:08,624 views 10196 18436 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (94199331-1768-41d7-bf13-52866b3b5961, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:34:07.395429+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:04:08,625 log 10196 18436 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:04:08,626 basehttp 10196 18436 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:04:13,743 views 10196 18436 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (8ef5fe6a-619f-40ca-abab-35de020b22a9, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:34:12.178975+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:04:13,743 log 10196 18436 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:04:13,744 basehttp 10196 18436 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:04:30,404 views 10196 18436 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:30,406 log 10196 18436 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:30,407 basehttp 10196 18436 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:32,382 views 10196 18436 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:32,382 log 10196 18436 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:32,383 basehttp 10196 18436 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:33,210 views 10196 18436 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:33,211 log 10196 18436 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:33,212 basehttp 10196 18436 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:33,508 views 10196 38908 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:33,509 log 10196 38908 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:33,510 basehttp 10196 38908 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:33,816 views 10196 23064 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:33,817 log 10196 23064 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:33,818 basehttp 10196 23064 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:34,020 views 10196 18436 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:34,021 log 10196 18436 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:34,022 basehttp 10196 18436 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:35,111 views 10196 18436 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:35,112 log 10196 18436 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:35,112 basehttp 10196 18436 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:35,361 views 10196 23064 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:35,362 log 10196 23064 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:35,362 basehttp 10196 23064 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:35,431 views 10196 38908 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:35,431 log 10196 38908 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:35,433 basehttp 10196 38908 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:35,658 views 10196 42596 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:35,659 log 10196 42596 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:35,660 basehttp 10196 42596 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:35,947 views 10196 18436 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:35,948 log 10196 18436 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:35,948 basehttp 10196 18436 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:36,171 views 10196 38908 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:36,172 log 10196 38908 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:36,173 basehttp 10196 38908 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:36,375 views 10196 42596 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:36,376 log 10196 42596 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:36,377 basehttp 10196 42596 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:36,697 views 10196 18436 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:36,698 log 10196 18436 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:36,699 basehttp 10196 18436 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:04:42,008 views 10196 18436 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:04:42,009 log 10196 18436 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:04:42,010 basehttp 10196 18436 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:05:14,627 views 10196 18436 Error saving teacher feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:05:14,628 log 10196 18436 Internal Server Error: /api/save-teacher-feedback/
+ERROR 2026-01-07 02:05:14,629 basehttp 10196 18436 "POST /api/save-teacher-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:05:17,238 views 10196 18436 Error saving teacher feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:05:17,238 log 10196 18436 Internal Server Error: /api/save-teacher-feedback/
+ERROR 2026-01-07 02:05:17,239 basehttp 10196 18436 "POST /api/save-teacher-feedback/ HTTP/1.1" 500 62
+INFO 2026-01-07 02:05:28,695 session_management 10196 18436 Session conducted: kvs school - 2A (2024-2025) - Day 1 by aryan6@gmail.com (Facilitator)
+INFO 2026-01-07 02:05:30,340 basehttp 10196 18436 "POST /facilitator/session/start/f505aa91-4854-4e20-95d2-bac6e1cff8fb/ HTTP/1.1" 302 0
+INFO 2026-01-07 02:05:33,181 basehttp 10196 18436 "GET /facilitator/session/e5fae2c9-23d7-4337-9ac4-d356f9322de2/attendance/ HTTP/1.1" 200 15767
+WARNING 2026-01-07 02:05:33,303 log 10196 18436 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:05:33,305 basehttp 10196 18436 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 02:05:53,690 basehttp 10196 18436 "POST /facilitator/session/e5fae2c9-23d7-4337-9ac4-d356f9322de2/attendance/ HTTP/1.1" 302 0
+INFO 2026-01-07 02:05:55,737 session_management 10196 18436 Found today's session for kvs school - 2A (2024-2025): Day 1 (Status: conducted)
+INFO 2026-01-07 02:05:58,297 session_management 10196 18436 Found today's session for kvs school - 2A (2024-2025): Day 1 (Status: conducted)
+INFO 2026-01-07 02:05:58,297 session_management 10196 18436 Progress metrics for kvs school - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-07 02:05:59,667 basehttp 10196 18436 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 68494
+WARNING 2026-01-07 02:05:59,779 log 10196 18436 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:05:59,780 basehttp 10196 18436 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 02:06:01,678 basehttp 10196 18436 "GET /api/get-feedback-status/?session_id=e5fae2c9-23d7-4337-9ac4-d356f9322de2 HTTP/1.1" 200 111
+INFO 2026-01-07 02:06:01,678 basehttp 10196 42596 "GET /api/curriculum/content/?day=1&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14543
+INFO 2026-01-07 02:06:42,311 basehttp 10196 18436 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-07 02:06:58,716 basehttp 10196 18436 "GET /facilitator/session/e5fae2c9-23d7-4337-9ac4-d356f9322de2/attendance/ HTTP/1.1" 200 15767
+INFO 2026-01-07 02:07:07,723 basehttp 10196 18436 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 71271
+INFO 2026-01-07 02:07:07,810 basehttp 10196 18436 "GET /api/curriculum/content/?day=1&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14543
+INFO 2026-01-07 02:07:12,745 basehttp 10196 18436 "GET /facilitator/attendance/ HTTP/1.1" 200 22418
+INFO 2026-01-07 02:07:18,888 basehttp 10196 18436 "GET /api/facilitator/classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 414
+INFO 2026-01-07 02:07:26,369 basehttp 10196 18436 - Broken pipe from ('127.0.0.1', 64320)
+INFO 2026-01-07 02:07:28,783 basehttp 10196 42596 - Broken pipe from ('127.0.0.1', 49374)
+INFO 2026-01-07 02:07:30,257 basehttp 10196 38908 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=this_week&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 28575
+WARNING 2026-01-07 02:07:47,721 log 10196 38908 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:07:47,722 basehttp 10196 38908 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 02:07:56,264 basehttp 10196 38908 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 128
+INFO 2026-01-07 02:07:57,992 basehttp 10196 23064 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 02:07:59,526 basehttp 10196 38908 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-07 02:08:02,204 basehttp 10196 23064 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 02:08:02,717 basehttp 10196 43104 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 02:08:03,535 basehttp 10196 38908 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-07 02:08:14,185 basehttp 10196 38908 "POST /api/save-session-reward/ HTTP/1.1" 200 122
+INFO 2026-01-07 02:08:16,163 basehttp 10196 43104 "POST /api/save-session-reward/ HTTP/1.1" 200 122
+INFO 2026-01-07 02:08:16,747 basehttp 10196 23064 "POST /api/save-session-reward/ HTTP/1.1" 200 122
+INFO 2026-01-07 02:08:17,055 basehttp 10196 38908 "POST /api/save-session-reward/ HTTP/1.1" 200 122
+INFO 2026-01-07 02:08:18,897 basehttp 10196 34404 "POST /api/save-session-reward/ HTTP/1.1" 200 122
+INFO 2026-01-07 02:08:19,203 basehttp 10196 27280 "POST /api/save-session-reward/ HTTP/1.1" 200 122
+INFO 2026-01-07 02:08:19,408 basehttp 10196 37508 "POST /api/save-session-reward/ HTTP/1.1" 200 122
+ERROR 2026-01-07 02:08:27,060 views 10196 37508 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (6ca1978c-5c4a-4aba-87c8-fcd9bd49ede3, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:38:25.962742+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:08:27,061 log 10196 37508 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:08:27,062 basehttp 10196 37508 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:08:29,785 views 10196 27280 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (141df4ee-7e59-4680-8162-780795bb8426, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:38:28.626496+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:08:29,786 log 10196 27280 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:08:29,787 basehttp 10196 27280 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:08:32,512 views 10196 37508 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (e34ab128-bc25-46ab-81db-59e224b90fa1, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:38:31.286739+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:08:32,514 log 10196 37508 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:08:32,514 basehttp 10196 37508 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:08:34,358 views 10196 27280 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (76a1afc9-40a1-4dbc-a592-35caf6aab128, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:38:33.131218+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:08:34,359 log 10196 27280 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:08:34,360 basehttp 10196 27280 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:08:45,520 views 10196 27280 Error saving student feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:08:45,522 log 10196 27280 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:08:45,523 basehttp 10196 27280 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:09:09,482 views 10196 27280 Error saving teacher feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-07 02:09:09,483 log 10196 27280 Internal Server Error: /api/save-teacher-feedback/
+ERROR 2026-01-07 02:09:09,484 basehttp 10196 27280 "POST /api/save-teacher-feedback/ HTTP/1.1" 500 62
+INFO 2026-01-07 02:09:21,361 session_management 10196 27280 Session conducted: kvs school - 2A (2024-2025) - Day 1 by aryan6@gmail.com (Facilitator)
+INFO 2026-01-07 02:09:22,900 basehttp 10196 27280 "POST /facilitator/session/start/f505aa91-4854-4e20-95d2-bac6e1cff8fb/ HTTP/1.1" 302 0
+INFO 2026-01-07 02:09:26,031 basehttp 10196 27280 "GET /facilitator/session/e5fae2c9-23d7-4337-9ac4-d356f9322de2/attendance/ HTTP/1.1" 200 15767
+WARNING 2026-01-07 02:09:26,161 log 10196 27280 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:09:26,163 basehttp 10196 27280 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 02:09:37,092 session_management 10196 27280 Found today's session for kvs school - 2A (2024-2025): Day 1 (Status: conducted)
+INFO 2026-01-07 02:09:39,999 session_management 10196 27280 Found today's session for kvs school - 2A (2024-2025): Day 1 (Status: conducted)
+INFO 2026-01-07 02:09:40,000 session_management 10196 27280 Progress metrics for kvs school - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-07 02:09:41,542 basehttp 10196 27280 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 71253
+WARNING 2026-01-07 02:09:41,638 log 10196 27280 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:09:41,639 basehttp 10196 27280 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 02:09:43,483 basehttp 10196 37508 "GET /api/get-feedback-status/?session_id=e5fae2c9-23d7-4337-9ac4-d356f9322de2 HTTP/1.1" 200 111
+INFO 2026-01-07 02:09:43,483 basehttp 10196 27280 "GET /api/curriculum/content/?day=1&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14543
+INFO 2026-01-07 02:09:49,409 basehttp 10196 37508 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+INFO 2026-01-07 02:09:55,665 session_management 10196 37508 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-07 02:09:58,739 session_management 10196 37508 Next pending session for kvs school - 1A (2024-2025): Day 1
+INFO 2026-01-07 02:09:58,739 session_management 10196 37508 Progress metrics for kvs school - 1A (2024-2025): 0.0% complete
+INFO 2026-01-07 02:09:59,766 basehttp 10196 37508 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/ HTTP/1.1" 200 71316
+INFO 2026-01-07 02:10:01,358 basehttp 10196 37508 "GET /api/curriculum/content/?day=1&language=english&class_section_id=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 14543
+INFO 2026-01-07 02:10:08,717 basehttp 10196 37508 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+INFO 2026-01-07 02:10:12,563 session_management 10196 37508 Found today's session for kvs school - 2A (2024-2025): Day 1 (Status: conducted)
+INFO 2026-01-07 02:10:16,133 session_management 10196 37508 Found today's session for kvs school - 2A (2024-2025): Day 1 (Status: conducted)
+INFO 2026-01-07 02:10:16,134 session_management 10196 37508 Progress metrics for kvs school - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-07 02:10:17,687 basehttp 10196 37508 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 71253
+INFO 2026-01-07 02:10:19,628 basehttp 10196 27280 "GET /api/get-feedback-status/?session_id=e5fae2c9-23d7-4337-9ac4-d356f9322de2 HTTP/1.1" 200 111
+INFO 2026-01-07 02:10:19,629 basehttp 10196 37508 "GET /api/curriculum/content/?day=1&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14543
+WARNING 2026-01-07 02:10:25,629 log 10196 37508 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:10:25,630 basehttp 10196 37508 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 34788
+INFO 2026-01-07 02:10:42,976 basehttp 10196 37508 "POST /api/upload-lesson-plan/ HTTP/1.1" 200 186
+ERROR 2026-01-07 02:11:03,763 views 10196 37508 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (00e04e7a-9518-4baa-a799-b00c4c8c2393, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:41:02.22928+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:11:03,765 log 10196 37508 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:11:03,766 basehttp 10196 37508 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:11:05,300 views 10196 27280 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (a1a97bcd-0b37-42a0-a01d-8d5c9e26e772, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:41:04.036679+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:11:05,301 log 10196 27280 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:11:05,301 basehttp 10196 27280 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:11:07,357 views 10196 37508 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (06c0b6df-a51d-42a6-9f4a-576709cffb48, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:41:06.217903+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:11:07,358 log 10196 37508 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:11:07,359 basehttp 10196 37508 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:11:09,804 views 10196 27280 Error saving session tracking: null value in column "actual_session_id" of relation "class_sessionfeedback" violates not-null constraint
+DETAIL:  Failing row contains (43ae6dbd-a810-4c8a-9765-23a692a7183e, 3, 3, , t, , , 0, 3, 3, 3, , , , , 2026-01-06 20:41:08.474213+00, f, null, 754f9ed8-46f6-48bb-9051-75c4af8a3132).
+
+ERROR 2026-01-07 02:11:09,805 log 10196 27280 Internal Server Error: /api/save-session-tracking/
+ERROR 2026-01-07 02:11:09,806 basehttp 10196 27280 "POST /api/save-session-tracking/ HTTP/1.1" 500 59
+ERROR 2026-01-07 02:11:24,288 views 10196 37508 Error saving student feedback: duplicate key value violates unique constraint "class_studentfeedback_actual_session_id_anonym_13ec3686_uniq"
+DETAIL:  Key (actual_session_id, anonymous_student_id)=(e5fae2c9-23d7-4337-9ac4-d356f9322de2, student_1767732069171_cmwgq4qcz) already exists.
+
+ERROR 2026-01-07 02:11:24,289 log 10196 37508 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:11:24,290 basehttp 10196 37508 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:11:24,567 views 10196 34404 Error saving student feedback: duplicate key value violates unique constraint "class_studentfeedback_actual_session_id_anonym_13ec3686_uniq"
+DETAIL:  Key (actual_session_id, anonymous_student_id)=(e5fae2c9-23d7-4337-9ac4-d356f9322de2, student_1767732069171_cmwgq4qcz) already exists.
+
+ERROR 2026-01-07 02:11:24,568 log 10196 34404 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:11:24,569 basehttp 10196 34404 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:11:25,474 views 10196 38908 Error saving student feedback: duplicate key value violates unique constraint "class_studentfeedback_actual_session_id_anonym_13ec3686_uniq"
+DETAIL:  Key (actual_session_id, anonymous_student_id)=(e5fae2c9-23d7-4337-9ac4-d356f9322de2, student_1767732069171_cmwgq4qcz) already exists.
+
+ERROR 2026-01-07 02:11:25,474 log 10196 38908 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:11:25,475 basehttp 10196 38908 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+ERROR 2026-01-07 02:11:25,780 views 10196 37508 Error saving student feedback: duplicate key value violates unique constraint "class_studentfeedback_actual_session_id_anonym_13ec3686_uniq"
+DETAIL:  Key (actual_session_id, anonymous_student_id)=(e5fae2c9-23d7-4337-9ac4-d356f9322de2, student_1767732069171_cmwgq4qcz) already exists.
+
+ERROR 2026-01-07 02:11:25,781 log 10196 37508 Internal Server Error: /api/save-student-feedback/
+ERROR 2026-01-07 02:11:25,782 basehttp 10196 37508 "POST /api/save-student-feedback/ HTTP/1.1" 500 62
+INFO 2026-01-07 02:11:25,846 basehttp 10196 27280 "POST /api/save-student-feedback/ HTTP/1.1" 200 127
+INFO 2026-01-07 02:11:51,996 basehttp 10196 27280 "POST /api/save-teacher-feedback/ HTTP/1.1" 200 125
+INFO 2026-01-07 02:11:53,531 basehttp 10196 37508 "POST /api/save-teacher-feedback/ HTTP/1.1" 200 125
+INFO 2026-01-07 02:13:34,604 basehttp 10196 37508 "GET /facilitator/attendance/ HTTP/1.1" 200 22418
+INFO 2026-01-07 02:13:39,622 basehttp 10196 37508 "GET /api/facilitator/classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 414
+INFO 2026-01-07 02:13:47,511 basehttp 10196 37508 - Broken pipe from ('127.0.0.1', 57543)
+INFO 2026-01-07 02:13:50,167 basehttp 10196 27280 - Broken pipe from ('127.0.0.1', 64964)
+INFO 2026-01-07 02:13:53,446 basehttp 10196 38908 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=today&start_date=2025-12-06&end_date=2026-01-06 HTTP/1.1" 200 28550
+INFO 2026-01-07 02:14:14,052 autoreload 10196 39568 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 02:14:15,816 autoreload 31940 26568 Watching for file changes with StatReloader
+INFO 2026-01-07 02:14:57,093 autoreload 31940 26568 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 02:14:58,512 autoreload 23780 31360 Watching for file changes with StatReloader
+INFO 2026-01-07 02:16:07,071 autoreload 23780 31360 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-07 02:16:08,446 autoreload 9196 15124 Watching for file changes with StatReloader
+INFO 2026-01-07 02:16:15,671 autoreload 9196 15124 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-07 02:16:16,883 autoreload 4284 38880 Watching for file changes with StatReloader
+INFO 2026-01-07 02:16:46,292 autoreload 4284 38880 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 02:16:47,453 autoreload 47716 30692 Watching for file changes with StatReloader
+INFO 2026-01-07 02:16:58,461 autoreload 47716 30692 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 02:16:59,478 autoreload 8396 22448 Watching for file changes with StatReloader
+INFO 2026-01-07 02:17:05,979 autoreload 8396 22448 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 02:17:07,367 autoreload 15836 18904 Watching for file changes with StatReloader
+INFO 2026-01-07 02:18:18,257 basehttp 15836 24264 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 02:18:18,276 basehttp 15836 24264 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-07 02:18:38,839 basehttp 15836 24264 "POST / HTTP/1.1" 200 2258
+INFO 2026-01-07 02:19:37,414 basehttp 15836 24264 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 02:19:41,309 basehttp 15836 24264 "GET /admin/dashboard/ HTTP/1.1" 200 37721
+INFO 2026-01-07 02:19:41,343 basehttp 15836 24264 "GET /static/css/dist/styles.css?v=1767732580 HTTP/1.1" 200 33131
+INFO 2026-01-07 02:19:41,350 basehttp 15836 24264 "GET /static/js/message-manager.js HTTP/1.1" 304 0
+INFO 2026-01-07 02:19:41,351 basehttp 15836 27388 "GET /static/js/performance.js HTTP/1.1" 304 0
+WARNING 2026-01-07 02:19:43,864 mixins 15836 24264 Slow function: api_dashboard_stats took 1.84s
+INFO 2026-01-07 02:19:43,866 basehttp 15836 24264 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-07 02:19:45,713 mixins 15836 27388 Slow function: admin_curriculum_sessions_list took 1.74s
+INFO 2026-01-07 02:19:45,714 basehttp 15836 27388 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 35017
+WARNING 2026-01-07 02:19:50,214 mixins 15836 1548 Slow function: schools took 6.24s
+INFO 2026-01-07 02:19:50,216 basehttp 15836 1548 "GET /admin/schools/ HTTP/1.1" 200 37675
+INFO 2026-01-07 02:20:10,036 basehttp 15836 1548 "GET /admin/feedback/ HTTP/1.1" 200 17589
+INFO 2026-01-07 02:20:10,061 basehttp 15836 1548 "GET /static/css/dist/styles.css?v=1767732609 HTTP/1.1" 200 33131
+INFO 2026-01-07 02:23:04,573 basehttp 15836 1548 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 02:23:04,585 basehttp 15836 1548 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-07 02:23:32,396 basehttp 15836 1548 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 02:23:36,447 basehttp 15836 1548 "GET /admin/dashboard/ HTTP/1.1" 200 38840
+INFO 2026-01-07 02:23:36,479 basehttp 15836 1548 "GET /static/css/dist/styles.css?v=1767732815 HTTP/1.1" 200 33131
+WARNING 2026-01-07 02:23:38,784 mixins 15836 27388 Slow function: admin_curriculum_sessions_list took 1.58s
+INFO 2026-01-07 02:23:38,785 basehttp 15836 27388 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 35017
+WARNING 2026-01-07 02:23:39,047 mixins 15836 1548 Slow function: api_dashboard_stats took 1.84s
+INFO 2026-01-07 02:23:39,049 basehttp 15836 1548 "GET /api/dashboard/stats/ HTTP/1.1" 200 292
+WARNING 2026-01-07 02:23:41,440 mixins 15836 24264 Slow function: schools took 4.24s
+INFO 2026-01-07 02:23:41,444 basehttp 15836 24264 "GET /admin/schools/ HTTP/1.1" 200 37675
+INFO 2026-01-07 02:23:42,640 basehttp 15836 27388 "GET /admin/feedback/ HTTP/1.1" 200 20311
+INFO 2026-01-07 02:23:42,675 basehttp 15836 27388 "GET /static/css/dist/styles.css?v=1767732822 HTTP/1.1" 200 33131
+INFO 2026-01-07 02:24:02,639 basehttp 15836 27388 "GET /admin/feedback/student/ HTTP/1.1" 200 22586
+INFO 2026-01-07 02:24:02,674 basehttp 15836 27388 "GET /static/css/dist/styles.css?v=1767732842 HTTP/1.1" 200 33131
+INFO 2026-01-07 02:24:15,824 basehttp 15836 27388 "GET /admin/feedback/teacher/ HTTP/1.1" 200 20270
+INFO 2026-01-07 02:24:15,868 basehttp 15836 27388 "GET /static/css/dist/styles.css?v=1767732854 HTTP/1.1" 200 33131
+ERROR 2026-01-07 02:24:30,251 log 15836 27388 Internal Server Error: /admin/feedback/analytics/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 5247, in admin_feedback_analytics
+    return render(request, 'admin/feedback/analytics.html', context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/feedback/analytics.html
+ERROR 2026-01-07 02:24:30,265 basehttp 15836 27388 "GET /admin/feedback/analytics/ HTTP/1.1" 500 102539
+INFO 2026-01-07 02:29:55,110 basehttp 15836 3332 "GET /admin/dashboard/ HTTP/1.1" 200 37581
+WARNING 2026-01-07 02:30:19,352 log 15836 3332 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:30:19,354 basehttp 15836 3332 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 02:30:32,995 basehttp 15836 3332 "GET /admin/users/ HTTP/1.1" 200 40372
+WARNING 2026-01-07 02:30:33,068 log 15836 3332 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:30:33,070 basehttp 15836 3332 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-07 02:30:47,741 mixins 15836 3332 Slow function: schools took 5.53s
+INFO 2026-01-07 02:30:47,743 basehttp 15836 3332 "GET /admin/schools/ HTTP/1.1" 200 37535
+WARNING 2026-01-07 02:30:47,790 log 15836 3332 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:30:47,792 basehttp 15836 3332 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 02:31:04,423 basehttp 15836 3332 "GET /admin/feedback/ HTTP/1.1" 200 20549
+WARNING 2026-01-07 02:31:04,485 log 15836 3332 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:31:04,487 basehttp 15836 3332 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 02:31:34,236 basehttp 15836 3332 "GET /admin/sessions/ HTTP/1.1" 200 27561
+WARNING 2026-01-07 02:31:36,589 mixins 15836 3332 Slow function: admin_curriculum_sessions_list took 1.54s
+INFO 2026-01-07 02:31:36,591 basehttp 15836 3332 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 34877
+INFO 2026-01-07 02:31:37,819 basehttp 15836 11404 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 36590
+INFO 2026-01-07 02:33:40,906 basehttp 15836 11404 "GET /admin/sessions/ HTTP/1.1" 200 28738
+INFO 2026-01-07 02:33:54,320 basehttp 15836 11404 "GET /admin/attendance/ HTTP/1.1" 200 19206
+INFO 2026-01-07 02:34:01,864 basehttp 15836 11404 "GET /admin/reports/ HTTP/1.1" 200 54667
+INFO 2026-01-07 02:34:09,883 basehttp 15836 11404 - Broken pipe from ('127.0.0.1', 59546)
+INFO 2026-01-07 02:34:52,176 basehttp 15836 3332 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 02:34:52,183 basehttp 15836 3332 "GET / HTTP/1.1" 200 2258
+INFO 2026-01-07 02:35:13,476 basehttp 15836 3332 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 02:35:17,264 basehttp 15836 3332 "GET /admin/dashboard/ HTTP/1.1" 200 39730
+INFO 2026-01-07 02:35:54,131 basehttp 15836 3332 "GET /admin/feedback/ HTTP/1.1" 200 21643
+INFO 2026-01-07 02:36:19,833 basehttp 15836 3332 "GET /admin/reports/ HTTP/1.1" 200 54648
+INFO 2026-01-07 02:36:27,610 basehttp 15836 3332 "POST /admin/reports/data/students/ HTTP/1.1" 200 464
+INFO 2026-01-07 02:36:31,814 basehttp 15836 3332 "POST /admin/reports/data/facilitators/ HTTP/1.1" 200 2
+INFO 2026-01-07 02:36:36,217 basehttp 15836 3332 "POST /admin/reports/data/attendance/ HTTP/1.1" 200 322
+INFO 2026-01-07 02:36:41,133 basehttp 15836 3332 "POST /admin/reports/data/sessions/ HTTP/1.1" 200 157
+INFO 2026-01-07 02:36:47,586 basehttp 15836 3332 "POST /admin/reports/data/feedback/ HTTP/1.1" 200 2
+WARNING 2026-01-07 02:36:55,541 mixins 15836 3332 Slow function: admin_curriculum_sessions_list took 1.53s
+INFO 2026-01-07 02:36:55,542 basehttp 15836 3332 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 36035
+INFO 2026-01-07 02:36:57,111 curriculum_content_resolver 15836 3332 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-07 02:36:58,350 curriculum_content_resolver 15836 3332 Found 5251 rows in curriculum table
+INFO 2026-01-07 02:36:58,351 curriculum_content_resolver 15836 3332 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-07 02:36:58,355 curriculum_content_resolver 15836 3332 Found next day boundary at row 36, day 2
+INFO 2026-01-07 02:36:58,356 curriculum_content_resolver 15836 3332 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-07 02:36:58,362 curriculum_content_resolver 15836 3332 Fixed image and resource paths in curriculum content
+INFO 2026-01-07 02:36:58,364 curriculum_content_resolver 15836 3332 Loaded static fallback content for Day 1 english
+INFO 2026-01-07 02:36:58,746 basehttp 15836 3332 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14543
+INFO 2026-01-07 02:37:04,478 basehttp 15836 45924 "GET /admin/dashboard/ HTTP/1.1" 200 38739
+WARNING 2026-01-07 02:37:07,115 log 15836 45924 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 02:37:07,116 basehttp 15836 45924 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
