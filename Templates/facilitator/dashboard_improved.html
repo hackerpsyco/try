@@ -21,10 +21,10 @@
     box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
-/* Stat Cards with Better Mobile Layout and Gradients */
+/* Stat Cards with Better Mobile Layout */
 .stat-card {
-    background: white;
-    color: black;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
     border-radius: 12px;
     padding: 20px;
     text-align: center;
@@ -94,7 +94,100 @@
     background: linear-gradient(90deg, #dc3545, #e83e8c);
 }
 
-/* Recent Items - Improved */
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-card {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .stat-card {
+        height: 100px;
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 1.8rem;
+    }
+    
+    .stat-card .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .container-fluid {
+        padding: 15px;
+    }
+    
+    .row {
+        margin-left: -8px;
+        margin-right: -8px;
+    }
+    
+    .col-lg-3, .col-lg-4, .col-lg-6, .col-lg-8, .col-md-6 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .stat-card {
+        height: 90px;
+        padding: 12px;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 1.6rem;
+    }
+    
+    .dashboard-card {
+        padding: 12px;
+    }
+}
+
+/* Ensure Equal Height Cards */
+.equal-height-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.equal-height-row > [class*="col-"] {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Button Improvements */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-success:hover {
+    background-color: #198754;
+    border-color: #198754;
+    color: white;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+.btn-outline-info:hover {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+    color: white;
+}
+
+.btn-outline-warning:hover {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+}
+
+/* Recent Items */
 .recent-item {
     display: flex;
     align-items: center;
@@ -129,52 +222,7 @@
     margin-bottom: 20px;
 }
 
-/* Ensure Equal Height Cards */
-.equal-height-row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.equal-height-row > [class*="col-"] {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Mobile Responsive Design - Enhanced */
 @media (max-width: 768px) {
-    .dashboard-card {
-        padding: 16px;
-        margin-bottom: 16px;
-    }
-    
-    .stat-card {
-        height: 100px;
-        padding: 16px;
-        margin-bottom: 16px;
-    }
-    
-    .stat-card .stat-value {
-        font-size: 1.8rem;
-    }
-    
-    .stat-card .stat-label {
-        font-size: 0.8rem;
-    }
-    
-    .container-fluid {
-        padding: 15px;
-    }
-    
-    .row {
-        margin-left: -8px;
-        margin-right: -8px;
-    }
-    
-    .col-lg-3, .col-lg-4, .col-lg-6, .col-lg-8, .col-md-6 {
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-    
     .dashboard-header {
         padding: 15px;
         text-align: center;
@@ -185,27 +233,12 @@
         margin-top: 10px;
     }
 }
-
-@media (max-width: 576px) {
-    .stat-card {
-        height: 90px;
-        padding: 12px;
-    }
-    
-    .stat-card .stat-value {
-        font-size: 1.6rem;
-    }
-    
-    .dashboard-card {
-        padding: 12px;
-    }
-}
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container-fluid">
-    <!-- Header with Gradient Background -->
+    <!-- Header -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="dashboard-header">
@@ -222,7 +255,7 @@
         </div>
     </div>
 
-    <!-- Key Statistics with Equal Height -->
+    <!-- Key Statistics -->
     <div class="row equal-height-row mb-4">
         <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
             <div class="stat-card">
@@ -262,7 +295,7 @@
         </div>
     </div>
 
-    <!-- Performance Metrics with Equal Height -->
+    <!-- Performance Metrics -->
     <div class="row equal-height-row mb-4">
         <div class="col-lg-6 mb-3">
             <div class="dashboard-card">
@@ -316,7 +349,7 @@
         </div>
     </div>
 
-    <!-- Class Performance & Quick Actions with Equal Height -->
+    <!-- Class Performance & Quick Actions -->
     <div class="row equal-height-row mb-4">
         <div class="col-lg-8 mb-3">
             <div class="dashboard-card">
@@ -379,7 +412,7 @@
         </div>
     </div>
 
-    <!-- Recent Activity & Upcoming Sessions with Equal Height -->
+    <!-- Recent Activity & Upcoming Sessions -->
     <div class="row equal-height-row">
         <div class="col-lg-6 mb-3">
             <div class="dashboard-card">
@@ -450,7 +483,7 @@
 </div>
 
 <script>
-// Add interactive animations - Enhanced
+// Add interactive animations
 document.addEventListener('DOMContentLoaded', function() {
     // Animate progress bars
     const progressBars = document.querySelectorAll('.progress-fill');
@@ -460,37 +493,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             bar.style.width = width;
         }, 500);
-    });
-    
-    // Enhanced hover effects for stat cards
-    const statCards = document.querySelectorAll('.stat-card');
-    statCards.forEach((card, index) => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-        
-        // Stagger animation on load
-        setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-        }, index * 100);
-    });
-    
-    // Add loading animation to dashboard cards
-    const dashboardCards = document.querySelectorAll('.dashboard-card');
-    dashboardCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            card.style.transition = 'all 0.5s ease';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-        }, (index + 4) * 100); // Start after stat cards
     });
 });
 </script>

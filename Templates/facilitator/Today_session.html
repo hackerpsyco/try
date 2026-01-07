@@ -1,7 +1,244 @@
 {% extends "facilitator/shared/base.html" %}
 
-{% block content %}
+{% block extra_css %}
+<style>
+/* Mobile-First Responsive Design for Today Session */
+.session-container {
+    padding: 15px;
+}
 
+/* Curriculum Content Mobile Optimization */
+.curriculum-content-mobile {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    background: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Mobile-specific curriculum content styling */
+.curriculum-content-mobile h1, 
+.curriculum-content-mobile h2, 
+.curriculum-content-mobile h3, 
+.curriculum-content-mobile h4, 
+.curriculum-content-mobile h5, 
+.curriculum-content-mobile h6 {
+    font-size: 1.1rem !important;
+    line-height: 1.4 !important;
+    margin: 15px 0 10px 0 !important;
+    color: #333 !important;
+    word-wrap: break-word;
+}
+
+.curriculum-content-mobile p {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 12px !important;
+    color: #555 !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.curriculum-content-mobile ul, 
+.curriculum-content-mobile ol {
+    padding-left: 20px !important;
+    margin-bottom: 15px !important;
+}
+
+.curriculum-content-mobile li {
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 8px !important;
+    color: #555 !important;
+    word-wrap: break-word;
+}
+
+.curriculum-content-mobile table {
+    width: 100% !important;
+    font-size: 0.85rem !important;
+    border-collapse: collapse !important;
+    margin: 15px 0 !important;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.curriculum-content-mobile td, 
+.curriculum-content-mobile th {
+    padding: 8px !important;
+    border: 1px solid #ddd !important;
+    text-align: left !important;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.curriculum-content-mobile img {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 8px !important;
+    margin: 10px 0 !important;
+}
+
+/* Mobile Responsive Breakpoints */
+@media (max-width: 768px) {
+    .session-container {
+        padding: 10px;
+    }
+    
+    /* Stack layout on mobile - curriculum content first */
+    .session-layout {
+        flex-direction: column-reverse;
+    }
+    
+    .session-layout .col-md-4 {
+        margin-bottom: 20px;
+    }
+    
+    /* Curriculum content mobile optimization */
+    .curriculum-content-mobile {
+        max-height: none !important;
+        overflow-y: visible !important;
+        padding: 12px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .curriculum-content-mobile h1, 
+    .curriculum-content-mobile h2, 
+    .curriculum-content-mobile h3 {
+        font-size: 1rem !important;
+        margin: 12px 0 8px 0 !important;
+    }
+    
+    .curriculum-content-mobile h4, 
+    .curriculum-content-mobile h5, 
+    .curriculum-content-mobile h6 {
+        font-size: 0.95rem !important;
+        margin: 10px 0 6px 0 !important;
+    }
+    
+    .curriculum-content-mobile p,
+    .curriculum-content-mobile li {
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    .curriculum-content-mobile table {
+        font-size: 0.8rem !important;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .curriculum-content-mobile td, 
+    .curriculum-content-mobile th {
+        padding: 6px !important;
+        font-size: 0.75rem !important;
+        white-space: normal;
+        word-wrap: break-word;
+        min-width: 80px;
+    }
+    
+    /* Workflow navigation mobile optimization */
+    .workflow-nav .nav-pills {
+        flex-wrap: wrap;
+    }
+    
+    .workflow-nav .nav-link {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+        margin-bottom: 5px;
+    }
+    
+    /* Cards mobile optimization */
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    /* Language selector mobile */
+    .language-selector-card {
+        position: sticky;
+        top: 10px;
+        z-index: 100;
+    }
+}
+
+@media (max-width: 576px) {
+    .session-container {
+        padding: 8px;
+    }
+    
+    .curriculum-content-mobile {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
+    .curriculum-content-mobile h1, 
+    .curriculum-content-mobile h2, 
+    .curriculum-content-mobile h3,
+    .curriculum-content-mobile h4, 
+    .curriculum-content-mobile h5, 
+    .curriculum-content-mobile h6 {
+        font-size: 0.9rem !important;
+        margin: 8px 0 4px 0 !important;
+    }
+    
+    .curriculum-content-mobile p,
+    .curriculum-content-mobile li {
+        font-size: 0.8rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    .curriculum-content-mobile table {
+        font-size: 0.7rem !important;
+    }
+    
+    .curriculum-content-mobile td, 
+    .curriculum-content-mobile th {
+        padding: 4px !important;
+        font-size: 0.7rem !important;
+        min-width: 60px;
+    }
+    
+    .workflow-nav .nav-link {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+    
+    .card-body {
+        padding: 12px;
+    }
+}
+
+/* Content expansion for better mobile reading */
+.curriculum-expanded {
+    max-height: none !important;
+    overflow-y: visible !important;
+}
+
+/* Mobile notification system */
+.mobile-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    min-width: 250px;
+    max-width: 90vw;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="session-container">
 <h5 class="fw-bold mb-3">
   {{ class_section.school.name }} — {{ class_section.class_level }}-{{ class_section.section }} — Today's Session
 </h5>
@@ -9,7 +246,7 @@
 <!-- Language Selector -->
 <div class="row mb-3">
   <div class="col-12">
-    <div class="card shadow-sm">
+    <div class="card shadow-sm language-selector-card">
       <div class="card-body py-2">
         <div class="d-flex justify-content-between align-items-center">
           <small class="text-muted">
@@ -30,23 +267,7 @@
 </div>
 
 {% if planned_session %}
-<!-- Debug Information (remove in production) -->
-{% comment %}
-<div class="alert alert-info mt-2">
-  <small>
-    <strong>Debug Info:</strong><br>
-    Today: {{ today_date }}<br>
-    Session Day: {{ current_day }}<br>
-    Status: {{ session_status }}<br>
-    Is Today: {{ is_today }}<br>
-    {% if actual_session %}
-    Actual Session Date: {{ actual_session_date }}<br>
-    {% endif %}
-  </small>
-</div>
-{% endcomment %}
-
-<div class="row">
+<div class="row session-layout">
   <!-- Session Control Panel (Left Side) -->
   <div class="col-md-4">
     <div class="card shadow-sm">
@@ -555,7 +776,7 @@
               </div>
               {% endif %}
               
-              <div id="curriculumContent" style="max-height: 500px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.375rem; padding: 1rem;">
+              <div id="curriculumContent" class="curriculum-content-mobile">
                 <!-- Content will be loaded here dynamically -->
                 <div class="text-center p-4">
                   <div class="spinner-border text-primary" role="status">
@@ -563,6 +784,18 @@
                   </div>
                   <p class="mt-2">Loading Day {{ current_day }} content...</p>
                 </div>
+              </div>
+              
+              <!-- Mobile Content Controls -->
+              <div class="mt-3 d-flex justify-content-between align-items-center d-md-none">
+                <button class="btn btn-outline-secondary btn-sm" onclick="toggleContentExpansion()" id="expandToggleBtn">
+                  <i class="fas fa-expand-arrows-alt me-1"></i>
+                  <span id="expandToggleText">Expand</span>
+                </button>
+                <button class="btn btn-outline-primary btn-sm" onclick="refreshContent()">
+                  <i class="fas fa-sync-alt me-1"></i>
+                  Refresh
+                </button>
               </div>
             </div>
 
@@ -895,6 +1128,7 @@
 </div>
 {% endif %}
 {% endif %}
+</div>
 
 <!-- JavaScript for Comprehensive Workflow -->
 <script>
@@ -970,14 +1204,18 @@ document.addEventListener('DOMContentLoaded', function() {
         showLanguageNotification(language);
     }
     
-    function showLanguageNotification(language) {
+    // Mobile notification system
+    function showMobileNotification(message, type = 'success') {
+        // Remove existing notifications
+        const existingNotifications = document.querySelectorAll('.mobile-notification');
+        existingNotifications.forEach(n => n.remove());
+        
         const notification = document.createElement('div');
-        notification.className = 'alert alert-success alert-dismissible fade show position-fixed';
-        notification.style.cssText = 'top: 20px; right: 20px; z-index: 1050; min-width: 250px;';
+        notification.className = `mobile-notification alert alert-${type} alert-dismissible fade show`;
         notification.innerHTML = `
-            <i class="fas fa-check-circle me-2"></i>
-            Switched to ${language === 'hindi' ? 'हिंदी (Hindi)' : 'English'}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>
+            ${message}
+            <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
         `;
         
         document.body.appendChild(notification);
@@ -987,6 +1225,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 notification.remove();
             }
         }, 3000);
+    }
+    
+    function showLanguageNotification(language) {
+        showMobileNotification(`Switched to ${language === 'hindi' ? 'हिंदी (Hindi)' : 'English'}`);
     }
     
     async function loadCurriculumContent(day, language) {
@@ -1012,7 +1254,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateDayNavigation(day);
             
             // Show success notification
-            showNotification(`Loaded Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} content`, 'success');
+            showMobileNotification(`Loaded Day ${day} ${language === 'hindi' ? 'Hindi' : 'English'} content`, 'success');
             
         } catch (error) {
             console.error('Error loading curriculum content:', error);
@@ -1089,11 +1331,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     resultDiv.innerHTML = '<div class="alert alert-success">Lesson plan uploaded successfully!</div>';
                     workflowState.lessonPlan = true;
                     this.reset();
+                    showMobileNotification('Lesson plan uploaded successfully!', 'success');
                 } else {
                     resultDiv.innerHTML = `<div class="alert alert-danger">Error: ${result.error}</div>`;
+                    showMobileNotification('Upload failed: ' + result.error, 'danger');
                 }
             } catch (error) {
                 resultDiv.innerHTML = '<div class="alert alert-danger">Upload failed. Please try again.</div>';
+                showMobileNotification('Upload failed. Please try again.', 'danger');
             }
         });
     }
@@ -1174,13 +1419,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const result = await response.json();
                 
                 if (result.success) {
-                    showNotification('Rewards saved successfully!', 'success');
+                    showMobileNotification('Rewards saved successfully!', 'success');
                     workflowState.rewards = true;
                 } else {
-                    showNotification('Error saving rewards: ' + result.error, 'danger');
+                    showMobileNotification('Error saving rewards: ' + result.error, 'danger');
                 }
             } catch (error) {
-                showNotification('Error saving rewards. Please try again.', 'danger');
+                showMobileNotification('Error saving rewards. Please try again.', 'danger');
             }
         });
     }
@@ -1273,6 +1518,48 @@ document.addEventListener('DOMContentLoaded', function() {
     loadCurriculumContent(currentDay, currentLanguage);
     updatePreparationProgress();
     updateWorkflowProgress();
+    
+    // Content expansion toggle for mobile
+    window.toggleContentExpansion = function() {
+        const contentDiv = document.getElementById('curriculumContent');
+        const toggleBtn = document.getElementById('expandToggleText');
+        
+        if (contentDiv.classList.contains('curriculum-expanded')) {
+            contentDiv.classList.remove('curriculum-expanded');
+            toggleBtn.textContent = 'Expand';
+        } else {
+            contentDiv.classList.add('curriculum-expanded');
+            toggleBtn.textContent = 'Collapse';
+        }
+    };
+    
+    // Refresh content
+    window.refreshContent = function() {
+        loadCurriculumContent(currentDay, currentLanguage);
+    };
+    
+    // Handle window resize for responsive adjustments
+    window.addEventListener('resize', function() {
+        const isMobile = window.innerWidth <= 768;
+        const contentDiv = document.getElementById('curriculumContent');
+        
+        if (isMobile && contentDiv) {
+            // Apply mobile-specific adjustments
+            contentDiv.style.fontSize = '0.9rem';
+            contentDiv.style.lineHeight = '1.4';
+            
+            // Format tables for mobile
+            const tables = contentDiv.querySelectorAll('table');
+            tables.forEach(table => {
+                if (!table.parentElement.classList.contains('table-responsive')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'table-responsive';
+                    table.parentNode.insertBefore(wrapper, table);
+                    wrapper.appendChild(table);
+                }
+            });
+        }
+    });
     
     // Make functions globally available
     window.loadCurriculumContent = loadCurriculumContent;

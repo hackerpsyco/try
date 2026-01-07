@@ -83,7 +83,10 @@ MIDDLEWARE = [
     'django.middleware.cache.FetchFromCacheMiddleware',  # Cache middleware (last)
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',  # Messages BEFORE our custom middleware
+    'class.session_timeout_middleware.SessionTimeoutMiddleware',  # Session timeout handling
+    'class.session_timeout_middleware.UserFriendlyErrorMiddleware',  # User-friendly errors
+    'class.session_timeout_middleware.PostLoginRedirectMiddleware',  # Post-login redirects
     'class.middleware.MessageCleanupMiddleware',  # Custom message cleanup
     'class.middleware.DebugMessageSuppressMiddleware',  # Debug message suppression
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -162,6 +165,10 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 SESSION_CACHE_ALIAS = 'sessions'
 SESSION_COOKIE_AGE = 3600  # 1 hour
 SESSION_SAVE_EVERY_REQUEST = False  # Only save when modified
+
+# Session timeout configuration (in seconds)
+SESSION_TIMEOUT = 3600  # 1 hour - matches SESSION_COOKIE_AGE
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Sessions expire when browser closes
 
 # Database Query Optimization
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

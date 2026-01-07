@@ -1,0 +1,740 @@
+{% extends "facilitator/shared/base.html" %}
+
+{% block extra_css %}
+<style>
+/* Mobile-First Responsive Design for Today Session */
+.session-container {
+    padding: 15px;
+}
+
+/* Language Selector - Mobile Optimized */
+.language-selector {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.language-selector .btn-group {
+    width: 100%;
+}
+
+.language-selector .btn {
+    flex: 1;
+    border-radius: 8px;
+}
+
+/* Session Control Panel - Mobile Responsive */
+.session-control-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Curriculum Content - Mobile Optimized */
+.curriculum-content-container {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#curriculumContent {
+    max-height: none;
+    overflow: visible;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    background: #f8f9fa;
+}
+
+/* Mobile-specific content styling */
+#curriculumContent h1, 
+#curriculumContent h2, 
+#curriculumContent h3, 
+#curriculumContent h4, 
+#curriculumContent h5, 
+#curriculumContent h6 {
+    font-size: 1.1rem !important;
+    line-height: 1.4 !important;
+    margin: 15px 0 10px 0 !important;
+    color: #333 !important;
+}
+
+#curriculumContent p {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 12px !important;
+    color: #555 !important;
+}
+
+#curriculumContent ul, 
+#curriculumContent ol {
+    padding-left: 20px !important;
+    margin-bottom: 15px !important;
+}
+
+#curriculumContent li {
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 8px !important;
+    color: #555 !important;
+}
+
+#curriculumContent table {
+    width: 100% !important;
+    font-size: 0.85rem !important;
+    border-collapse: collapse !important;
+    margin: 15px 0 !important;
+}
+
+#curriculumContent td, 
+#curriculumContent th {
+    padding: 8px !important;
+    border: 1px solid #ddd !important;
+    text-align: left !important;
+}
+
+#curriculumContent img {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 8px !important;
+    margin: 10px 0 !important;
+}
+
+/* Loading State */
+.curriculum-content-loading {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.curriculum-error {
+    text-align: center;
+    padding: 30px 20px;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    color: #856404;
+}
+
+/* Mobile Responsive Breakpoints */
+@media (max-width: 768px) {
+    .session-container {
+        padding: 10px;
+    }
+    
+    .session-control-panel,
+    .curriculum-content-container,
+    .language-selector {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    /* Stack layout on mobile */
+    .row.session-layout {
+        flex-direction: column-reverse;
+    }
+    
+    .session-layout .col-md-4 {
+        margin-bottom: 20px;
+    }
+    
+    /* Curriculum content mobile optimization */
+    #curriculumContent {
+        padding: 12px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    #curriculumContent h1, 
+    #curriculumContent h2, 
+    #curriculumContent h3 {
+        font-size: 1rem !important;
+    }
+    
+    #curriculumContent h4, 
+    #curriculumContent h5, 
+    #curriculumContent h6 {
+        font-size: 0.95rem !important;
+    }
+    
+    #curriculumContent p,
+    #curriculumContent li {
+        font-size: 0.85rem !important;
+    }
+    
+    /* Language selector mobile */
+    .language-selector {
+        position: sticky;
+        top: 10px;
+        z-index: 100;
+    }
+}
+
+@media (max-width: 576px) {
+    .session-container {
+        padding: 8px;
+    }
+    
+    .session-control-panel,
+    .curriculum-content-container,
+    .language-selector {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+    
+    #curriculumContent {
+        padding: 10px;
+    }
+    
+    #curriculumContent table {
+        font-size: 0.75rem !important;
+    }
+    
+    #curriculumContent td, 
+    #curriculumContent th {
+        padding: 6px !important;
+    }
+}
+
+/* Content Loading Animation */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Language Badge */
+.language-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+/* Workflow Navigation - Mobile Friendly */
+.workflow-nav .nav-pills {
+    flex-wrap: wrap;
+}
+
+.workflow-nav .nav-link {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .workflow-nav .nav-link {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+}
+
+/* Content Expansion Fix */
+.content-expandable {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Ensure content doesn't overflow on mobile */
+.curriculum-content-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.curriculum-content-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(transparent, #f8f9fa);
+    pointer-events: none;
+}
+
+/* Hide scrollbar but keep functionality */
+#curriculumContent::-webkit-scrollbar {
+    width: 6px;
+}
+
+#curriculumContent::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+#curriculumContent::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+#curriculumContent::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="session-container">
+    <!-- Session Header -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <h5 class="fw-bold mb-0">
+                {{ class_section.school.name }} — {{ class_section.class_level }}-{{ class_section.section }} — Today's Session
+            </h5>
+        </div>
+    </div>
+
+    <!-- Language Selector - Sticky on Mobile -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="language-selector">
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                        <i class="fas fa-language me-1"></i>
+                        Curriculum Language:
+                    </small>
+                    <div class="btn-group btn-group-sm" role="group" id="languageSelector">
+                        <input type="radio" class="btn-check" name="language" id="englishBtn" value="english" checked>
+                        <label class="btn btn-outline-primary" for="englishBtn">English</label>
+                        
+                        <input type="radio" class="btn-check" name="language" id="hindiBtn" value="hindi">
+                        <label class="btn btn-outline-primary" for="hindiBtn">हिंदी</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if planned_session %}
+    <div class="row session-layout">
+        <!-- Main Content Area - Shows First on Mobile -->
+        <div class="col-md-8">
+            <div class="curriculum-content-container">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="text-primary mb-0">
+                        <i class="fas fa-book me-2"></i>
+                        Day {{ current_day }} Curriculum Content
+                    </h6>
+                    <div>
+                        {% if has_admin_content %}
+                            <span class="badge bg-success me-1" title="Content managed by admin">
+                                <i class="fas fa-user-cog me-1"></i>Admin Managed
+                            </span>
+                        {% else %}
+                            <span class="badge bg-warning me-1" title="Static curriculum file">
+                                <i class="fas fa-file-alt me-1"></i>Static Content
+                            </span>
+                        {% endif %}
+                        <span class="badge bg-info language-badge" id="curriculumLanguageLabel">English</span>
+                    </div>
+                </div>
+                
+                {% if content_metadata %}
+                <div class="content-metadata mb-3">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Source: {{ content_source|title }}
+                        {% if content_metadata.last_updated %}
+                            • Last updated: {{ content_metadata.last_updated|date:"M d, Y H:i" }}
+                        {% endif %}
+                        {% if content_metadata.usage_count > 0 %}
+                            • Accessed {{ content_metadata.usage_count }} time{{ content_metadata.usage_count|pluralize }}
+                        {% endif %}
+                    </small>
+                </div>
+                {% endif %}
+                
+                <div class="curriculum-content-wrapper">
+                    <div id="curriculumContent" class="content-expandable">
+                        <!-- Content will be loaded here dynamically -->
+                        <div class="curriculum-content-loading">
+                            <div class="loading-spinner"></div>
+                            <p class="mt-3 mb-0">Loading Day {{ current_day }} content...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content Controls -->
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <button class="btn btn-outline-secondary btn-sm" onclick="toggleContentExpansion()">
+                        <i class="fas fa-expand-arrows-alt me-1"></i>
+                        <span id="expandToggleText">Expand</span>
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="refreshContent()">
+                        <i class="fas fa-sync-alt me-1"></i>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Control Panel -->
+        <div class="col-md-4">
+            <div class="session-control-panel">
+                <!-- Session Status -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-primary fs-6">
+                        Day {{ current_day }}
+                    </span>
+
+                    {% if session_status == "holiday" and is_today %}
+                        <span class="badge bg-warning">Holiday (Today)</span>
+                    {% elif session_status == "holiday" %}
+                        <span class="badge bg-warning">Holiday</span>
+                    {% elif session_status == "cancelled" %}
+                        <span class="badge bg-danger">Cancelled</span>
+                    {% elif session_status == "conducted" and is_today %}
+                        <span class="badge bg-success">Completed (Today)</span>
+                    {% elif session_status == "conducted" %}
+                        <span class="badge bg-success">Completed</span>
+                    {% else %}
+                        <span class="badge bg-info">Ready</span>
+                    {% endif %}
+                </div>
+
+                <!-- Progress Indicator -->
+                {% if progress_metrics %}
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <small class="text-muted">Progress</small>
+                        <small class="text-muted">{{ progress_metrics.completion_percentage|floatformat:1 }}%</small>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-success" role="progressbar" 
+                             style="width: {{ progress_metrics.completion_percentage }}%"></div>
+                    </div>
+                    <small class="text-muted">
+                        {{ progress_metrics.conducted_sessions }} conducted, 
+                        {{ progress_metrics.cancelled_sessions }} cancelled, 
+                        {{ progress_metrics.pending_sessions }} pending
+                    </small>
+                </div>
+                {% endif %}
+
+                <!-- Session Topic -->
+                <h6 class="fw-semibold mt-2 mb-3">
+                    {{ planned_session.title|default:"Day Session" }}
+                </h6>
+
+                <!-- Quick Actions -->
+                <div class="d-grid gap-2">
+                    {% if session_status == "pending" %}
+                        <button class="btn btn-success" onclick="conductSession()">
+                            <i class="fas fa-play me-1"></i>
+                            Conduct Session
+                        </button>
+                        
+                        <button class="btn btn-outline-warning" onclick="markHoliday()">
+                            <i class="fas fa-calendar-times me-1"></i>
+                            Mark Holiday
+                        </button>
+                        
+                        <button class="btn btn-outline-secondary" onclick="showCancelModal()">
+                            <i class="fas fa-times me-1"></i>
+                            Cancel Session
+                        </button>
+                    {% elif session_status == "conducted" %}
+                        <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-primary">
+                            <i class="fas fa-users me-1"></i>
+                            View/Edit Attendance
+                        </a>
+                    {% endif %}
+                </div>
+
+                <!-- Session Steps (Collapsible on Mobile) -->
+                {% if planned_session.steps.exists %}
+                <div class="mt-3">
+                    <button class="btn btn-outline-info btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#sessionSteps">
+                        <i class="fas fa-list me-1"></i>
+                        Session Activities
+                    </button>
+                    <div class="collapse mt-2" id="sessionSteps">
+                        <div class="card card-body">
+                            {% for step in planned_session.steps.all %}
+                                <div class="mb-2">
+                                    <strong>{{ step.order }}.</strong> {{ step.title }}
+                                    {% if step.duration_minutes %}
+                                        <span class="badge bg-secondary ms-1">{{ step.duration_minutes }}min</span>
+                                    {% endif %}
+                                    {% if step.youtube_url %}
+                                        <a href="{{ step.youtube_url }}" target="_blank" class="ms-1">
+                                            <i class="fas fa-play-circle text-danger"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- No Session Available -->
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <h4><i class="fas fa-info-circle me-2"></i>No Session Available</h4>
+                <p class="mb-3">{{ error_message|default:"This class needs session initialization." }}</p>
+                <a href="{% url 'facilitator_classes' %}" class="btn btn-primary">
+                    <i class="fas fa-arrow-left me-1"></i>
+                    Back to Classes
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- JavaScript for Mobile-Optimized Content Loading -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let currentLanguage = 'english';
+    let currentDay = parseInt('{{ current_day|default:"1" }}') || 1;
+    const classSectionId = '{{ class_section.id }}';
+    const curriculumUrl = "{% url 'curriculum_content_api' %}";
+    const contentDiv = document.getElementById('curriculumContent');
+    const languageLabel = document.getElementById('curriculumLanguageLabel');
+    let isContentExpanded = false;
+    
+    // Language selector event listeners
+    const languageInputs = document.querySelectorAll('input[name="language"]');
+    languageInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            if (this.checked) {
+                switchLanguage(this.value);
+            }
+        });
+    });
+    
+    // Language switching with mobile optimization
+    function switchLanguage(language) {
+        currentLanguage = language;
+        languageLabel.textContent = language === 'hindi' ? 'हिंदी' : 'English';
+        loadCurriculumContent(currentDay, language);
+        
+        // Show language switch notification
+        showMobileNotification(`Switched to ${language === 'hindi' ? 'हिंदी (Hindi)' : 'English'}`);
+    }
+    
+    // Mobile-optimized content loading
+    async function loadCurriculumContent(day, language) {
+        contentDiv.innerHTML = `
+            <div class="curriculum-content-loading">
+                <div class="loading-spinner"></div>
+                <p class="mt-3 mb-0">Loading Day ${day} ${language === 'hindi' ? 'हिंदी' : 'English'} content...</p>
+            </div>
+        `;
+        
+        try {
+            const response = await fetch(`${curriculumUrl}?day=${day}&language=${language}&class_section_id=${classSectionId}`);
+            if (!response.ok) throw new Error('Failed to load content');
+            
+            const content = await response.text();
+            
+            // Apply mobile-friendly formatting
+            const formattedContent = formatContentForMobile(content);
+            contentDiv.innerHTML = formattedContent;
+            
+            // Apply mobile-specific styling
+            applyMobileContentStyling();
+            
+            showMobileNotification(`Loaded Day ${day} ${language === 'hindi' ? 'हिंदी' : 'English'} content`);
+            
+        } catch (error) {
+            console.error('Error loading curriculum content:', error);
+            contentDiv.innerHTML = `
+                <div class="curriculum-error">
+                    <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                    <h6>Error Loading Content</h6>
+                    <p>Failed to load Day ${day} ${language === 'hindi' ? 'हिंदी' : 'English'} curriculum content.</p>
+                    <div class="mt-3">
+                        <button class="btn btn-outline-danger btn-sm me-2" onclick="loadCurriculumContent(${day}, '${language}')">
+                            <i class="fas fa-redo me-1"></i>Retry
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="loadCurriculumContent(1, '${language}')">
+                            <i class="fas fa-home me-1"></i>Go to Day 1
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    // Format content for mobile display
+    function formatContentForMobile(content) {
+        // Remove excessive whitespace
+        content = content.replace(/\s+/g, ' ').trim();
+        
+        // Ensure tables are responsive
+        content = content.replace(/<table/g, '<div class="table-responsive"><table class="table table-sm');
+        content = content.replace(/<\/table>/g, '</table></div>');
+        
+        // Make images responsive
+        content = content.replace(/<img/g, '<img class="img-fluid');
+        
+        // Add mobile-friendly line breaks
+        content = content.replace(/\. /g, '. <br class="d-md-none">');
+        
+        return content;
+    }
+    
+    // Apply mobile-specific content styling
+    function applyMobileContentStyling() {
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            // Adjust font sizes for mobile
+            const headings = contentDiv.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            headings.forEach(heading => {
+                heading.style.fontSize = '1rem';
+                heading.style.lineHeight = '1.3';
+                heading.style.marginBottom = '10px';
+            });
+            
+            // Adjust paragraph spacing
+            const paragraphs = contentDiv.querySelectorAll('p');
+            paragraphs.forEach(p => {
+                p.style.fontSize = '0.9rem';
+                p.style.lineHeight = '1.4';
+                p.style.marginBottom = '12px';
+            });
+            
+            // Make lists more compact
+            const lists = contentDiv.querySelectorAll('ul, ol');
+            lists.forEach(list => {
+                list.style.paddingLeft = '20px';
+                list.style.marginBottom = '15px';
+            });
+            
+            const listItems = contentDiv.querySelectorAll('li');
+            listItems.forEach(li => {
+                li.style.fontSize = '0.85rem';
+                li.style.lineHeight = '1.3';
+                li.style.marginBottom = '6px';
+            });
+        }
+    }
+    
+    // Content expansion toggle
+    function toggleContentExpansion() {
+        const wrapper = contentDiv.parentElement;
+        const toggleBtn = document.getElementById('expandToggleText');
+        
+        if (isContentExpanded) {
+            contentDiv.style.maxHeight = '400px';
+            contentDiv.style.overflow = 'auto';
+            wrapper.classList.add('curriculum-content-wrapper');
+            toggleBtn.textContent = 'Expand';
+            isContentExpanded = false;
+        } else {
+            contentDiv.style.maxHeight = 'none';
+            contentDiv.style.overflow = 'visible';
+            wrapper.classList.remove('curriculum-content-wrapper');
+            toggleBtn.textContent = 'Collapse';
+            isContentExpanded = true;
+        }
+    }
+    
+    // Refresh content
+    function refreshContent() {
+        loadCurriculumContent(currentDay, currentLanguage);
+    }
+    
+    // Mobile notification system
+    function showMobileNotification(message) {
+        // Remove existing notifications
+        const existingNotifications = document.querySelectorAll('.mobile-notification');
+        existingNotifications.forEach(n => n.remove());
+        
+        const notification = document.createElement('div');
+        notification.className = 'mobile-notification alert alert-success alert-dismissible fade show position-fixed';
+        notification.style.cssText = 'top: 20px; left: 50%; transform: translateX(-50%); z-index: 1050; min-width: 250px; max-width: 90vw;';
+        notification.innerHTML = `
+            <i class="fas fa-check-circle me-2"></i>
+            ${message}
+            <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 3000);
+    }
+    
+    // Session action functions
+    function conductSession() {
+        if (confirm('Are you ready to conduct this session?')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = "{% url 'start_session' planned_session.id %}";
+            form.innerHTML = `
+                {% csrf_token %}
+                <input type="hidden" name="status" value="conducted">
+            `;
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+    
+    function markHoliday() {
+        if (confirm('Mark this session as a holiday?')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = "{% url 'start_session' planned_session.id %}";
+            form.innerHTML = `
+                {% csrf_token %}
+                <input type="hidden" name="status" value="holiday">
+            `;
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+    
+    function showCancelModal() {
+        // Simple prompt for mobile
+        const reason = prompt('Please provide a reason for cancellation:');
+        if (reason) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = "{% url 'start_session' planned_session.id %}";
+            form.innerHTML = `
+                {% csrf_token %}
+                <input type="hidden" name="status" value="cancelled">
+                <input type="hidden" name="cancellation_reason" value="other">
+                <input type="hidden" name="remarks" value="${reason}">
+            `;
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+    
+    // Initialize content loading
+    loadCurriculumContent(currentDay, currentLanguage);
+    
+    // Handle window resize for responsive adjustments
+    window.addEventListener('resize', function() {
+        applyMobileContentStyling();
+    });
+});
+</script>
+{% endblock %}

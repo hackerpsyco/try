@@ -9605,3 +9605,791 @@ INFO 2026-01-07 02:36:58,746 basehttp 15836 3332 "GET /api/curriculum/content/?d
 INFO 2026-01-07 02:37:04,478 basehttp 15836 45924 "GET /admin/dashboard/ HTTP/1.1" 200 38739
 WARNING 2026-01-07 02:37:07,115 log 15836 45924 Not Found: /.well-known/appspecific/com.chrome.devtools.json
 WARNING 2026-01-07 02:37:07,116 basehttp 15836 45924 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 10:48:20,989 autoreload 46204 47748 Watching for file changes with StatReloader
+INFO 2026-01-07 10:48:26,960 autoreload 34060 8468 Watching for file changes with StatReloader
+INFO 2026-01-07 10:52:01,620 autoreload 20152 35144 Watching for file changes with StatReloader
+INFO 2026-01-07 10:52:28,522 autoreload 20152 35144 C:\Users\piyus\CLAS\CLAS\CLAS\urls.py changed, reloading.
+INFO 2026-01-07 10:52:29,903 autoreload 8552 1548 Watching for file changes with StatReloader
+INFO 2026-01-07 10:52:51,238 autoreload 42356 43992 Watching for file changes with StatReloader
+INFO 2026-01-07 10:53:11,733 autoreload 42356 43992 C:\Users\piyus\CLAS\CLAS\CLAS\urls.py changed, reloading.
+INFO 2026-01-07 10:53:13,239 autoreload 20308 34416 Watching for file changes with StatReloader
+INFO 2026-01-07 10:53:27,108 autoreload 33296 42412 Watching for file changes with StatReloader
+INFO 2026-01-07 10:53:57,419 autoreload 33296 42412 C:\Users\piyus\CLAS\CLAS\CLAS\urls.py changed, reloading.
+INFO 2026-01-07 10:53:59,011 autoreload 19152 31920 Watching for file changes with StatReloader
+INFO 2026-01-07 10:55:36,469 autoreload 19152 31920 C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py changed, reloading.
+INFO 2026-01-07 10:55:38,138 autoreload 45036 3220 Watching for file changes with StatReloader
+ERROR 2026-01-07 10:57:07,386 log 45036 42324 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 124, in __call__
+    if self.async_mode:
+       ^^^^^^^^^^^^^^^
+AttributeError: 'SessionTimeoutMiddleware' object has no attribute 'async_mode'
+ERROR 2026-01-07 10:57:07,390 basehttp 45036 42324 "GET / HTTP/1.1" 500 69009
+ERROR 2026-01-07 10:57:08,809 log 45036 42324 Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 124, in __call__
+    if self.async_mode:
+       ^^^^^^^^^^^^^^^
+AttributeError: 'SessionTimeoutMiddleware' object has no attribute 'async_mode'
+ERROR 2026-01-07 10:57:08,812 basehttp 45036 42324 "GET /favicon.ico HTTP/1.1" 500 68812
+INFO 2026-01-07 10:58:06,410 autoreload 45036 3220 C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py changed, reloading.
+INFO 2026-01-07 10:58:07,968 autoreload 42180 45540 Watching for file changes with StatReloader
+ERROR 2026-01-07 10:59:20,307 log 42180 1416 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:20,316 basehttp 42180 1416 "GET / HTTP/1.1" 500 90510
+ERROR 2026-01-07 10:59:21,493 log 42180 1416 Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:21,498 basehttp 42180 1416 "GET /favicon.ico HTTP/1.1" 500 90368
+ERROR 2026-01-07 10:59:22,963 log 42180 1416 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:22,967 basehttp 42180 1416 "GET / HTTP/1.1" 500 90510
+ERROR 2026-01-07 10:59:23,426 log 42180 1416 Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:23,430 basehttp 42180 1416 "GET /favicon.ico HTTP/1.1" 500 90368
+ERROR 2026-01-07 10:59:24,765 log 42180 1416 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:24,770 basehttp 42180 1416 "GET / HTTP/1.1" 500 90510
+ERROR 2026-01-07 10:59:25,515 log 42180 1416 Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:25,519 basehttp 42180 1416 "GET /favicon.ico HTTP/1.1" 500 90368
+ERROR 2026-01-07 10:59:26,550 log 42180 1416 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:26,554 basehttp 42180 1416 "GET / HTTP/1.1" 500 90647
+ERROR 2026-01-07 10:59:27,247 log 42180 1416 Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:27,251 basehttp 42180 1416 "GET /favicon.ico HTTP/1.1" 500 90368
+ERROR 2026-01-07 10:59:28,672 log 42180 1416 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:28,676 basehttp 42180 1416 "GET / HTTP/1.1" 500 90647
+ERROR 2026-01-07 10:59:29,367 log 42180 1416 Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:29,371 basehttp 42180 1416 "GET /favicon.ico HTTP/1.1" 500 90368
+ERROR 2026-01-07 10:59:30,818 log 42180 1416 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:30,822 basehttp 42180 1416 "GET / HTTP/1.1" 500 90647
+ERROR 2026-01-07 10:59:31,575 log 42180 1416 Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:31,579 basehttp 42180 1416 "GET /favicon.ico HTTP/1.1" 500 90368
+INFO 2026-01-07 10:59:42,329 autoreload 43316 22448 Watching for file changes with StatReloader
+ERROR 2026-01-07 10:59:49,552 log 43316 16772 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:49,560 basehttp 43316 16772 "GET / HTTP/1.1" 500 90510
+ERROR 2026-01-07 10:59:50,973 log 43316 16772 Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 27, in add_message
+    messages = request._messages
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute '_messages'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 54, in process_request
+    return self._handle_unauthenticated_access(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py", line 79, in _handle_unauthenticated_access
+    messages.info(
+    ~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+        "Please log in to access this page. You'll be redirected to your requested page after login."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 88, in info
+    add_message(
+    ~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        fail_silently=fail_silently,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\messages\api.py", line 35, in add_message
+    raise MessageFailure(
+    ...<2 lines>...
+    )
+django.contrib.messages.api.MessageFailure: You cannot add messages without installing django.contrib.messages.middleware.MessageMiddleware
+ERROR 2026-01-07 10:59:50,977 basehttp 43316 16772 "GET /favicon.ico HTTP/1.1" 500 90368
+INFO 2026-01-07 11:00:34,079 autoreload 43316 22448 C:\Users\piyus\CLAS\CLAS\CLAS\settings.py changed, reloading.
+INFO 2026-01-07 11:00:35,676 autoreload 44288 22148 Watching for file changes with StatReloader
+INFO 2026-01-07 11:00:44,037 basehttp 44288 21272 "GET / HTTP/1.1" 302 0
+WARNING 2026-01-07 11:00:44,074 log 44288 21272 Not Found: /login/
+WARNING 2026-01-07 11:00:44,076 basehttp 44288 21272 "GET /login/ HTTP/1.1" 404 35818
+INFO 2026-01-07 11:00:45,412 basehttp 44288 21272 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2026-01-07 11:00:45,435 log 44288 21272 Not Found: /login/
+WARNING 2026-01-07 11:00:45,437 basehttp 44288 21272 "GET /login/ HTTP/1.1" 404 35818
+INFO 2026-01-07 11:00:59,439 basehttp 44288 21272 "GET / HTTP/1.1" 302 0
+WARNING 2026-01-07 11:00:59,461 log 44288 21272 Not Found: /login/
+WARNING 2026-01-07 11:00:59,462 basehttp 44288 21272 "GET /login/ HTTP/1.1" 404 35818
+INFO 2026-01-07 11:01:27,447 autoreload 44288 22148 C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py changed, reloading.
+INFO 2026-01-07 11:01:28,886 autoreload 23640 10820 Watching for file changes with StatReloader
+INFO 2026-01-07 11:01:43,067 autoreload 23640 10820 C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py changed, reloading.
+INFO 2026-01-07 11:01:44,805 autoreload 22760 4108 Watching for file changes with StatReloader
+WARNING 2026-01-07 11:01:53,783 log 22760 19864 Not Found: /login/
+WARNING 2026-01-07 11:01:53,785 basehttp 22760 19864 "GET /login/ HTTP/1.1" 404 35818
+INFO 2026-01-07 11:01:58,079 basehttp 22760 19864 "GET / HTTP/1.1" 200 4769
+INFO 2026-01-07 11:01:58,129 basehttp 22760 19864 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-07 11:01:58,129 basehttp 22760 19256 "GET /static/images/wes-logo.jpg HTTP/1.1" 304 0
+INFO 2026-01-07 11:02:05,074 autoreload 22760 4108 C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py changed, reloading.
+INFO 2026-01-07 11:02:06,544 autoreload 29560 45852 Watching for file changes with StatReloader
+INFO 2026-01-07 11:02:40,240 autoreload 29560 45852 C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py changed, reloading.
+INFO 2026-01-07 11:02:41,868 autoreload 14816 44392 Watching for file changes with StatReloader
+INFO 2026-01-07 11:03:17,594 autoreload 14816 44392 C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py changed, reloading.
+INFO 2026-01-07 11:03:19,119 autoreload 46840 15276 Watching for file changes with StatReloader
+INFO 2026-01-07 11:03:57,338 autoreload 46840 15276 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 11:03:58,844 autoreload 12828 29760 Watching for file changes with StatReloader
+ERROR 2026-01-07 11:04:25,219 log 12828 42976 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 120, in _is_safe_redirect_url
+    from django.core.exceptions import Resolver404
+ImportError: cannot import name 'Resolver404' from 'django.core.exceptions' (C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\exceptions.py)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 84, in login_view
+    if _is_safe_redirect_url(next_url, request):
+       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 138, in _is_safe_redirect_url
+    except (Resolver404, Exception):
+            ^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'Resolver404' where it is not associated with a value
+ERROR 2026-01-07 11:04:25,231 basehttp 12828 42976 "POST / HTTP/1.1" 500 85556
+INFO 2026-01-07 11:05:22,088 autoreload 12828 29760 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 11:05:23,694 autoreload 24304 29928 Watching for file changes with StatReloader
+INFO 2026-01-07 11:06:37,998 basehttp 24304 8320 "GET / HTTP/1.1" 200 5869
+INFO 2026-01-07 11:06:49,241 basehttp 24304 8320 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 11:06:59,427 basehttp 24304 8320 "GET /facilitator/dashboard/ HTTP/1.1" 200 23848
+INFO 2026-01-07 11:06:59,484 basehttp 24304 8320 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+WARNING 2026-01-07 11:06:59,910 basehttp 24304 8320 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-07 11:07:07,950 basehttp 24304 36496 "GET /facilitator/my-schools/ HTTP/1.1" 200 9699
+INFO 2026-01-07 11:07:13,948 basehttp 24304 36496 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+INFO 2026-01-07 11:07:18,071 basehttp 24304 36496 "GET /facilitator/attendance/ HTTP/1.1" 200 22418
+INFO 2026-01-07 11:07:27,347 basehttp 24304 36496 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 11:07:27,355 basehttp 24304 36496 "GET / HTTP/1.1" 200 5849
+INFO 2026-01-07 11:07:50,343 basehttp 24304 36496 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 11:07:56,084 basehttp 24304 36496 "GET /admin/dashboard/ HTTP/1.1" 200 39738
+INFO 2026-01-07 11:08:14,299 basehttp 24304 36496 "GET /admin/users/ HTTP/1.1" 200 41530
+WARNING 2026-01-07 11:08:50,207 mixins 24304 36496 Slow function: schools took 16.45s
+INFO 2026-01-07 11:08:50,208 basehttp 24304 36496 "GET /admin/schools/ HTTP/1.1" 200 38693
+INFO 2026-01-07 11:08:59,908 basehttp 24304 36496 "GET /admin/feedback/ HTTP/1.1" 200 21616
+INFO 2026-01-07 11:09:17,465 basehttp 24304 36496 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 11:09:17,475 basehttp 24304 36496 "GET / HTTP/1.1" 200 5849
+INFO 2026-01-07 11:12:16,407 autoreload 24304 29928 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-07 11:12:17,941 autoreload 18052 41564 Watching for file changes with StatReloader
+INFO 2026-01-07 11:12:55,401 autoreload 18052 41564 C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py changed, reloading.
+INFO 2026-01-07 11:12:56,783 autoreload 11636 39492 Watching for file changes with StatReloader
+INFO 2026-01-07 11:13:15,127 basehttp 11636 27952 - Broken pipe from ('127.0.0.1', 61358)
+INFO 2026-01-07 11:13:18,444 basehttp 11636 2704 "GET /logout/ HTTP/1.1" 302 0
+WARNING 2026-01-07 11:13:18,469 log 11636 2704 Not Found: /accounts/login/
+WARNING 2026-01-07 11:13:18,470 basehttp 11636 2704 "GET /accounts/login/?next=/logout/ HTTP/1.1" 404 35859
+INFO 2026-01-07 11:13:33,006 basehttp 11636 2704 "GET / HTTP/1.1" 200 2395
+INFO 2026-01-07 11:13:41,438 basehttp 11636 2704 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 11:13:49,212 basehttp 11636 2704 "GET /facilitator/dashboard/ HTTP/1.1" 200 23848
+INFO 2026-01-07 11:16:15,827 basehttp 11636 2704 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 11:16:15,836 basehttp 11636 2704 "GET / HTTP/1.1" 200 3051
+INFO 2026-01-07 11:16:24,837 basehttp 11636 2704 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 11:16:32,518 basehttp 11636 2704 "GET /facilitator/dashboard/ HTTP/1.1" 200 23857
+INFO 2026-01-07 11:25:52,129 basehttp 11636 41152 "GET /facilitator/dashboard/ HTTP/1.1" 200 23857
+INFO 2026-01-07 11:39:39,472 basehttp 11636 12600 "GET /facilitator/attendance/ HTTP/1.1" 200 22418
+INFO 2026-01-07 11:39:49,722 basehttp 11636 12600 "GET /facilitator/dashboard/ HTTP/1.1" 200 23857
+INFO 2026-01-07 11:39:57,799 basehttp 11636 12600 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 11:39:57,811 basehttp 11636 12600 "GET / HTTP/1.1" 200 3051
+INFO 2026-01-07 11:40:04,174 basehttp 11636 12600 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 11:40:11,669 basehttp 11636 12600 "GET /facilitator/dashboard/ HTTP/1.1" 200 23857
+INFO 2026-01-07 11:47:36,172 autoreload 13324 22288 Watching for file changes with StatReloader
+INFO 2026-01-07 11:49:21,287 basehttp 13324 3420 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+INFO 2026-01-07 11:49:26,176 session_management 13324 3420 Next pending session for kvs school - 2A (2024-2025): Day 2
+INFO 2026-01-07 11:49:28,606 session_management 13324 3420 Next pending session for kvs school - 2A (2024-2025): Day 2
+INFO 2026-01-07 11:49:28,606 session_management 13324 3420 Progress metrics for kvs school - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-07 11:49:29,440 basehttp 13324 3420 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 74471
+INFO 2026-01-07 11:49:30,850 curriculum_content_resolver 13324 3420 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-07 11:49:32,176 curriculum_content_resolver 13324 3420 Found 5251 rows in curriculum table
+INFO 2026-01-07 11:49:32,179 curriculum_content_resolver 13324 3420 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-07 11:49:32,181 curriculum_content_resolver 13324 3420 Found next day boundary at row 71, day 3
+INFO 2026-01-07 11:49:32,181 curriculum_content_resolver 13324 3420 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-07 11:49:32,187 curriculum_content_resolver 13324 3420 Fixed image and resource paths in curriculum content
+INFO 2026-01-07 11:49:32,188 curriculum_content_resolver 13324 3420 Loaded static fallback content for Day 2 english
+INFO 2026-01-07 11:49:32,454 basehttp 13324 3420 "GET /api/curriculum/content/?day=2&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14750
+WARNING 2026-01-07 11:49:34,525 log 13324 3420 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 11:49:34,526 basehttp 13324 3420 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 11:49:47,174 basehttp 13324 3420 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 128
+INFO 2026-01-07 11:49:49,179 basehttp 13324 18184 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 11:49:52,318 basehttp 13324 18184 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 11:49:52,612 basehttp 13324 36852 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-07 11:49:53,651 basehttp 13324 3420 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-07 11:49:55,770 basehttp 13324 36852 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-07 11:50:18,509 curriculum_content_resolver 13324 36852 Successfully loaded static file for hindi, extracting Day 2 content
+INFO 2026-01-07 11:50:20,131 curriculum_content_resolver 13324 36852 Found 5250 rows in curriculum table
+INFO 2026-01-07 11:50:20,168 curriculum_content_resolver 13324 36852 Found next day boundary at row 71, day 3
+INFO 2026-01-07 11:50:20,169 curriculum_content_resolver 13324 36852 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-07 11:50:20,173 curriculum_content_resolver 13324 36852 Fixed image and resource paths in curriculum content
+INFO 2026-01-07 11:50:20,173 curriculum_content_resolver 13324 36852 Loaded static fallback content for Day 2 hindi
+INFO 2026-01-07 11:50:20,427 basehttp 13324 36852 "GET /api/curriculum/content/?day=2&language=hindi&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 23192
+WARNING 2026-01-07 11:50:36,986 log 13324 36852 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 11:50:36,987 basehttp 13324 36852 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 11:57:29,933 session_management 13324 27352 Next pending session for kvs school - 2A (2024-2025): Day 2
+INFO 2026-01-07 11:57:32,222 session_management 13324 27352 Next pending session for kvs school - 2A (2024-2025): Day 2
+INFO 2026-01-07 11:57:32,222 session_management 13324 27352 Progress metrics for kvs school - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-07 11:57:32,989 basehttp 13324 27352 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 80174
+WARNING 2026-01-07 11:57:33,077 log 13324 27352 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 11:57:33,079 basehttp 13324 27352 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 11:57:34,574 basehttp 13324 27352 "GET /api/curriculum/content/?day=2&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14750
+INFO 2026-01-07 12:17:02,782 basehttp 13324 14204 "GET /facilitator/dashboard/ HTTP/1.1" 200 23475
+INFO 2026-01-07 12:19:03,746 basehttp 13324 14204 "GET /facilitator/attendance/ HTTP/1.1" 200 22418
+INFO 2026-01-07 12:19:10,025 basehttp 13324 14204 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 12:19:10,044 basehttp 13324 14204 "GET / HTTP/1.1" 200 3051
+INFO 2026-01-07 12:19:15,987 basehttp 13324 14204 "POST / HTTP/1.1" 302 0
+INFO 2026-01-07 12:19:26,377 basehttp 13324 14204 "GET /facilitator/dashboard/ HTTP/1.1" 200 23431
+WARNING 2026-01-07 12:21:34,695 log 13324 14204 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 12:21:34,696 basehttp 13324 14204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 12:21:56,612 basehttp 13324 14204 "GET /facilitator/my-schools/ HTTP/1.1" 200 9699
+WARNING 2026-01-07 12:21:56,736 log 13324 14204 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 12:21:56,737 basehttp 13324 14204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-07 12:22:00,751 log 13324 14204 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 12:22:00,752 basehttp 13324 14204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 12:22:10,032 basehttp 13324 14204 "GET /facilitator/students/ HTTP/1.1" 200 26460
+WARNING 2026-01-07 12:22:10,237 log 13324 14204 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 12:22:10,239 basehttp 13324 14204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 12:22:21,315 basehttp 13324 14204 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+WARNING 2026-01-07 12:22:21,497 log 13324 14204 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 12:22:21,499 basehttp 13324 14204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 12:22:25,943 basehttp 13324 14204 "GET /facilitator/attendance/ HTTP/1.1" 200 22418
+WARNING 2026-01-07 12:22:26,150 log 13324 14204 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 12:22:26,152 basehttp 13324 14204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 12:22:32,864 basehttp 13324 14204 "GET /api/facilitator/classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 414
+INFO 2026-01-07 12:22:41,255 basehttp 13324 14204 - Broken pipe from ('127.0.0.1', 52081)
+INFO 2026-01-07 12:22:44,252 basehttp 13324 35004 - Broken pipe from ('127.0.0.1', 50707)
+INFO 2026-01-07 12:22:44,293 basehttp 13324 40908 - Broken pipe from ('127.0.0.1', 52559)
+INFO 2026-01-07 12:22:45,154 basehttp 13324 42060 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=96d9e67b-2263-421f-8409-5caa1fda9d63&period=today&start_date=2025-12-06&end_date=2026-01-07 HTTP/1.1" 200 23979
+WARNING 2026-01-07 12:22:45,340 log 13324 42060 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 12:22:45,341 basehttp 13324 42060 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 12:22:59,559 basehttp 13324 42060 - Broken pipe from ('127.0.0.1', 56629)
+INFO 2026-01-07 12:23:02,630 basehttp 13324 19660 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=96d9e67b-2263-421f-8409-5caa1fda9d63&period=this_week&start_date=2025-12-06&end_date=2026-01-07 HTTP/1.1" 200 25793
+WARNING 2026-01-07 12:23:02,863 log 13324 19660 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 12:23:02,864 basehttp 13324 19660 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-07 12:23:21,207 basehttp 13324 19660 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-07 12:23:21,220 basehttp 13324 19660 "GET / HTTP/1.1" 200 3051
+WARNING 2026-01-07 12:23:21,405 log 13324 19660 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-07 12:23:21,406 basehttp 13324 19660 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
