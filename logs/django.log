@@ -10393,3 +10393,538 @@ INFO 2026-01-07 12:23:21,207 basehttp 13324 19660 "GET /logout/ HTTP/1.1" 302 0
 INFO 2026-01-07 12:23:21,220 basehttp 13324 19660 "GET / HTTP/1.1" 200 3051
 WARNING 2026-01-07 12:23:21,405 log 13324 19660 Not Found: /.well-known/appspecific/com.chrome.devtools.json
 WARNING 2026-01-07 12:23:21,406 basehttp 13324 19660 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 15:19:09,944 autoreload 6156 23640 Watching for file changes with StatReloader
+INFO 2026-01-08 15:20:34,531 basehttp 6156 47440 "GET / HTTP/1.1" 200 2395
+INFO 2026-01-08 15:20:34,655 basehttp 6156 47440 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-08 15:20:34,658 basehttp 6156 47440 "GET /static/images/wes-logo.jpg HTTP/1.1" 304 0
+INFO 2026-01-08 15:20:42,946 basehttp 6156 47440 "POST / HTTP/1.1" 302 0
+INFO 2026-01-08 15:20:51,134 basehttp 6156 47440 "GET /facilitator/dashboard/ HTTP/1.1" 200 23826
+INFO 2026-01-08 15:20:51,202 basehttp 6156 44732 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+WARNING 2026-01-08 15:20:53,240 basehttp 6156 44732 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-08 15:20:57,553 basehttp 6156 25768 "GET /facilitator/attendance/ HTTP/1.1" 200 22418
+INFO 2026-01-08 15:21:02,949 basehttp 6156 25768 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+INFO 2026-01-08 15:21:07,453 session_management 6156 25768 Next pending session for kvs school - 2A (2024-2025): Day 2
+INFO 2026-01-08 15:21:10,062 session_management 6156 25768 Next pending session for kvs school - 2A (2024-2025): Day 2
+INFO 2026-01-08 15:21:10,062 session_management 6156 25768 Progress metrics for kvs school - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-08 15:21:11,241 basehttp 6156 25768 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 78565
+INFO 2026-01-08 15:21:12,763 basehttp 6156 25768 "GET /api/get-feedback-status/?session_id=fb69144e-2819-41c9-bf95-0dbb88d376a3 HTTP/1.1" 200 111
+INFO 2026-01-08 15:21:14,312 curriculum_content_resolver 6156 31596 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-08 15:21:15,967 curriculum_content_resolver 6156 31596 Found 5251 rows in curriculum table
+INFO 2026-01-08 15:21:15,969 curriculum_content_resolver 6156 31596 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-08 15:21:15,972 curriculum_content_resolver 6156 31596 Found next day boundary at row 71, day 3
+INFO 2026-01-08 15:21:15,972 curriculum_content_resolver 6156 31596 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-08 15:21:15,980 curriculum_content_resolver 6156 31596 Fixed image and resource paths in curriculum content
+INFO 2026-01-08 15:21:15,981 curriculum_content_resolver 6156 31596 Loaded static fallback content for Day 2 english
+WARNING 2026-01-08 15:21:16,234 log 6156 25768 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 15:21:16,236 basehttp 6156 25768 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 15:21:16,254 basehttp 6156 31596 "GET /api/curriculum/content/?day=2&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14750
+WARNING 2026-01-08 15:22:00,033 log 6156 31596 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 15:22:00,035 basehttp 6156 31596 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-08 15:22:00,093 log 6156 31596 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 15:22:00,094 basehttp 6156 31596 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 15:22:04,347 session_management 6156 31596 Next pending session for kvs school - 1A (2024-2025): Day 2
+INFO 2026-01-08 15:22:06,798 session_management 6156 31596 Next pending session for kvs school - 1A (2024-2025): Day 2
+INFO 2026-01-08 15:22:06,798 session_management 6156 31596 Progress metrics for kvs school - 1A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-08 15:22:07,624 basehttp 6156 31596 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/ HTTP/1.1" 200 81324
+WARNING 2026-01-08 15:22:07,773 log 6156 31596 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 15:22:07,776 basehttp 6156 31596 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 15:22:09,293 basehttp 6156 31596 "GET /api/curriculum/content/?day=2&language=english&class_section_id=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 14750
+INFO 2026-01-08 15:30:37,953 basehttp 6156 28644 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+WARNING 2026-01-08 15:30:38,122 log 6156 28644 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 15:30:38,123 basehttp 6156 28644 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 15:30:44,426 session_management 6156 28644 Next pending session for kvs school - 2A (2024-2025): Day 2
+INFO 2026-01-08 15:30:47,252 session_management 6156 28644 Next pending session for kvs school - 2A (2024-2025): Day 2
+INFO 2026-01-08 15:30:47,253 session_management 6156 28644 Progress metrics for kvs school - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-08 15:30:48,413 basehttp 6156 28644 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 81551
+WARNING 2026-01-08 15:30:48,591 log 6156 28644 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 15:30:48,592 basehttp 6156 28644 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 15:30:50,144 basehttp 6156 28644 "GET /api/curriculum/content/?day=2&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14750
+INFO 2026-01-08 15:30:52,021 basehttp 6156 43500 "GET /api/get-feedback-status/?session_id=fb69144e-2819-41c9-bf95-0dbb88d376a3 HTTP/1.1" 200 111
+INFO 2026-01-08 15:31:39,424 session_management 6156 43500 Session conducted: kvs school - 2A (2024-2025) - Day 2 by aryan6@gmail.com (Facilitator)
+INFO 2026-01-08 15:31:40,655 basehttp 6156 43500 "POST /facilitator/session/start/e9f15fb2-5a8c-4890-ae95-0c639fe30571/ HTTP/1.1" 302 0
+INFO 2026-01-08 15:31:43,359 basehttp 6156 43500 "GET /facilitator/session/48a218cb-b725-4fcd-9a4c-fc15f4e50c7f/attendance/ HTTP/1.1" 200 15767
+INFO 2026-01-08 15:32:04,537 session_management 6156 43500 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 15:32:06,925 session_management 6156 43500 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 15:32:06,925 session_management 6156 43500 Progress metrics for kvs school - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-08 15:32:08,133 basehttp 6156 43500 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 78523
+INFO 2026-01-08 15:32:09,609 basehttp 6156 43500 "GET /api/get-feedback-status/?session_id=48a218cb-b725-4fcd-9a4c-fc15f4e50c7f HTTP/1.1" 200 111
+INFO 2026-01-08 15:32:09,633 basehttp 6156 28644 "GET /api/curriculum/content/?day=2&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14750
+INFO 2026-01-08 15:36:47,053 basehttp 6156 28644 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+INFO 2026-01-08 15:36:51,798 session_management 6156 28644 Next pending session for kvs school - 1A (2024-2025): Day 2
+INFO 2026-01-08 15:36:54,348 session_management 6156 28644 Next pending session for kvs school - 1A (2024-2025): Day 2
+INFO 2026-01-08 15:36:54,349 session_management 6156 28644 Progress metrics for kvs school - 1A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-08 15:36:55,211 basehttp 6156 28644 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/ HTTP/1.1" 200 81360
+INFO 2026-01-08 15:36:56,700 basehttp 6156 28644 "GET /api/curriculum/content/?day=2&language=english&class_section_id=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 14750
+INFO 2026-01-08 15:37:04,936 basehttp 6156 28644 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 128
+INFO 2026-01-08 15:37:05,586 basehttp 6156 43500 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-08 15:37:08,520 basehttp 6156 36540 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-08 15:37:08,956 basehttp 6156 43500 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-08 15:37:10,349 basehttp 6156 28644 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-08 15:37:11,684 basehttp 6156 43500 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-08 15:37:31,309 session_management 6156 43500 Session conducted: kvs school - 1A (2024-2025) - Day 2 by aryan6@gmail.com (Facilitator)
+INFO 2026-01-08 15:37:32,453 basehttp 6156 43500 "POST /facilitator/session/start/4d2f0432-626d-4a3c-bca0-ea25871c8dab/ HTTP/1.1" 302 0
+INFO 2026-01-08 15:37:36,200 basehttp 6156 43500 "GET /facilitator/session/6333ed74-d233-405d-be25-d36ee650d4f8/attendance/ HTTP/1.1" 200 18954
+INFO 2026-01-08 15:37:53,772 session_management 6156 43500 Found today's session for kvs school - 1A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 15:37:56,072 session_management 6156 43500 Found today's session for kvs school - 1A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 15:37:56,073 session_management 6156 43500 Progress metrics for kvs school - 1A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-08 15:37:57,222 basehttp 6156 43500 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/ HTTP/1.1" 200 81852
+INFO 2026-01-08 15:37:58,727 basehttp 6156 28644 "GET /api/get-feedback-status/?session_id=6333ed74-d233-405d-be25-d36ee650d4f8 HTTP/1.1" 200 111
+INFO 2026-01-08 15:37:58,731 basehttp 6156 43500 "GET /api/curriculum/content/?day=2&language=english&class_section_id=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 14750
+INFO 2026-01-08 15:38:15,141 basehttp 6156 43500 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+INFO 2026-01-08 15:38:28,752 session_management 6156 43500 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 15:38:31,040 session_management 6156 43500 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 15:38:31,040 session_management 6156 43500 Progress metrics for kvs school - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-08 15:38:32,185 basehttp 6156 43500 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 81852
+INFO 2026-01-08 15:38:33,695 basehttp 6156 28644 "GET /api/get-feedback-status/?session_id=48a218cb-b725-4fcd-9a4c-fc15f4e50c7f HTTP/1.1" 200 111
+INFO 2026-01-08 15:38:33,699 basehttp 6156 43500 "GET /api/curriculum/content/?day=2&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14750
+INFO 2026-01-08 15:38:45,248 basehttp 6156 43500 "GET /facilitator/attendance/ HTTP/1.1" 200 22418
+INFO 2026-01-08 15:38:50,720 basehttp 6156 43500 "GET /api/facilitator/classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 414
+INFO 2026-01-08 15:38:59,262 basehttp 6156 43500 - Broken pipe from ('127.0.0.1', 65119)
+INFO 2026-01-08 15:39:00,610 basehttp 6156 28644 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=all&start_date=2025-12-07&end_date=2026-01-08 HTTP/1.1" 200 30923
+INFO 2026-01-08 15:39:15,000 basehttp 6156 28644 "GET /facilitator/session/6333ed74-d233-405d-be25-d36ee650d4f8/attendance/ HTTP/1.1" 200 18954
+INFO 2026-01-08 15:39:46,996 basehttp 6156 28644 "POST /facilitator/session/6333ed74-d233-405d-be25-d36ee650d4f8/attendance/ HTTP/1.1" 302 0
+INFO 2026-01-08 15:39:49,001 session_management 6156 28644 Found today's session for kvs school - 1A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 15:39:51,300 session_management 6156 28644 Found today's session for kvs school - 1A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 15:39:51,301 session_management 6156 28644 Progress metrics for kvs school - 1A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-08 15:39:52,514 basehttp 6156 28644 "GET /facilitator/class/64546ee9-82bf-488e-9a38-0d06bbf9f706/today/ HTTP/1.1" 200 81852
+INFO 2026-01-08 15:39:54,030 basehttp 6156 36540 "GET /api/get-feedback-status/?session_id=6333ed74-d233-405d-be25-d36ee650d4f8 HTTP/1.1" 200 111
+INFO 2026-01-08 15:39:54,033 basehttp 6156 28644 "GET /api/curriculum/content/?day=2&language=english&class_section_id=64546ee9-82bf-488e-9a38-0d06bbf9f706 HTTP/1.1" 200 14750
+INFO 2026-01-08 15:40:07,087 basehttp 6156 28644 "GET /facilitator/attendance/ HTTP/1.1" 200 22418
+INFO 2026-01-08 15:40:12,700 basehttp 6156 28644 "GET /api/facilitator/classes/?school_id=1fadd26b-ea53-48ca-b38a-993f1482aaff HTTP/1.1" 200 414
+INFO 2026-01-08 15:40:21,468 basehttp 6156 28644 - Broken pipe from ('127.0.0.1', 60801)
+INFO 2026-01-08 15:40:24,966 basehttp 6156 36540 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=today&start_date=2025-12-07&end_date=2026-01-08 HTTP/1.1" 200 31522
+INFO 2026-01-08 15:43:44,136 basehttp 6156 36540 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=64546ee9-82bf-488e-9a38-0d06bbf9f706&period=all&start_date=2025-12-07&end_date=2026-01-08 HTTP/1.1" 200 30923
+INFO 2026-01-08 15:43:59,095 basehttp 6156 36540 "GET /facilitator/attendance/?school=1fadd26b-ea53-48ca-b38a-993f1482aaff&class_section=96d9e67b-2263-421f-8409-5caa1fda9d63&period=all&start_date=2025-12-07&end_date=2026-01-08 HTTP/1.1" 200 26189
+INFO 2026-01-08 15:44:12,429 basehttp 6156 36540 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+INFO 2026-01-08 15:44:18,344 session_management 6156 36540 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 15:44:20,679 session_management 6156 36540 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 15:44:20,680 session_management 6156 36540 Progress metrics for kvs school - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-08 15:44:21,838 basehttp 6156 36540 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 84245
+INFO 2026-01-08 15:44:23,342 basehttp 6156 36540 "GET /api/curriculum/content/?day=2&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14750
+INFO 2026-01-08 15:44:25,006 basehttp 6156 24136 "GET /api/get-feedback-status/?session_id=48a218cb-b725-4fcd-9a4c-fc15f4e50c7f HTTP/1.1" 200 111
+INFO 2026-01-08 15:44:33,210 basehttp 6156 24136 "GET /facilitator/session/48a218cb-b725-4fcd-9a4c-fc15f4e50c7f/attendance/ HTTP/1.1" 200 15767
+WARNING 2026-01-08 15:45:01,991 log 6156 24136 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 15:45:01,993 basehttp 6156 24136 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-08 15:45:04,619 log 6156 24136 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 15:45:04,620 basehttp 6156 24136 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 15:50:40,443 basehttp 6156 13612 "GET /facilitator/session/48a218cb-b725-4fcd-9a4c-fc15f4e50c7f/attendance/ HTTP/1.1" 200 26276
+WARNING 2026-01-08 15:50:40,546 log 6156 13612 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 15:50:40,547 basehttp 6156 13612 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+ERROR 2026-01-08 15:53:40,051 log 6156 13612 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 883, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'PlannedSession' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 239, in __get__
+    rel_obj = self.field.get_cached_value(instance)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\mixins.py", line 37, in get_cached_value
+    return instance._state.fields_cache[self.cache_name]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'class_section'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 679, in facilitator_dashboard
+    return render(request, 'facilitator/dashboard.html', context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1067, in render
+    output = self.filter_expression.resolve(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 718, in resolve
+    obj = self.var.resolve(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 850, in resolve
+    value = self._resolve_lookup(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 893, in _resolve_lookup
+    current = getattr(current, bit)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 257, in __get__
+    rel_obj = self.get_object(instance)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 220, in get_object
+    return qs.get(self.field.get_reverse_related_filter(instance))
+           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+ERROR 2026-01-08 15:53:40,074 basehttp 6156 13612 "GET /facilitator/dashboard/ HTTP/1.1" 500 293165
+WARNING 2026-01-08 15:53:40,238 log 6156 13612 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 15:53:40,239 basehttp 6156 13612 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-08 15:53:42,277 log 6156 13612 Not Found: /favicon.ico
+WARNING 2026-01-08 15:53:42,278 basehttp 6156 13612 "GET /favicon.ico HTTP/1.1" 404 35833
+INFO 2026-01-08 16:03:13,275 basehttp 6156 43608 "GET /facilitator/dashboard/ HTTP/1.1" 200 23839
+WARNING 2026-01-08 16:03:13,376 log 6156 43608 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:03:13,377 basehttp 6156 43608 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:03:33,549 basehttp 6156 43608 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+WARNING 2026-01-08 16:03:33,682 log 6156 43608 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:03:33,683 basehttp 6156 43608 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:03:39,157 session_management 6156 43608 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 16:03:41,550 session_management 6156 43608 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 16:03:41,550 session_management 6156 43608 Progress metrics for kvs school - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-08 16:03:42,770 basehttp 6156 43608 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 84245
+WARNING 2026-01-08 16:03:42,902 log 6156 43608 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:03:42,903 basehttp 6156 43608 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:03:44,424 curriculum_content_resolver 6156 43608 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-08 16:03:46,236 curriculum_content_resolver 6156 43608 Found 5251 rows in curriculum table
+INFO 2026-01-08 16:03:46,239 curriculum_content_resolver 6156 43608 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-08 16:03:46,242 curriculum_content_resolver 6156 43608 Found next day boundary at row 71, day 3
+INFO 2026-01-08 16:03:46,243 curriculum_content_resolver 6156 43608 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-08 16:03:46,249 curriculum_content_resolver 6156 43608 Fixed image and resource paths in curriculum content
+INFO 2026-01-08 16:03:46,250 curriculum_content_resolver 6156 43608 Loaded static fallback content for Day 2 english
+INFO 2026-01-08 16:03:46,295 basehttp 6156 1748 "GET /api/get-feedback-status/?session_id=48a218cb-b725-4fcd-9a4c-fc15f4e50c7f HTTP/1.1" 200 111
+INFO 2026-01-08 16:03:46,569 basehttp 6156 43608 "GET /api/curriculum/content/?day=2&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14750
+ERROR 2026-01-08 16:03:50,200 log 6156 43608 Internal Server Error: /facilitator/session/48a218cb-b725-4fcd-9a4c-fc15f4e50c7f/attendance/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 1300, in mark_attendance
+    return render(request, "facilitator/mark_attendance.html", {
+        "session": session,
+        "enrollments": enrollments
+    })
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'content' appears more than once
+ERROR 2026-01-08 16:03:50,218 basehttp 6156 43608 "GET /facilitator/session/48a218cb-b725-4fcd-9a4c-fc15f4e50c7f/attendance/ HTTP/1.1" 500 211777
+WARNING 2026-01-08 16:03:50,361 log 6156 43608 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:03:50,362 basehttp 6156 43608 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:11:01,805 autoreload 26616 27296 Watching for file changes with StatReloader
+INFO 2026-01-08 16:11:18,038 basehttp 26616 2500 "GET /facilitator/session/48a218cb-b725-4fcd-9a4c-fc15f4e50c7f/attendance/ HTTP/1.1" 200 18622
+WARNING 2026-01-08 16:11:18,215 log 26616 2500 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:11:18,217 basehttp 26616 2500 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:27:38,589 basehttp 26616 4692 "GET /facilitator/session/48a218cb-b725-4fcd-9a4c-fc15f4e50c7f/attendance/ HTTP/1.1" 200 21111
+WARNING 2026-01-08 16:27:38,688 log 26616 4692 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:27:38,689 basehttp 26616 4692 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:28:24,421 basehttp 26616 4692 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-08 16:28:24,437 basehttp 26616 4692 "GET / HTTP/1.1" 200 3051
+INFO 2026-01-08 16:28:30,903 basehttp 26616 4692 "POST / HTTP/1.1" 302 0
+INFO 2026-01-08 16:28:38,974 basehttp 26616 4692 "GET /facilitator/dashboard/ HTTP/1.1" 200 23839
+INFO 2026-01-08 16:28:43,154 basehttp 26616 4692 "GET /Facilitator/classes/ HTTP/1.1" 200 7169
+INFO 2026-01-08 16:28:47,654 session_management 26616 4692 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 16:28:49,828 session_management 26616 4692 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 16:28:49,828 session_management 26616 4692 Progress metrics for kvs school - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-08 16:28:50,937 basehttp 26616 4692 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 84245
+INFO 2026-01-08 16:28:52,350 curriculum_content_resolver 26616 4692 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-08 16:28:54,054 curriculum_content_resolver 26616 4692 Found 5251 rows in curriculum table
+INFO 2026-01-08 16:28:54,057 curriculum_content_resolver 26616 4692 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-08 16:28:54,060 curriculum_content_resolver 26616 4692 Found next day boundary at row 71, day 3
+INFO 2026-01-08 16:28:54,060 curriculum_content_resolver 26616 4692 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-08 16:28:54,067 curriculum_content_resolver 26616 4692 Fixed image and resource paths in curriculum content
+INFO 2026-01-08 16:28:54,068 curriculum_content_resolver 26616 4692 Loaded static fallback content for Day 2 english
+INFO 2026-01-08 16:28:54,122 basehttp 26616 13136 "GET /api/get-feedback-status/?session_id=48a218cb-b725-4fcd-9a4c-fc15f4e50c7f HTTP/1.1" 200 111
+INFO 2026-01-08 16:28:54,335 basehttp 26616 4692 "GET /api/curriculum/content/?day=2&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14750
+INFO 2026-01-08 16:28:57,720 basehttp 26616 33648 "GET /facilitator/session/48a218cb-b725-4fcd-9a4c-fc15f4e50c7f/attendance/ HTTP/1.1" 200 18622
+WARNING 2026-01-08 16:28:57,857 log 26616 33648 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:28:57,859 basehttp 26616 33648 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:35:52,663 basehttp 26616 24344 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-08 16:35:52,673 basehttp 26616 24344 "GET / HTTP/1.1" 200 3051
+WARNING 2026-01-08 16:35:52,838 log 26616 24344 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:35:52,839 basehttp 26616 24344 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:36:14,827 basehttp 26616 24344 "POST / HTTP/1.1" 302 0
+INFO 2026-01-08 16:36:18,267 basehttp 26616 24344 "GET /admin/dashboard/ HTTP/1.1" 200 44916
+WARNING 2026-01-08 16:36:18,432 log 26616 24344 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:36:18,433 basehttp 26616 24344 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:36:30,603 basehttp 26616 24344 "GET /admin/users/ HTTP/1.1" 200 42670
+WARNING 2026-01-08 16:36:30,759 log 26616 24344 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:36:30,761 basehttp 26616 24344 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-08 16:36:53,781 mixins 26616 24344 Slow function: schools took 4.80s
+INFO 2026-01-08 16:36:53,783 basehttp 26616 24344 "GET /admin/schools/ HTTP/1.1" 200 39833
+WARNING 2026-01-08 16:36:53,972 log 26616 24344 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:36:53,973 basehttp 26616 24344 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:37:02,835 basehttp 26616 24344 "GET /admin/feedback/ HTTP/1.1" 200 23572
+WARNING 2026-01-08 16:37:03,008 log 26616 24344 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:37:03,010 basehttp 26616 24344 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-08 16:37:10,952 mixins 26616 24344 Slow function: admin_curriculum_sessions_list took 1.40s
+INFO 2026-01-08 16:37:10,953 basehttp 26616 24344 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 37175
+WARNING 2026-01-08 16:37:11,125 log 26616 24344 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:37:11,126 basehttp 26616 24344 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:37:12,425 curriculum_content_resolver 26616 24344 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-08 16:37:14,041 curriculum_content_resolver 26616 24344 Found 5251 rows in curriculum table
+INFO 2026-01-08 16:37:14,042 curriculum_content_resolver 26616 24344 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-08 16:37:14,044 curriculum_content_resolver 26616 24344 Found next day boundary at row 36, day 2
+INFO 2026-01-08 16:37:14,045 curriculum_content_resolver 26616 24344 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-08 16:37:14,051 curriculum_content_resolver 26616 24344 Fixed image and resource paths in curriculum content
+INFO 2026-01-08 16:37:14,052 curriculum_content_resolver 26616 24344 Loaded static fallback content for Day 1 english
+INFO 2026-01-08 16:37:14,356 basehttp 26616 24344 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14543
+WARNING 2026-01-08 16:44:56,699 mixins 26616 8684 Slow function: admin_curriculum_sessions_list took 1.57s
+INFO 2026-01-08 16:44:56,701 basehttp 26616 8684 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 46213
+WARNING 2026-01-08 16:44:56,801 log 26616 8684 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:44:56,802 basehttp 26616 8684 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:44:58,310 curriculum_content_resolver 26616 8684 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-08 16:44:59,611 curriculum_content_resolver 26616 8684 Found 5251 rows in curriculum table
+INFO 2026-01-08 16:44:59,612 curriculum_content_resolver 26616 8684 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-08 16:44:59,614 curriculum_content_resolver 26616 8684 Found next day boundary at row 36, day 2
+INFO 2026-01-08 16:44:59,614 curriculum_content_resolver 26616 8684 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-08 16:44:59,619 curriculum_content_resolver 26616 8684 Fixed image and resource paths in curriculum content
+INFO 2026-01-08 16:44:59,620 curriculum_content_resolver 26616 8684 Loaded static fallback content for Day 1 english
+INFO 2026-01-08 16:44:59,944 basehttp 26616 8684 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14543
+INFO 2026-01-08 16:45:19,621 basehttp 26616 8684 "GET /admin/dashboard/ HTTP/1.1" 200 44925
+WARNING 2026-01-08 16:45:24,935 log 26616 8684 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:45:24,936 basehttp 26616 8684 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:57:50,637 autoreload 45800 37376 Watching for file changes with StatReloader
+WARNING 2026-01-08 16:58:42,350 mixins 45800 20740 Slow function: admin_curriculum_sessions_list took 3.23s
+INFO 2026-01-08 16:58:42,352 basehttp 45800 20740 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 58513
+WARNING 2026-01-08 16:58:42,423 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:58:42,424 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 16:58:50,155 curriculum_content_resolver 45800 20740 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-08 16:58:51,904 curriculum_content_resolver 45800 20740 Found 5251 rows in curriculum table
+INFO 2026-01-08 16:58:51,905 curriculum_content_resolver 45800 20740 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-08 16:58:51,907 curriculum_content_resolver 45800 20740 Found next day boundary at row 36, day 2
+INFO 2026-01-08 16:58:51,907 curriculum_content_resolver 45800 20740 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-08 16:58:51,914 curriculum_content_resolver 45800 20740 Fixed image and resource paths in curriculum content
+INFO 2026-01-08 16:58:51,914 curriculum_content_resolver 45800 20740 Loaded static fallback content for Day 1 english
+INFO 2026-01-08 16:58:54,600 basehttp 45800 20740 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14543
+WARNING 2026-01-08 16:59:24,046 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 16:59:24,048 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-08 17:03:22,180 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:03:22,181 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:03:40,055 basehttp 45800 20740 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 58513
+WARNING 2026-01-08 17:03:40,169 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:03:40,172 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:04:08,941 basehttp 45800 20740 "GET /admin/dashboard/ HTTP/1.1" 200 44926
+WARNING 2026-01-08 17:04:09,070 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:04:09,071 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-08 17:04:27,730 mixins 45800 20740 Slow function: admin_curriculum_sessions_list took 1.34s
+INFO 2026-01-08 17:04:27,732 basehttp 45800 20740 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 59874
+WARNING 2026-01-08 17:04:27,906 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:04:27,909 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:04:29,144 curriculum_content_resolver 45800 20740 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-08 17:04:30,487 curriculum_content_resolver 45800 20740 Found 5251 rows in curriculum table
+INFO 2026-01-08 17:04:30,488 curriculum_content_resolver 45800 20740 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-08 17:04:30,490 curriculum_content_resolver 45800 20740 Found next day boundary at row 36, day 2
+INFO 2026-01-08 17:04:30,490 curriculum_content_resolver 45800 20740 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-08 17:04:30,495 curriculum_content_resolver 45800 20740 Fixed image and resource paths in curriculum content
+INFO 2026-01-08 17:04:30,496 curriculum_content_resolver 45800 20740 Loaded static fallback content for Day 1 english
+INFO 2026-01-08 17:04:30,758 basehttp 45800 20740 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14543
+WARNING 2026-01-08 17:06:45,702 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:06:45,703 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:06:56,568 basehttp 45800 20740 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-08 17:06:56,578 basehttp 45800 20740 "GET / HTTP/1.1" 200 3051
+WARNING 2026-01-08 17:06:56,688 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:06:56,690 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:07:38,245 basehttp 45800 20740 "POST / HTTP/1.1" 302 0
+INFO 2026-01-08 17:07:41,700 basehttp 45800 20740 "GET /admin/dashboard/ HTTP/1.1" 200 44926
+WARNING 2026-01-08 17:07:41,877 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:07:41,879 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-08 17:08:02,977 mixins 45800 20740 Slow function: admin_curriculum_sessions_list took 3.88s
+INFO 2026-01-08 17:08:02,979 basehttp 45800 20740 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 60545
+WARNING 2026-01-08 17:08:03,217 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:08:03,218 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:08:05,594 curriculum_content_resolver 45800 20740 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-08 17:08:07,225 curriculum_content_resolver 45800 20740 Found 5251 rows in curriculum table
+INFO 2026-01-08 17:08:07,225 curriculum_content_resolver 45800 20740 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-08 17:08:07,228 curriculum_content_resolver 45800 20740 Found next day boundary at row 36, day 2
+INFO 2026-01-08 17:08:07,229 curriculum_content_resolver 45800 20740 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-08 17:08:07,235 curriculum_content_resolver 45800 20740 Fixed image and resource paths in curriculum content
+INFO 2026-01-08 17:08:07,236 curriculum_content_resolver 45800 20740 Loaded static fallback content for Day 1 english
+INFO 2026-01-08 17:08:08,527 basehttp 45800 20740 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 14543
+WARNING 2026-01-08 17:08:29,584 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:08:29,585 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:09:09,241 basehttp 45800 20740 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-08 17:09:09,254 basehttp 45800 20740 "GET / HTTP/1.1" 200 3051
+WARNING 2026-01-08 17:09:09,408 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:09:09,409 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:09:23,384 basehttp 45800 20740 "POST / HTTP/1.1" 200 3073
+WARNING 2026-01-08 17:09:23,468 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:09:23,470 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:09:37,298 basehttp 45800 20740 "POST / HTTP/1.1" 302 0
+INFO 2026-01-08 17:09:45,452 basehttp 45800 20740 "GET /facilitator/dashboard/ HTTP/1.1" 200 29229
+WARNING 2026-01-08 17:09:45,548 log 45800 20740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:09:45,550 basehttp 45800 20740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:10:02,864 basehttp 45800 47024 "GET /facilitator/my-schools/ HTTP/1.1" 200 15089
+WARNING 2026-01-08 17:10:03,066 log 45800 47024 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:10:03,068 basehttp 45800 47024 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:10:08,952 basehttp 45800 47024 "GET /Facilitator/classes/ HTTP/1.1" 200 12559
+WARNING 2026-01-08 17:10:09,153 log 45800 47024 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:10:09,155 basehttp 45800 47024 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:10:13,214 session_management 45800 47024 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 17:10:15,508 session_management 45800 47024 Found today's session for kvs school - 2A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-08 17:10:15,509 session_management 45800 47024 Progress metrics for kvs school - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-08 17:10:16,700 basehttp 45800 47024 "GET /facilitator/class/96d9e67b-2263-421f-8409-5caa1fda9d63/today/ HTTP/1.1" 200 89635
+WARNING 2026-01-08 17:10:16,902 log 45800 47024 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:10:16,903 basehttp 45800 47024 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:10:18,365 curriculum_content_resolver 45800 47024 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-08 17:10:19,746 curriculum_content_resolver 45800 47024 Found 5251 rows in curriculum table
+INFO 2026-01-08 17:10:19,749 curriculum_content_resolver 45800 47024 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-08 17:10:19,751 curriculum_content_resolver 45800 47024 Found next day boundary at row 71, day 3
+INFO 2026-01-08 17:10:19,751 curriculum_content_resolver 45800 47024 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-08 17:10:19,755 curriculum_content_resolver 45800 47024 Fixed image and resource paths in curriculum content
+INFO 2026-01-08 17:10:19,756 curriculum_content_resolver 45800 47024 Loaded static fallback content for Day 2 english
+INFO 2026-01-08 17:10:20,041 basehttp 45800 47024 "GET /api/curriculum/content/?day=2&language=english&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 14750
+INFO 2026-01-08 17:10:20,172 basehttp 45800 23640 "GET /api/get-feedback-status/?session_id=48a218cb-b725-4fcd-9a4c-fc15f4e50c7f HTTP/1.1" 200 111
+WARNING 2026-01-08 17:11:19,392 log 45800 23640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:11:19,394 basehttp 45800 23640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+WARNING 2026-01-08 17:11:19,469 log 45800 23640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:11:19,470 basehttp 45800 23640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:11:31,778 curriculum_content_resolver 45800 23640 Successfully loaded static file for hindi, extracting Day 2 content
+INFO 2026-01-08 17:11:33,752 curriculum_content_resolver 45800 23640 Found 5250 rows in curriculum table
+INFO 2026-01-08 17:11:33,793 curriculum_content_resolver 45800 23640 Found next day boundary at row 71, day 3
+INFO 2026-01-08 17:11:33,794 curriculum_content_resolver 45800 23640 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-08 17:11:33,799 curriculum_content_resolver 45800 23640 Fixed image and resource paths in curriculum content
+INFO 2026-01-08 17:11:33,800 curriculum_content_resolver 45800 23640 Loaded static fallback content for Day 2 hindi
+WARNING 2026-01-08 17:11:34,000 log 45800 47024 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-08 17:11:34,001 basehttp 45800 47024 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 35944
+INFO 2026-01-08 17:11:34,082 basehttp 45800 23640 "GET /api/curriculum/content/?day=2&language=hindi&class_section_id=96d9e67b-2263-421f-8409-5caa1fda9d63 HTTP/1.1" 200 23192
+INFO 2026-01-08 17:11:50,936 basehttp 45800 23640 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-08 17:11:50,946 basehttp 45800 23640 "GET / HTTP/1.1" 200 3051

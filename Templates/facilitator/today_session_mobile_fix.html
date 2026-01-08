@@ -121,6 +121,26 @@
     color: #856404;
 }
 
+/* Desktop layout - keep workflow steps on left */
+@media (min-width: 769px) {
+    .session-layout .col-md-4 {
+        order: 1; /* Left side on desktop */
+    }
+    
+    .session-layout .col-md-8 {
+        order: 2; /* Right side on desktop */
+    }
+    
+    .workflow-nav {
+        background: transparent;
+        padding: 0;
+    }
+    
+    .workflow-nav h6 {
+        display: none; /* Hide mobile title on desktop */
+    }
+}
+
 /* Mobile Responsive Breakpoints */
 @media (max-width: 768px) {
     .session-container {
@@ -134,13 +154,18 @@
         margin-bottom: 15px;
     }
     
-    /* Stack layout on mobile */
+    /* Stack layout on mobile - workflow steps first (top), then content */
     .row.session-layout {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
     
     .session-layout .col-md-4 {
         margin-bottom: 20px;
+        order: 1; /* Session control panel appears first on mobile */
+    }
+    
+    .session-layout .col-md-8 {
+        order: 2; /* Main content appears second on mobile */
     }
     
     /* Curriculum content mobile optimization */
@@ -228,17 +253,37 @@
 /* Workflow Navigation - Mobile Friendly */
 .workflow-nav .nav-pills {
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .workflow-nav .nav-link {
     margin-bottom: 5px;
     font-size: 0.9rem;
+    margin-right: 5px;
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
 }
 
 @media (max-width: 768px) {
     .workflow-nav .nav-link {
         font-size: 0.8rem;
         padding: 8px 12px;
+    }
+    
+    /* Make workflow steps more prominent on mobile */
+    .workflow-nav {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    
+    .workflow-nav h6 {
+        text-align: center;
+        margin-bottom: 15px;
+        color: #495057;
+        font-weight: 600;
     }
 }
 
@@ -283,6 +328,63 @@
 
 #curriculumContent::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
+}
+
+/* Quick Attendance Access Button */
+.quick-attendance-access {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1040;
+}
+
+.btn-floating {
+    border-radius: 50px !important;
+    padding: 12px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-floating:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.btn-floating i {
+    font-size: 1.1rem;
+}
+
+/* Mobile responsive for floating button */
+@media (max-width: 768px) {
+    .quick-attendance-access {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .btn-floating {
+        padding: 10px 16px;
+        border-radius: 50px !important;
+    }
+    
+    .btn-floating .btn-text {
+        display: none !important;
+    }
+    
+    .btn-floating i {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .quick-attendance-access {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .btn-floating {
+        padding: 8px 12px;
+    }
 }
 </style>
 {% endblock %}
@@ -430,6 +532,50 @@
                     {{ planned_session.title|default:"Day Session" }}
                 </h6>
 
+                <!-- QUICK ATTENDANCE SUMMARY (When session completed) -->
+                {% if session_status == "conducted" and actual_session %}
+                <div class="alert alert-light border mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-success">
+                            <i class="fas fa-users me-1"></i>Attendance
+                        </strong>
+                        <a href="{% url 'mark_attendance' actual_session.id %}" 
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-edit me-1"></i>Edit
+                        </a>
+                    </div>
+                    <div class="attendance-quick-stats">
+                        {% if attendance_summary %}
+                            <div class="row text-center">
+                                <div class="col-3">
+                                    <div class="text-success fw-bold">{{ attendance_summary.present|default:0 }}</div>
+                                    <small class="text-muted">Present</small>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-danger fw-bold">{{ attendance_summary.absent|default:0 }}</div>
+                                    <small class="text-muted">Absent</small>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-warning fw-bold">{{ attendance_summary.leave|default:0 }}</div>
+                                    <small class="text-muted">Leave</small>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-info fw-bold">{{ attendance_summary.total|default:0 }}</div>
+                                    <small class="text-muted">Total</small>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="text-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-exclamation-circle me-1"></i>
+                                    Attendance not marked yet
+                                </small>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
                 <!-- Quick Actions -->
                 <div class="d-grid gap-2">
                     {% if session_status == "pending" %}
@@ -447,11 +593,47 @@
                             <i class="fas fa-times me-1"></i>
                             Cancel Session
                         </button>
-                    {% elif session_status == "conducted" %}
-                        <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-primary">
+                    {% elif session_status == "holiday" and is_today %}
+                        <!-- MARKED AS HOLIDAY TODAY - NO CONDUCT BUTTON -->
+                        <div class="alert alert-warning">
+                            🌤️ <strong>Session marked as holiday today.</strong><br>
+                            <small>This session is marked as holiday. Check back tomorrow for the next session.</small>
+                        </div>
+                        <!-- No conduct button shown when marked as holiday -->
+                    {% elif session_status == "conducted" and is_today %}
+                        <!-- SESSION CONDUCTED TODAY - CHECK IF ATTENDANCE SAVED -->
+                        {% if attendance_saved %}
+                          <!-- ATTENDANCE COMPLETED -->
+                          <div class="alert alert-success">
+                            ✅ <strong>Session completed today!</strong><br>
+                            <small>Attendance has been saved.</small>
+                          </div>
+                          <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-primary">
                             <i class="fas fa-users me-1"></i>
                             View/Edit Attendance
-                        </a>
+                          </a>
+                        {% else %}
+                          <!-- SESSION CONDUCTED BUT ATTENDANCE NOT SAVED -->
+                          <div class="alert alert-warning">
+                            ⚠️ <strong>Please mark attendance</strong><br>
+                            <small>Complete the session by marking student attendance.</small>
+                          </div>
+                          <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-success mb-2">
+                            <i class="fas fa-users me-1"></i>
+                            Mark Attendance Now
+                          </a>
+                          
+                          <!-- Still allow other actions -->
+                          <button class="btn btn-outline-warning mb-2" onclick="markHoliday()">
+                            <i class="fas fa-calendar-times me-1"></i>
+                            Mark Holiday Instead
+                          </button>
+                          
+                          <button class="btn btn-outline-secondary" onclick="showCancelModal()">
+                            <i class="fas fa-times me-1"></i>
+                            Cancel Session
+                          </button>
+                        {% endif %}
                     {% endif %}
                 </div>
 
@@ -501,6 +683,18 @@
     </div>
     {% endif %}
 </div>
+
+<!-- Quick Attendance Access Button (Floating) -->
+{% if session_status == "conducted" and actual_session %}
+<div class="quick-attendance-access">
+  <a href="{% url 'mark_attendance' actual_session.id %}" 
+     class="btn btn-primary btn-floating" 
+     title="Quick Edit Attendance">
+    <i class="fas fa-users"></i>
+    <span class="btn-text d-none d-md-inline ms-1">Edit Attendance</span>
+  </a>
+</div>
+{% endif %}
 
 <!-- JavaScript for Mobile-Optimized Content Loading -->
 <script>

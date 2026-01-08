@@ -1,5 +1,5 @@
 /* =====================================================
-   ROOT VARIABLES
+   ROOT VARIABLES & SMOOTH SCROLLING
 ===================================================== */
 :root {
   --primary: #0d7ff2;
@@ -16,13 +16,21 @@
   --pending-text: #854d0e;
 }
 
+/* GLOBAL SMOOTH SCROLLING */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* =====================================================
-   BASE RESET
+   BASE RESET WITH SMOOTH SCROLLING
 ===================================================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -30,21 +38,27 @@ body {
   background: var(--bg-body);
   color: var(--text-main);
   min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 
 /* =====================================================
-   LAYOUT
+   LAYOUT WITH SMOOTH SCROLLING
 ===================================================== */
 .wrapper {
   display: flex;
   width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* =====================================================
-   SIDEBAR
+   SIDEBAR WITH ENHANCED SMOOTH SCROLLING
 ===================================================== */
 .sidebar {
   width: 260px;
@@ -59,7 +73,15 @@ ul { list-style: none; }
   flex-direction: column;
   overflow-y: auto;
   z-index: 1050;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* ENHANCED SMOOTH SCROLLING */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  /* Hardware acceleration for smoother animations */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* Sidebar profile */
@@ -130,17 +152,20 @@ ul { list-style: none; }
 }
 
 /* =====================================================
-   MAIN CONTENT
+   MAIN CONTENT WITH SMOOTH SCROLLING
 ===================================================== */
 .main-content {
   flex: 1;
   margin-left: 260px;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* =====================================================
-   TOPBAR
+   TOPBAR WITH SMOOTH SCROLLING
 ===================================================== */
 .topbar {
   background: var(--bg-surface);
@@ -152,6 +177,9 @@ ul { list-style: none; }
   position: sticky;
   top: 0;
   z-index: 100;
+  /* Smooth scrolling support */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 .topbar-left,
@@ -236,39 +264,58 @@ ul { list-style: none; }
 }
 
 /* =====================================================
-   SIDEBAR MOBILE SLIDE
+   SIDEBAR MOBILE SLIDE WITH ENHANCED ANIMATIONS
 ===================================================== */
 @media (max-width: 991px) {
   .sidebar {
     transform: translateX(-100%);
+    /* Enhanced mobile animations */
+    -webkit-transform: translateZ(0) translateX(-100%);
+    transform: translateZ(0) translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .sidebar.show {
     transform: translateX(0);
+    -webkit-transform: translateZ(0) translateX(0);
+    transform: translateZ(0) translateX(0);
   }
 
   .main-content {
     margin-left: 0; /* full width when sidebar hidden */
+    overflow-x: hidden;
   }
 
   .sidebar-overlay {
     display: none;
+    transition: opacity 0.3s ease;
   }
 
   .sidebar-overlay.show {
     display: block;
+    opacity: 1;
   }
 
   .search-bar {
     display: none; /* hide search bar on mobile */
   }
+  
+  /* Prevent scroll issues on mobile */
+  body.sidebar-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
 }
 
 /* =====================================================
-   DASHBOARD CONTENT AREA
+   DASHBOARD CONTENT AREA WITH SMOOTH SCROLLING
 ===================================================== */
 .content-area {
   padding: 2.5rem;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 .section-title {
@@ -658,4 +705,88 @@ th, td {
     background-color: #ffc107;
     border-color: #ffc107;
     color: #000;
+}
+
+/* =====================================================
+   ENHANCED SMOOTH SCROLLING & MOBILE OPTIMIZATIONS
+===================================================== */
+
+/* Smooth scrolling for all scrollable containers */
+.table-container, .activity-list, .panel {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+/* Enhanced transitions for better UX */
+.nav-link, .btn, .card, .dashboard-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Prevent horizontal scroll on all containers */
+.stats-grid, .actions-grid, .bottom-grid {
+    overflow-x: hidden;
+}
+
+/* Mobile scroll improvements */
+@media (max-width: 768px) {
+    /* Reduce motion for better performance on mobile */
+    .dashboard-card:hover {
+        transform: none;
+    }
+    
+    /* Optimize scrolling performance */
+    .content-area {
+        padding: 1.5rem;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+    
+    /* Prevent overscroll bounce */
+    body {
+        overscroll-behavior-y: contain;
+    }
+}
+
+/* Smooth scroll to top button (if needed) */
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-to-top:hover {
+    background: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Ensure smooth animations on all interactive elements */
+a, button, .clickable {
+    transition: all 0.2s ease;
+}
+
+/* Optimize font rendering for smoother scrolling */
+body, .sidebar, .main-content {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
 }

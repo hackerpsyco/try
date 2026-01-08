@@ -29,6 +29,27 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            /* SMOOTH SCROLLING FOR ALL DEVICES */
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* GLOBAL SMOOTH SCROLLING */
+        * {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Prevent horizontal scroll on all elements */
+        body, html {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        
+        /* Smooth scrolling for all scrollable containers */
+        .sidebar, .main-content, .content-wrapper {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
         
         /* Container layout - NO MARGINS OR FIXED POSITIONING */
@@ -38,7 +59,7 @@
             width: 100%;
         }
         
-        /* Sidebar - proper responsive behavior */
+        /* Sidebar - proper responsive behavior with smooth scrolling */
         .sidebar {
             width: 280px;
             background: white;
@@ -46,6 +67,12 @@
             transition: transform 0.3s ease-in-out;
             z-index: 1000;
             flex-shrink: 0;
+            /* SMOOTH SCROLLING */
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            /* Prevent momentum scrolling issues */
+            overscroll-behavior: contain;
         }
         
         /* Mobile sidebar - slide from left */
@@ -122,11 +149,16 @@
             }
         }
         
-        /* Content wrapper - proper spacing */
+        /* Content wrapper - proper spacing with smooth scrolling */
         .content-wrapper {
             background: #f9fafb;
             min-height: 100vh;
             padding: 1rem;
+            /* SMOOTH SCROLLING */
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
         
         @media (min-width: 640px) {

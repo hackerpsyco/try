@@ -23,6 +23,10 @@
         display: none;
     }
     
+    .student-name-mobile {
+        display: block;
+    }
+    
     .enrollment-mobile {
         font-size: 0.75rem;
         color: #6c757d;
@@ -77,6 +81,10 @@
 
 /* Desktop styles remain unchanged */
 @media (min-width: 769px) {
+    .student-name-mobile {
+        display: none;
+    }
+    
     .enrollment-mobile {
         display: none;
     }
@@ -138,7 +146,8 @@
                   <tr>
                     <td class="text-center">{{ forloop.counter }}</td>
                     <td>
-                      <strong>{{ e.student.full_name }}</strong>
+                      <strong class="student-name-mobile">{{ e.student.full_name }}</strong>
+                      <strong class="d-md-inline d-none">{{ e.student.full_name }}</strong>
                       <small class="enrollment-mobile">{{ e.student.enrollment_number }}</small>
                     </td>
                     <td class="enrollment-col">
@@ -265,23 +274,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update summary when attendance changes
     attendanceSelects.forEach(select => {
-        select.addEventListener('change', function() {
-            updateSummary();
-            updateRowStyling(this);
-        });
+        select.addEventListener('change', updateSummary);
     });
     
-    // Initial summary update and row styling
+    // Initial summary update
     updateSummary();
-    updateAllRowStyling();
     
     // Handle form submission with confirmation
-    if (saveBtn) {
-        attendanceForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            showConfirmation();
-        });
-    }
+    attendanceForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        showConfirmation();
+    });
     
     // Confirm save button
     document.getElementById('confirmSave').addEventListener('click', function() {
@@ -302,6 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
+        const total = attendanceSelects.length;
         const summaryHtml = `
             <div class="row text-center">
                 <div class="col-3">
@@ -338,33 +342,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('attendanceSummary').innerHTML = summaryHtml;
     }
     
-    function updateRowStyling(select) {
-        const row = select.closest('tr');
-        if (!row) return;
-        
-        // Remove all status classes
-        row.classList.remove('marked-present', 'marked-absent', 'marked-leave');
-        
-        // Add appropriate class based on selection
-        switch(select.value) {
-            case 'present':
-                row.classList.add('marked-present');
-                break;
-            case 'absent':
-                row.classList.add('marked-absent');
-                break;
-            case 'leave':
-                row.classList.add('marked-leave');
-                break;
-        }
-    }
-    
-    function updateAllRowStyling() {
-        attendanceSelects.forEach(select => {
-            updateRowStyling(select);
-        });
-    }
-    
     function showConfirmation() {
         const summary = document.getElementById('attendanceSummary').innerHTML;
         document.getElementById('confirmSummary').innerHTML = summary;
@@ -375,77 +352,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.markAll = function(status) {
         attendanceSelects.forEach(select => {
             select.value = status;
-            updateRowStyling(select);
         });
         updateSummary();
     };
-    
-    // Mobile-specific enhancements
-    if (window.innerWidth <= 768) {
-        // Add touch-friendly interactions
-        attendanceSelects.forEach(select => {
-            select.style.fontSize = '16px'; // Prevent zoom on iOS
-        });
-    }
 });
 </script>
-
-<style>
-.attendance-select {
-    font-weight: 500;
-}
-
-.attendance-select option[value="present"] {
-    color: #198754;
-}
-
-.attendance-select option[value="absent"] {
-    color: #dc3545;
-}
-
-.attendance-select option[value="leave"] {
-    color: #fd7e14;
-}
-
-.table-hover tbody tr:hover {
-    background-color: rgba(0,0,0,.075);
-}
-
-.card {
-    border: 1px solid rgba(0,0,0,.125);
-    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
-}
-
-.btn-group-sm > .btn {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
-}
-
-.marked-present {
-    background-color: #d4edda;
-}
-
-.marked-absent {
-    background-color: #f8d7da;
-}
-
-.marked-leave {
-    background-color: #fff3cd;
-}
-
-@media (max-width: 768px) {
-    .table-responsive {
-        font-size: 0.875rem;
-    }
-    
-    .btn-group {
-        flex-direction: column;
-    }
-    
-    .btn-group .btn {
-        margin-bottom: 0.25rem;
-    }
-}
-</style>
-
 {% endblock %}
