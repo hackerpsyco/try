@@ -12295,3 +12295,128 @@ INFO 2026-01-09 22:55:48,000 autoreload 3088 34108 Watching for file changes wit
 INFO 2026-01-09 22:58:22,418 basehttp 3088 39424 - Broken pipe from ('127.0.0.1', 58229)
 INFO 2026-01-09 22:58:25,717 basehttp 3088 32468 "GET /supervisor/classes/ HTTP/1.1" 200 5773
 INFO 2026-01-09 23:24:40,804 autoreload 30432 45944 Watching for file changes with StatReloader
+INFO 2026-01-09 23:25:55,406 basehttp 30432 27840 "GET / HTTP/1.1" 200 882
+INFO 2026-01-09 23:26:03,289 basehttp 30432 27840 "POST / HTTP/1.1" 302 0
+INFO 2026-01-09 23:26:05,905 basehttp 30432 27840 "GET /supervisor/dashboard/ HTTP/1.1" 200 4495
+INFO 2026-01-09 23:26:12,983 basehttp 30432 27840 "GET /supervisor/classes/ HTTP/1.1" 200 5773
+INFO 2026-01-09 23:26:16,578 basehttp 30432 27840 "GET /supervisor/classes/create/ HTTP/1.1" 200 4422
+INFO 2026-01-09 23:27:45,609 basehttp 30432 27840 "GET /supervisor/dashboard/ HTTP/1.1" 200 4495
+INFO 2026-01-09 23:28:06,487 basehttp 30432 27840 "GET /supervisor/facilitators/ HTTP/1.1" 200 4867
+INFO 2026-01-09 23:28:16,953 basehttp 30432 27840 "GET /supervisor/facilitators/dd455684-4ab2-4868-aace-4e84cf8bf63e/ HTTP/1.1" 200 4498
+INFO 2026-01-09 23:29:10,904 basehttp 30432 27840 "GET /supervisor/facilitators/ HTTP/1.1" 200 4867
+INFO 2026-01-09 23:29:26,350 basehttp 30432 27840 "GET /supervisor/facilitators/d952fc6f-cbfc-4f03-8f20-0771ba2ef244/ HTTP/1.1" 200 4875
+INFO 2026-01-09 23:29:57,443 basehttp 30432 27840 "GET /supervisor/schools/ HTTP/1.1" 200 5386
+INFO 2026-01-09 23:30:02,462 basehttp 30432 27840 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 4583
+INFO 2026-01-09 23:30:15,640 basehttp 30432 27840 "GET /supervisor/schools/ HTTP/1.1" 200 5386
+INFO 2026-01-09 23:30:23,872 basehttp 30432 27840 "GET /supervisor/classes/ HTTP/1.1" 200 5773
+INFO 2026-01-09 23:30:27,829 basehttp 30432 27840 "GET /supervisor/schools/ HTTP/1.1" 200 5386
+INFO 2026-01-09 23:30:51,695 basehttp 30432 27840 "GET /supervisor/classes/ HTTP/1.1" 200 5773
+INFO 2026-01-09 23:31:02,863 basehttp 30432 27840 "GET /supervisor/classes/create/ HTTP/1.1" 200 4422
+INFO 2026-01-09 23:31:17,136 basehttp 30432 27840 "GET /supervisor/classes/ HTTP/1.1" 200 5773
+INFO 2026-01-09 23:31:51,330 basehttp 30432 27840 "GET /supervisor/facilitators/ HTTP/1.1" 200 4867
+INFO 2026-01-09 23:31:55,534 basehttp 30432 27840 "GET /supervisor/reports/ HTTP/1.1" 200 4595
+INFO 2026-01-09 23:32:01,103 basehttp 30432 27840 "GET /supervisor/schools/ HTTP/1.1" 200 5386
+INFO 2026-01-09 23:32:02,694 basehttp 30432 27840 "GET /supervisor/classes/ HTTP/1.1" 200 5773
+INFO 2026-01-09 23:32:04,014 basehttp 30432 27840 "GET /supervisor/facilitators/ HTTP/1.1" 200 4867
+INFO 2026-01-09 23:32:09,819 basehttp 30432 27840 "GET /supervisor/reports/ HTTP/1.1" 200 4595
+INFO 2026-01-09 23:32:11,919 basehttp 30432 27840 "GET /supervisor/facilitators/ HTTP/1.1" 200 4867
+INFO 2026-01-09 23:32:13,855 basehttp 30432 27840 "GET /supervisor/facilitators/dd455684-4ab2-4868-aace-4e84cf8bf63e/ HTTP/1.1" 200 4498
+INFO 2026-01-09 23:32:18,191 basehttp 30432 27840 "GET /supervisor/facilitators/ HTTP/1.1" 200 4867
+INFO 2026-01-09 23:32:25,758 basehttp 30432 27840 "GET /supervisor/classes/ HTTP/1.1" 200 5773
+INFO 2026-01-09 23:32:41,804 basehttp 30432 27840 "GET /admin/classes/89416964-9b9d-4d2e-a190-7c99b2bc3354/assign-facilitator/ HTTP/1.1" 200 4862
+INFO 2026-01-09 23:32:55,614 basehttp 30432 27840 "GET /supervisor/classes/ HTTP/1.1" 200 5773
+INFO 2026-01-09 23:33:01,005 basehttp 30432 27840 "GET /admin/classes/89416964-9b9d-4d2e-a190-7c99b2bc3354/assign-facilitator/ HTTP/1.1" 200 4862
+INFO 2026-01-09 23:33:10,948 basehttp 30432 27840 "POST /admin/classes/89416964-9b9d-4d2e-a190-7c99b2bc3354/assign-facilitator/ HTTP/1.1" 200 4860
+INFO 2026-01-09 23:33:25,177 basehttp 30432 27840 "POST /admin/classes/89416964-9b9d-4d2e-a190-7c99b2bc3354/assign-facilitator/ HTTP/1.1" 200 4859
+INFO 2026-01-09 23:33:40,848 basehttp 30432 27840 "GET /admin/classes/89416964-9b9d-4d2e-a190-7c99b2bc3354/assign-facilitator/ HTTP/1.1" 200 4862
+INFO 2026-01-09 23:33:50,763 basehttp 30432 27840 "POST /admin/classes/89416964-9b9d-4d2e-a190-7c99b2bc3354/assign-facilitator/ HTTP/1.1" 200 4858
+INFO 2026-01-09 23:33:54,255 basehttp 30432 27840 "GET /admin/classes/89416964-9b9d-4d2e-a190-7c99b2bc3354/assign-facilitator/ HTTP/1.1" 200 4862
+INFO 2026-01-09 23:33:56,321 basehttp 30432 27840 "GET /admin/classes/89416964-9b9d-4d2e-a190-7c99b2bc3354/assign-facilitator/ HTTP/1.1" 200 4862
+INFO 2026-01-09 23:33:58,221 basehttp 30432 27840 "GET /supervisor/classes/ HTTP/1.1" 200 5773
+INFO 2026-01-09 23:34:09,704 basehttp 30432 27840 "GET /supervisor/reports/ HTTP/1.1" 200 4595
+INFO 2026-01-09 23:34:20,937 basehttp 30432 27840 "GET /supervisor/settings/ HTTP/1.1" 200 4676
+INFO 2026-01-09 23:37:31,504 basehttp 30432 27840 "GET /supervisor/dashboard/ HTTP/1.1" 200 4495
+INFO 2026-01-09 23:38:13,163 basehttp 30432 27840 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-09 23:38:13,173 basehttp 30432 27840 "GET / HTTP/1.1" 200 1095
+INFO 2026-01-09 23:38:55,204 basehttp 30432 27840 "POST / HTTP/1.1" 302 0
+INFO 2026-01-09 23:39:08,733 basehttp 30432 27840 "GET /facilitator/dashboard/ HTTP/1.1" 200 6232
+INFO 2026-01-09 23:39:08,798 basehttp 30432 27840 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+INFO 2026-01-09 23:39:22,533 basehttp 30432 27840 "GET /Facilitator/classes/ HTTP/1.1" 200 4237
+INFO 2026-01-09 23:39:30,721 session_management 30432 27840 Found today's session for Gov. Amlai School - 1A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-09 23:39:33,656 session_management 30432 27840 Found today's session for Gov. Amlai School - 1A (2024-2025): Day 2 (Status: conducted)
+INFO 2026-01-09 23:39:33,657 session_management 30432 27840 Progress metrics for Gov. Amlai School - 1A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-09 23:39:35,130 basehttp 30432 27840 "GET /facilitator/class/89416964-9b9d-4d2e-a190-7c99b2bc3354/today/ HTTP/1.1" 200 17599
+INFO 2026-01-09 23:39:37,049 basehttp 30432 27840 "GET /api/get-feedback-status/?session_id=f942760d-8066-43ca-9ae4-2b3c388507ba HTTP/1.1" 200 111
+INFO 2026-01-09 23:39:37,051 basehttp 30432 27840 "GET /api/get-feedback-status/?session_id=f942760d-8066-43ca-9ae4-2b3c388507ba HTTP/1.1" 200 111
+INFO 2026-01-09 23:39:39,314 curriculum_content_resolver 30432 36556 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-09 23:39:41,030 curriculum_content_resolver 30432 36556 Found 5251 rows in curriculum table
+INFO 2026-01-09 23:39:41,034 curriculum_content_resolver 30432 36556 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-09 23:39:41,037 curriculum_content_resolver 30432 36556 Found next day boundary at row 71, day 3
+INFO 2026-01-09 23:39:41,037 curriculum_content_resolver 30432 36556 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-09 23:39:41,045 curriculum_content_resolver 30432 36556 Fixed image and resource paths in curriculum content
+INFO 2026-01-09 23:39:41,046 curriculum_content_resolver 30432 36556 Loaded static fallback content for Day 2 english
+INFO 2026-01-09 23:39:41,436 basehttp 30432 36556 "GET /api/curriculum/content/?day=2&language=english&class_section_id=89416964-9b9d-4d2e-a190-7c99b2bc3354 HTTP/1.1" 200 3185
+INFO 2026-01-09 23:39:47,043 basehttp 30432 36556 "GET /Facilitator/classes/ HTTP/1.1" 200 4237
+INFO 2026-01-09 23:39:52,094 session_management 30432 36556 Next pending session for Gov. Amlai School - 2A (2024-2025): Day 1
+INFO 2026-01-09 23:39:57,806 session_management 30432 36556 Next pending session for Gov. Amlai School - 2A (2024-2025): Day 1
+INFO 2026-01-09 23:39:57,806 session_management 30432 36556 Progress metrics for Gov. Amlai School - 2A (2024-2025): 0.0% complete
+INFO 2026-01-09 23:39:58,934 basehttp 30432 36556 "GET /facilitator/class/f84496a5-ea66-4aac-be6b-15407fb50995/today/ HTTP/1.1" 200 17241
+INFO 2026-01-09 23:40:00,819 curriculum_content_resolver 30432 36556 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-09 23:40:03,010 curriculum_content_resolver 30432 36556 Found 5251 rows in curriculum table
+INFO 2026-01-09 23:40:03,011 curriculum_content_resolver 30432 36556 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-09 23:40:03,014 curriculum_content_resolver 30432 36556 Found next day boundary at row 36, day 2
+INFO 2026-01-09 23:40:03,014 curriculum_content_resolver 30432 36556 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-09 23:40:03,020 curriculum_content_resolver 30432 36556 Fixed image and resource paths in curriculum content
+INFO 2026-01-09 23:40:03,021 curriculum_content_resolver 30432 36556 Loaded static fallback content for Day 1 english
+INFO 2026-01-09 23:40:03,364 basehttp 30432 36556 "GET /api/curriculum/content/?day=1&language=english&class_section_id=f84496a5-ea66-4aac-be6b-15407fb50995 HTTP/1.1" 200 3106
+INFO 2026-01-09 23:40:05,172 basehttp 30432 36556 "GET /static/pdf/lesson_plan_template.pdf HTTP/1.1" 200 233779
+INFO 2026-01-09 23:40:31,316 basehttp 30432 36556 "POST /api/upload-lesson-plan/ HTTP/1.1" 200 186
+INFO 2026-01-09 23:40:43,586 basehttp 30432 36556 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 128
+INFO 2026-01-09 23:40:45,341 basehttp 30432 27840 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-09 23:40:47,186 basehttp 30432 36556 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-09 23:40:49,580 basehttp 30432 27840 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-09 23:40:51,271 basehttp 30432 19636 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-09 23:40:54,254 basehttp 30432 27840 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-09 23:41:45,851 basehttp 30432 27840 "POST /api/save-session-tracking/ HTTP/1.1" 200 59
+WARNING 2026-01-09 23:42:32,836 log 30432 27840 Bad Request: /api/save-student-feedback/
+WARNING 2026-01-09 23:42:32,837 basehttp 30432 27840 "POST /api/save-student-feedback/ HTTP/1.1" 400 56
+INFO 2026-01-09 23:42:49,435 session_management 30432 27840 Session conducted: Gov. Amlai School - 2A (2024-2025) - Day 1 by amna.wes@gmail.com (Facilitator)
+INFO 2026-01-09 23:42:50,778 basehttp 30432 27840 "POST /facilitator/session/start/4b9d35a8-4a80-456a-9147-d2b313c183f6/ HTTP/1.1" 302 0
+INFO 2026-01-09 23:42:53,891 basehttp 30432 27840 "GET /facilitator/session/b102ca28-52e0-48b3-b724-c58b2c94b1ca/attendance/ HTTP/1.1" 200 6414
+INFO 2026-01-09 23:43:16,549 basehttp 30432 27840 "POST /facilitator/session/b102ca28-52e0-48b3-b724-c58b2c94b1ca/attendance/ HTTP/1.1" 302 0
+INFO 2026-01-09 23:43:18,772 session_management 30432 27840 Found today's session for Gov. Amlai School - 2A (2024-2025): Day 1 (Status: conducted)
+INFO 2026-01-09 23:43:21,494 session_management 30432 27840 Found today's session for Gov. Amlai School - 2A (2024-2025): Day 1 (Status: conducted)
+INFO 2026-01-09 23:43:21,495 session_management 30432 27840 Progress metrics for Gov. Amlai School - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-09 23:43:22,896 basehttp 30432 27840 "GET /facilitator/class/f84496a5-ea66-4aac-be6b-15407fb50995/today/ HTTP/1.1" 200 17757
+INFO 2026-01-09 23:43:24,741 basehttp 30432 27840 "GET /api/get-feedback-status/?session_id=b102ca28-52e0-48b3-b724-c58b2c94b1ca HTTP/1.1" 200 111
+INFO 2026-01-09 23:43:24,744 basehttp 30432 27840 "GET /api/get-feedback-status/?session_id=b102ca28-52e0-48b3-b724-c58b2c94b1ca HTTP/1.1" 200 111
+INFO 2026-01-09 23:43:24,801 basehttp 30432 19636 "GET /api/curriculum/content/?day=1&language=english&class_section_id=f84496a5-ea66-4aac-be6b-15407fb50995 HTTP/1.1" 200 3106
+INFO 2026-01-09 23:43:35,354 basehttp 30432 19636 "GET /facilitator/session/b102ca28-52e0-48b3-b724-c58b2c94b1ca/attendance/ HTTP/1.1" 200 6414
+INFO 2026-01-09 23:43:38,963 basehttp 30432 19636 "GET /facilitator/class/f84496a5-ea66-4aac-be6b-15407fb50995/today/ HTTP/1.1" 200 17757
+INFO 2026-01-09 23:43:39,047 basehttp 30432 19636 "GET /api/curriculum/content/?day=1&language=english&class_section_id=f84496a5-ea66-4aac-be6b-15407fb50995 HTTP/1.1" 200 3106
+INFO 2026-01-09 23:43:39,047 basehttp 30432 27840 "GET /api/get-feedback-status/?session_id=b102ca28-52e0-48b3-b724-c58b2c94b1ca HTTP/1.1" 200 111
+INFO 2026-01-09 23:43:39,050 basehttp 30432 27840 "GET /api/get-feedback-status/?session_id=b102ca28-52e0-48b3-b724-c58b2c94b1ca HTTP/1.1" 200 111
+INFO 2026-01-09 23:43:54,711 basehttp 30432 27840 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-09 23:43:54,722 basehttp 30432 27840 "GET / HTTP/1.1" 200 1094
+INFO 2026-01-09 23:44:10,194 basehttp 30432 27840 "POST / HTTP/1.1" 302 0
+INFO 2026-01-09 23:44:14,148 basehttp 30432 27840 "GET /admin/dashboard/ HTTP/1.1" 200 7951
+INFO 2026-01-09 23:44:26,571 basehttp 30432 27840 - Broken pipe from ('127.0.0.1', 49685)
+INFO 2026-01-09 23:44:31,503 basehttp 30432 19636 "GET /admin/feedback/ HTTP/1.1" 200 4971
+INFO 2026-01-09 23:44:38,832 basehttp 30432 19636 "GET /admin/feedback/student/ HTTP/1.1" 200 4897
+INFO 2026-01-09 23:44:49,647 basehttp 30432 19636 "GET /admin/feedback/student/?school=&rating=&date=2026-01-09 HTTP/1.1" 200 4902
+INFO 2026-01-09 23:44:57,171 basehttp 30432 19636 "GET /admin/feedback/student/?school=&rating=&date=2026-01-06 HTTP/1.1" 200 4902
+INFO 2026-01-09 23:45:10,111 basehttp 30432 19636 "GET /admin/feedback/student/?school=8f732a8b-b02b-4e1c-8f34-17303b8e6e6d&rating=5&date=2026-01-06 HTTP/1.1" 200 4907
+INFO 2026-01-09 23:45:14,659 basehttp 30432 19636 "GET /admin/feedback/ HTTP/1.1" 200 4971
+INFO 2026-01-09 23:45:29,261 basehttp 30432 19636 "GET /admin/feedback/?start_date=2025-12-10&end_date=2026-01-09 HTTP/1.1" 200 4971
+INFO 2026-01-09 23:45:40,249 basehttp 30432 19636 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-09 23:45:40,257 basehttp 30432 19636 "GET / HTTP/1.1" 200 1093
+INFO 2026-01-09 23:46:37,700 basehttp 30432 19636 "POST / HTTP/1.1" 302 0
+INFO 2026-01-09 23:46:51,587 basehttp 30432 19636 "GET /facilitator/dashboard/ HTTP/1.1" 200 6232
+INFO 2026-01-09 23:47:02,025 basehttp 30432 19636 "GET /Facilitator/classes/ HTTP/1.1" 200 4237
+INFO 2026-01-09 23:47:09,447 session_management 30432 19636 Found today's session for Gov. Amlai School - 2A (2024-2025): Day 1 (Status: conducted)
+INFO 2026-01-09 23:47:12,511 session_management 30432 19636 Found today's session for Gov. Amlai School - 2A (2024-2025): Day 1 (Status: conducted)
+INFO 2026-01-09 23:47:12,512 session_management 30432 19636 Progress metrics for Gov. Amlai School - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-09 23:47:14,028 basehttp 30432 19636 "GET /facilitator/class/f84496a5-ea66-4aac-be6b-15407fb50995/today/ HTTP/1.1" 200 17757
+INFO 2026-01-09 23:47:16,044 basehttp 30432 19636 "GET /api/curriculum/content/?day=1&language=english&class_section_id=f84496a5-ea66-4aac-be6b-15407fb50995 HTTP/1.1" 200 3106
+INFO 2026-01-09 23:47:18,107 basehttp 30432 38016 "GET /api/get-feedback-status/?session_id=b102ca28-52e0-48b3-b724-c58b2c94b1ca HTTP/1.1" 200 111
+INFO 2026-01-09 23:47:18,109 basehttp 30432 38016 "GET /api/get-feedback-status/?session_id=b102ca28-52e0-48b3-b724-c58b2c94b1ca HTTP/1.1" 200 111
