@@ -6,7 +6,7 @@ from .views import (
     # Admin – users & setup
     users_view, add_user, edit_user, delete_user, create_user_ajax,
     schools, add_school, edit_school, delete_school, school_detail,
-    class_sections_list, class_section_add, edit_class_section, class_section_delete,
+    class_sections_list, class_section_add, edit_class_section, class_section_delete, admin_bulk_add_classes, admin_bulk_create_classes,
     assign_facilitator,admin_sessions_filter,
 )
 from .supervisor_views import (
@@ -218,6 +218,8 @@ urlpatterns = [
     # Classes (ADMIN)
     # ======================
     path("admin/classes/", class_sections_list, name="class_sections_list"),
+    path("admin/classes/bulk-add/", admin_bulk_add_classes, name="admin_bulk_add_classes"),
+    path("admin/classes/bulk-create/", admin_bulk_create_classes, name="admin_bulk_create_classes"),
     path(
         "admin/schools/<uuid:school_id>/classes/",
         class_sections_list,

@@ -29,14 +29,51 @@
     </h4>
 
     {% if school %}
-    <div class="flex gap-2">
-      <a href="{% url 'class_section_add' school.id %}"
-         class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
-        ➕ Add Class
-      </a>
-    
+    <div class="flex gap-2 flex-wrap">
+      <div class="relative group">
+        <button class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium">
+          ➕ Add Class
+          <span>▼</span>
+        </button>
+        
+        <!-- Dropdown Menu -->
+        <div class="absolute right-0 mt-0 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+          <a href="{% url 'class_section_add' school.id %}" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 border-b border-gray-100 first:rounded-t-lg">
+            <span style="font-size: 20px;">➕</span>
+            <div>
+              <p class="text-sm font-medium">Single Class</p>
+              <p class="text-xs text-gray-500">Add one class</p>
+            </div>
+          </a>
+          <a href="{% url 'admin_bulk_create_classes' %}" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 last:rounded-b-lg">
+            <span style="font-size: 20px;">📦</span>
+            <div>
+              <p class="text-sm font-medium">Multiple Classes</p>
+              <p class="text-xs text-gray-500">Add 1-10 classes at once</p>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
     {% endif %}
+  </div>
+
+  <!-- Bulk Actions Bar (Hidden by default) -->
+  <div id="bulkActionsBar" class="hidden bg-blue-50 border border-blue-200 rounded-xl shadow-sm p-4 mb-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="text-lg">✓</span>
+      <span class="text-sm font-medium text-gray-900">
+        <span id="selectedCount">0</span> classes selected
+      </span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="clearSelectionBtn" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+        Clear Selection
+      </button>
+      <a href="#" id="bulkAddBtn" class="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors font-medium text-sm">
+        ➕ Add Selected Classes
+      </a>
+    </div>
   </div>
 
   <!-- Filter -->
@@ -87,7 +124,12 @@
   <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
     {% for class_section in class_sections %}
-    <div class="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition p-5 flex flex-col">
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition p-5 flex flex-col relative class-card" data-class-id="{{ class_section.id }}">
+
+      <!-- Checkbox -->
+      <div class="absolute top-3 right-3">
+        <input type="checkbox" class="class-checkbox w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer" value="{{ class_section.id }}">
+      </div>
 
       <!-- Icon -->
       <div class="flex justify-center mb-3">
@@ -202,6 +244,78 @@
 document.getElementById("schoolFilter").addEventListener("change", function () {
   window.location.href = this.value;
 });
+
+// Setup checkboxes for bulk selection
+document.addEventListener("DOMContentLoaded", function() {
+  setupCheckboxes();
+  setupBulkAddButton();
+});
+
+function setupBulkAddButton() {
+  const bulkAddBtn = document.getElementById("bulkAddClassBtn");
+  if (bulkAddBtn) {
+    bulkAddBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      window.location.href = "{% url 'admin_bulk_create_classes' %}";
+    });
+  }
+}
+
+function setupCheckboxes() {
+  const classCheckboxes = document.querySelectorAll(".class-checkbox");
+  
+  // Individual checkboxes
+  classCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", function() {
+      updateBulkActionsBar();
+    });
+  });
+  
+  // Clear selection button
+  const clearBtn = document.getElementById("clearSelectionBtn");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      classCheckboxes.forEach(checkbox => checkbox.checked = false);
+      updateBulkActionsBar();
+    });
+  }
+  
+  // Bulk add button in actions bar
+  const bulkAddBarBtn = document.getElementById("bulkAddBtn");
+  if (bulkAddBarBtn) {
+    bulkAddBarBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      const selectedIds = Array.from(classCheckboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+      
+      if (selectedIds.length === 0) {
+        alert("Please select at least one class");
+        return;
+      }
+      
+      // Redirect with IDs as query parameters
+      const queryString = selectedIds.map(id => `ids=${id}`).join('&');
+      window.location.href = `/admin/classes/bulk-add/?${queryString}`;
+    });
+  }
+}
+
+function updateBulkActionsBar() {
+  const classCheckboxes = document.querySelectorAll(".class-checkbox");
+  const selectedCount = Array.from(classCheckboxes).filter(cb => cb.checked).length;
+  const bulkActionsBar = document.getElementById("bulkActionsBar");
+  const selectedCountSpan = document.getElementById("selectedCount");
+  
+  if (selectedCountSpan) selectedCountSpan.textContent = selectedCount;
+  
+  if (selectedCount > 0) {
+    bulkActionsBar.classList.remove("hidden");
+  } else {
+    bulkActionsBar.classList.add("hidden");
+  }
+}
 
 // Bulk session management functions
 function initializeAllSessions(schoolId) {

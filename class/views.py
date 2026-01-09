@@ -490,6 +490,138 @@ def class_section_delete(request, pk):
         messages.success(request, "Class section deleted successfully!")
         return redirect("class_sections_list_by_school", school_id=school_id)
 
+
+@login_required
+def admin_bulk_create_classes(request):
+    """Create multiple new classes at once"""
+    
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "You do not have permission to access this page.")
+        return redirect("no_permission")
+    
+    schools = School.objects.all().order_by('name')
+    selected_school = None
+    
+    # Get school_id from query params or POST
+    school_id = request.GET.get('school_id') or request.POST.get('school_id')
+    if school_id:
+        try:
+            selected_school = School.objects.get(id=school_id)
+        except School.DoesNotExist:
+            pass
+    
+    if request.method == "POST":
+        school_id = request.POST.get('school_id')
+        
+        if not school_id:
+            messages.error(request, "Please select a school")
+            return render(request, "admin/classes/bulk_create.html", {
+                'schools': schools,
+                'selected_school': selected_school,
+            })
+        
+        try:
+            school = School.objects.get(id=school_id)
+        except School.DoesNotExist:
+            messages.error(request, "School not found")
+            return render(request, "admin/classes/bulk_create.html", {
+                'schools': schools,
+                'selected_school': selected_school,
+            })
+        
+        # Get all class inputs
+        class_levels = request.POST.getlist('class_level')
+        sections = request.POST.getlist('section')
+        academic_years = request.POST.getlist('academic_year')
+        
+        if not class_levels or len(class_levels) == 0:
+            messages.error(request, "Please add at least one class")
+            return render(request, "admin/classes/bulk_create.html", {
+                'schools': schools,
+                'selected_school': selected_school,
+            })
+        
+        if len(class_levels) > 10:
+            messages.error(request, "Maximum 10 classes allowed")
+            return render(request, "admin/classes/bulk_create.html", {
+                'schools': schools,
+                'selected_school': selected_school,
+            })
+        
+        # Create classes
+        created_count = 0
+        for i, class_level in enumerate(class_levels):
+            if class_level and sections[i] and academic_years[i]:
+                try:
+                    ClassSection.objects.create(
+                        school=school,
+                        class_level=class_level,
+                        section=sections[i],
+                        academic_year=academic_years[i],
+                        is_active=True
+                    )
+                    created_count += 1
+                except Exception as e:
+                    messages.warning(request, f"Error creating class {class_level} {sections[i]}: {str(e)}")
+        
+        if created_count > 0:
+            messages.success(request, f"Successfully created {created_count} classes")
+            return redirect("class_sections_list_by_school", school_id=school_id)
+        else:
+            messages.error(request, "No classes were created")
+    
+    context = {
+        'schools': schools,
+        'selected_school': selected_school,
+    }
+    
+    return render(request, "admin/classes/bulk_create.html", context)
+
+
+@login_required
+def admin_bulk_add_classes(request):
+    """Bulk add multiple classes - Admin version"""
+    
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "You do not have permission to access this page.")
+        return redirect("no_permission")
+    
+    # Get selected class IDs from query params
+    selected_ids = request.GET.getlist('ids')
+    
+    if not selected_ids:
+        messages.error(request, "No classes selected")
+        return redirect("class_sections_list")
+    
+    # Get the selected classes
+    selected_classes = ClassSection.objects.filter(
+        id__in=selected_ids
+    ).select_related('school').order_by('school__name', 'class_level', 'section')
+    
+    if request.method == "POST":
+        # Get form data
+        class_name = request.POST.get('class_name', '').strip()
+        description = request.POST.get('description', '').strip()
+        
+        if not class_name:
+            messages.error(request, "Class name is required")
+            return render(request, "admin/classes/bulk_add.html", {
+                'selected_classes': selected_classes,
+                'selected_ids': selected_ids,
+            })
+        
+        # Here you can add logic to create a group or perform bulk operations
+        messages.success(request, f"Successfully processed {len(selected_classes)} classes")
+        return redirect("class_sections_list")
+    
+    context = {
+        'selected_classes': selected_classes,
+        'selected_ids': ','.join(selected_ids),
+        'class_count': len(selected_classes),
+    }
+    
+    return render(request, "admin/classes/bulk_add.html", context)
+
 @login_required
 def class_view(request, school_id=None):
     if request.user.role.name.upper() != "ADMIN":

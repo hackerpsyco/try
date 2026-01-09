@@ -12444,3 +12444,456 @@ INFO 2026-01-10 00:22:35,199 basehttp 47796 26428 - Broken pipe from ('127.0.0.1
 INFO 2026-01-10 00:22:37,085 basehttp 47796 7448 "GET /supervisor/dashboard/ HTTP/1.1" 200 4495
 INFO 2026-01-10 00:22:40,357 basehttp 47796 7448 "GET /supervisor/classes/ HTTP/1.1" 200 6989
 INFO 2026-01-10 00:22:45,815 basehttp 47796 7448 "GET /supervisor/classes/bulk-create/ HTTP/1.1" 200 5297
+WARNING 2026-01-10 00:25:37,286 log 47796 37244 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-01-10 00:25:37,288 basehttp 47796 37244 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2984
+ERROR 2026-01-10 00:27:28,213 log 47796 27868 Internal Server Error: /supervisor/classes/bulk-create/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 57, in _view_wrapper
+    test_pass = test_func(request.user)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 80, in <lambda>
+    lambda u: u.is_authenticated,
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+INFO 2026-01-10 00:27:28,244 basehttp 47796 27868 - Broken pipe from ('127.0.0.1', 60922)
+ERROR 2026-01-10 00:27:29,058 log 47796 37760 Internal Server Error: /supervisor/classes/bulk-create/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 57, in _view_wrapper
+    test_pass = test_func(request.user)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 80, in <lambda>
+    lambda u: u.is_authenticated,
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+ERROR 2026-01-10 00:27:29,081 basehttp 47796 37760 "POST /supervisor/classes/bulk-create/ HTTP/1.1" 500 23176
+ERROR 2026-01-10 00:27:36,680 log 47796 7448 Internal Server Error: /supervisor/classes/bulk-create/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 57, in _view_wrapper
+    test_pass = test_func(request.user)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 80, in <lambda>
+    lambda u: u.is_authenticated,
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: Connection timed out (0x0000274C/10060)
+	Is the server running on that host and accepting TCP/IP connections?
+
+INFO 2026-01-10 00:27:36,705 basehttp 47796 7448 - Broken pipe from ('127.0.0.1', 53680)
+INFO 2026-01-10 00:28:30,042 basehttp 47796 40056 "GET /supervisor/classes/bulk-create/ HTTP/1.1" 200 5297
+INFO 2026-01-10 00:29:03,493 signals 47796 40056 Auto-generating sessions for new class: Gov. Sabo - 1A (2026-2027)
+INFO 2026-01-10 00:29:05,166 session_management 47796 40056 Generated 150 sessions for Gov. Sabo - 1A (2026-2027)
+INFO 2026-01-10 00:29:05,434 signals 47796 40056 Successfully auto-generated 150 sessions for Gov. Sabo - 1A (2026-2027)
+INFO 2026-01-10 00:29:05,980 signals 47796 40056 Auto-generating sessions for new class: Gov. Sabo - 2A (2026-2027)
+INFO 2026-01-10 00:29:07,361 session_management 47796 40056 Generated 150 sessions for Gov. Sabo - 2A (2026-2027)
+INFO 2026-01-10 00:29:07,630 signals 47796 40056 Successfully auto-generated 150 sessions for Gov. Sabo - 2A (2026-2027)
+INFO 2026-01-10 00:29:08,170 signals 47796 40056 Auto-generating sessions for new class: Gov. Sabo - 3A (2026-2027)
+INFO 2026-01-10 00:29:09,529 session_management 47796 40056 Generated 150 sessions for Gov. Sabo - 3A (2026-2027)
+INFO 2026-01-10 00:29:09,796 signals 47796 40056 Successfully auto-generated 150 sessions for Gov. Sabo - 3A (2026-2027)
+INFO 2026-01-10 00:29:10,333 signals 47796 40056 Auto-generating sessions for new class: Gov. Sabo - 4A (2026-2027)
+INFO 2026-01-10 00:29:11,965 session_management 47796 40056 Generated 150 sessions for Gov. Sabo - 4A (2026-2027)
+INFO 2026-01-10 00:29:12,234 signals 47796 40056 Successfully auto-generated 150 sessions for Gov. Sabo - 4A (2026-2027)
+INFO 2026-01-10 00:29:12,773 signals 47796 40056 Auto-generating sessions for new class: Gov. Sabo - 5A (2026-2027)
+INFO 2026-01-10 00:29:14,159 session_management 47796 40056 Generated 150 sessions for Gov. Sabo - 5A (2026-2027)
+INFO 2026-01-10 00:29:14,426 signals 47796 40056 Successfully auto-generated 150 sessions for Gov. Sabo - 5A (2026-2027)
+INFO 2026-01-10 00:29:14,961 signals 47796 40056 Auto-generating sessions for new class: Gov. Sabo - 6A (2026-2027)
+INFO 2026-01-10 00:29:16,617 session_management 47796 40056 Generated 150 sessions for Gov. Sabo - 6A (2026-2027)
+INFO 2026-01-10 00:29:16,884 signals 47796 40056 Successfully auto-generated 150 sessions for Gov. Sabo - 6A (2026-2027)
+INFO 2026-01-10 00:29:17,418 signals 47796 40056 Auto-generating sessions for new class: Gov. Sabo - 7A (2026-2027)
+INFO 2026-01-10 00:29:18,802 session_management 47796 40056 Generated 150 sessions for Gov. Sabo - 7A (2026-2027)
+INFO 2026-01-10 00:29:19,071 signals 47796 40056 Successfully auto-generated 150 sessions for Gov. Sabo - 7A (2026-2027)
+INFO 2026-01-10 00:29:19,605 signals 47796 40056 Auto-generating sessions for new class: Gov. Sabo - 8A (2026-2027)
+INFO 2026-01-10 00:29:21,243 session_management 47796 40056 Generated 150 sessions for Gov. Sabo - 8A (2026-2027)
+INFO 2026-01-10 00:29:21,510 signals 47796 40056 Successfully auto-generated 150 sessions for Gov. Sabo - 8A (2026-2027)
+INFO 2026-01-10 00:29:22,308 basehttp 47796 40056 "POST /supervisor/classes/bulk-create/ HTTP/1.1" 302 0
+INFO 2026-01-10 00:29:23,945 basehttp 47796 40056 "GET /supervisor/classes/ HTTP/1.1" 200 7745
+INFO 2026-01-10 00:35:11,710 autoreload 47796 41384 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-10 00:35:13,404 autoreload 31604 44672 Watching for file changes with StatReloader
+INFO 2026-01-10 00:35:18,270 autoreload 31604 44672 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-10 00:35:20,028 autoreload 34600 4116 Watching for file changes with StatReloader
+INFO 2026-01-10 00:35:27,466 autoreload 34600 4116 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-10 00:35:29,052 autoreload 15536 35612 Watching for file changes with StatReloader
+INFO 2026-01-10 00:36:10,577 basehttp 15536 25564 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-10 00:36:10,598 basehttp 15536 25564 "GET / HTTP/1.1" 200 1095
+INFO 2026-01-10 00:36:28,532 basehttp 15536 25564 "POST / HTTP/1.1" 302 0
+INFO 2026-01-10 00:36:31,892 basehttp 15536 25564 "GET /admin/dashboard/ HTTP/1.1" 200 7957
+WARNING 2026-01-10 00:36:46,467 mixins 15536 25564 Slow function: schools took 5.55s
+INFO 2026-01-10 00:36:46,476 basehttp 15536 25564 "GET /admin/schools/ HTTP/1.1" 200 7680
+INFO 2026-01-10 00:37:22,346 basehttp 15536 25564 "GET /admin/schools/d0448916-3bb8-4d18-8abb-85a77878c9db/ HTTP/1.1" 200 6239
+INFO 2026-01-10 00:37:25,860 basehttp 15536 25564 "GET /admin/schools/d0448916-3bb8-4d18-8abb-85a77878c9db/classes/ HTTP/1.1" 200 6186
+WARNING 2026-01-10 00:37:25,906 basehttp 15536 25564 "GET /static/admin/assets/img/empty-state.svg HTTP/1.1" 404 1910
+INFO 2026-01-10 00:37:31,001 basehttp 15536 46664 "GET /admin/schools/d0448916-3bb8-4d18-8abb-85a77878c9db/classes/add/ HTTP/1.1" 200 4944
+INFO 2026-01-10 00:37:40,891 basehttp 15536 46664 "GET /admin/dashboard/ HTTP/1.1" 200 7957
+INFO 2026-01-10 00:38:08,565 basehttp 15536 46664 "GET /admin/schools/ HTTP/1.1" 200 7680
+INFO 2026-01-10 00:38:11,733 basehttp 15536 46664 "GET /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/ HTTP/1.1" 200 6115
+INFO 2026-01-10 00:38:19,386 basehttp 15536 46664 "GET /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/classes/ HTTP/1.1" 200 7743
+INFO 2026-01-10 00:40:31,854 basehttp 15536 46664 "GET /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/classes/ HTTP/1.1" 200 7743
+INFO 2026-01-10 00:40:54,783 basehttp 15536 46664 "GET /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/classes/add/ HTTP/1.1" 200 4944
+INFO 2026-01-10 00:40:59,278 basehttp 15536 46664 "GET /admin/reports/ HTTP/1.1" 200 10109
+INFO 2026-01-10 00:41:03,806 basehttp 15536 46664 "POST /admin/reports/data/students/ HTTP/1.1" 200 302
+INFO 2026-01-10 00:41:05,488 basehttp 15536 46664 "GET /admin/schools/ HTTP/1.1" 200 7680
+INFO 2026-01-10 00:41:10,598 basehttp 15536 46664 "GET /admin/schools/3d72b365-d424-480d-b6da-61a96bbcd5c5/ HTTP/1.1" 200 6129
+INFO 2026-01-10 00:41:15,529 basehttp 15536 46664 "GET /admin/schools/3d72b365-d424-480d-b6da-61a96bbcd5c5/classes/ HTTP/1.1" 200 7046
+INFO 2026-01-10 00:44:01,812 basehttp 15536 46664 "GET /admin/dashboard/ HTTP/1.1" 200 7950
+INFO 2026-01-10 00:44:04,571 basehttp 15536 46664 "GET /admin/schools/ HTTP/1.1" 200 7680
+INFO 2026-01-10 00:44:07,150 basehttp 15536 46664 "GET /admin/schools/d0448916-3bb8-4d18-8abb-85a77878c9db/ HTTP/1.1" 200 6239
+INFO 2026-01-10 00:44:09,418 basehttp 15536 46664 "GET /admin/schools/d0448916-3bb8-4d18-8abb-85a77878c9db/classes/ HTTP/1.1" 200 6186
+WARNING 2026-01-10 00:44:09,489 basehttp 15536 46664 "GET /static/admin/assets/img/empty-state.svg HTTP/1.1" 404 1910
+INFO 2026-01-10 00:44:11,374 basehttp 15536 19492 "GET /admin/schools/d0448916-3bb8-4d18-8abb-85a77878c9db/classes/add/ HTTP/1.1" 200 4944
+INFO 2026-01-10 00:44:18,694 basehttp 15536 19492 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-10 00:44:18,707 basehttp 15536 19492 "GET / HTTP/1.1" 200 1093
+INFO 2026-01-10 00:44:40,196 basehttp 15536 19492 "POST / HTTP/1.1" 302 0
+INFO 2026-01-10 00:44:43,515 basehttp 15536 19492 "GET /admin/dashboard/ HTTP/1.1" 200 7953
+WARNING 2026-01-10 00:44:59,517 mixins 15536 19492 Slow function: schools took 5.47s
+INFO 2026-01-10 00:44:59,524 basehttp 15536 19492 "GET /admin/schools/ HTTP/1.1" 200 7681
+INFO 2026-01-10 00:45:03,600 basehttp 15536 19492 "GET /admin/schools/3d72b365-d424-480d-b6da-61a96bbcd5c5/ HTTP/1.1" 200 6126
+INFO 2026-01-10 00:45:13,390 basehttp 15536 19492 "GET /admin/schools/3d72b365-d424-480d-b6da-61a96bbcd5c5/classes/ HTTP/1.1" 200 7289
+INFO 2026-01-10 00:46:39,213 autoreload 15536 35612 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-10 00:46:40,660 autoreload 33348 43272 Watching for file changes with StatReloader
+INFO 2026-01-10 00:46:49,944 autoreload 33348 43272 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-10 00:46:51,121 autoreload 19548 28568 Watching for file changes with StatReloader
+INFO 2026-01-10 00:46:56,969 autoreload 19548 28568 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-10 00:46:58,852 autoreload 40656 20696 Watching for file changes with StatReloader
+INFO 2026-01-10 00:47:05,245 autoreload 40656 20696 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-10 00:47:06,700 autoreload 27372 42284 Watching for file changes with StatReloader
+WARNING 2026-01-10 00:52:19,909 mixins 27372 18316 Slow function: schools took 5.61s
+INFO 2026-01-10 00:52:19,915 basehttp 27372 18316 "GET /admin/schools/ HTTP/1.1" 200 7679
+INFO 2026-01-10 00:52:23,811 basehttp 27372 18316 "GET /admin/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/ HTTP/1.1" 200 6138
+INFO 2026-01-10 00:52:29,253 basehttp 27372 18316 "GET /admin/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/classes/ HTTP/1.1" 200 7125
+INFO 2026-01-10 00:52:33,637 basehttp 27372 18316 "GET /admin/classes/bulk-create/ HTTP/1.1" 200 5908
+WARNING 2026-01-10 00:52:37,711 mixins 27372 18316 Slow function: ajax_school_classes_admin took 0.56s
+INFO 2026-01-10 00:52:37,713 basehttp 27372 18316 "GET /api/school-classes/?school_id=3d72b365-d424-480d-b6da-61a96bbcd5c5 HTTP/1.1" 200 422
+INFO 2026-01-10 00:53:31,064 autoreload 27372 42284 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-10 00:53:32,707 autoreload 45532 9876 Watching for file changes with StatReloader
+WARNING 2026-01-10 00:55:14,703 mixins 45532 28804 Slow function: schools took 5.63s
+INFO 2026-01-10 00:55:14,710 basehttp 45532 28804 "GET /admin/schools/ HTTP/1.1" 200 7680
+INFO 2026-01-10 00:55:20,203 basehttp 45532 28804 "GET /admin/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/ HTTP/1.1" 200 6138
+INFO 2026-01-10 00:55:24,309 basehttp 45532 28804 "GET /admin/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/classes/ HTTP/1.1" 200 7125
+INFO 2026-01-10 00:55:28,672 basehttp 45532 28804 "GET /admin/classes/bulk-create/ HTTP/1.1" 200 5909
+WARNING 2026-01-10 00:55:32,563 mixins 45532 28804 Slow function: ajax_school_classes_admin took 0.55s
+INFO 2026-01-10 00:55:32,565 basehttp 45532 28804 "GET /api/school-classes/?school_id=3d72b365-d424-480d-b6da-61a96bbcd5c5 HTTP/1.1" 200 422
+INFO 2026-01-10 00:55:56,349 basehttp 45532 28804 "GET /admin/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/classes/ HTTP/1.1" 200 7125
+INFO 2026-01-10 00:56:04,659 basehttp 45532 28804 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-10 00:56:04,672 basehttp 45532 28804 "GET / HTTP/1.1" 200 1094
+INFO 2026-01-10 00:56:19,176 basehttp 45532 28804 "POST / HTTP/1.1" 302 0
+INFO 2026-01-10 00:56:22,496 basehttp 45532 28804 "GET /admin/dashboard/ HTTP/1.1" 200 7955
+WARNING 2026-01-10 00:56:31,162 mixins 45532 28804 Slow function: schools took 4.38s
+INFO 2026-01-10 00:56:31,168 basehttp 45532 28804 "GET /admin/schools/ HTTP/1.1" 200 7676
+INFO 2026-01-10 00:56:35,097 basehttp 45532 28804 "GET /admin/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/ HTTP/1.1" 200 6141
+INFO 2026-01-10 00:56:39,304 basehttp 45532 28804 "GET /admin/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/classes/ HTTP/1.1" 200 7121
+INFO 2026-01-10 00:56:43,527 basehttp 45532 28804 "GET /admin/classes/bulk-create/ HTTP/1.1" 200 5908
+WARNING 2026-01-10 00:56:49,347 mixins 45532 28804 Slow function: ajax_school_classes_admin took 0.55s
+INFO 2026-01-10 00:56:49,348 basehttp 45532 28804 "GET /api/school-classes/?school_id=ec46841e-4e06-497f-ac4a-893c9561ab2b HTTP/1.1" 200 238
+INFO 2026-01-10 00:57:05,344 autoreload 22320 22712 Watching for file changes with StatReloader
+INFO 2026-01-10 00:57:14,089 basehttp 22320 41196 - Broken pipe from ('127.0.0.1', 57974)
+WARNING 2026-01-10 00:57:20,379 mixins 22320 32720 Slow function: schools took 5.55s
+INFO 2026-01-10 00:57:20,385 basehttp 22320 32720 - Broken pipe from ('127.0.0.1', 55562)
+WARNING 2026-01-10 00:57:23,302 mixins 22320 33544 Slow function: schools took 4.65s
+INFO 2026-01-10 00:57:23,307 basehttp 22320 33544 "GET /admin/schools/ HTTP/1.1" 200 7681
+INFO 2026-01-10 00:57:30,193 basehttp 22320 33544 "GET /admin/schools/853366c9-1160-4319-bea5-95e743e6c584/ HTTP/1.1" 200 6136
+INFO 2026-01-10 00:57:34,282 basehttp 22320 33544 "GET /admin/schools/853366c9-1160-4319-bea5-95e743e6c584/classes/ HTTP/1.1" 200 6487
+WARNING 2026-01-10 00:57:34,339 basehttp 22320 33544 "GET /static/admin/assets/img/empty-state.svg HTTP/1.1" 404 1910
+INFO 2026-01-10 00:57:39,862 basehttp 22320 4152 "GET /admin/classes/bulk-create/ HTTP/1.1" 200 5906
+WARNING 2026-01-10 00:57:43,978 mixins 22320 4152 Slow function: ajax_school_classes_admin took 0.83s
+INFO 2026-01-10 00:57:43,980 basehttp 22320 4152 "GET /api/school-classes/?school_id=8f732a8b-b02b-4e1c-8f34-17303b8e6e6d HTTP/1.1" 200 407
+WARNING 2026-01-10 00:57:51,187 mixins 22320 4152 Slow function: ajax_school_classes_admin took 0.83s
+INFO 2026-01-10 00:57:51,188 basehttp 22320 4152 "GET /api/school-classes/?school_id=59102664-e22e-453b-addb-45a0afe9659e HTTP/1.1" 200 398
+WARNING 2026-01-10 00:57:55,044 mixins 22320 4152 Slow function: ajax_school_classes_admin took 0.55s
+INFO 2026-01-10 00:57:55,046 basehttp 22320 4152 "GET /api/school-classes/?school_id=ec46841e-4e06-497f-ac4a-893c9561ab2b HTTP/1.1" 200 238
+INFO 2026-01-10 00:59:10,780 autoreload 22320 22712 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-10 00:59:12,190 autoreload 35256 23440 Watching for file changes with StatReloader
+INFO 2026-01-10 01:00:33,939 autoreload 35256 23440 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-10 01:00:35,210 autoreload 14056 32976 Watching for file changes with StatReloader
+INFO 2026-01-10 01:02:26,024 basehttp 14056 3108 "GET /admin/dashboard/ HTTP/1.1" 200 7957
+INFO 2026-01-10 01:02:38,117 autoreload 14056 32976 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-10 01:02:39,453 autoreload 16608 33424 Watching for file changes with StatReloader
+WARNING 2026-01-10 01:04:19,282 mixins 16608 34152 Slow function: schools took 5.36s
+INFO 2026-01-10 01:04:19,288 basehttp 16608 34152 "GET /admin/schools/ HTTP/1.1" 200 7678
+INFO 2026-01-10 01:04:26,306 basehttp 16608 34152 "GET /admin/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/ HTTP/1.1" 200 6135
+INFO 2026-01-10 01:04:31,357 basehttp 16608 34152 "GET /admin/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/classes/ HTTP/1.1" 200 7124
+INFO 2026-01-10 01:04:35,438 basehttp 16608 34152 "GET /admin/classes/bulk-create/ HTTP/1.1" 200 5671
+INFO 2026-01-10 01:05:03,934 basehttp 16608 34152 "GET /admin/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/classes/ HTTP/1.1" 200 7124
