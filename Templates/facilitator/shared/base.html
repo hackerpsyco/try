@@ -42,6 +42,32 @@
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
             overscroll-behavior: contain;
+            /* Hardware acceleration */
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            will-change: transform;
+            /* Smooth scrollbar */
+            scrollbar-width: thin;
+            scrollbar-color: #d1d5db #f3f4f6;
+        }
+        
+        /* Webkit scrollbar styling */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-track {
+            background: #f3f4f6;
+            border-radius: 10px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
         }
         
         /* Mobile smooth scrolling fixes */

@@ -80,6 +80,9 @@ MIDDLEWARE = [
     'django.middleware.cache.UpdateCacheMiddleware',  # Cache middleware (first)
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'class.performance_middleware.PerformanceOptimizationMiddleware',  # Performance optimization
+    'class.performance_middleware.BrowserCachingMiddleware',  # Browser caching
+    'class.performance_middleware.ResponseCompressionMiddleware',  # Response compression
     'django.middleware.cache.FetchFromCacheMiddleware',  # Cache middleware (last)
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -132,32 +135,40 @@ DATABASES = {
 
 # ===== PERFORMANCE OPTIMIZATIONS =====
 
-# Caching Configuration
+# Caching Configuration - Optimized for Performance
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'unique-snowflake',
-        'TIMEOUT': 300,  # 5 minutes default timeout
+        'TIMEOUT': 600,  # 10 minutes default timeout
         'OPTIONS': {
-            'MAX_ENTRIES': 1000,
+            'MAX_ENTRIES': 2000,  # Increased for better caching
             'CULL_FREQUENCY': 3,
         }
     },
     'sessions': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'session-cache',
-        'TIMEOUT': 3600,  # 1 hour for sessions
+        'TIMEOUT': 7200,  # 2 hours for sessions
     },
     'curriculum': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'curriculum-cache',
-        'TIMEOUT': 3600,  # 1 hour for curriculum content
+        'TIMEOUT': 7200,  # 2 hours for curriculum content
+    },
+    'dashboard': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'dashboard-cache',
+        'TIMEOUT': 300,  # 5 minutes for dashboard stats
     }
 }
 
-# Cache middleware settings
+# Cache middleware settings - Optimized
 CACHE_MIDDLEWARE_ALIAS = 'default'
-CACHE_MIDDLEWARE_SECONDS = 300  # 5 minutes
+CACHE_MIDDLEWARE_SECONDS = 600  # 10 minutes for page caching
+
+# HTTP Cache Headers for static files
+CACHE_CONTROL_MAX_AGE = 31536000  # 1 year for static files
 CACHE_MIDDLEWARE_KEY_PREFIX = 'clas'
 
 # Session Configuration for Performance

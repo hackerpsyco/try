@@ -8,6 +8,45 @@ from .views import (
     schools, add_school, edit_school, delete_school, school_detail,
     class_sections_list, class_section_add, edit_class_section, class_section_delete,
     assign_facilitator,admin_sessions_filter,
+)
+from .supervisor_views import (
+    # Supervisor - Dashboard
+    supervisor_dashboard,
+    
+    # Supervisor - Users
+    supervisor_users_list,
+    supervisor_user_create,
+    supervisor_user_edit,
+    supervisor_user_delete,
+    supervisor_create_user_ajax,
+    
+    # Supervisor - Schools
+    supervisor_schools_list,
+    supervisor_school_create,
+    supervisor_school_edit,
+    supervisor_school_detail,
+    supervisor_school_delete,
+    
+    # Supervisor - Classes
+    supervisor_classes_list,
+    supervisor_class_create,
+    supervisor_class_edit,
+    supervisor_class_delete,
+    
+    # Supervisor - Facilitators
+    supervisor_facilitators_list,
+    supervisor_facilitator_detail,
+    supervisor_assign_facilitator_school,
+    supervisor_assign_facilitator_class,
+    
+    # Supervisor - Reports
+    supervisor_reports_dashboard,
+    supervisor_feedback_analytics,
+    
+    # Supervisor - Settings
+    supervisor_settings,
+)
+from .views import (
 
     # Admin – students
     students_list, student_add, student_edit, student_delete, student_import,
@@ -108,8 +147,44 @@ urlpatterns = [
     # Dashboards (role based)
     # ======================
     path("admin/dashboard/", dashboard, name="admin_dashboard"),
-    path("supervisor/dashboard/", dashboard, name="supervisor_dashboard"),
+    path("supervisor/dashboard/", supervisor_dashboard, name="supervisor_dashboard"),
     path("facilitator/dashboard/", facilitator_views.facilitator_dashboard, name="facilitator_dashboard"),
+    
+    # ======================
+    # Supervisor URLs
+    # ======================
+    # Users
+    path("supervisor/users/", supervisor_users_list, name="supervisor_users_list"),
+    path("supervisor/users/create/", supervisor_user_create, name="supervisor_user_create"),
+    path("supervisor/users/<uuid:user_id>/edit/", supervisor_user_edit, name="supervisor_user_edit"),
+    path("supervisor/users/<uuid:user_id>/delete/", supervisor_user_delete, name="supervisor_user_delete"),
+    path("supervisor/users/create-ajax/", supervisor_create_user_ajax, name="supervisor_create_user_ajax"),
+    
+    # Schools
+    path("supervisor/schools/", supervisor_schools_list, name="supervisor_schools_list"),
+    path("supervisor/schools/create/", supervisor_school_create, name="supervisor_school_create"),
+    path("supervisor/schools/<uuid:school_id>/edit/", supervisor_school_edit, name="supervisor_school_edit"),
+    path("supervisor/schools/<uuid:school_id>/", supervisor_school_detail, name="supervisor_school_detail"),
+    path("supervisor/schools/<uuid:school_id>/delete/", supervisor_school_delete, name="supervisor_school_delete"),
+    
+    # Classes
+    path("supervisor/classes/", supervisor_classes_list, name="supervisor_classes_list"),
+    path("supervisor/classes/create/", supervisor_class_create, name="supervisor_class_create"),
+    path("supervisor/classes/<uuid:class_id>/edit/", supervisor_class_edit, name="supervisor_class_edit"),
+    path("supervisor/classes/<uuid:class_id>/delete/", supervisor_class_delete, name="supervisor_class_delete"),
+    
+    # Facilitators
+    path("supervisor/facilitators/", supervisor_facilitators_list, name="supervisor_facilitators_list"),
+    path("supervisor/facilitators/<uuid:facilitator_id>/", supervisor_facilitator_detail, name="supervisor_facilitator_detail"),
+    path("supervisor/facilitators/<uuid:facilitator_id>/assign-schools/", supervisor_assign_facilitator_school, name="supervisor_assign_facilitator_school"),
+    path("supervisor/facilitators/<uuid:facilitator_id>/assign-classes/", supervisor_assign_facilitator_class, name="supervisor_assign_facilitator_class"),
+    
+    # Reports
+    path("supervisor/reports/", supervisor_reports_dashboard, name="supervisor_reports_dashboard"),
+    path("supervisor/reports/feedback/", supervisor_feedback_analytics, name="supervisor_feedback_analytics"),
+    
+    # Settings
+    path("supervisor/settings/", supervisor_settings, name="supervisor_settings"),
     
     # Feedback & Analytics
     # ======================

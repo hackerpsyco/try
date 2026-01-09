@@ -122,6 +122,11 @@
           Attendance
         </a>
 
+        <a href="{% url 'assign_facilitator' class_section.id %}"
+           class="px-3 py-1.5 border border-purple-500 text-purple-600 rounded-lg text-xs hover:bg-purple-50">
+          Assign Facilitator
+        </a>
+
         <a href="{% url 'edit_class_section' class_section.id %}"
            class="px-3 py-1.5 border border-blue-500 text-blue-600 rounded-lg text-xs hover:bg-blue-50">
           Edit

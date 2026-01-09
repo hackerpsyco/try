@@ -56,12 +56,18 @@ class EditUserForm(forms.ModelForm):
 class AddSchoolForm(forms.ModelForm):
     class Meta:
         model = School
-        fields = ["name", "udise", "block", "district", "status", "profile_image"]
+        fields = ["name", "udise", "block", "district", "area", "address", "contact_person", "contact_number", "email", "logo", "status"]
         widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control"}),
-            "udise": forms.TextInput(attrs={"class": "form-control"}),
-            "block": forms.TextInput(attrs={"class": "form-control"}),
-            "district": forms.TextInput(attrs={"class": "form-control"}),
+            "name": forms.TextInput(attrs={"class": "form-control", "placeholder": "School Name"}),
+            "udise": forms.TextInput(attrs={"class": "form-control", "placeholder": "UDISE Code"}),
+            "block": forms.TextInput(attrs={"class": "form-control", "placeholder": "Block"}),
+            "district": forms.TextInput(attrs={"class": "form-control", "placeholder": "District"}),
+            "area": forms.TextInput(attrs={"class": "form-control", "placeholder": "Area"}),
+            "address": forms.Textarea(attrs={"class": "form-control", "placeholder": "Address", "rows": 3}),
+            "contact_person": forms.TextInput(attrs={"class": "form-control", "placeholder": "Contact Person"}),
+            "contact_number": forms.TextInput(attrs={"class": "form-control", "placeholder": "Contact Number"}),
+            "email": forms.EmailInput(attrs={"class": "form-control", "placeholder": "Email"}),
+            "logo": forms.FileInput(attrs={"class": "form-control"}),
             "status": forms.Select(attrs={"class": "form-control"}),
         }
 
@@ -71,10 +77,27 @@ class EditSchoolForm(forms.ModelForm):
     class Meta:
         model = School
         fields = [
-            "name", "udise", "block", "district", "status",
-            "enrolled_students", "avg_attendance_pct", "validation_score",
-            "profile_image"
+            "name", "udise", "block", "district", "area", "address", "contact_person", 
+            "contact_number", "email", "status", "enrolled_students", "avg_attendance_pct", 
+            "validation_score", "profile_image", "logo"
         ]
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "udise": forms.TextInput(attrs={"class": "form-control"}),
+            "block": forms.TextInput(attrs={"class": "form-control"}),
+            "district": forms.TextInput(attrs={"class": "form-control"}),
+            "area": forms.TextInput(attrs={"class": "form-control"}),
+            "address": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
+            "contact_person": forms.TextInput(attrs={"class": "form-control"}),
+            "contact_number": forms.TextInput(attrs={"class": "form-control"}),
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
+            "status": forms.Select(attrs={"class": "form-control"}),
+            "enrolled_students": forms.NumberInput(attrs={"class": "form-control"}),
+            "avg_attendance_pct": forms.NumberInput(attrs={"class": "form-control"}),
+            "validation_score": forms.NumberInput(attrs={"class": "form-control"}),
+            "profile_image": forms.FileInput(attrs={"class": "form-control"}),
+            "logo": forms.FileInput(attrs={"class": "form-control"}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -15,6 +15,13 @@ class School(models.Model):
 
     block = models.CharField(max_length=100)
     district = models.CharField(max_length=100)
+    
+    # New fields for school details
+    area = models.CharField(max_length=200, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    contact_person = models.CharField(max_length=200, blank=True, null=True)
+    contact_number = models.CharField(max_length=20, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
 
     status = models.SmallIntegerField(
         choices=STATUS_CHOICES,
@@ -32,6 +39,12 @@ class School(models.Model):
 
     profile_image = models.ImageField(
         upload_to="schools/",
+        null=True,
+        blank=True
+    )
+    
+    logo = models.ImageField(
+        upload_to="schools/logos/",
         null=True,
         blank=True
     )
