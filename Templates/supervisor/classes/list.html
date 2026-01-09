@@ -9,10 +9,31 @@
       <h2 class="text-2xl font-bold text-gray-900">Classes</h2>
       <p class="text-sm text-gray-500 mt-1">Manage all classes across schools</p>
     </div>
-    <a href="{% url 'supervisor_class_create' %}" class="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium text-sm shadow-sm">
-      <span class="material-symbols-outlined text-[20px]">add</span>
-      <span>Add Class</span>
-    </a>
+    <div class="relative group">
+      <button class="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium text-sm shadow-sm">
+        <span class="material-symbols-outlined text-[20px]">add</span>
+        <span>Add Class</span>
+        <span class="material-symbols-outlined text-[18px]">expand_more</span>
+      </button>
+      
+      <!-- Dropdown Menu -->
+      <div class="absolute right-0 mt-0 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+        <a href="{% url 'supervisor_class_create' %}" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 border-b border-gray-100 first:rounded-t-lg">
+          <span class="material-symbols-outlined text-[20px] text-blue-600">add_circle</span>
+          <div>
+            <p class="text-sm font-medium">Single Class</p>
+            <p class="text-xs text-gray-500">Add one class</p>
+          </div>
+        </a>
+        <a href="{% url 'supervisor_class_bulk_create' %}" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 last:rounded-b-lg">
+          <span class="material-symbols-outlined text-[20px] text-green-600">add_box</span>
+          <div>
+            <p class="text-sm font-medium">Multiple Classes</p>
+            <p class="text-xs text-gray-500">Add 1-10 classes at once</p>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- Filters Section -->
@@ -60,12 +81,34 @@
     </div>
   </div>
 
+  <!-- Bulk Actions Bar (Hidden by default) -->
+  <div id="bulkActionsBar" class="hidden bg-blue-50 border border-blue-200 rounded-xl shadow-sm p-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-blue-600 text-[24px]">check_circle</span>
+      <span class="text-sm font-medium text-gray-900">
+        <span id="selectedCount">0</span> classes selected
+      </span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="clearSelectionBtn" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+        Clear Selection
+      </button>
+      <a href="#" id="bulkAddBtn" class="flex items-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors font-medium text-sm shadow-sm">
+        <span class="material-symbols-outlined text-[20px]">add_box</span>
+        <span>Add Selected Classes</span>
+      </a>
+    </div>
+  </div>
+
   <!-- Classes Table -->
   <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
     <div class="overflow-x-auto">
       <table class="w-full">
         <thead class="bg-gray-50 border-b border-gray-200">
           <tr>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+              <input type="checkbox" id="selectAllCheckbox" class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer">
+            </th>
             <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">School</th>
             <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Class Level</th>
             <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Section</th>
@@ -76,7 +119,10 @@
         </thead>
         <tbody class="divide-y divide-gray-200">
           {% for class in classes %}
-          <tr class="class-row hover:bg-gray-50 transition-colors" data-school="{{ class.school.id }}" data-name="{{ class.class_level|lower }}-{{ class.section|lower }}" data-status="{% if class.is_active %}active{% else %}inactive{% endif %}">
+          <tr class="class-row hover:bg-gray-50 transition-colors" data-school="{{ class.school.id }}" data-name="{{ class.class_level|lower }}-{{ class.section|lower }}" data-status="{% if class.is_active %}active{% else %}inactive{% endif %}" data-class-id="{{ class.id }}">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <input type="checkbox" class="class-checkbox w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 cursor-pointer" value="{{ class.id }}">
+            </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-semibold text-sm">
@@ -103,7 +149,7 @@
           </tr>
           {% empty %}
           <tr>
-            <td colspan="6" class="px-6 py-12 text-center">
+            <td colspan="7" class="px-6 py-12 text-center">
               <span class="material-symbols-outlined text-gray-300 text-5xl block mb-3">inbox</span>
               <p class="text-sm text-gray-500">No classes found</p>
             </td>
@@ -119,6 +165,7 @@
 // Initialize filters on page load
 document.addEventListener("DOMContentLoaded", function() {
   filterClasses();
+  setupCheckboxes();
   
   // Add event listeners
   document.getElementById("searchInput").addEventListener("input", filterClasses);
@@ -148,6 +195,80 @@ function filterClasses() {
   });
 
   document.getElementById("classCount").textContent = visibleCount;
+  updateBulkActionsBar();
+}
+
+function setupCheckboxes() {
+  const selectAllCheckbox = document.getElementById("selectAllCheckbox");
+  const classCheckboxes = document.querySelectorAll(".class-checkbox");
+  
+  // Select all checkbox
+  selectAllCheckbox.addEventListener("change", function() {
+    classCheckboxes.forEach(checkbox => {
+      const row = checkbox.closest(".class-row");
+      if (!row.classList.contains("hidden")) {
+        checkbox.checked = this.checked;
+      }
+    });
+    updateBulkActionsBar();
+  });
+  
+  // Individual checkboxes
+  classCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", function() {
+      updateBulkActionsBar();
+      updateSelectAllCheckbox();
+    });
+  });
+  
+  // Clear selection button
+  document.getElementById("clearSelectionBtn").addEventListener("click", function(e) {
+    e.preventDefault();
+    classCheckboxes.forEach(checkbox => checkbox.checked = false);
+    updateBulkActionsBar();
+  });
+  
+  // Bulk add button
+  document.getElementById("bulkAddBtn").addEventListener("click", function(e) {
+    e.preventDefault();
+    const selectedIds = Array.from(classCheckboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+    
+    if (selectedIds.length === 0) {
+      alert("Please select at least one class");
+      return;
+    }
+    
+    // Redirect with IDs as query parameters
+    const queryString = selectedIds.map(id => `ids=${id}`).join('&');
+    window.location.href = `{% url 'supervisor_bulk_add_classes' %}?${queryString}`;
+  });
+}
+
+function updateBulkActionsBar() {
+  const classCheckboxes = document.querySelectorAll(".class-checkbox");
+  const selectedCount = Array.from(classCheckboxes).filter(cb => cb.checked).length;
+  const bulkActionsBar = document.getElementById("bulkActionsBar");
+  const selectedCountSpan = document.getElementById("selectedCount");
+  
+  selectedCountSpan.textContent = selectedCount;
+  
+  if (selectedCount > 0) {
+    bulkActionsBar.classList.remove("hidden");
+  } else {
+    bulkActionsBar.classList.add("hidden");
+  }
+}
+
+function updateSelectAllCheckbox() {
+  const selectAllCheckbox = document.getElementById("selectAllCheckbox");
+  const classCheckboxes = document.querySelectorAll(".class-checkbox:not(.hidden)");
+  const visibleCheckboxes = Array.from(classCheckboxes).filter(cb => !cb.closest(".class-row").classList.contains("hidden"));
+  const checkedCheckboxes = visibleCheckboxes.filter(cb => cb.checked);
+  
+  selectAllCheckbox.checked = visibleCheckboxes.length > 0 && checkedCheckboxes.length === visibleCheckboxes.length;
+  selectAllCheckbox.indeterminate = checkedCheckboxes.length > 0 && checkedCheckboxes.length < visibleCheckboxes.length;
 }
 </script>
 
