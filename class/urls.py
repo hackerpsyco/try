@@ -30,8 +30,10 @@ from .supervisor_views import (
     # Supervisor - Classes
     supervisor_classes_list,
     supervisor_class_create,
+    supervisor_class_bulk_create,
     supervisor_class_edit,
     supervisor_class_delete,
+    supervisor_bulk_add_classes,
     
     # Supervisor - Facilitators
     supervisor_facilitators_list,
@@ -169,6 +171,8 @@ urlpatterns = [
     
     # Classes
     path("supervisor/classes/", supervisor_classes_list, name="supervisor_classes_list"),
+    path("supervisor/classes/bulk-add/", supervisor_bulk_add_classes, name="supervisor_bulk_add_classes"),
+    path("supervisor/classes/bulk-create/", supervisor_class_bulk_create, name="supervisor_class_bulk_create"),
     path("supervisor/classes/create/", supervisor_class_create, name="supervisor_class_create"),
     path("supervisor/classes/<uuid:class_id>/edit/", supervisor_class_edit, name="supervisor_class_edit"),
     path("supervisor/classes/<uuid:class_id>/delete/", supervisor_class_delete, name="supervisor_class_delete"),

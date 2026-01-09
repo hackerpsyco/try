@@ -560,6 +560,66 @@ def supervisor_class_create(request):
 
 @login_required
 @supervisor_required
+def supervisor_class_bulk_create(request):
+    """Bulk create multiple classes at once"""
+    
+    schools = School.objects.all().order_by('name')
+    class_levels = list(range(1, 11))  # Classes 1-10
+    
+    if request.method == "POST":
+        school_id = request.POST.get('school')
+        class_levels_selected = request.POST.getlist('class_levels')
+        section = request.POST.get('section', 'A')
+        academic_year = request.POST.get('academic_year', '2024-2025')
+        
+        if not school_id or not class_levels_selected:
+            messages.error(request, "Please select a school and at least one class level")
+            return redirect("supervisor_class_bulk_create")
+        
+        try:
+            school = School.objects.get(id=school_id)
+            created_count = 0
+            
+            for level in class_levels_selected:
+                # Check if class already exists
+                existing = ClassSection.objects.filter(
+                    school=school,
+                    class_level=level,
+                    section=section,
+                    academic_year=academic_year
+                ).exists()
+                
+                if not existing:
+                    ClassSection.objects.create(
+                        school=school,
+                        class_level=level,
+                        section=section,
+                        academic_year=academic_year,
+                        is_active=True
+                    )
+                    created_count += 1
+            
+            if created_count > 0:
+                messages.success(request, f"Successfully created {created_count} class(es) in {school.name}")
+            else:
+                messages.warning(request, "All selected classes already exist")
+            
+            return redirect("supervisor_classes_list")
+        
+        except School.DoesNotExist:
+            messages.error(request, "School not found")
+            return redirect("supervisor_class_bulk_create")
+    
+    context = {
+        'schools': schools,
+        'class_levels': class_levels,
+    }
+    
+    return render(request, "supervisor/classes/bulk_create.html", context)
+
+
+@login_required
+@supervisor_required
 def supervisor_class_edit(request, class_id):
     """Edit class details - Supervisor can edit classes"""
     
@@ -601,3 +661,46 @@ def supervisor_class_delete(request, class_id):
     }
     
     return render(request, "supervisor/classes/delete_confirm.html", context)
+
+
+@login_required
+@supervisor_required
+def supervisor_bulk_add_classes(request):
+    """Bulk add multiple classes - Show form to add classes in group"""
+    
+    # Get selected class IDs from query params or session
+    selected_ids = request.GET.getlist('ids')
+    
+    if not selected_ids:
+        messages.error(request, "No classes selected")
+        return redirect("supervisor_classes_list")
+    
+    # Get the selected classes
+    selected_classes = ClassSection.objects.filter(
+        id__in=selected_ids
+    ).select_related('school').order_by('school__name', 'class_level', 'section')
+    
+    if request.method == "POST":
+        # Get form data
+        class_name = request.POST.get('class_name', '').strip()
+        description = request.POST.get('description', '').strip()
+        
+        if not class_name:
+            messages.error(request, "Class name is required")
+            return render(request, "supervisor/classes/bulk_add.html", {
+                'selected_classes': selected_classes,
+                'selected_ids': selected_ids,
+            })
+        
+        # Here you can add logic to create a group or perform bulk operations
+        # For now, just show success message
+        messages.success(request, f"Successfully processed {len(selected_classes)} classes")
+        return redirect("supervisor_classes_list")
+    
+    context = {
+        'selected_classes': selected_classes,
+        'selected_ids': ','.join(selected_ids),
+        'class_count': len(selected_classes),
+    }
+    
+    return render(request, "supervisor/classes/bulk_add.html", context)

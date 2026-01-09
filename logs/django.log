@@ -12420,3 +12420,27 @@ INFO 2026-01-09 23:47:14,028 basehttp 30432 19636 "GET /facilitator/class/f84496
 INFO 2026-01-09 23:47:16,044 basehttp 30432 19636 "GET /api/curriculum/content/?day=1&language=english&class_section_id=f84496a5-ea66-4aac-be6b-15407fb50995 HTTP/1.1" 200 3106
 INFO 2026-01-09 23:47:18,107 basehttp 30432 38016 "GET /api/get-feedback-status/?session_id=b102ca28-52e0-48b3-b724-c58b2c94b1ca HTTP/1.1" 200 111
 INFO 2026-01-09 23:47:18,109 basehttp 30432 38016 "GET /api/get-feedback-status/?session_id=b102ca28-52e0-48b3-b724-c58b2c94b1ca HTTP/1.1" 200 111
+INFO 2026-01-10 00:11:43,367 autoreload 30432 45944 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-10 00:11:45,291 autoreload 27120 44020 Watching for file changes with StatReloader
+INFO 2026-01-10 00:12:06,747 autoreload 27120 44020 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-10 00:12:08,203 autoreload 45596 33720 Watching for file changes with StatReloader
+INFO 2026-01-10 00:12:35,466 autoreload 45596 33720 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-10 00:12:36,874 autoreload 28908 43308 Watching for file changes with StatReloader
+INFO 2026-01-10 00:15:18,325 basehttp 28908 43592 "GET / HTTP/1.1" 200 884
+INFO 2026-01-10 00:15:43,233 basehttp 28908 43592 "POST / HTTP/1.1" 302 0
+INFO 2026-01-10 00:15:46,072 basehttp 28908 43592 "GET /supervisor/dashboard/ HTTP/1.1" 200 4495
+INFO 2026-01-10 00:17:50,271 basehttp 28908 43592 "GET /supervisor/classes/ HTTP/1.1" 200 6782
+INFO 2026-01-10 00:17:53,089 basehttp 28908 43592 "GET /supervisor/classes/create/ HTTP/1.1" 200 4421
+INFO 2026-01-10 00:18:21,925 basehttp 28908 43592 "GET /supervisor/classes/ HTTP/1.1" 200 6782
+INFO 2026-01-10 00:20:04,146 autoreload 28908 43308 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-10 00:20:05,866 autoreload 23496 27156 Watching for file changes with StatReloader
+INFO 2026-01-10 00:20:46,127 autoreload 23496 27156 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-10 00:20:47,503 autoreload 34112 12120 Watching for file changes with StatReloader
+INFO 2026-01-10 00:20:54,375 autoreload 34112 12120 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-10 00:20:55,660 autoreload 33244 2056 Watching for file changes with StatReloader
+INFO 2026-01-10 00:21:04,231 autoreload 33244 2056 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-10 00:21:05,674 autoreload 47796 41384 Watching for file changes with StatReloader
+INFO 2026-01-10 00:22:35,199 basehttp 47796 26428 - Broken pipe from ('127.0.0.1', 63645)
+INFO 2026-01-10 00:22:37,085 basehttp 47796 7448 "GET /supervisor/dashboard/ HTTP/1.1" 200 4495
+INFO 2026-01-10 00:22:40,357 basehttp 47796 7448 "GET /supervisor/classes/ HTTP/1.1" 200 6989
+INFO 2026-01-10 00:22:45,815 basehttp 47796 7448 "GET /supervisor/classes/bulk-create/ HTTP/1.1" 200 5297
