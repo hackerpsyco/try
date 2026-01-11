@@ -106,11 +106,18 @@ class URLAccessControlMiddleware(MiddlewareMixin):
     # Public URLs (no authentication required)
     PUBLIC_URLS = ['/login/', '/logout/', '/static/', '/media/']
     
+    # API endpoints that handle their own authentication (return JSON errors instead of redirects)
+    API_URLS = ['/api/']
+    
     def process_request(self, request):
         """Check URL access permissions"""
         
         # Allow public URLs
         if any(request.path.startswith(url) for url in self.PUBLIC_URLS):
+            return None
+        
+        # Skip middleware for API endpoints - they handle their own authentication
+        if any(request.path.startswith(url) for url in self.API_URLS):
             return None
         
         # If not authenticated, redirect to login

@@ -5,7 +5,7 @@ from .views_auth import (
 )
 from .views import (
     # Auth
-    dashboard, no_permission,
+    dashboard, no_permission, admin_settings,
 
     # Admin – users & setup
     users_view, add_user, edit_user, delete_user, create_user_ajax,
@@ -465,6 +465,11 @@ path(
     path("no_permission/", no_permission, name="no_permission"),
     
     # ======================
+    # Admin Settings
+    # ======================
+    path("admin/settings/", admin_settings, name="admin_settings"),
+    
+    # ======================
     # Curriculum Navigator
     # ======================
     path("curriculum/", curriculum_navigator, name="curriculum_navigator"),
@@ -550,6 +555,7 @@ path(
     path("facilitator/today-session-calendar/", facilitator_views.facilitator_today_session_calendar, name="facilitator_today_session_calendar"),
     path("facilitator/grouped-session/", facilitator_views.facilitator_grouped_session, name="facilitator_grouped_session"),
     path("facilitator/mark-office-work/", facilitator_views.facilitator_mark_office_work_attendance, name="facilitator_mark_office_work"),
+    path("facilitator/settings/", facilitator_views.facilitator_settings, name="facilitator_settings"),
     
     # ======================
     # Facilitator Task (NEW)

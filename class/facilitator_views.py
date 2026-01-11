@@ -1068,3 +1068,13 @@ def facilitator_grouped_session(request):
     # Redirect to primary class today_session view
     # The today_session view will use the session data to show grouped class info
     return redirect('facilitator_class_today_session', class_section_id=primary_class.id)
+
+
+# =====================================================
+# Facilitator Settings
+# =====================================================
+
+@facilitator_required
+def facilitator_settings(request):
+    """Facilitator settings page"""
+    return render(request, "facilitator/settings.html", {})

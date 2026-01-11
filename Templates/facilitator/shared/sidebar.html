@@ -1,4 +1,4 @@
-<aside class="sidebar">
+<aside class="sidebar d-flex flex-column" style="height: 100vh; overflow: hidden;">
     <!-- User Profile -->
     <div class="user-profile mb-4">
         <div class="avatar"
@@ -10,8 +10,8 @@
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="nav flex-column">
+    <!-- Navigation - Scrollable -->
+    <nav class="nav flex-column flex-grow-1" style="overflow-y: auto; overflow-x: hidden;">
 
         <!-- Dashboard -->
         <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_dashboard' %}active{% endif %}"
@@ -55,8 +55,6 @@
             Today's Session
         </a>
 
-
-
         <!-- Attendance Management -->
         <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_attendance' %}active{% endif %}"
            href="{% url 'facilitator_attendance' %}">
@@ -64,16 +62,12 @@
             Attendance
         </a>
 
-      
-
-     
-
     </nav>
 
-    <!-- Bottom Navigation -->
-    <div class="nav-section mt-auto">
+    <!-- Bottom Navigation - Fixed at bottom -->
+    <div class="nav-section mt-auto" style="flex-shrink: 0; border-top: 1px solid #e0e0e0; padding-top: 1rem;">
 
-        <a class="nav-link" href="#">
+        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_settings' %}active{% endif %}" href="{% url 'facilitator_settings' %}">
             <span class="material-symbols-outlined">settings</span>
             Settings
         </a>

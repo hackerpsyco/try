@@ -16080,3 +16080,199 @@ INFO 2026-01-11 20:37:14,280 basehttp 6428 14648 "GET /api/get-feedback-status/?
 INFO 2026-01-11 20:37:23,966 basehttp 6428 41808 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230
 INFO 2026-01-11 20:37:35,707 basehttp 6428 41808 "GET /facilitator/today-session/ HTTP/1.1" 302 0
 INFO 2026-01-11 20:37:37,399 basehttp 6428 14648 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230
+INFO 2026-01-11 20:38:01,145 autoreload 920 44724 Watching for file changes with StatReloader
+INFO 2026-01-11 21:04:09,827 autoreload 920 44724 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:04:11,570 autoreload 7936 28168 Watching for file changes with StatReloader
+INFO 2026-01-11 21:04:31,294 autoreload 7936 28168 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-11 21:04:33,012 autoreload 45544 25784 Watching for file changes with StatReloader
+INFO 2026-01-11 21:04:39,923 autoreload 45544 25784 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-11 21:04:41,564 autoreload 18120 23048 Watching for file changes with StatReloader
+INFO 2026-01-11 21:04:47,748 autoreload 18120 23048 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-11 21:04:49,119 autoreload 21904 41468 Watching for file changes with StatReloader
+INFO 2026-01-11 21:06:05,482 autoreload 21904 41468 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-11 21:06:06,884 autoreload 40564 25992 Watching for file changes with StatReloader
+INFO 2026-01-11 21:06:13,043 autoreload 40564 25992 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-11 21:06:14,576 autoreload 348 27316 Watching for file changes with StatReloader
+WARNING 2026-01-11 21:08:28,838 session_auth_fix 348 21904 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-11 21:08:28,879 basehttp 348 21904 "GET / HTTP/1.1" 302 0
+INFO 2026-01-11 21:08:41,586 basehttp 348 21904 "GET /facilitator/dashboard/ HTTP/1.1" 200 6232
+INFO 2026-01-11 21:08:41,680 basehttp 348 21904 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+INFO 2026-01-11 21:09:09,984 basehttp 348 21904 "GET /facilitator/settings/ HTTP/1.1" 200 4743
+INFO 2026-01-11 21:10:11,248 session_auth_fix 348 21904 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-11 21:10:11,248 views_auth 348 21904 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-11 21:10:11,249 session_auth_fix 348 21904 Logout detected for anonymous
+INFO 2026-01-11 21:10:12,390 basehttp 348 21904 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:10:14,447 basehttp 348 21904 "GET /login/ HTTP/1.1" 200 1098
+INFO 2026-01-11 21:10:14,494 basehttp 348 21904 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-11 21:11:38,471 views_auth 348 21904 User piyush8123@gmail.com logged in successfully
+INFO 2026-01-11 21:11:39,572 basehttp 348 21904 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:11:52,048 basehttp 348 21904 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:12:02,797 session_auth_fix 348 21904 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:12:02,799 basehttp 348 21904 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:12:15,846 basehttp 348 21904 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-11 21:18:56,235 autoreload 348 27316 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:18:57,922 autoreload 2684 12464 Watching for file changes with StatReloader
+INFO 2026-01-11 21:20:09,882 autoreload 42840 2732 Watching for file changes with StatReloader
+INFO 2026-01-11 21:20:24,364 basehttp 42840 1004 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:20:32,773 basehttp 42840 1004 "GET /facilitator/classes/ HTTP/1.1" 200 4532
+WARNING 2026-01-11 21:20:37,411 session_auth_fix 42840 1004 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:20:37,413 basehttp 42840 1004 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:20:44,467 basehttp 42840 13540 "GET /facilitator/class/5db21088-f58f-46b6-b03b-197ec7f5efcc/curriculum/ HTTP/1.1" 200 9557
+WARNING 2026-01-11 21:20:48,944 session_auth_fix 42840 13540 Unauthorized access attempt by piyush8123@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 21:20:48,947 basehttp 42840 13540 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 302 0
+INFO 2026-01-11 21:20:59,421 basehttp 42840 1004 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:21:02,284 session_auth_fix 42840 1004 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:21:02,285 basehttp 42840 1004 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:21:14,086 basehttp 42840 13540 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-11 21:21:27,616 basehttp 42840 1004 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-11 21:23:18,135 autoreload 42840 2732 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:23:19,881 autoreload 37384 2808 Watching for file changes with StatReloader
+INFO 2026-01-11 21:23:35,075 autoreload 37384 2808 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:23:36,627 autoreload 33748 3692 Watching for file changes with StatReloader
+WARNING 2026-01-11 21:26:33,918 session_auth_fix 33748 35928 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-11 21:26:33,963 basehttp 33748 35928 "GET / HTTP/1.1" 302 0
+INFO 2026-01-11 21:26:47,642 basehttp 33748 35928 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-11 21:26:54,007 basehttp 33748 35928 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:27:00,069 basehttp 33748 35928 "GET /facilitator/classes/ HTTP/1.1" 200 4532
+INFO 2026-01-11 21:27:06,313 basehttp 33748 35928 "GET /facilitator/class/5db21088-f58f-46b6-b03b-197ec7f5efcc/curriculum/ HTTP/1.1" 200 9557
+WARNING 2026-01-11 21:27:08,763 session_auth_fix 33748 35928 Unauthorized access attempt by piyush8123@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 21:27:08,765 basehttp 33748 35928 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 302 0
+INFO 2026-01-11 21:27:22,293 basehttp 33748 35928 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:28:24,753 session_auth_fix 33748 35928 Unauthorized access attempt by piyush8123@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 21:28:24,755 basehttp 33748 35928 "GET /api/curriculum/content/?day=1&language=hindi HTTP/1.1" 302 0
+INFO 2026-01-11 21:28:43,170 basehttp 33748 35928 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:28:47,538 session_auth_fix 33748 35928 Unauthorized access attempt by piyush8123@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 21:28:47,540 basehttp 33748 35928 "GET /api/curriculum/content/?day=2&language=hindi HTTP/1.1" 302 0
+INFO 2026-01-11 21:29:08,938 basehttp 33748 35928 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-11 21:29:29,717 session_auth_fix 33748 35928 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-11 21:29:29,717 views_auth 33748 35928 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-11 21:29:29,718 session_auth_fix 33748 35928 Logout detected for anonymous
+INFO 2026-01-11 21:29:32,104 basehttp 33748 35928 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:29:34,120 basehttp 33748 35928 "GET /login/ HTTP/1.1" 200 1098
+INFO 2026-01-11 21:30:13,924 autoreload 33748 3692 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:30:15,626 autoreload 47656 3600 Watching for file changes with StatReloader
+INFO 2026-01-11 21:30:26,166 autoreload 47656 3600 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:30:28,218 autoreload 22788 40956 Watching for file changes with StatReloader
+INFO 2026-01-11 21:30:43,058 basehttp 22788 22644 "GET /login/ HTTP/1.1" 200 882
+INFO 2026-01-11 21:30:52,494 session_auth_fix 22788 22644 Logout detected for anonymous
+INFO 2026-01-11 21:30:52,496 basehttp 22788 22644 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:30:54,590 basehttp 22788 22644 "GET /login/?next=/logout/ HTTP/1.1" 200 883
+INFO 2026-01-11 21:31:35,615 views_auth 22788 22644 User piyush8123@gmail.com logged in successfully
+INFO 2026-01-11 21:31:36,788 basehttp 22788 22644 - Broken pipe from ('127.0.0.1', 64112)
+INFO 2026-01-11 21:31:37,358 basehttp 22788 26980 "GET /login/?next=/logout/ HTTP/1.1" 200 882
+INFO 2026-01-11 21:31:51,081 views_auth 22788 26980 User piyush812@gmail.com logged in successfully
+INFO 2026-01-11 21:31:52,209 basehttp 22788 26980 "POST /login/?next=/logout/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:31:58,163 basehttp 22788 26980 "GET /admin/dashboard/ HTTP/1.1" 200 8262
+WARNING 2026-01-11 21:32:09,059 mixins 22788 26980 Slow function: admin_curriculum_sessions_list took 1.20s
+INFO 2026-01-11 21:32:09,070 basehttp 22788 26980 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 12367
+WARNING 2026-01-11 21:32:11,862 session_auth_fix 22788 26980 Unauthorized access attempt by piyush812@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 21:32:11,865 basehttp 22788 26980 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 302 0
+INFO 2026-01-11 21:32:20,201 basehttp 22788 26980 "GET /admin/dashboard/ HTTP/1.1" 200 8277
+WARNING 2026-01-11 21:32:21,022 session_auth_fix 22788 12728 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:32:21,024 basehttp 22788 12728 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-11 21:32:21,297 session_auth_fix 22788 33140 Unauthorized access attempt by piyush812@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 21:32:21,299 basehttp 22788 33140 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 302 0
+INFO 2026-01-11 21:32:26,494 basehttp 22788 12728 "GET /admin/dashboard/ HTTP/1.1" 200 8297
+INFO 2026-01-11 21:32:32,417 basehttp 22788 41172 "GET /admin/dashboard/ HTTP/1.1" 200 8298
+INFO 2026-01-11 21:34:19,068 autoreload 22788 40956 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:34:20,801 autoreload 28652 38476 Watching for file changes with StatReloader
+WARNING 2026-01-11 21:34:33,272 mixins 28652 24932 Slow function: admin_curriculum_sessions_list took 1.19s
+INFO 2026-01-11 21:34:33,290 basehttp 28652 24932 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 12367
+WARNING 2026-01-11 21:34:36,536 session_auth_fix 28652 24932 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:34:36,538 basehttp 28652 24932 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-11 21:34:36,944 session_auth_fix 28652 36360 Unauthorized access attempt by piyush812@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 21:34:36,945 basehttp 28652 36360 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 302 0
+INFO 2026-01-11 21:34:44,280 basehttp 28652 24932 "GET /admin/dashboard/ HTTP/1.1" 200 8272
+INFO 2026-01-11 21:34:49,635 basehttp 28652 36360 "GET /admin/dashboard/ HTTP/1.1" 200 8270
+INFO 2026-01-11 21:35:59,337 basehttp 28652 29508 "GET /admin/users/ HTTP/1.1" 200 5917
+WARNING 2026-01-11 21:36:02,492 session_auth_fix 28652 29508 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:36:02,494 basehttp 28652 29508 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:36:08,351 basehttp 28652 29508 "GET /admin/dashboard/ HTTP/1.1" 200 8263
+INFO 2026-01-11 21:36:37,062 autoreload 28652 38476 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:36:38,667 autoreload 30804 23456 Watching for file changes with StatReloader
+WARNING 2026-01-11 21:36:54,746 mixins 30804 30272 Slow function: admin_curriculum_sessions_list took 1.23s
+INFO 2026-01-11 21:36:54,759 basehttp 30804 30272 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 12367
+WARNING 2026-01-11 21:36:58,111 session_auth_fix 30804 30272 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:36:58,112 basehttp 30804 30272 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-11 21:36:58,332 session_auth_fix 30804 42460 Unauthorized access attempt by piyush812@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 21:36:58,334 basehttp 30804 42460 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 302 0
+INFO 2026-01-11 21:37:06,244 basehttp 30804 30272 "GET /admin/dashboard/ HTTP/1.1" 200 8264
+INFO 2026-01-11 21:37:12,217 basehttp 30804 41268 "GET /admin/dashboard/ HTTP/1.1" 200 8265
+INFO 2026-01-11 21:37:43,465 session_auth_fix 30804 41268 User piyush812@gmail.com logged out successfully
+INFO 2026-01-11 21:37:43,465 views_auth 30804 41268 User piyush812@gmail.com logged out successfully
+INFO 2026-01-11 21:37:43,466 session_auth_fix 30804 41268 Logout detected for anonymous
+INFO 2026-01-11 21:37:44,574 basehttp 30804 41268 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:37:46,990 basehttp 30804 41268 "GET /login/ HTTP/1.1" 200 1100
+INFO 2026-01-11 21:37:51,238 basehttp 30804 41268 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:37:53,958 basehttp 30804 41268 "GET /login/ HTTP/1.1" 200 1171
+INFO 2026-01-11 21:37:57,871 views_auth 30804 30748 User piyush8123@gmail.com logged in successfully
+INFO 2026-01-11 21:37:59,510 basehttp 30804 30748 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:38:12,627 basehttp 30804 30748 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:38:15,491 session_auth_fix 30804 30748 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:38:15,492 basehttp 30804 30748 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:38:24,062 basehttp 30804 41268 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:38:30,594 basehttp 30804 13192 "GET /facilitator/classes/ HTTP/1.1" 200 4532
+INFO 2026-01-11 21:38:31,451 basehttp 30804 30748 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:38:34,270 session_auth_fix 30804 13192 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:38:34,272 basehttp 30804 13192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:38:39,749 basehttp 30804 40480 "GET /facilitator/class/5db21088-f58f-46b6-b03b-197ec7f5efcc/curriculum/ HTTP/1.1" 200 9557
+WARNING 2026-01-11 21:38:43,287 session_auth_fix 30804 40480 Unauthorized access attempt by piyush8123@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 21:38:43,289 basehttp 30804 40480 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 302 0
+INFO 2026-01-11 21:38:47,784 basehttp 30804 13192 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:38:50,409 session_auth_fix 30804 13192 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:38:50,411 basehttp 30804 13192 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:39:03,072 basehttp 30804 40480 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-11 21:39:16,453 basehttp 30804 13192 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-11 21:40:26,221 autoreload 30804 23456 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:40:27,959 autoreload 26504 18160 Watching for file changes with StatReloader
+INFO 2026-01-11 21:43:02,072 basehttp 26504 8604 "GET /facilitator/attendance/ HTTP/1.1" 200 7564
+WARNING 2026-01-11 21:43:04,772 session_auth_fix 26504 8604 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:43:04,774 basehttp 26504 8604 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:43:08,553 basehttp 26504 2132 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:43:14,500 basehttp 26504 2132 "GET /facilitator/classes/ HTTP/1.1" 200 4532
+INFO 2026-01-11 21:43:17,816 basehttp 26504 8604 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-11 21:43:20,506 basehttp 26504 2132 "GET /facilitator/class/5db21088-f58f-46b6-b03b-197ec7f5efcc/curriculum/ HTTP/1.1" 200 9557
+WARNING 2026-01-11 21:43:21,180 session_auth_fix 26504 8604 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:43:21,181 basehttp 26504 8604 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-11 21:43:23,259 session_auth_fix 26504 2132 Unauthorized access attempt by piyush8123@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 21:43:23,261 basehttp 26504 2132 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 302 0
+INFO 2026-01-11 21:43:33,821 basehttp 26504 8604 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:43:36,550 session_auth_fix 26504 8604 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:43:36,552 basehttp 26504 8604 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:43:46,811 basehttp 26504 2132 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-11 21:43:59,219 basehttp 26504 8604 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-11 21:45:31,070 autoreload 26504 18160 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:45:32,613 autoreload 6884 19404 Watching for file changes with StatReloader
+INFO 2026-01-11 21:46:51,937 autoreload 6884 19404 C:\Users\piyus\CLAS\CLAS\class\services\session_auth_fix.py changed, reloading.
+INFO 2026-01-11 21:46:53,355 autoreload 8836 29708 Watching for file changes with StatReloader
+INFO 2026-01-11 21:48:47,837 autoreload 8836 29708 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-11 21:48:49,359 autoreload 19700 41208 Watching for file changes with StatReloader
+INFO 2026-01-11 21:49:00,898 basehttp 19700 6152 "GET /login/?next=/logout/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:49:13,860 basehttp 19700 6152 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:49:16,380 session_auth_fix 19700 10524 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:49:16,382 basehttp 19700 10524 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:49:21,539 basehttp 19700 13912 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-11 21:49:29,136 basehttp 19700 13912 "GET /facilitator/classes/ HTTP/1.1" 200 4532
+INFO 2026-01-11 21:49:30,848 basehttp 19700 10524 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:49:34,062 session_auth_fix 19700 10524 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:49:34,065 basehttp 19700 10524 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:49:38,331 basehttp 19700 8768 "GET /facilitator/class/5db21088-f58f-46b6-b03b-197ec7f5efcc/curriculum/ HTTP/1.1" 200 9557
+INFO 2026-01-11 21:49:41,813 curriculum_content_resolver 19700 8768 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-11 21:49:44,317 curriculum_content_resolver 19700 8768 Found 5251 rows in curriculum table
+INFO 2026-01-11 21:49:44,318 curriculum_content_resolver 19700 8768 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-11 21:49:44,321 curriculum_content_resolver 19700 8768 Found next day boundary at row 36, day 2
+INFO 2026-01-11 21:49:44,321 curriculum_content_resolver 19700 8768 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-11 21:49:44,328 curriculum_content_resolver 19700 8768 Fixed image and resource paths in curriculum content
+INFO 2026-01-11 21:49:44,329 curriculum_content_resolver 19700 8768 Loaded static fallback content for Day 1 english
+INFO 2026-01-11 21:49:44,662 basehttp 19700 8768 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 3106
+INFO 2026-01-11 21:49:50,601 basehttp 19700 36348 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+WARNING 2026-01-11 21:49:53,649 session_auth_fix 19700 36348 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 21:49:53,651 basehttp 19700 36348 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 21:50:00,570 curriculum_content_resolver 19700 8768 Successfully loaded static file for hindi, extracting Day 1 content
+INFO 2026-01-11 21:50:02,815 curriculum_content_resolver 19700 8768 Found 5250 rows in curriculum table
+INFO 2026-01-11 21:50:02,853 curriculum_content_resolver 19700 8768 Found next day boundary at row 36, day 2
+INFO 2026-01-11 21:50:02,854 curriculum_content_resolver 19700 8768 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-11 21:50:02,861 curriculum_content_resolver 19700 8768 Fixed image and resource paths in curriculum content
+INFO 2026-01-11 21:50:02,862 curriculum_content_resolver 19700 8768 Loaded static fallback content for Day 1 hindi
+INFO 2026-01-11 21:50:03,206 basehttp 19700 8768 "GET /api/curriculum/content/?day=1&language=hindi HTTP/1.1" 200 4232
+INFO 2026-01-11 21:50:09,963 basehttp 19700 36348 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298

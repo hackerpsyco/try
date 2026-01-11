@@ -60,26 +60,8 @@ ROLE_CONFIG = {
 # These are now imported from views_auth.py in urls.py
 
 
-# -------------------------------
-# Dashboard View
-# -------------------------------
-@login_required
-def dashboard(request):
-    role_name = request.user.role.name.upper()
-    role_config = ROLE_CONFIG.get(role_name)
-
-    if not role_config:
-        messages.error(request, "Invalid role configuration or insufficient permissions.")
-        return redirect("no_permission")
-
-    context = {}
-    if role_name == "ADMIN":
-        context = {
-            "users": User.objects.all().order_by("-created_at"),
-            "roles": Role.objects.all(),
-        }
-
-    return render(request, role_config["template"], context)
+# Dashboard View is defined later in this file (line ~2867)
+# to include complete admin dashboard logic with stats and activities
 
 
 # -------------------------------
@@ -199,7 +181,6 @@ def create_user_ajax(request):
 # -------------------------------
 # School Management Views
 # -------------------------------
-@login_required
 @login_required
 @monitor_performance
 def schools(request):
@@ -572,6 +553,21 @@ def class_view(request, school_id=None):
 # -------------------------------
 def no_permission(request):
     return render(request, "no_permission.html")
+
+
+# -------------------------------
+# Admin Settings
+# -------------------------------
+@login_required
+def admin_settings(request):
+    """Admin settings page"""
+    if request.user.role.name.upper() != "ADMIN":
+        messages.error(request, "You do not have permission to access this page.")
+        return redirect("no_permission")
+    
+    return render(request, "admin/settings.html", {})
+
+
 def edit_class_section(request, pk):
     class_section = get_object_or_404(ClassSection, id=pk)
     form = ClassSectionForm(request.POST or None, instance=class_section)
@@ -808,7 +804,6 @@ def student_import(request, school_id):
 
 
     
-@login_required
 @login_required
 @monitor_performance
 def sessions_view(request, class_section_id):
@@ -2918,7 +2913,15 @@ def curriculum_navigator(request):
         messages.error(request, "You do not have permission to view the curriculum.")
         return redirect("no_permission")
     
-    return render(request, "admin/session/English_ ALL DAYS.html")
+    # Provide context for the template
+    context = {
+        'total_days': 150,
+        'languages': ['english', 'hindi'],
+        'current_day': 1,
+        'current_language': 'english',
+    }
+    
+    return render(request, "admin/session/English_ ALL DAYS.html", context)
 
 
 @login_required
@@ -2928,7 +2931,15 @@ def hindi_curriculum_navigator(request):
         messages.error(request, "You do not have permission to view the curriculum.")
         return redirect("no_permission")
     
-    return render(request, "admin/session/Hindi_Interactive.html")
+    # Provide context for the template
+    context = {
+        'total_days': 150,
+        'languages': ['english', 'hindi'],
+        'current_day': 1,
+        'current_language': 'hindi',
+    }
+    
+    return render(request, "admin/session/Hindi_Interactive.html", context)
 
 
 @login_required
@@ -2997,11 +3008,14 @@ def facilitator_curriculum_session(request, class_section_id):
     return render(request, "facilitator/curriculum_session.html", context)
 
 
-@login_required
 def curriculum_content_api(request):
     """Enhanced API endpoint to serve curriculum content using CurriculumContentResolver"""
+    # Check if user is authenticated and has proper role
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "Authentication required"}, status=401)
+    
     if request.user.role.name.upper() not in ["ADMIN", "FACILITATOR"]:
-        return JsonResponse({"error": "Permission denied"}, status=403)
+        return JsonResponse({"error": "Permission denied - Admin or Facilitator role required"}, status=403)
     
     day = request.GET.get('day', 1)
     language = request.GET.get('language', 'english').lower()
@@ -3026,10 +3040,8 @@ def curriculum_content_api(request):
     
     # Use our new CurriculumContentResolver
     from .services.curriculum_content_resolver import CurriculumContentResolver
-    from .services.session_integration_service import SessionIntegrationService
     
     content_resolver = CurriculumContentResolver()
-    integration_service = SessionIntegrationService()
     
     try:
         # Resolve content using our new service
@@ -3038,14 +3050,6 @@ def curriculum_content_api(request):
         # Get content metadata
         metadata = content_resolver.get_content_metadata(day, language)
         
-        # Create enhanced response with source indicators
-        source_badge = {
-            'admin_managed': '<span class="badge bg-success">Admin Managed</span>',
-            'static_fallback': '<span class="badge bg-warning">Static Content</span>',
-            'error_fallback': '<span class="badge bg-danger">Error</span>'
-        }.get(content_result.source, '<span class="badge bg-secondary">Unknown</span>')
-        
-        # Return content directly since _extract_day_content already provides proper wrapper
         # Return content directly since _extract_day_content already provides proper wrapper
         wrapped_content = f'''
         <div class="api-content-wrapper" data-day="{day}" data-language="{language}" data-source="{content_result.source}">
@@ -3059,21 +3063,26 @@ def curriculum_content_api(request):
         </div>
         '''
         
-        return HttpResponse(wrapped_content)
+        return HttpResponse(wrapped_content, content_type='text/html; charset=utf-8')
         
     except Exception as e:
-        logger.error(f"Error in curriculum_content_api: {str(e)}")
+        logger.error(f"Error in curriculum_content_api: {str(e)}", exc_info=True)
         error_content = f'''
         <div class="alert alert-danger m-3">
-            <h6>Error Loading Content</h6>
+            <h6><i class="fas fa-exclamation-circle me-2"></i>Error Loading Content</h6>
             <p>Failed to load Day {day} {language.title()} curriculum content.</p>
-            <small class="text-muted">Error: {str(e)}</small>
-            <button class="btn btn-outline-danger btn-sm mt-2" onclick="loadCurriculumContent({day}, '{language}')">
-                <i class="fas fa-redo"></i> Retry
-            </button>
+            <small class="text-muted d-block mt-2">Error: {str(e)}</small>
+            <div class="mt-3">
+                <button class="btn btn-outline-danger btn-sm" onclick="window.loadCurriculumContent({day}, '{language}')">
+                    <i class="fas fa-redo me-1"></i>Retry
+                </button>
+                <button class="btn btn-outline-secondary btn-sm ms-2" onclick="window.loadCurriculumContent(1, '{language}')">
+                    <i class="fas fa-home me-1"></i>Go to Day 1
+                </button>
+            </div>
         </div>
         '''
-        return HttpResponse(error_content)
+        return HttpResponse(error_content, content_type='text/html; charset=utf-8')
 
 
 def _format_content_with_source_info(content_result, metadata):
@@ -3138,8 +3147,6 @@ def _add_admin_management_links(content_result, day, language, user):
         return ''
 
 def wrap_curriculum_content(day_content, day, language):
-       # Or if images are stored locally in static/media:
-   
     """Wrap curriculum content with proper HTML structure."""
     wrapped_content = f'''
     <div class="day-section" data-day="{day}" data-language="{language}">
@@ -3239,58 +3246,9 @@ def wrap_curriculum_content(day_content, day, language):
         font-weight: bold !important;
     }}
     </style>
-    
-    <script>
-    // Auto-highlight all links in curriculum content
-    (function() {{
-        // Wait for DOM to be fully loaded
-        if (document.readyState === 'loading') {{
-            document.addEventListener('DOMContentLoaded', highlightLinks);
-        }} else {{
-            highlightLinks();
-        }}
-        
-        function highlightLinks() {{
-            const curriculumLinks = document.querySelectorAll('.curriculum-table a, .ritz .waffle a');
-            
-            curriculumLinks.forEach(link => {{
-                // Force link color
-                link.style.color = '#0066cc';
-                link.style.textDecoration = 'underline';
-                link.style.fontWeight = '500';
-                
-                // Add external link indicator
-                if (link.href && link.hostname !== window.location.hostname) {{
-                    link.setAttribute('target', '_blank');
-                    link.setAttribute('rel', 'noopener noreferrer');
-                    link.classList.add('external-link');
-                }}
-                
-                // Enhanced hover effect
-                link.addEventListener('mouseenter', function() {{
-                    this.style.backgroundColor = '#0066cc';
-                    this.style.color = '#ffffff';
-                    this.style.padding = '2px 4px';
-                    this.style.borderRadius = '3px';
-                }});
-                
-                link.addEventListener('mouseleave', function() {{
-                    this.style.backgroundColor = 'transparent';
-                    this.style.color = '#0066cc';
-                    this.style.padding = '0';
-                }});
-                
-                // Track link clicks
-                link.addEventListener('click', function(e) {{
-                    console.log('Curriculum link clicked:', this.href);
-                }});
-            }});
-        }}
-    }})();
-    </script>
     '''
-    
     return wrapped_content
+
         
 @login_required 
 def facilitator_session_quick_nav(request, class_section_id):
@@ -3572,8 +3530,6 @@ def facilitator_student_edit(request, class_section_id, student_id):
 
 
 # ===== ADMIN CURRICULUM SESSION MANAGEMENT VIEWS =====
-
-@login_required
 @login_required
 @monitor_performance
 def admin_curriculum_sessions_list(request):

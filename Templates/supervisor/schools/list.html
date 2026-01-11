@@ -4,39 +4,40 @@
 <div class="space-y-6">
 
   <!-- TOP BAR -->
-  <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+  <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 md:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 md:gap-4 items-center">
 
       <div class="lg:col-span-3">
-        <h4 class="text-xl font-bold text-gray-900">Schools List</h4>
-        <p class="text-sm text-gray-500 mt-1">
+        <h4 class="text-lg md:text-xl font-bold text-gray-900">Schools List</h4>
+        <p class="text-xs md:text-sm text-gray-500 mt-1">
           <span id="schoolCount">{{ schools|length }}</span> schools
         </p>
       </div>
 
-      <div class="lg:col-span-4">
+      <div class="lg:col-span-4 md:col-span-2">
         <div class="relative">
-          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">search</span>
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px] md:text-[20px]">search</span>
           <input id="searchInput"
                  type="text"
-                 class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                 placeholder="Search by name, area...">
+                 class="w-full pl-10 pr-4 py-2 md:py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                 placeholder="Search schools...">
         </div>
       </div>
 
-      <div class="lg:col-span-2">
-        <select id="statusFilter" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+      <div class="lg:col-span-2 md:col-span-2">
+        <select id="statusFilter" class="w-full px-3 md:px-4 py-2 md:py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
           <option value="">All Status</option>
           <option value="1">Active</option>
           <option value="0">Inactive</option>
         </select>
       </div>
 
-      <div class="lg:col-span-3">
+      <div class="lg:col-span-3 md:col-span-2">
         <a href="{% url 'supervisor_school_create' %}"
-           class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm text-sm font-medium">
-          <span class="material-symbols-outlined text-[20px]">add</span>
-          Add School
+           class="w-full inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm text-xs md:text-sm font-medium">
+          <span class="material-symbols-outlined text-[18px] md:text-[20px]">add</span>
+          <span class="hidden sm:inline">Add School</span>
+          <span class="sm:hidden">Add</span>
         </a>
       </div>
 
@@ -44,41 +45,52 @@
   </div>
 
   <!-- GRID -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
 
     {% for school in schools %}
     <div class="school-card bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition" data-name="{{ school.name|lower }}" data-status="{{ school.status }}">
-      <div class="p-6 flex flex-col h-full text-center">
+      <div class="p-4 md:p-6 flex flex-col h-full text-center">
 
-        <div class="mb-4">
-          <div class="w-14 h-14 mx-auto rounded-full bg-green-100 text-green-600 flex justify-center items-center">
-            <span class="material-symbols-outlined text-3xl">school</span>
+        <div class="mb-3 md:mb-4">
+          <div class="w-12 md:w-14 h-12 md:h-14 mx-auto rounded-full bg-green-100 text-green-600 flex justify-center items-center">
+            <span class="material-symbols-outlined text-2xl md:text-3xl">school</span>
           </div>
         </div>
 
-        <h6 class="text-base font-semibold text-gray-900 mb-2">{{ school.name }}</h6>
+        <h6 class="text-sm md:text-base font-semibold text-gray-900 mb-2 line-clamp-2">{{ school.name }}</h6>
 
-        <span class="inline-flex px-3 py-1 rounded-full text-xs font-medium mb-4
+        <span class="inline-flex px-2 md:px-3 py-1 rounded-full text-xs font-medium mb-3 md:mb-4 justify-center
           {% if school.status == 1 %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
           {% if school.status == 1 %}Active{% else %}Inactive{% endif %}
         </span>
 
-        <div class="text-sm text-gray-600 space-y-2 mb-6">
-          <div class="flex justify-center gap-2"><span class="material-symbols-outlined text-[18px]">group</span> Students: <strong>{{ school.total_students|default:0 }}</strong></div>
-          <div class="flex justify-center gap-2"><span class="material-symbols-outlined text-[18px]">person</span> Facilitators: <strong>{{ school.active_facilitators|default:0 }}</strong></div>
-          <div class="flex justify-center gap-2"><span class="material-symbols-outlined text-[18px]">class</span> Classes: <strong>{{ school.total_classes|default:0 }}</strong></div>
+        <div class="text-xs md:text-sm text-gray-600 space-y-1 md:space-y-2 mb-4 md:mb-6">
+          <div class="flex justify-center gap-2 items-center">
+            <span class="material-symbols-outlined text-[16px] md:text-[18px]">group</span>
+            <span>Students: <strong>{{ school.total_students|default:0 }}</strong></span>
+          </div>
+          <div class="flex justify-center gap-2 items-center">
+            <span class="material-symbols-outlined text-[16px] md:text-[18px]">person</span>
+            <span>Facilitators: <strong>{{ school.active_facilitators|default:0 }}</strong></span>
+          </div>
+          <div class="flex justify-center gap-2 items-center">
+            <span class="material-symbols-outlined text-[16px] md:text-[18px]">class</span>
+            <span>Classes: <strong>{{ school.total_classes|default:0 }}</strong></span>
+          </div>
         </div>
 
         <div class="mt-auto flex gap-2">
 
           <a href="{% url 'supervisor_school_detail' school.id %}"
-             class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium">
-            <span class="material-symbols-outlined text-[18px]">info</span> Details
+             class="flex-1 inline-flex items-center justify-center gap-1 md:gap-2 px-2 md:px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-xs md:text-sm font-medium">
+            <span class="material-symbols-outlined text-[16px] md:text-[18px]">info</span>
+            <span class="hidden sm:inline">Details</span>
           </a>
 
           <a href="{% url 'supervisor_school_edit' school.id %}"
-             class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 border border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 text-sm font-medium">
-            <span class="material-symbols-outlined text-[18px]">edit</span> Edit
+             class="flex-1 inline-flex items-center justify-center gap-1 md:gap-2 px-2 md:px-4 py-2 border border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 text-xs md:text-sm font-medium">
+            <span class="material-symbols-outlined text-[16px] md:text-[18px]">edit</span>
+            <span class="hidden sm:inline">Edit</span>
           </a>
 
         </div>
@@ -86,9 +98,9 @@
       </div>
     </div>
     {% empty %}
-      <div class="col-span-full text-center p-8 bg-blue-50 border rounded-lg">
-        <span class="material-symbols-outlined text-6xl text-blue-400 mb-4">school</span>
-        <p class="text-blue-800 font-medium">No schools found</p>
+      <div class="col-span-full text-center p-6 md:p-8 bg-blue-50 border rounded-lg">
+        <span class="material-symbols-outlined text-4xl md:text-6xl text-blue-400 mb-4 block">school</span>
+        <p class="text-blue-800 font-medium text-sm md:text-base">No schools found</p>
       </div>
     {% endfor %}
   </div>
@@ -100,15 +112,15 @@
 
   <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-md">
     <form method="post" id="deleteForm">{% csrf_token %}
-      <div class="px-6 py-4 border-b"><h5 class="font-semibold text-lg">Delete School</h5></div>
+      <div class="px-4 md:px-6 py-3 md:py-4 border-b"><h5 class="font-semibold text-base md:text-lg">Delete School</h5></div>
 
-      <div class="px-6 py-4">
+      <div class="px-4 md:px-6 py-3 md:py-4 text-sm md:text-base">
         Are you sure you want to delete <strong id="deleteSchoolName"></strong>?
       </div>
 
-      <div class="px-6 py-4 bg-gray-50 flex gap-3 rounded-b-xl">
-        <button type="button" onclick="closeDeleteModal()" class="flex-1 border rounded-lg px-4 py-2">Cancel</button>
-        <button type="submit" class="flex-1 bg-red-600 text-white rounded-lg px-4 py-2">Delete</button>
+      <div class="px-4 md:px-6 py-3 md:py-4 bg-gray-50 flex gap-2 md:gap-3 rounded-b-xl">
+        <button type="button" onclick="closeDeleteModal()" class="flex-1 border rounded-lg px-3 md:px-4 py-2 text-sm md:text-base">Cancel</button>
+        <button type="submit" class="flex-1 bg-red-600 text-white rounded-lg px-3 md:px-4 py-2 text-sm md:text-base">Delete</button>
       </div>
     </form>
   </div>
