@@ -16033,3 +16033,50 @@ INFO 2026-01-11 19:53:33,108 views_auth 42688 42408 User piyush81@gmail.com logg
 INFO 2026-01-11 19:53:33,109 session_auth_fix 42688 42408 Logout detected for anonymous
 INFO 2026-01-11 19:53:34,277 basehttp 42688 42408 "GET /logout/ HTTP/1.1" 302 0
 INFO 2026-01-11 19:53:36,247 basehttp 42688 42408 "GET /login/ HTTP/1.1" 200 1100
+INFO 2026-01-11 20:31:22,563 autoreload 7964 25920 Watching for file changes with StatReloader
+INFO 2026-01-11 20:33:02,862 basehttp 7964 43320 "GET / HTTP/1.1" 302 0
+INFO 2026-01-11 20:33:04,738 basehttp 7964 43320 "GET /login/ HTTP/1.1" 200 1176
+INFO 2026-01-11 20:33:19,396 views_auth 7964 43320 User piyush8123@gmail.com logged in successfully
+INFO 2026-01-11 20:33:20,538 basehttp 7964 43320 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-11 20:33:33,281 basehttp 7964 43320 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230
+WARNING 2026-01-11 20:33:33,786 basehttp 7964 43320 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-11 20:33:42,602 basehttp 7964 25872 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+WARNING 2026-01-11 20:33:45,050 session_auth_fix 7964 25872 Unauthorized access attempt by piyush8123@gmail.com to /Facilitator/classes/
+INFO 2026-01-11 20:33:45,052 basehttp 7964 25872 "GET /Facilitator/classes/ HTTP/1.1" 302 0
+WARNING 2026-01-11 20:33:46,512 session_auth_fix 7964 28368 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 20:33:46,514 basehttp 7964 28368 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 20:33:58,478 basehttp 7964 25872 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230
+INFO 2026-01-11 20:34:07,215 basehttp 7964 28368 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+WARNING 2026-01-11 20:34:09,716 session_auth_fix 7964 28368 Unauthorized access attempt by piyush8123@gmail.com to /Facilitator/classes/
+INFO 2026-01-11 20:34:09,718 basehttp 7964 28368 "GET /Facilitator/classes/ HTTP/1.1" 302 0
+INFO 2026-01-11 20:34:10,497 basehttp 7964 25872 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230
+WARNING 2026-01-11 20:34:13,127 session_auth_fix 7964 25872 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 20:34:13,128 basehttp 7964 25872 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 20:34:22,850 basehttp 7964 28368 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230
+INFO 2026-01-11 20:34:35,457 basehttp 7964 28368 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230
+WARNING 2026-01-11 20:34:38,283 session_auth_fix 7964 28368 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 20:34:38,285 basehttp 7964 28368 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 20:34:52,116 basehttp 7964 28368 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230
+INFO 2026-01-11 20:35:55,177 autoreload 7964 25920 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-11 20:35:56,871 autoreload 6428 41172 Watching for file changes with StatReloader
+INFO 2026-01-11 20:36:46,327 basehttp 6428 24368 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-11 20:36:52,608 basehttp 6428 24368 "GET /facilitator/classes/ HTTP/1.1" 200 4450
+WARNING 2026-01-11 20:36:55,350 session_auth_fix 6428 24368 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 20:36:55,352 basehttp 6428 24368 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-11 20:37:03,269 session_management 6428 41808 Found today's session for Gov. Sabo - 1A (2026-2027): Day 1 (Status: conducted)
+INFO 2026-01-11 20:37:04,407 views 6428 41808 Grouped session detected via CalendarDate for class 5db21088-f58f-46b6-b03b-197ec7f5efcc: classes_in_group=3
+INFO 2026-01-11 20:37:06,422 session_management 6428 41808 Found today's session for Gov. Sabo - 1A (2026-2027): Day 1 (Status: conducted)
+INFO 2026-01-11 20:37:06,422 session_management 6428 41808 Progress metrics for Gov. Sabo - 1A (2026-2027): 1.3333333333333335% complete
+INFO 2026-01-11 20:37:08,647 basehttp 6428 24368 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230
+INFO 2026-01-11 20:37:08,746 basehttp 6428 41808 "GET /facilitator/class/5db21088-f58f-46b6-b03b-197ec7f5efcc/today/ HTTP/1.1" 200 19254
+WARNING 2026-01-11 20:37:11,436 session_auth_fix 6428 41808 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-11 20:37:11,437 basehttp 6428 41808 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-11 20:37:11,621 session_auth_fix 6428 24368 Unauthorized access attempt by piyush8123@gmail.com to /api/get-feedback-status/
+INFO 2026-01-11 20:37:11,623 basehttp 6428 24368 "GET /api/get-feedback-status/?session_id=e08dec98-21c1-455c-81b2-39a5454e652f HTTP/1.1" 302 0
+WARNING 2026-01-11 20:37:11,640 session_auth_fix 6428 19616 Unauthorized access attempt by piyush8123@gmail.com to /api/curriculum/content/
+INFO 2026-01-11 20:37:11,642 basehttp 6428 19616 "GET /api/curriculum/content/?day=1&language=english&class_section_id=5db21088-f58f-46b6-b03b-197ec7f5efcc HTTP/1.1" 302 0
+WARNING 2026-01-11 20:37:14,278 session_auth_fix 6428 14648 Unauthorized access attempt by piyush8123@gmail.com to /api/get-feedback-status/
+INFO 2026-01-11 20:37:14,280 basehttp 6428 14648 "GET /api/get-feedback-status/?session_id=e08dec98-21c1-455c-81b2-39a5454e652f HTTP/1.1" 302 0
+INFO 2026-01-11 20:37:23,966 basehttp 6428 41808 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230
+INFO 2026-01-11 20:37:35,707 basehttp 6428 41808 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-11 20:37:37,399 basehttp 6428 14648 "GET /facilitator/dashboard/ HTTP/1.1" 200 6230

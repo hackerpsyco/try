@@ -328,7 +328,7 @@ urlpatterns = [
         name="class_attendance"
     ),
     path(
-    "Facilitator/classes/",
+    "facilitator/classes/",
     facilitator_classes,
     name="facilitator_classes"
 ),
