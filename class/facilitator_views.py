@@ -14,6 +14,10 @@ from .models import School, ClassSection, Student, Enrollment, FacilitatorSchool
 from .mixins import FacilitatorAccessMixin
 from .decorators import facilitator_required
 from .forms import AddUserForm  # We'll need to create a student form
+from .student_performance_views import (
+    student_performance_list, student_performance_detail, 
+    student_performance_save, performance_cutoff_settings
+)
 import logging
 from datetime import date
 logger = logging.getLogger(__name__)
@@ -677,3 +681,390 @@ def facilitator_dashboard(request):
     }
     
     return render(request, 'facilitator/dashboard.html', context)
+
+
+
+# =====================================================
+# TODAY'S SESSION WITH CALENDAR INTEGRATION
+# =====================================================
+
+@facilitator_required
+def facilitator_today_session(request):
+    """
+    Redirect to facilitator classes list
+    """
+    return redirect('facilitator_classes')
+
+
+@login_required
+def facilitator_mark_office_work_attendance(request):
+    """
+    Mark office work attendance (present/absent)
+    """
+    from .models import CalendarDate, OfficeWorkAttendance
+    from datetime import date
+    
+    if request.method == "POST":
+        calendar_date_id = request.POST.get('calendar_date_id')
+        status = request.POST.get('status')  # 'present' or 'absent'
+        remarks = request.POST.get('remarks', '').strip()
+        
+        try:
+            calendar_date = CalendarDate.objects.get(id=calendar_date_id)
+        except CalendarDate.DoesNotExist:
+            messages.error(request, "Invalid calendar date")
+            return redirect("facilitator_today_session")
+        
+        if status not in ['present', 'absent']:
+            messages.error(request, "Invalid status")
+            return redirect("facilitator_today_session")
+        
+        # Create or update attendance record
+        attendance, created = OfficeWorkAttendance.objects.update_or_create(
+            calendar_date=calendar_date,
+            facilitator=request.user,
+            defaults={
+                'status': status,
+                'remarks': remarks,
+            }
+        )
+        
+        status_text = "Present" if status == 'present' else "Absent"
+        messages.success(request, f"Office work attendance marked as {status_text}")
+        
+        return redirect("facilitator_today_session")
+    
+    messages.error(request, "Invalid request")
+    return redirect("facilitator_today_session")
+
+
+@facilitator_required
+def facilitator_today_session_calendar(request):
+    """
+    Show today's session dashboard with calendar integration
+    - Shows all facilitator's classes for today
+    - For each class, shows if there's a session/holiday/office work scheduled
+    - Integrates curriculum and session management
+    """
+    from datetime import date
+    from .models import CalendarDate, SupervisorCalendar, OfficeWorkAttendance, PlannedSession, ActualSession, Attendance
+    
+    today = date.today()
+    
+    # Get facilitator's assigned schools using the correct relationship
+    facilitator_schools = School.objects.filter(
+        facilitators__facilitator=request.user,
+        facilitators__is_active=True
+    ).distinct()
+    
+    # Get facilitator's assigned classes
+    facilitator_classes = ClassSection.objects.filter(
+        school__in=facilitator_schools
+    ).select_related('school').order_by('school__name', 'class_level', 'section')
+    
+    # Get ALL calendar entries for today
+    calendar_dates_today = CalendarDate.objects.filter(
+        date=today
+    ).select_related('school', 'calendar__supervisor').prefetch_related('class_sections')
+    
+    # Create dicts for quick lookup of calendar entries
+    calendar_by_class = {}  # class-level entries (grouped sessions)
+    calendar_by_school = {}  # school-level entries (holidays, office work)
+    
+    for cal_date in calendar_dates_today:
+        # For session type with class_sections (new ManyToMany field)
+        if cal_date.date_type == 'session' and cal_date.class_sections.exists():
+            for class_section in cal_date.class_sections.all():
+                calendar_by_class[str(class_section.id)] = cal_date
+        # Legacy: single class_section field (backward compatibility)
+        elif cal_date.date_type == 'session' and cal_date.class_section:
+            calendar_by_class[str(cal_date.class_section.id)] = cal_date
+        
+        # School-level entries (holidays, office work - not sessions)
+        if cal_date.date_type in ['holiday', 'office_work'] and cal_date.school:
+            calendar_by_school[str(cal_date.school.id)] = cal_date
+    
+    # Build classes with today's session info
+    # Group classes that share the same calendar entry (same group created by supervisor)
+    classes_today = []
+    processed_calendar_ids = set()
+    processed_class_ids = set()
+    
+    # First, identify which classes share the same calendar entry (new ManyToMany entries)
+    # Also group legacy entries by school + date + type
+    calendar_groups = {}  # key: calendar_entry_id or "legacy_school_date_type", value: list of classes
+    
+    for class_section in facilitator_classes:
+        class_id_str = str(class_section.id)
+        
+        # Skip if already processed
+        if class_id_str in processed_class_ids:
+            continue
+        
+        school_id_str = str(class_section.school.id)
+        
+        # Check class-level entry first (grouped sessions), then school-level (holidays/office work)
+        calendar_date = calendar_by_class.get(class_id_str) or calendar_by_school.get(school_id_str)
+        
+        if calendar_date:
+            # Check if this is a new ManyToMany entry or legacy entry
+            if calendar_date.class_sections.exists():
+                # New ManyToMany entry - get all classes in this entry
+                group_key = str(calendar_date.id)
+                if group_key not in calendar_groups:
+                    calendar_groups[group_key] = {
+                        'classes': list(calendar_date.class_sections.all()),
+                        'calendar_date': calendar_date,
+                    }
+            else:
+                # Legacy entry - group by school + date + type
+                group_key = f"legacy_{school_id_str}_{calendar_date.date}_{calendar_date.date_type}"
+                if group_key not in calendar_groups:
+                    # Find all classes from this school with calendar entries on the same date and type
+                    legacy_classes = []
+                    for other_class in facilitator_classes:
+                        other_school_id_str = str(other_class.school.id)
+                        if other_school_id_str == school_id_str:
+                            other_calendar = calendar_by_class.get(str(other_class.id))
+                            if other_calendar and other_calendar.date == calendar_date.date and other_calendar.date_type == calendar_date.date_type:
+                                legacy_classes.append(other_class)
+                    
+                    calendar_groups[group_key] = {
+                        'classes': legacy_classes,
+                        'calendar_date': calendar_date,
+                    }
+        else:
+            # No calendar entry for this class
+            calendar_groups[f"no_entry_{class_id_str}"] = {
+                'classes': [class_section],
+                'calendar_date': None,
+            }
+    
+    # Now build the output list from the groups
+    for group_key, group_data in calendar_groups.items():
+        grouped_classes = group_data['classes']
+        calendar_date = group_data['calendar_date']
+        
+        # Mark all classes in this group as processed
+        for cls in grouped_classes:
+            processed_class_ids.add(str(cls.id))
+        
+        # Get planned session from first class in group
+        planned_session = None
+        actual_session = None
+        attendance_summary = None
+        
+        if grouped_classes:
+            # Use first class's session info
+            first_class = grouped_classes[0]
+            planned_session = PlannedSession.objects.filter(
+                class_section=first_class,
+                is_active=True
+            ).first()
+            
+            if planned_session:
+                actual_session = ActualSession.objects.filter(
+                    planned_session=planned_session,
+                    date=today
+                ).first()
+                
+                # Get attendance summary if session was conducted
+                if actual_session and actual_session.status == 'conducted':
+                    attendance_summary = {
+                        'present': Attendance.objects.filter(
+                            actual_session=actual_session,
+                            status='present'
+                        ).count(),
+                        'absent': Attendance.objects.filter(
+                            actual_session=actual_session,
+                            status='absent'
+                        ).count(),
+                        'leave': Attendance.objects.filter(
+                            actual_session=actual_session,
+                            status='leave'
+                        ).count(),
+                        'total': Attendance.objects.filter(
+                            actual_session=actual_session
+                        ).count(),
+                    }
+        
+        # Determine status based on calendar
+        status = 'no_session'
+        if calendar_date:
+            if calendar_date.date_type == 'session':
+                status = 'session'
+            elif calendar_date.date_type == 'holiday':
+                status = 'holiday'
+            elif calendar_date.date_type == 'office_work':
+                status = 'office_work'
+        
+        # Add grouped classes as single entry
+        classes_today.append({
+            'class_sections': grouped_classes,  # List of grouped classes
+            'class_section': grouped_classes[0] if grouped_classes else None,  # Primary class for display
+            'planned_session': planned_session,
+            'actual_session': actual_session,
+            'calendar_date': calendar_date,
+            'attendance_summary': attendance_summary,
+            'status': status,
+        })
+    
+    # Get office work for today (not tied to specific class)
+    office_work_today = None
+    office_work_calendar = CalendarDate.objects.filter(
+        date=today,
+        date_type='office_work'
+    ).first()
+    
+    # Check if facilitator is assigned to office work
+    is_assigned_to_office_work = False
+    if office_work_calendar:
+        is_assigned_to_office_work = office_work_calendar.assigned_facilitators.filter(id=request.user.id).exists()
+        
+        if is_assigned_to_office_work:
+            office_attendance = OfficeWorkAttendance.objects.filter(
+                calendar_date=office_work_calendar,
+                facilitator=request.user
+            ).first()
+            
+            office_work_today = {
+                'calendar_date': office_work_calendar,
+                'is_assigned': True,
+                'attendance': office_attendance,
+            }
+    
+    # Get holiday for today
+    holiday_today = None
+    holiday_calendar = CalendarDate.objects.filter(
+        date=today,
+        date_type='holiday'
+    ).first()
+    
+    if holiday_calendar:
+        holiday_today = {
+            'holiday_name': holiday_calendar.holiday_name,
+        }
+    
+    # Logic: If ONLY office work exists (no sessions), hide classes
+    # Check if there are any session entries for today
+    has_any_sessions = CalendarDate.objects.filter(
+        date=today,
+        date_type='session'
+    ).exists()
+    
+    # If office work is assigned AND no sessions exist, hide classes
+    if is_assigned_to_office_work and not has_any_sessions:
+        classes_today = []
+    
+    context = {
+        'today': today,
+        'classes_today': classes_today,
+        'office_work_today': office_work_today,
+        'holiday_today': holiday_today,
+    }
+    
+    return render(request, 'facilitator/today_session_calendar.html', context)
+
+
+@facilitator_required
+def facilitator_performance_class_select(request):
+    """
+    Show all classes assigned to facilitator for performance management
+    """
+    from .models import StudentPerformanceSummary, Subject
+    
+    # Get all classes assigned to this facilitator
+    facilitator_schools = FacilitatorSchool.objects.filter(
+        facilitator=request.user,
+        is_active=True
+    ).values_list('school_id', flat=True)
+    
+    classes = ClassSection.objects.filter(
+        school_id__in=facilitator_schools,
+        is_active=True
+    ).order_by('school__name', 'class_level', 'section')
+    
+    # Add stats for each class
+    classes_with_stats = []
+    for class_section in classes:
+        student_count = Enrollment.objects.filter(
+            class_section=class_section,
+            is_active=True
+        ).count()
+        
+        performance_count = StudentPerformanceSummary.objects.filter(
+            class_section=class_section
+        ).count()
+        
+        subject_count = Subject.objects.filter(is_active=True).count()
+        
+        classes_with_stats.append({
+            'id': class_section.id,
+            'display_name': class_section.display_name,
+            'school_name': class_section.school.name,
+            'student_count': student_count,
+            'performance_count': performance_count,
+            'subject_count': subject_count,
+        })
+    
+    context = {
+        'classes': classes_with_stats,
+    }
+    
+    return render(request, 'facilitator/performance/class_select.html', context)
+
+
+
+@facilitator_required
+def facilitator_grouped_session(request):
+    """
+    Handle grouped session view - redirects to today_session with grouped class info
+    Classes are passed as query parameter: ?classes=id1,id2,id3
+    Stores grouped class info in session, then redirects to primary class today_session
+    """
+    from datetime import date
+    
+    # Get class IDs from query parameter
+    class_ids_str = request.GET.get('classes', '')
+    if not class_ids_str:
+        messages.error(request, "No classes specified")
+        return redirect('facilitator_classes')
+    
+    class_ids = [cid.strip() for cid in class_ids_str.split(',') if cid.strip()]
+    if not class_ids:
+        messages.error(request, "Invalid class IDs")
+        return redirect('facilitator_classes')
+    
+    # Get all grouped classes
+    grouped_classes = ClassSection.objects.filter(
+        id__in=class_ids
+    ).select_related('school').order_by('class_level', 'section')
+    
+    if not grouped_classes.exists():
+        messages.error(request, "Classes not found")
+        return redirect('facilitator_classes')
+    
+    # Verify facilitator has access to all classes
+    mixin = FacilitatorAccessMixin()
+    mixin.request = request
+    facilitator_schools = mixin.get_facilitator_schools()
+    
+    for cls in grouped_classes:
+        if cls.school not in facilitator_schools:
+            messages.error(request, "You do not have access to one or more classes")
+            return redirect('facilitator_classes')
+    
+    # Get primary class (first in group)
+    primary_class = grouped_classes.first()
+    
+    # Store grouped class info in session for display in today_session template
+    request.session['is_grouped_session'] = True
+    request.session['grouped_class_ids'] = class_ids_str
+    request.session['grouped_classes_display'] = [
+        {'id': str(cls.id), 'display_name': cls.display_name} 
+        for cls in grouped_classes
+    ]
+    
+    # Redirect to primary class today_session view
+    # The today_session view will use the session data to show grouped class info
+    return redirect('facilitator_class_today_session', class_section_id=primary_class.id)

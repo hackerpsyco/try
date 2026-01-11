@@ -12,4 +12,11 @@ from .curriculum_sessions import (
     CurriculumSession, SessionTemplate, SessionUsageLog, ImportHistory, 
     SessionVersionHistory, CurriculumUsageLog, SessionContentMapping
 )
+from .calendar import (
+    SupervisorCalendar, CalendarDate, OfficeWorkAttendance
+)
+from .facilitator_task import FacilitatorTask
+from .student_performance import (
+    Subject, PerformanceCutoff, StudentPerformance, StudentPerformanceSummary
+)
 

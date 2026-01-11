@@ -1,0 +1,114 @@
+<!-- Calendar Info Modal/Section - Can be included in Today Session -->
+
+<!-- Office Work Card (if scheduled) -->
+{% if office_work_today %}
+<div class="mt-4">
+    {% if office_work_today.is_assigned or not office_work_today.calendar_date.assigned_facilitators.all %}
+    <div class="card border-warning border-2 shadow-sm">
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0">
+                <i class="bi bi-briefcase"></i> Office Work / Task Today
+            </h5>
+        </div>
+        <div class="card-body">
+            <p class="mb-3">{{ office_work_today.calendar_date.office_task_description }}</p>
+
+            <!-- Details -->
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    {% if office_work_today.calendar_date.time %}
+                    <p class="mb-2"><strong>Time:</strong> {{ office_work_today.calendar_date.time|time:"H:i" }}</p>
+                    {% endif %}
+                    {% if office_work_today.calendar_date.school %}
+                    <p class="mb-2"><strong>School:</strong> {{ office_work_today.calendar_date.school.name }}</p>
+                    {% endif %}
+                    {% if office_work_today.calendar_date.assigned_facilitators.all %}
+                    <p class="mb-0"><strong>Assigned Facilitators:</strong></p>
+                    <ul class="mb-0 ps-3">
+                        {% for facilitator in office_work_today.calendar_date.assigned_facilitators.all %}
+                        <li>{{ facilitator.full_name }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Attendance Status -->
+            {% if office_work_today.attendance %}
+            <div class="alert alert-info mb-3">
+                <p class="mb-2"><strong>Attendance Status:</strong></p>
+                <p class="mb-0">
+                    {% if office_work_today.attendance.status == 'present' %}
+                    <span class="badge bg-success"><i class="bi bi-check-circle"></i> Present</span>
+                    {% else %}
+                    <span class="badge bg-danger"><i class="bi bi-x-circle"></i> Absent</span>
+                    {% endif %}
+                </p>
+                {% if office_work_today.attendance.remarks %}
+                <p class="mb-0 mt-2 text-muted">Remarks: {{ office_work_today.attendance.remarks }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Mark Attendance Form -->
+            <form method="POST" action="{% url 'facilitator_mark_office_work' %}">
+                {% csrf_token %}
+                <input type="hidden" name="calendar_date_id" value="{{ office_work_today.calendar_date.id }}">
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Mark Attendance</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" value="present" id="present" required>
+                        <label class="form-check-label" for="present">
+                            Present
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" value="absent" id="absent">
+                        <label class="form-check-label" for="absent">
+                            Absent
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="remarks" class="form-label">Remarks (Optional)</label>
+                    <textarea id="remarks" name="remarks" rows="3" class="form-control" placeholder="Add any notes..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-warning w-100">
+                    <i class="bi bi-check-lg"></i> Mark Attendance
+                </button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-secondary">
+        <div class="d-flex gap-3">
+            <div class="flex-shrink-0">
+                <i class="bi bi-info-circle text-secondary" style="font-size: 1.5rem;"></i>
+            </div>
+            <div class="flex-grow-1">
+                <h5 class="alert-heading fw-bold">Office Work Scheduled</h5>
+                <p class="mb-0">Office work is scheduled for today, but you are not assigned to it.</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- Holiday Alert (if today is holiday) -->
+{% if holiday_today %}
+<div class="alert alert-danger border-2 mt-4" role="alert">
+    <div class="d-flex gap-3">
+        <div class="flex-shrink-0">
+            <i class="bi bi-calendar-x text-danger" style="font-size: 1.5rem;"></i>
+        </div>
+        <div class="flex-grow-1">
+            <h5 class="alert-heading fw-bold">Holiday / No Session Today</h5>
+            <p class="mb-0">{{ holiday_today.holiday_name }}</p>
+        </div>
+    </div>
+</div>
+{% endif %}

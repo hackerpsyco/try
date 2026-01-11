@@ -105,6 +105,13 @@ class PlannedSession(models.Model):
         help_text="Days that must be completed first"
     )
     
+    # Grouped session support
+    grouped_session_id = models.UUIDField(
+        null=True,
+        blank=True,
+        help_text="If set, this session is part of a grouped session. All classes with same grouped_session_id share this session."
+    )
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

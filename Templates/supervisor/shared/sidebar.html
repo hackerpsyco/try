@@ -38,6 +38,12 @@
             <span>Facilitators</span>
         </a>
 
+        <!-- Calendar -->
+        <a href="{% url 'supervisor_calendar' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors {% if request.resolver_match.url_name == 'supervisor_calendar' %}bg-blue-50 text-blue-600{% endif %}">
+            <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+            <span>Calendar</span>
+        </a>
+
         <!-- Reports -->
         <a href="{% url 'supervisor_reports_dashboard' %}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors {% if request.resolver_match.url_name == 'supervisor_reports_dashboard' %}bg-blue-50 text-blue-600{% endif %}">
             <span class="material-symbols-outlined text-[20px]">analytics</span>

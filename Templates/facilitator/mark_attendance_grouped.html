@@ -1,0 +1,493 @@
+{% extends "facilitator/shared/base.html" %}
+
+{% block extra_css %}
+<style>
+/* Simple Mobile Responsive Design for Grouped Attendance */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 10px;
+    }
+    
+    /* Mobile table improvements */
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+    
+    .table th, .table td {
+        padding: 8px 6px;
+        vertical-align: middle;
+    }
+    
+    /* Hide enrollment column on mobile, show as small text */
+    .enrollment-col {
+        display: none;
+    }
+    
+    .enrollment-mobile {
+        font-size: 0.75rem;
+        color: #6c757d;
+        display: block;
+    }
+    
+    /* Mobile form controls */
+    .form-select {
+        font-size: 0.9rem;
+        padding: 6px 8px;
+    }
+    
+    /* Mobile buttons */
+    .btn-group .btn {
+        font-size: 0.8rem;
+        padding: 6px 8px;
+    }
+    
+    /* Mobile card adjustments */
+    .card-body {
+        padding: 15px;
+    }
+    
+    .alert {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-fluid {
+        padding: 8px;
+    }
+    
+    .table {
+        font-size: 0.8rem;
+    }
+    
+    .table th, .table td {
+        padding: 6px 4px;
+    }
+    
+    .btn-group .btn {
+        font-size: 0.75rem;
+        padding: 4px 6px;
+    }
+    
+    .card-body {
+        padding: 12px;
+    }
+}
+
+/* Desktop styles remain unchanged */
+@media (min-width: 769px) {
+    .enrollment-mobile {
+        display: none;
+    }
+    
+    .enrollment-col {
+        display: table-cell;
+    }
+}
+
+/* Class badge styling */
+.class-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #e7f3ff;
+    border: 1px solid #b3d9ff;
+    border-radius: 0.25rem;
+    font-size: 0.85rem;
+}
+
+.class-section-header {
+    background-color: #f8f9fa;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #0d6efd;
+    border-radius: 0.25rem;
+}
+
+.class-section-header strong {
+    color: #0d6efd;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-users me-2"></i>🔗 Mark Attendance - Grouped Session
+          </h5>
+          <small class="text-muted">
+            Day {{ session.planned_session.day_number }} — {{ session.date }}
+          </small>
+        </div>
+        <div class="card-body">
+          
+          <!-- Grouped Session Info -->
+          <div class="alert alert-info mb-4">
+            <div class="row">
+              <div class="col-md-6">
+                <strong><i class="fas fa-link me-1"></i>Grouped Session:</strong><br>
+                <div class="mt-2">
+                  {% for grouped_class in grouped_classes %}
+                    <span class="class-badge">{{ grouped_class.school.name }} — {{ grouped_class.class_level }}-{{ grouped_class.section }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <strong><i class="fas fa-calendar me-1"></i>Session:</strong> {{ session.planned_session.title }}<br>
+                <strong><i class="fas fa-clock me-1"></i>Date:</strong> {{ session.date }}<br>
+                <strong><i class="fas fa-user me-1"></i>Facilitator:</strong> {{ session.facilitator.full_name }}<br>
+                <strong><i class="fas fa-users me-1"></i>Total Students:</strong> {{ total_students }}
+              </div>
+            </div>
+          </div>
+
+          <form method="post" id="attendanceForm">
+            {% csrf_token %}
+
+            <!-- Students by Class -->
+            {% for class_data in classes_with_students %}
+            <div class="class-section-header">
+              <strong><i class="fas fa-chalkboard me-2"></i>{{ class_data.class.school.name }} — {{ class_data.class.class_level }}-{{ class_data.class.section }}</strong>
+              <span class="badge bg-secondary ms-2">{{ class_data.enrollments|length }} students</span>
+            </div>
+
+            <!-- Attendance Table for this Class -->
+            <div class="table-responsive mb-4">
+              <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                  <tr>
+                    <th style="width: 50px;">#</th>
+                    <th>Student Name</th>
+                    <th class="enrollment-col">Enrollment Number</th>
+                    <th style="width: 200px;">Attendance Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for e in class_data.enrollments %}
+                  <tr>
+                    <td class="text-center">{{ forloop.counter }}</td>
+                    <td>
+                      <strong>{{ e.student.full_name }}</strong>
+                      <small class="enrollment-mobile">{{ e.student.enrollment_number }}</small>
+                    </td>
+                    <td class="enrollment-col">
+                      <span class="badge bg-secondary">{{ e.student.enrollment_number }}</span>
+                    </td>
+                    <td>
+                      <select name="{{ e.id }}" class="form-select attendance-select" data-student="{{ e.student.full_name }}">
+                        <option value="" {% if not e.existing_attendance %}selected{% endif %}>-- Select --</option>
+                        <option value="present" {% if e.existing_attendance.status == 'present' %}selected{% endif %}>
+                          ✅ Present
+                        </option>
+                        <option value="absent" {% if e.existing_attendance.status == 'absent' %}selected{% endif %}>
+                          ❌ Absent
+                        </option>
+                        <option value="leave" {% if e.existing_attendance.status == 'leave' %}selected{% endif %}>
+                          📅 Leave
+                        </option>
+                      </select>
+                    </td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="4" class="text-center text-muted">
+                      <i class="fas fa-users-slash me-2"></i>No students enrolled in this class.
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% endfor %}
+
+            <!-- Quick Actions -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="card border-success">
+                  <div class="card-body py-2">
+                    <h6 class="card-title text-success mb-1">
+                      <i class="fas fa-users me-1"></i>Quick Actions
+                    </h6>
+                    <div class="btn-group btn-group-sm" role="group">
+                      <button type="button" class="btn btn-outline-success" onclick="markAll('present')">
+                        <i class="fas fa-check me-1"></i>All Present
+                      </button>
+                      <button type="button" class="btn btn-outline-danger" onclick="markAll('absent')">
+                        <i class="fas fa-times me-1"></i>All Absent
+                      </button>
+                      <button type="button" class="btn btn-outline-warning" onclick="markAll('leave')">
+                        <i class="fas fa-calendar-times me-1"></i>All Leave
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" onclick="markAll('')">
+                        <i class="fas fa-undo me-1"></i>Clear All
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card border-info">
+                  <div class="card-body py-2">
+                    <h6 class="card-title text-info mb-1">
+                      <i class="fas fa-chart-pie me-1"></i>Attendance Summary
+                    </h6>
+                    <div id="attendanceSummary">
+                      <small class="text-muted">Select attendance to see summary</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Save Button -->
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <a href="{% url 'facilitator_class_today_session' session.planned_session.class_section.id %}" class="btn btn-outline-secondary">
+                  <i class="fas fa-arrow-left me-1"></i>Back to Session
+                </a>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-success btn-lg" id="saveAttendanceBtn">
+                  <i class="fas fa-save me-2"></i>Save Attendance (All Classes)
+                </button>
+              </div>
+            </div>
+
+            <!-- Confirmation Modal -->
+            <div class="modal fade" id="confirmModal" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Confirm Attendance</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to save the attendance for ALL grouped classes with the following summary?</p>
+                    <div id="confirmSummary"></div>
+                    <div class="alert alert-warning mt-3">
+                      <i class="fas fa-exclamation-triangle me-2"></i>
+                      <strong>Note:</strong> This will save attendance for all students in all grouped classes:
+                      <div class="mt-2">
+                        {% for grouped_class in grouped_classes %}
+                          <span class="class-badge">{{ grouped_class.school.name }} — {{ grouped_class.class_level }}-{{ grouped_class.section }}</span>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" id="confirmSave">
+                      <i class="fas fa-save me-1"></i>Yes, Save Attendance
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const attendanceSelects = document.querySelectorAll('.attendance-select');
+    const saveBtn = document.getElementById('saveAttendanceBtn');
+    const attendanceForm = document.getElementById('attendanceForm');
+    const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    
+    // Update summary when attendance changes
+    attendanceSelects.forEach(select => {
+        select.addEventListener('change', function() {
+            updateSummary();
+            updateRowStyling(this);
+        });
+    });
+    
+    // Initial summary update and row styling
+    updateSummary();
+    updateAllRowStyling();
+    
+    // Handle form submission with confirmation
+    if (saveBtn) {
+        attendanceForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showConfirmation();
+        });
+    }
+    
+    // Confirm save button
+    document.getElementById('confirmSave').addEventListener('click', function() {
+        confirmModal.hide();
+        attendanceForm.submit();
+    });
+    
+    function updateSummary() {
+        let present = 0, absent = 0, leave = 0, notMarked = 0;
+        
+        attendanceSelects.forEach(select => {
+            const value = select.value;
+            switch(value) {
+                case 'present': present++; break;
+                case 'absent': absent++; break;
+                case 'leave': leave++; break;
+                default: notMarked++; break;
+            }
+        });
+        
+        const summaryHtml = `
+            <div class="row text-center">
+                <div class="col-3">
+                    <div class="text-success">
+                        <i class="fas fa-check-circle"></i><br>
+                        <strong>${present}</strong><br>
+                        <small>Present</small>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="text-danger">
+                        <i class="fas fa-times-circle"></i><br>
+                        <strong>${absent}</strong><br>
+                        <small>Absent</small>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="text-warning">
+                        <i class="fas fa-calendar-times"></i><br>
+                        <strong>${leave}</strong><br>
+                        <small>Leave</small>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="text-muted">
+                        <i class="fas fa-question-circle"></i><br>
+                        <strong>${notMarked}</strong><br>
+                        <small>Not Marked</small>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('attendanceSummary').innerHTML = summaryHtml;
+    }
+    
+    function updateRowStyling(select) {
+        const row = select.closest('tr');
+        if (!row) return;
+        
+        // Remove all status classes
+        row.classList.remove('marked-present', 'marked-absent', 'marked-leave');
+        
+        // Add appropriate class based on selection
+        switch(select.value) {
+            case 'present':
+                row.classList.add('marked-present');
+                break;
+            case 'absent':
+                row.classList.add('marked-absent');
+                break;
+            case 'leave':
+                row.classList.add('marked-leave');
+                break;
+        }
+    }
+    
+    function updateAllRowStyling() {
+        attendanceSelects.forEach(select => {
+            updateRowStyling(select);
+        });
+    }
+    
+    function showConfirmation() {
+        const summary = document.getElementById('attendanceSummary').innerHTML;
+        document.getElementById('confirmSummary').innerHTML = summary;
+        confirmModal.show();
+    }
+    
+    // Quick action functions
+    window.markAll = function(status) {
+        attendanceSelects.forEach(select => {
+            select.value = status;
+            updateRowStyling(select);
+        });
+        updateSummary();
+    };
+    
+    // Mobile-specific enhancements
+    if (window.innerWidth <= 768) {
+        // Add touch-friendly interactions
+        attendanceSelects.forEach(select => {
+            select.style.fontSize = '16px'; // Prevent zoom on iOS
+        });
+    }
+});
+</script>
+
+<style>
+.attendance-select {
+    font-weight: 500;
+}
+
+.attendance-select option[value="present"] {
+    color: #198754;
+}
+
+.attendance-select option[value="absent"] {
+    color: #dc3545;
+}
+
+.attendance-select option[value="leave"] {
+    color: #fd7e14;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,.075);
+}
+
+.card {
+    border: 1px solid rgba(0,0,0,.125);
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+}
+
+.btn-group-sm > .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.marked-present {
+    background-color: #d4edda;
+}
+
+.marked-absent {
+    background-color: #f8d7da;
+}
+
+.marked-leave {
+    background-color: #fff3cd;
+}
+
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .btn-group .btn {
+        margin-bottom: 0.25rem;
+    }
+}
+</style>
+
+{% endblock %}

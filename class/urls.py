@@ -47,6 +47,12 @@ from .supervisor_views import (
     
     # Supervisor - Settings
     supervisor_settings,
+    
+    # Supervisor - Calendar
+    supervisor_calendar,
+    supervisor_calendar_add_date,
+    supervisor_calendar_edit_date,
+    supervisor_calendar_delete_date,
 )
 from .views import (
 
@@ -128,6 +134,7 @@ from .views import (
     debug_sessions,
 )
 from . import facilitator_views
+from . import facilitator_task_views
 from .admin_session_views import (
     admin_session_templates_list,
     admin_session_template_create,
@@ -143,7 +150,10 @@ urlpatterns = [
     # Authentication
     # ======================
     path("", login_view, name="login"),
+    path("login/", login_view, name="login_page"),
     path("logout/", logout_view, name="logout"),
+    path("api/session/check/", session_check_view, name="session_check"),
+    path("api/session/clear/", clear_session_view, name="session_clear"),
 
     # ======================
     # Dashboards (role based)
@@ -189,6 +199,12 @@ urlpatterns = [
     
     # Settings
     path("supervisor/settings/", supervisor_settings, name="supervisor_settings"),
+    
+    # Calendar Management (NEW)
+    path("supervisor/calendar/", supervisor_calendar, name="supervisor_calendar"),
+    path("supervisor/calendar/add-date/", supervisor_calendar_add_date, name="supervisor_calendar_add_date"),
+    path("supervisor/calendar/edit-date/<uuid:date_id>/", supervisor_calendar_edit_date, name="supervisor_calendar_edit_date"),
+    path("supervisor/calendar/delete-date/<uuid:date_id>/", supervisor_calendar_delete_date, name="supervisor_calendar_delete_date"),
     
     # Feedback & Analytics
     # ======================
@@ -333,7 +349,7 @@ path(
     path(
         "facilitator/class/<uuid:class_section_id>/today/",
         today_session,
-        name="facilitator_today_session"
+        name="facilitator_class_today_session"
     ),
     path(
         "facilitator/class/<uuid:class_section_id>/debug/",
@@ -522,6 +538,33 @@ path(
     path("facilitator/ajax/school-classes/", facilitator_views.facilitator_ajax_school_classes, name="facilitator_ajax_school_classes"),
     path("facilitator/debug/schools/", facilitator_views.facilitator_debug_schools, name="facilitator_debug_schools"),
     path("facilitator/test/access/", facilitator_views.facilitator_test_access, name="facilitator_test_access"),
+    
+    # ======================
+    # Facilitator Calendar & Today Session (NEW)
+    # ======================
+    path("facilitator/today-session/", facilitator_views.facilitator_today_session, name="facilitator_today_session"),
+    path("facilitator/today-session-calendar/", facilitator_views.facilitator_today_session_calendar, name="facilitator_today_session_calendar"),
+    path("facilitator/grouped-session/", facilitator_views.facilitator_grouped_session, name="facilitator_grouped_session"),
+    path("facilitator/mark-office-work/", facilitator_views.facilitator_mark_office_work_attendance, name="facilitator_mark_office_work"),
+    
+    # ======================
+    # Facilitator Task (NEW)
+    # ======================
+    path("facilitator/task/<uuid:actual_session_id>/", facilitator_task_views.facilitator_task_step, name="facilitator_task_step"),
+    path("facilitator/task/<uuid:actual_session_id>/upload-photo/", facilitator_task_views.facilitator_task_upload_photo, name="facilitator_task_upload_photo"),
+    path("facilitator/task/<uuid:actual_session_id>/upload-video/", facilitator_task_views.facilitator_task_upload_video, name="facilitator_task_upload_video"),
+    path("facilitator/task/<uuid:actual_session_id>/facebook-link/", facilitator_task_views.facilitator_task_facebook_link, name="facilitator_task_facebook_link"),
+    path("facilitator/task/<uuid:task_id>/delete/", facilitator_task_views.facilitator_task_delete, name="facilitator_task_delete"),
+    path("facilitator/task/<uuid:actual_session_id>/complete/", facilitator_task_views.facilitator_task_complete, name="facilitator_task_complete"),
+    
+    # ======================
+    # Student Performance (NEW)
+    # ======================
+    path("facilitator/performance/", facilitator_views.facilitator_performance_class_select, name="facilitator_performance_class_select"),
+    path("facilitator/class/<uuid:class_section_id>/performance/", facilitator_views.student_performance_list, name="student_performance_list"),
+    path("facilitator/class/<uuid:class_section_id>/performance/<uuid:student_id>/", facilitator_views.student_performance_detail, name="student_performance_detail"),
+    path("facilitator/class/<uuid:class_section_id>/performance/<uuid:student_id>/save/", facilitator_views.student_performance_save, name="student_performance_save"),
+    path("facilitator/class/<uuid:class_section_id>/performance/cutoff/", facilitator_views.performance_cutoff_settings, name="performance_cutoff_settings"),
     
     # ======================
     # Admin Session Sequence Management (NEW)

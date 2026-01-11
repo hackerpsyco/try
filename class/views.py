@@ -21,8 +21,9 @@ import os
 import json
 import logging
 from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm, AssignFacilitatorForm
-from .models import User, Role, School, ClassSection, FacilitatorSchool,Student,Enrollment,PlannedSession,SessionStep, ActualSession, Attendance, CANCELLATION_REASONS
+from .models import User, Role, School, ClassSection, FacilitatorSchool,Student,Enrollment,PlannedSession,SessionStep, ActualSession, Attendance, CANCELLATION_REASONS, FacilitatorTask
 from .models import CurriculumSession, SessionTemplate, SessionUsageLog, ImportHistory, SessionVersionHistory
+from .services.session_integration_service import SessionIntegrationService, IntegratedSessionData
 from .mixins import PerformanceOptimizedMixin, OptimizedListMixin, CachedViewMixin, AjaxOptimizedMixin, DatabaseOptimizedMixin, cache_expensive_operation, monitor_performance
 from datetime import date
 import re
@@ -1070,8 +1071,90 @@ def today_session(request, class_section_id):
     if request.user.role.name.upper() != "FACILITATOR":
         return redirect("no_permission")
 
+    from datetime import date
+    from .models import CalendarDate
+    
     class_section = get_object_or_404(ClassSection, id=class_section_id)
     today = timezone.now().date()
+    
+    # CHECK IF THIS CLASS IS PART OF A GROUPED SESSION (ANY DAY)
+    # If it is, redirect to the primary class's session
+    # First check if there's a grouped session for this class (by checking PlannedSession with grouped_session_id)
+    current_planned_session = PlannedSession.objects.filter(
+        class_section=class_section,
+        is_active=True
+    ).order_by('day_number').first()
+    
+    should_redirect = False
+    primary_class_id = None
+    
+    if current_planned_session and current_planned_session.grouped_session_id:
+        # This class is part of a grouped session via grouped_session_id
+        # Get the primary class (first class in the group for this day)
+        primary_session = PlannedSession.objects.filter(
+            grouped_session_id=current_planned_session.grouped_session_id,
+            day_number=current_planned_session.day_number
+        ).select_related('class_section').order_by('id').first()
+        
+        if primary_session and primary_session.class_section.id != class_section.id:
+            should_redirect = True
+            primary_class_id = primary_session.class_section.id
+    else:
+        # Check CalendarDate to see if this class is part of a grouped session
+        calendar_entry = CalendarDate.objects.filter(
+            class_sections=class_section,
+            date_type='session'
+        ).first()
+        
+        if calendar_entry and calendar_entry.class_sections.count() > 1:
+            # This class is part of a grouped session via CalendarDate
+            # Get the primary class (first in the group)
+            primary_class = calendar_entry.class_sections.first()
+            if primary_class.id != class_section.id:
+                should_redirect = True
+                primary_class_id = primary_class.id
+    
+    if should_redirect and primary_class_id:
+        return redirect('facilitator_today_session', class_section_id=primary_class_id)
+    
+    # Also check calendar entry for today (for holiday/office work redirects)
+    calendar_entry = CalendarDate.objects.filter(
+        date=today,
+        class_sections=class_section,
+        date_type='session'
+    ).first()
+    
+    if calendar_entry and calendar_entry.class_sections.exists():
+        # This is a grouped session - get the primary class (first in the group)
+        primary_class = calendar_entry.class_sections.first()
+        if primary_class.id != class_section.id:
+            # Redirect to primary class's session
+            return redirect('facilitator_today_session', class_section_id=primary_class.id)
+    
+    # CHECK CALENDAR FIRST - check both class-level and school-level entries
+    # First check class-specific entry
+    calendar_entry = CalendarDate.objects.filter(
+        date=today,
+        class_section=class_section
+    ).first()
+    
+    # If no class-specific entry, check school-level entry (office work/holiday at school level)
+    if not calendar_entry:
+        calendar_entry = CalendarDate.objects.filter(
+            date=today,
+            school=class_section.school,
+            class_section__isnull=True  # School-level entries have no class_section
+        ).first()
+    
+    if calendar_entry:
+        if calendar_entry.date_type == 'holiday':
+            # Redirect to calendar UI for holiday
+            return redirect('facilitator_today_session_calendar')
+        elif calendar_entry.date_type == 'office_work':
+            # Redirect to calendar UI for office work
+            return redirect('facilitator_today_session_calendar')
+    
+    # Otherwise, continue with normal session workflow
 
     # Use the new SessionSequenceCalculator
     from .session_management import SessionSequenceCalculator
@@ -1161,6 +1244,32 @@ def today_session(request, class_section_id):
 
     # Get latest actual session for this planned session
     actual_session = planned_session.actual_sessions.order_by("-date").first()
+    
+    # If this is a grouped session, get all classes in the group
+    grouped_classes = []
+    
+    # First, check if this session has grouped_session_id set
+    if planned_session.grouped_session_id:
+        grouped_sessions = PlannedSession.objects.filter(
+            grouped_session_id=planned_session.grouped_session_id,
+            day_number=planned_session.day_number
+        ).select_related('class_section')
+        grouped_classes = [gs.class_section for gs in grouped_sessions]
+        logger.info(f"Grouped session detected via grouped_session_id for class {class_section.id}: grouped_session_id={planned_session.grouped_session_id}, classes_in_group={len(grouped_classes)}")
+    else:
+        # If no grouped_session_id, check CalendarDate to see if this class is part of a grouped session
+        from .models import CalendarDate
+        calendar_entry = CalendarDate.objects.filter(
+            class_sections=class_section,
+            date_type='session'
+        ).first()
+        
+        if calendar_entry and calendar_entry.class_sections.count() > 1:
+            # This class is part of a grouped session via CalendarDate
+            grouped_classes = list(calendar_entry.class_sections.all())
+            logger.info(f"Grouped session detected via CalendarDate for class {class_section.id}: classes_in_group={len(grouped_classes)}")
+        else:
+            logger.info(f"Single session for class {class_section.id}: no grouped_session_id and not in grouped CalendarDate")
 
     session_status = "pending"
     is_today = False
@@ -1183,48 +1292,93 @@ def today_session(request, class_section_id):
     integration_service = SessionIntegrationService()
     
     # Get integrated session data (combines PlannedSession with CurriculumSession)
-    integrated_data = integration_service.get_integrated_session_data(planned_session)
+    try:
+        integrated_data = integration_service.get_integrated_session_data(planned_session)
+    except Exception as e:
+        logger.error(f"Error getting integrated session data: {e}")
+        integrated_data = IntegratedSessionData(
+            planned_session=planned_session,
+            content_source='error',
+            sync_status='failed'
+        )
     
     # Log curriculum access for analytics
-    integration_service.log_curriculum_access(planned_session, request.user, request)
+    try:
+        integration_service.log_curriculum_access(planned_session, request.user, request)
+    except Exception as e:
+        logger.error(f"Error logging curriculum access: {e}")
     
     # Get curriculum content metadata for the frontend
-    content_metadata = content_resolver.get_content_metadata(
-        planned_session.day_number, 
-        integration_service._get_class_language(class_section)
-    )
+    try:
+        content_metadata = content_resolver.get_content_metadata(
+            planned_session.day_number, 
+            integration_service._get_class_language(class_section)
+        )
+    except Exception as e:
+        logger.error(f"Error getting content metadata: {e}")
+        content_metadata = {}
     
     # Get progress metrics
-    progress_metrics = SessionSequenceCalculator.calculate_progress(class_section)
+    try:
+        progress_metrics = SessionSequenceCalculator.calculate_progress(class_section)
+    except Exception as e:
+        logger.error(f"Error calculating progress metrics: {e}")
+        progress_metrics = None
     
     # Get workflow-related data
     from .models import LessonPlanUpload, SessionReward, SessionFeedback, SessionPreparationChecklist
     
     # Get lesson plan uploads for this session
-    lesson_plan_uploads = LessonPlanUpload.objects.filter(
-        planned_session=planned_session,
-        facilitator=request.user
-    ).order_by('-upload_date')
+    # For grouped sessions, get uploads from ANY grouped session (they all share the same lesson plan)
+    try:
+        if planned_session.grouped_session_id:
+            # Get uploads from any session in the group
+            grouped_session_ids = PlannedSession.objects.filter(
+                grouped_session_id=planned_session.grouped_session_id,
+                day_number=planned_session.day_number
+            ).values_list('id', flat=True)
+            
+            lesson_plan_uploads = LessonPlanUpload.objects.filter(
+                planned_session_id__in=grouped_session_ids,
+                facilitator=request.user
+            ).order_by('-upload_date')
+        else:
+            # Single session - get uploads for this session only
+            lesson_plan_uploads = LessonPlanUpload.objects.filter(
+                planned_session=planned_session,
+                facilitator=request.user
+            ).order_by('-upload_date')
+    except Exception as e:
+        logger.error(f"Error getting lesson plan uploads: {e}")
+        lesson_plan_uploads = []
     
     # Get session rewards for this session (if actual session exists)
     session_rewards = []
     if actual_session:
-        session_rewards = SessionReward.objects.filter(
-            actual_session=actual_session
-        ).order_by('-reward_date')
+        try:
+            session_rewards = SessionReward.objects.filter(
+                actual_session=actual_session
+            ).order_by('-reward_date')
+        except Exception as e:
+            logger.error(f"Error getting session rewards: {e}")
+            session_rewards = []
     
     # Get preparation checklist for this session
-    preparation_checklist = SessionPreparationChecklist.objects.filter(
-        planned_session=planned_session,
-        facilitator=request.user
-    ).first()
-    
-    if not preparation_checklist:
-        # Create empty checklist for template
-        preparation_checklist = SessionPreparationChecklist(
+    try:
+        preparation_checklist = SessionPreparationChecklist.objects.filter(
             planned_session=planned_session,
             facilitator=request.user
-        )
+        ).first()
+        
+        if not preparation_checklist:
+            # Create empty checklist for template
+            preparation_checklist = SessionPreparationChecklist(
+                planned_session=planned_session,
+                facilitator=request.user
+            )
+    except Exception as e:
+        logger.error(f"Error getting preparation checklist: {e}")
+        preparation_checklist = None
 
     return render(request, "facilitator/Today_session.html", {
         "class_section": class_section,
@@ -1239,13 +1393,21 @@ def today_session(request, class_section_id):
         "lesson_plan_uploads": lesson_plan_uploads,
         "session_rewards": session_rewards,
         "preparation_checklist": preparation_checklist,
+        # Facilitator tasks
+        "facilitator_tasks": FacilitatorTask.objects.filter(
+            actual_session=actual_session,
+            facilitator=request.user
+        ).order_by('-created_at') if actual_session else [],
         # New curriculum integration data
         "integrated_data": integrated_data,
         "content_metadata": content_metadata,
-        "has_admin_content": integrated_data.has_admin_content,
-        "content_source": integrated_data.content_source,
+        "has_admin_content": integrated_data.has_admin_content if integrated_data else False,
+        "content_source": integrated_data.content_source if integrated_data else 'error',
         # Day navigation data
         "day_range": range(1, 151),  # Days 1-150
+        # Grouped session data
+        "grouped_classes": grouped_classes,
+        "is_grouped_session": len(grouped_classes) > 1,
         # Debug information
         "today_date": today,
         "actual_session_date": actual_session.date if actual_session else None,
@@ -1308,8 +1470,24 @@ def start_session(request, planned_session_id):
                 facilitator=request.user,
                 remarks=remarks
             )
-            messages.success(request, "Session conducted successfully!")
-            return redirect("mark_attendance", actual_session.id)
+            
+            # If this is a grouped session, also create ActualSession for all other classes in the group
+            if planned.grouped_session_id:
+                grouped_sessions = PlannedSession.objects.filter(
+                    grouped_session_id=planned.grouped_session_id,
+                    day_number=planned.day_number
+                ).exclude(id=planned.id)
+                
+                for grouped_session in grouped_sessions:
+                    SessionStatusManager.conduct_session(
+                        planned_session=grouped_session,
+                        facilitator=request.user,
+                        remarks=f"Grouped session - conducted with {planned.class_section.display_name}"
+                    )
+            
+            messages.success(request, "Session started! Now complete the facilitator task.")
+            # Redirect to facilitator task step instead of directly to mark_attendance
+            return redirect("facilitator_task_step", actual_session_id=actual_session.id)
             
         elif status == "holiday":
             actual_session = SessionStatusManager.mark_holiday(
@@ -1317,6 +1495,21 @@ def start_session(request, planned_session_id):
                 facilitator=request.user,
                 reason=remarks
             )
+            
+            # If this is a grouped session, also mark all other classes as holiday
+            if planned.grouped_session_id:
+                grouped_sessions = PlannedSession.objects.filter(
+                    grouped_session_id=planned.grouped_session_id,
+                    day_number=planned.day_number
+                ).exclude(id=planned.id)
+                
+                for grouped_session in grouped_sessions:
+                    SessionStatusManager.mark_holiday(
+                        planned_session=grouped_session,
+                        facilitator=request.user,
+                        reason=f"Grouped session holiday - marked with {planned.class_section.display_name}"
+                    )
+            
             messages.success(request, "Session marked as holiday. You can conduct it later.")
             
         elif status == "cancelled":
@@ -1330,6 +1523,22 @@ def start_session(request, planned_session_id):
                 cancellation_reason=cancellation_reason,
                 remarks=remarks
             )
+            
+            # If this is a grouped session, also cancel all other classes
+            if planned.grouped_session_id:
+                grouped_sessions = PlannedSession.objects.filter(
+                    grouped_session_id=planned.grouped_session_id,
+                    day_number=planned.day_number
+                ).exclude(id=planned.id)
+                
+                for grouped_session in grouped_sessions:
+                    SessionStatusManager.cancel_session(
+                        planned_session=grouped_session,
+                        facilitator=request.user,
+                        cancellation_reason=cancellation_reason,
+                        remarks=f"Grouped session cancelled - cancelled with {planned.class_section.display_name}"
+                    )
+            
             messages.success(request, f"Session cancelled permanently: {dict(CANCELLATION_REASONS)[cancellation_reason]}")
         
         else:
@@ -1357,82 +1566,202 @@ def mark_attendance(request, actual_session_id):
         messages.error(request, "Cannot mark attendance — session is not conducted.")
         return redirect("facilitator_classes")
 
-    enrollments = Enrollment.objects.filter(
-        class_section=session.planned_session.class_section,
-        is_active=True
-    ).select_related("student").prefetch_related(
-        Prefetch(
-            'attendances',
-            queryset=Attendance.objects.filter(actual_session=session),
-            to_attr='session_attendances'
-        )
-    )
-
-    if request.method == "POST":
-        saved_count = 0
-        skipped_count = 0
-        updated_count = 0
+    # Check if this is a grouped session
+    is_grouped_session = session.planned_session.grouped_session_id is not None
+    grouped_classes = []
+    
+    if is_grouped_session:
+        # For grouped sessions, get all classes in the group via grouped_session_id
+        grouped_sessions = PlannedSession.objects.filter(
+            grouped_session_id=session.planned_session.grouped_session_id,
+            day_number=session.planned_session.day_number
+        ).select_related('class_section')
         
-        try:
-            with transaction.atomic():
-                for enrollment in enrollments:
-                    status = request.POST.get(str(enrollment.id))
-                    
-                    # Only save if a status is selected (not empty/not marked)
-                    if status and status in ['present', 'absent', 'leave']:
-                        attendance, created = Attendance.objects.update_or_create(
-                            actual_session=session,
-                            enrollment=enrollment,
-                            defaults={"status": status}
-                        )
-                        
-                        if created:
-                            saved_count += 1
-                        else:
-                            updated_count += 1
-                    else:
-                        # If status is empty, delete existing attendance if any
-                        Attendance.objects.filter(
-                            actual_session=session,
-                            enrollment=enrollment
-                        ).delete()
-                        skipped_count += 1
-
-                # Update session attendance_marked flag
-                session.attendance_marked = True
-                session.save()
-
-                # Create success message with details
-                message_parts = []
-                if saved_count > 0:
-                    message_parts.append(f"{saved_count} new attendance records saved")
-                if updated_count > 0:
-                    message_parts.append(f"{updated_count} attendance records updated")
-                if skipped_count > 0:
-                    message_parts.append(f"{skipped_count} students not marked")
-                
-                success_message = "Attendance saved successfully! " + ", ".join(message_parts) + "."
-                messages.success(request, success_message)
-                
-                return redirect("facilitator_today_session", class_section_id=session.planned_session.class_section.id)
-                
-        except Exception as e:
-            messages.error(request, f"Error saving attendance: {str(e)}")
-            logger.error(f"Error saving attendance for session {session.id}: {e}")
-
-    # For GET request, get existing attendance data
-    for enrollment in enrollments:
-        # Get existing attendance for this enrollment in this session
-        existing_attendance = Attendance.objects.filter(
-            actual_session=session,
-            enrollment=enrollment
+        grouped_classes = [gs.class_section for gs in grouped_sessions]
+    else:
+        # Check CalendarDate to see if this class is part of a grouped session
+        from .models import CalendarDate
+        calendar_entry = CalendarDate.objects.filter(
+            class_sections=session.planned_session.class_section,
+            date_type='session'
         ).first()
-        enrollment.existing_attendance = existing_attendance
+        
+        if calendar_entry and calendar_entry.class_sections.count() > 1:
+            # This class is part of a grouped session via CalendarDate
+            grouped_classes = list(calendar_entry.class_sections.all())
+            is_grouped_session = True
+    
+    if is_grouped_session:
+        # Get enrollments from ALL grouped classes
+        classes_with_students = []
+        total_students = 0
+        
+        for grouped_class in grouped_classes:
+            enrollments = Enrollment.objects.filter(
+                class_section=grouped_class,
+                is_active=True
+            ).select_related("student").prefetch_related(
+                Prefetch(
+                    'attendances',
+                    queryset=Attendance.objects.filter(actual_session=session),
+                    to_attr='session_attendances'
+                )
+            )
+            
+            # Add existing attendance data
+            for enrollment in enrollments:
+                existing_attendance = Attendance.objects.filter(
+                    actual_session=session,
+                    enrollment=enrollment
+                ).first()
+                enrollment.existing_attendance = existing_attendance
+            
+            classes_with_students.append({
+                'class': grouped_class,
+                'enrollments': enrollments
+            })
+            total_students += enrollments.count()
+        
+        if request.method == "POST":
+            saved_count = 0
+            skipped_count = 0
+            updated_count = 0
+            
+            try:
+                with transaction.atomic():
+                    # Process attendance for all students from all grouped classes
+                    for class_data in classes_with_students:
+                        for enrollment in class_data['enrollments']:
+                            status = request.POST.get(str(enrollment.id))
+                            
+                            # Only save if a status is selected (not empty/not marked)
+                            if status and status in ['present', 'absent', 'leave']:
+                                attendance, created = Attendance.objects.update_or_create(
+                                    actual_session=session,
+                                    enrollment=enrollment,
+                                    defaults={"status": status}
+                                )
+                                
+                                if created:
+                                    saved_count += 1
+                                else:
+                                    updated_count += 1
+                            else:
+                                # If status is empty, delete existing attendance if any
+                                Attendance.objects.filter(
+                                    actual_session=session,
+                                    enrollment=enrollment
+                                ).delete()
+                                skipped_count += 1
 
-    return render(request, "facilitator/mark_attendance.html", {
-        "session": session,
-        "enrollments": enrollments
-    })
+                    # Update session attendance_marked flag
+                    session.attendance_marked = True
+                    session.save()
+
+                    # Create success message with details
+                    message_parts = []
+                    if saved_count > 0:
+                        message_parts.append(f"{saved_count} new attendance records saved")
+                    if updated_count > 0:
+                        message_parts.append(f"{updated_count} attendance records updated")
+                    if skipped_count > 0:
+                        message_parts.append(f"{skipped_count} students not marked")
+                    
+                    success_message = "Attendance saved successfully for all grouped classes! " + ", ".join(message_parts) + "."
+                    messages.success(request, success_message)
+                    
+                    return redirect("facilitator_today_session", class_section_id=session.planned_session.class_section.id)
+                    
+            except Exception as e:
+                messages.error(request, f"Error saving attendance: {str(e)}")
+                logger.error(f"Error saving attendance for grouped session {session.id}: {e}")
+        
+        return render(request, "facilitator/mark_attendance_grouped.html", {
+            "session": session,
+            "grouped_classes": grouped_classes,
+            "classes_with_students": classes_with_students,
+            "total_students": total_students,
+            "is_grouped_session": True
+        })
+    
+    else:
+        # Single session - use original logic
+        enrollments = Enrollment.objects.filter(
+            class_section=session.planned_session.class_section,
+            is_active=True
+        ).select_related("student").prefetch_related(
+            Prefetch(
+                'attendances',
+                queryset=Attendance.objects.filter(actual_session=session),
+                to_attr='session_attendances'
+            )
+        )
+
+        if request.method == "POST":
+            saved_count = 0
+            skipped_count = 0
+            updated_count = 0
+            
+            try:
+                with transaction.atomic():
+                    for enrollment in enrollments:
+                        status = request.POST.get(str(enrollment.id))
+                        
+                        # Only save if a status is selected (not empty/not marked)
+                        if status and status in ['present', 'absent', 'leave']:
+                            attendance, created = Attendance.objects.update_or_create(
+                                actual_session=session,
+                                enrollment=enrollment,
+                                defaults={"status": status}
+                            )
+                            
+                            if created:
+                                saved_count += 1
+                            else:
+                                updated_count += 1
+                        else:
+                            # If status is empty, delete existing attendance if any
+                            Attendance.objects.filter(
+                                actual_session=session,
+                                enrollment=enrollment
+                            ).delete()
+                            skipped_count += 1
+
+                    # Update session attendance_marked flag
+                    session.attendance_marked = True
+                    session.save()
+
+                    # Create success message with details
+                    message_parts = []
+                    if saved_count > 0:
+                        message_parts.append(f"{saved_count} new attendance records saved")
+                    if updated_count > 0:
+                        message_parts.append(f"{updated_count} attendance records updated")
+                    if skipped_count > 0:
+                        message_parts.append(f"{skipped_count} students not marked")
+                    
+                    success_message = "Attendance saved successfully! " + ", ".join(message_parts) + "."
+                    messages.success(request, success_message)
+                    
+                    return redirect("facilitator_today_session", class_section_id=session.planned_session.class_section.id)
+                    
+            except Exception as e:
+                messages.error(request, f"Error saving attendance: {str(e)}")
+                logger.error(f"Error saving attendance for session {session.id}: {e}")
+
+        # For GET request, get existing attendance data
+        for enrollment in enrollments:
+            # Get existing attendance for this enrollment in this session
+            existing_attendance = Attendance.objects.filter(
+                actual_session=session,
+                enrollment=enrollment
+            ).first()
+            enrollment.existing_attendance = existing_attendance
+
+        return render(request, "facilitator/mark_attendance.html", {
+            "session": session,
+            "enrollments": enrollments
+        })
 
 
 @login_required
@@ -1459,6 +1788,9 @@ def facilitator_classes(request):
         messages.error(request, "Permission denied.")
         return redirect("no_permission")
 
+    from datetime import date
+    from .models import CalendarDate
+    
     # Schools assigned to facilitator
     assigned_schools = FacilitatorSchool.objects.filter(
         facilitator=request.user
@@ -1469,8 +1801,114 @@ def facilitator_classes(request):
         school__in=[fs.school for fs in assigned_schools]
     ).order_by("school__name", "class_level", "section")
 
+    # Add calendar info for today for each class
+    today = date.today()
+    
+    # Get all calendar entries for today
+    calendar_dates_today = CalendarDate.objects.filter(
+        date=today
+    ).select_related('school').prefetch_related('class_sections')
+    
+    # Create dicts for quick lookup
+    calendar_by_class = {}  # class-level entries (grouped sessions)
+    calendar_by_school = {}  # school-level entries (holidays, office work)
+    
+    for cal_date in calendar_dates_today:
+        # For session type with class_sections (new ManyToMany field)
+        if cal_date.date_type == 'session' and cal_date.class_sections.exists():
+            for class_section in cal_date.class_sections.all():
+                calendar_by_class[str(class_section.id)] = cal_date
+        # Legacy: single class_section field (backward compatibility)
+        elif cal_date.date_type == 'session' and cal_date.class_section:
+            calendar_by_class[str(cal_date.class_section.id)] = cal_date
+        
+        # School-level entries (holidays, office work - not sessions)
+        if cal_date.date_type in ['holiday', 'office_work'] and cal_date.school:
+            calendar_by_school[str(cal_date.school.id)] = cal_date
+    
+    # Group classes that share the same calendar entry (same group created by supervisor)
+    classes_with_calendar = []
+    processed_calendar_ids = set()
+    processed_class_ids = set()
+    
+    # First, identify which classes share the same calendar entry (new ManyToMany entries)
+    # Also group legacy entries by school + date + type
+    calendar_groups = {}  # key: calendar_entry_id or "legacy_school_date_type", value: list of classes
+    
+    for class_section in class_sections:
+        class_id_str = str(class_section.id)
+        
+        # Skip if already processed
+        if class_id_str in processed_class_ids:
+            continue
+        
+        school_id_str = str(class_section.school.id)
+        
+        # Check class-level entry first (grouped sessions), then school-level (holidays/office work)
+        calendar_entry = calendar_by_class.get(class_id_str) or calendar_by_school.get(school_id_str)
+        
+        if calendar_entry:
+            # Check if this is a new ManyToMany entry or legacy entry
+            if calendar_entry.class_sections.exists():
+                # New ManyToMany entry - get all classes in this entry
+                group_key = str(calendar_entry.id)
+                if group_key not in calendar_groups:
+                    calendar_groups[group_key] = {
+                        'classes': list(calendar_entry.class_sections.all()),
+                        'calendar_entry': calendar_entry,
+                    }
+            else:
+                # Legacy entry - group by school + date + type
+                group_key = f"legacy_{school_id_str}_{calendar_entry.date}_{calendar_entry.date_type}"
+                if group_key not in calendar_groups:
+                    # Find all classes from this school with calendar entries on the same date and type
+                    legacy_classes = []
+                    for other_class in class_sections:
+                        other_school_id_str = str(other_class.school.id)
+                        if other_school_id_str == school_id_str:
+                            other_calendar = calendar_by_class.get(str(other_class.id))
+                            if other_calendar and other_calendar.date == calendar_entry.date and other_calendar.date_type == calendar_entry.date_type:
+                                legacy_classes.append(other_class)
+                    
+                    calendar_groups[group_key] = {
+                        'classes': legacy_classes,
+                        'calendar_entry': calendar_entry,
+                    }
+        else:
+            # No calendar entry for this class
+            calendar_groups[f"no_entry_{class_id_str}"] = {
+                'classes': [class_section],
+                'calendar_entry': None,
+            }
+    
+    # Now build the output list from the groups
+    for group_key, group_data in calendar_groups.items():
+        grouped_classes = group_data['classes']
+        calendar_entry = group_data['calendar_entry']
+        
+        # Mark all classes in this group as processed
+        for cls in grouped_classes:
+            processed_class_ids.add(str(cls.id))
+        
+        # Determine today's status
+        today_status = 'session'  # default
+        if calendar_entry:
+            if calendar_entry.date_type == 'holiday':
+                today_status = 'holiday'
+            elif calendar_entry.date_type == 'office_work':
+                today_status = 'office_work'
+            elif calendar_entry.date_type == 'session':
+                today_status = 'session'
+        
+        classes_with_calendar.append({
+            'class_sections': grouped_classes,  # List of grouped classes
+            'class_section': grouped_classes[0] if grouped_classes else None,  # Primary class for display
+            'today_status': today_status,
+            'calendar_entry': calendar_entry,
+        })
+
     return render(request, "facilitator/classes/list.html", {
-        "class_sections": class_sections
+        "class_sections": classes_with_calendar
     })
 
 
@@ -4167,25 +4605,59 @@ def upload_lesson_plan(request):
         
         # Create or update lesson plan upload
         from .models import LessonPlanUpload
-        lesson_plan_upload, created = LessonPlanUpload.objects.update_or_create(
-            planned_session=planned_session,
-            facilitator=request.user,
-            defaults={
-                'lesson_plan_file': lesson_plan_file,
-                'file_name': lesson_plan_file.name,
-                'file_size': lesson_plan_file.size,
-                'upload_notes': upload_notes,
-                'is_approved': False
-            }
-        )
         
-        return JsonResponse({
-            "success": True,
-            "message": "Lesson plan uploaded successfully",
-            "upload_id": str(lesson_plan_upload.id),
-            "file_name": lesson_plan_upload.file_name,
-            "file_size": lesson_plan_upload.file_size
-        })
+        # For grouped sessions, upload to ALL grouped sessions
+        if planned_session.grouped_session_id:
+            # Get all sessions in the group with the same day number
+            grouped_sessions = PlannedSession.objects.filter(
+                grouped_session_id=planned_session.grouped_session_id,
+                day_number=planned_session.day_number
+            )
+            
+            # Upload to all grouped sessions
+            uploaded_count = 0
+            for grouped_session in grouped_sessions:
+                lesson_plan_upload, created = LessonPlanUpload.objects.update_or_create(
+                    planned_session=grouped_session,
+                    facilitator=request.user,
+                    defaults={
+                        'lesson_plan_file': lesson_plan_file,
+                        'file_name': lesson_plan_file.name,
+                        'file_size': lesson_plan_file.size,
+                        'upload_notes': upload_notes,
+                        'is_approved': False
+                    }
+                )
+                uploaded_count += 1
+            
+            return JsonResponse({
+                "success": True,
+                "message": f"Lesson plan uploaded successfully to {uploaded_count} grouped classes",
+                "upload_id": str(lesson_plan_upload.id),
+                "file_name": lesson_plan_upload.file_name,
+                "file_size": lesson_plan_upload.file_size
+            })
+        else:
+            # Single session - upload to this session only
+            lesson_plan_upload, created = LessonPlanUpload.objects.update_or_create(
+                planned_session=planned_session,
+                facilitator=request.user,
+                defaults={
+                    'lesson_plan_file': lesson_plan_file,
+                    'file_name': lesson_plan_file.name,
+                    'file_size': lesson_plan_file.size,
+                    'upload_notes': upload_notes,
+                    'is_approved': False
+                }
+            )
+            
+            return JsonResponse({
+                "success": True,
+                "message": "Lesson plan uploaded successfully",
+                "upload_id": str(lesson_plan_upload.id),
+                "file_name": lesson_plan_upload.file_name,
+                "file_size": lesson_plan_upload.file_size
+            })
         
     except Exception as e:
         logger.error(f"Error uploading lesson plan: {e}")

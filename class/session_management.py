@@ -54,18 +54,29 @@ class SessionSequenceCalculator:
     """
     
     @staticmethod
-    def get_next_pending_session(class_section: ClassSection) -> Optional[PlannedSession]:
+    def get_next_pending_session(class_section: ClassSection, facilitator: User = None) -> Optional[PlannedSession]:
         """
         Returns the next session that needs to be conducted
         This is the core "Today's Session" logic
+        
+        If facilitator is provided, returns the continuation day for that facilitator
+        Otherwise, returns the next pending session for the class
         
         IMPORTANT: Sessions should only advance to the next day after midnight,
         not immediately after conducting or marking as holiday
         """
         from django.utils import timezone
+        from .services.facilitator_session_continuation import FacilitatorSessionContinuation
+        
         today = timezone.now().date()
         
         try:
+            # If facilitator is provided, use continuation logic
+            if facilitator:
+                return FacilitatorSessionContinuation.get_next_session_for_facilitator(
+                    class_section, facilitator
+                )
+            
             # First, check if there's a session that was conducted or marked as holiday TODAY
             # If so, return that session (don't advance until tomorrow)
             todays_session = ActualSession.objects.filter(
@@ -228,6 +239,66 @@ class SessionSequenceCalculator:
             
         except Exception as e:
             logger.error(f"Error calculating progress for {class_section}: {e}")
+        
+        return metrics
+    
+    @staticmethod
+    def get_facilitator_progress(class_section: ClassSection, facilitator: User) -> ProgressMetrics:
+        """
+        Computes progress metrics specific to a facilitator on a class section
+        """
+        metrics = ProgressMetrics(class_section)
+        
+        try:
+            # Get all planned sessions
+            planned_sessions = PlannedSession.objects.filter(
+                class_section=class_section,
+                is_active=True
+            )
+            
+            metrics.total_sessions = planned_sessions.count()
+            
+            # Count sessions by status for this facilitator
+            status_counts = ActualSession.objects.filter(
+                planned_session__class_section=class_section,
+                facilitator=facilitator
+            ).values('status').annotate(count=Count('id'))
+            
+            for status_count in status_counts:
+                status = status_count['status']
+                count = status_count['count']
+                
+                if status == 'conducted':
+                    metrics.conducted_sessions = count
+                elif status == 'cancelled':
+                    metrics.cancelled_sessions = count
+                elif status == 'holiday':
+                    metrics.holiday_sessions = count
+            
+            # Calculate pending sessions
+            metrics.pending_sessions = metrics.total_sessions - (
+                metrics.conducted_sessions + metrics.cancelled_sessions
+            )
+            
+            # Calculate completion percentage
+            completed_sessions = metrics.conducted_sessions + metrics.cancelled_sessions
+            if metrics.total_sessions > 0:
+                metrics.completion_percentage = (completed_sessions / metrics.total_sessions) * 100
+            
+            # Get next session for this facilitator
+            from .services.facilitator_session_continuation import FacilitatorSessionContinuation
+            metrics.current_session = FacilitatorSessionContinuation.get_next_session_for_facilitator(
+                class_section, facilitator
+            )
+            if metrics.current_session:
+                metrics.next_day_number = metrics.current_session.day_number
+            else:
+                metrics.next_day_number = 151
+            
+            logger.info(f"Progress metrics for {facilitator} on {class_section}: {metrics.completion_percentage}% complete")
+            
+        except Exception as e:
+            logger.error(f"Error calculating facilitator progress for {facilitator} on {class_section}: {e}")
         
         return metrics
     

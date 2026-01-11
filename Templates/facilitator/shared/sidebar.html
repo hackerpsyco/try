@@ -41,11 +41,18 @@
             Students
         </a>
 
-        <!-- Today's Sessions -->
-        <a class="nav-link {% if 'today' in request.resolver_match.url_name or 'facilitator_classes' in request.resolver_match.url_name %}active{% endif %}"
-           href="{% url 'facilitator_classes' %}">
+        <!-- Student Performance -->
+        <a class="nav-link {% if 'student_performance' in request.resolver_match.url_name or 'facilitator_performance' in request.resolver_match.url_name %}active{% endif %}"
+           href="{% url 'facilitator_performance_class_select' %}">
+            <span class="material-symbols-outlined">trending_up</span>
+            Performance
+        </a>
+
+        <!-- Today's Session (Calendar-based) -->
+        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_today_session' %}active{% endif %}"
+           href="{% url 'facilitator_today_session' %}">
             <span class="material-symbols-outlined">today</span>
-            Today's Sessions
+            Today's Session
         </a>
 
 

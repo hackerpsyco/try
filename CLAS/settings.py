@@ -76,22 +76,25 @@ else:
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ UPDATED: Added WhiteNoise here
-    'django.middleware.cache.UpdateCacheMiddleware',  # Cache middleware (first)
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'class.performance_middleware.PerformanceOptimizationMiddleware',  # Performance optimization
-    'class.performance_middleware.BrowserCachingMiddleware',  # Browser caching
-    'class.performance_middleware.ResponseCompressionMiddleware',  # Response compression
-    'django.middleware.cache.FetchFromCacheMiddleware',  # Cache middleware (last)
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',  # Messages BEFORE our custom middleware
-    'class.session_timeout_middleware.SessionTimeoutMiddleware',  # Session timeout handling
-    'class.session_timeout_middleware.UserFriendlyErrorMiddleware',  # User-friendly errors
-    'class.session_timeout_middleware.PostLoginRedirectMiddleware',  # Post-login redirects
-    'class.middleware.MessageCleanupMiddleware',  # Custom message cleanup
-    'class.middleware.DebugMessageSuppressMiddleware',  # Debug message suppression
+    'django.contrib.messages.middleware.MessageMiddleware',
+    # ✅ DATABASE CONNECTION HANDLING (FIRST - before other middleware)
+    'class.db_connection_middleware.DatabaseConnectionMiddleware',
+    # ✅ SESSION MANAGEMENT (NO TIMEOUT - USERS STAY LOGGED IN)
+    'class.services.session_auth_fix.LocalStorageCleanupMiddleware',
+    'class.services.session_auth_fix.URLAccessControlMiddleware',
+    # Performance optimization
+    'class.performance_middleware.PerformanceOptimizationMiddleware',
+    'class.performance_middleware.BrowserCachingMiddleware',
+    'class.performance_middleware.ResponseCompressionMiddleware',
+    # Error handling
+    'class.session_timeout_middleware.UserFriendlyErrorMiddleware',
+    'class.middleware.MessageCleanupMiddleware',
+    'class.middleware.DebugMessageSuppressMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -127,9 +130,12 @@ DATABASES = {
         'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',
+            'connect_timeout': 10,
+            'options': '-c statement_timeout=30000'  # 30 second timeout
         },
-        'CONN_MAX_AGE': 600,  # Keep connections alive for 10 minutes
+        'CONN_MAX_AGE': 0,  # ✅ FIXED: Don't reuse connections (was 600)
         'CONN_HEALTH_CHECKS': True,  # Enable connection health checks
+        'AUTOCOMMIT': True,  # Auto-commit transactions
     }
 }
 
@@ -174,12 +180,15 @@ CACHE_MIDDLEWARE_KEY_PREFIX = 'clas'
 # Session Configuration for Performance
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 SESSION_CACHE_ALIAS = 'sessions'
-SESSION_COOKIE_AGE = 3600  # 1 hour
-SESSION_SAVE_EVERY_REQUEST = False  # Only save when modified
+SESSION_COOKIE_AGE = 31536000  # 1 year (keep users logged in)
+SESSION_SAVE_EVERY_REQUEST = False  # Only save when modified (better performance)
+SESSION_COOKIE_SECURE = not DEBUG  # HTTPS only in production
+SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access
+SESSION_COOKIE_SAMESITE = 'Lax'  # CSRF protection
 
 # Session timeout configuration (in seconds)
-SESSION_TIMEOUT = 3600  # 1 hour - matches SESSION_COOKIE_AGE
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Sessions expire when browser closes
+SESSION_TIMEOUT = 31536000  # 1 year - keep users logged in
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Sessions persist after browser closes
 
 # Database Query Optimization
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
