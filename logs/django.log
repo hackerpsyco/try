@@ -15943,3 +15943,93 @@ INFO 2026-01-11 19:42:32,372 autoreload 39812 42060 C:\Users\piyus\CLAS\CLAS\cla
 INFO 2026-01-11 19:42:33,979 autoreload 44840 25900 Watching for file changes with StatReloader
 INFO 2026-01-11 19:43:11,628 autoreload 44840 25900 C:\Users\piyus\CLAS\CLAS\class\services\session_auth_fix.py changed, reloading.
 INFO 2026-01-11 19:43:13,241 autoreload 31120 39112 Watching for file changes with StatReloader
+INFO 2026-01-11 19:51:39,731 autoreload 27820 10112 Watching for file changes with StatReloader
+INFO 2026-01-11 19:51:52,480 basehttp 27820 42412 "GET / HTTP/1.1" 302 0
+ERROR 2026-01-11 19:51:54,527 log 27820 42412 Internal Server Error: /login/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views_auth.py", line 29, in login_view
+    return render(request, 'login.html')
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: login.html
+ERROR 2026-01-11 19:51:54,547 basehttp 27820 42412 "GET /login/ HTTP/1.1" 500 14143
+INFO 2026-01-11 19:51:59,592 basehttp 27820 42412 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2026-01-11 19:52:01,916 log 27820 42412 Internal Server Error: /login/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views_auth.py", line 29, in login_view
+    return render(request, 'login.html')
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: login.html
+ERROR 2026-01-11 19:52:01,928 basehttp 27820 42412 "GET /login/ HTTP/1.1" 500 14099
+ERROR 2026-01-11 19:52:06,867 log 27820 42412 Internal Server Error: /login/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views_auth.py", line 29, in login_view
+    return render(request, 'login.html')
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: login.html
+ERROR 2026-01-11 19:52:06,882 basehttp 27820 42412 "GET /login/ HTTP/1.1" 500 13998
+INFO 2026-01-11 19:52:10,699 basehttp 27820 42412 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-11 19:52:12,083 autoreload 27820 10112 C:\Users\piyus\CLAS\CLAS\class\views_auth.py changed, reloading.
+INFO 2026-01-11 19:52:13,935 autoreload 2256 21056 Watching for file changes with StatReloader
+INFO 2026-01-11 19:52:18,946 autoreload 2256 21056 C:\Users\piyus\CLAS\CLAS\class\views_auth.py changed, reloading.
+INFO 2026-01-11 19:52:20,719 autoreload 43584 19840 Watching for file changes with StatReloader
+INFO 2026-01-11 19:52:28,460 autoreload 43584 19840 C:\Users\piyus\CLAS\CLAS\class\views_auth.py changed, reloading.
+INFO 2026-01-11 19:52:29,813 autoreload 45004 31548 Watching for file changes with StatReloader
+INFO 2026-01-11 19:52:34,477 autoreload 45004 31548 C:\Users\piyus\CLAS\CLAS\class\views_auth.py changed, reloading.
+INFO 2026-01-11 19:52:36,040 autoreload 42688 16080 Watching for file changes with StatReloader
+INFO 2026-01-11 19:52:44,953 basehttp 42688 42408 "GET / HTTP/1.1" 302 0
+INFO 2026-01-11 19:52:47,064 basehttp 42688 42408 "GET /login/ HTTP/1.1" 200 1190
+INFO 2026-01-11 19:53:02,915 views_auth 42688 42408 User piyush81@gmail.com logged in successfully
+INFO 2026-01-11 19:53:04,015 basehttp 42688 42408 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-11 19:53:09,122 basehttp 42688 42408 "GET /supervisor/dashboard/ HTTP/1.1" 200 4734
+INFO 2026-01-11 19:53:21,260 basehttp 42688 42408 "GET /supervisor/calendar/ HTTP/1.1" 200 6220
+INFO 2026-01-11 19:53:27,490 basehttp 42688 42408 "GET /supervisor/facilitators/ HTTP/1.1" 200 4982
+INFO 2026-01-11 19:53:33,108 session_auth_fix 42688 42408 User piyush81@gmail.com logged out successfully
+INFO 2026-01-11 19:53:33,108 views_auth 42688 42408 User piyush81@gmail.com logged out successfully
+INFO 2026-01-11 19:53:33,109 session_auth_fix 42688 42408 Logout detected for anonymous
+INFO 2026-01-11 19:53:34,277 basehttp 42688 42408 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-11 19:53:36,247 basehttp 42688 42408 "GET /login/ HTTP/1.1" 200 1100

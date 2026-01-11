@@ -26,7 +26,7 @@ def login_view(request):
         if request.user.is_authenticated:
             return redirect_to_dashboard(request.user)
         
-        return render(request, 'login.html')
+        return render(request, 'auth/login.html')
     
     # POST request - process login
     email = request.POST.get('email', '').strip()
@@ -34,7 +34,7 @@ def login_view(request):
     
     if not email or not password:
         messages.error(request, "Please enter both email and password.")
-        return render(request, 'login.html')
+        return render(request, 'auth/login.html')
     
     try:
         # Authenticate user
@@ -60,12 +60,12 @@ def login_view(request):
         else:
             logger.warning(f"Failed login attempt for {email}")
             messages.error(request, "Invalid email or password.")
-            return render(request, 'login.html')
+            return render(request, 'auth/login.html')
     
     except Exception as e:
         logger.error(f"Login error: {str(e)}")
         messages.error(request, "An error occurred during login. Please try again.")
-        return render(request, 'login.html')
+        return render(request, 'auth/login.html')
 
 
 @require_http_methods(["GET", "POST"])
