@@ -15936,3 +15936,10 @@ INFO 2026-01-11 19:12:21,819 signals 22076 22020 Successfully auto-generated 150
 INFO 2026-01-11 19:12:31,240 signals 22076 22020 Auto-generating sessions for new class: Test School - 1A (2024-2025)
 INFO 2026-01-11 19:12:34,312 session_management 22076 22020 Generated 150 sessions for Test School - 1A (2024-2025)
 INFO 2026-01-11 19:12:34,619 signals 22076 22020 Successfully auto-generated 150 sessions for Test School - 1A (2024-2025)
+INFO 2026-01-11 19:40:22,504 autoreload 22348 1896 Watching for file changes with StatReloader
+INFO 2026-01-11 19:40:33,099 autoreload 43492 4612 Watching for file changes with StatReloader
+INFO 2026-01-11 19:42:22,692 autoreload 39812 42060 Watching for file changes with StatReloader
+INFO 2026-01-11 19:42:32,372 autoreload 39812 42060 C:\Users\piyus\CLAS\CLAS\class\views_auth.py changed, reloading.
+INFO 2026-01-11 19:42:33,979 autoreload 44840 25900 Watching for file changes with StatReloader
+INFO 2026-01-11 19:43:11,628 autoreload 44840 25900 C:\Users\piyus\CLAS\CLAS\class\services\session_auth_fix.py changed, reloading.
+INFO 2026-01-11 19:43:13,241 autoreload 31120 39112 Watching for file changes with StatReloader

@@ -209,7 +209,7 @@ class SessionCleanupService:
         
         # Check if user still exists in database
         try:
-            from class.models import User
+            from ..models import User
             User.objects.get(id=request.user.id)
             return True
         except User.DoesNotExist:

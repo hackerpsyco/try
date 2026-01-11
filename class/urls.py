@@ -1,7 +1,11 @@
 from django.urls import path, include
+from .views_auth import (
+    # Auth views
+    login_view, logout_view, session_check_view, clear_session_view,
+)
 from .views import (
     # Auth
-    login_view, logout_view, dashboard, no_permission,
+    dashboard, no_permission,
 
     # Admin – users & setup
     users_view, add_user, edit_user, delete_user, create_user_ajax,

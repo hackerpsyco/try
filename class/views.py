@@ -52,80 +52,12 @@ ROLE_CONFIG = {
 
 # -------------------------------
 # Authentication Views
-# -------------------------------
-def login_view(request):
-    if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        user = authenticate(request, email=email, password=password)
-
-        if user:
-            login(request, user)
-            
-            # Check for stored redirect URL
-            next_url = request.session.get('next_url')
-            session_expired = request.session.get('session_expired', False)
-            
-            # Clear session flags
-            for key in ['next_url', 'session_expired', 'recently_logged_out']:
-                if key in request.session:
-                    del request.session[key]
-            
-            if next_url:
-                # Validate the URL is still accessible and safe
-                if _is_safe_redirect_url(next_url, request):
-                    return redirect(next_url)
-            
-            # Default redirect to role-based dashboard
-            role_name = user.role.name.upper()
-            redirect_url = ROLE_CONFIG.get(role_name, {}).get("url", "/")
-            return redirect(redirect_url)
-
-        messages.error(request, "Invalid email or password.")
-
-    # Handle GET request - check for session expired message
-    if request.session.get('session_expired'):
-        messages.warning(request, "Your session expired. Please log in again.")
-    
-    return render(request, "auth/login.html")
-
-
-def _is_safe_redirect_url(url, request):
-    """
-    Check if a redirect URL is safe and accessible
-    """
-    from django.urls import resolve
-    from django.core.exceptions import Resolver404
-    from urllib.parse import urlparse
-    
-    try:
-        # Parse the URL
-        parsed = urlparse(url)
-        
-        # Only allow relative URLs (same domain)
-        if parsed.netloc and parsed.netloc != request.get_host():
-            return False
-        
-        # Try to resolve the URL
-        resolve(parsed.path)
-        
-        # Additional safety checks can be added here
-        # For example, checking if the user has permission to access the URL
-        
-        return True
-        
-    except (Resolver404, Exception):
-        return False
-
-
-@login_required
-def logout_view(request):
-    # Set flag to indicate user was recently logged out
-    request.session['recently_logged_out'] = True
-    
-    logout(request)
-    messages.success(request, "You have successfully logged out.")
-    return redirect('/')
+# ✅ Authentication views moved to views_auth.py
+# - login_view
+# - logout_view
+# - session_check_view
+# - clear_session_view
+# These are now imported from views_auth.py in urls.py
 
 
 # -------------------------------
