@@ -9,7 +9,7 @@ from unittest.mock import Mock
 
 from ..models import (
     CurriculumSession, User, Role, School, ClassSection, 
-    PlannedSession, SessionContentMapping, CurriculumUsageLog
+    PlannedSession, SessionContentMapping, CurriculumUsageLog, CurriculumStatus
 )
 from .session_integration_service import SessionIntegrationService, IntegratedSessionData, AlignmentReport
 
@@ -71,7 +71,7 @@ class TestSessionIntegrationService(TestCase):
             language='english',
             content='<p>Test curriculum content</p>',
             learning_objectives='Test learning objectives',
-            status='published',
+            status=CurriculumStatus.PUBLISHED,
             created_by=self.admin_user,
             is_active_for_facilitators=True
         )
@@ -187,7 +187,7 @@ class TestSessionIntegrationService(TestCase):
                 day_number=day,
                 language='english',
                 content=f'<p>Test content for day {day}</p>',
-                status='published',
+                status=CurriculumStatus.PUBLISHED,
                 created_by=self.admin_user,
                 is_active_for_facilitators=True
             )
@@ -245,7 +245,7 @@ class TestSessionIntegrationService(TestCase):
             day_number=2,
             language='english',
             content='<p>Test content for day 2</p>',
-            status='published',
+            status=CurriculumStatus.PUBLISHED,
             created_by=self.admin_user,
             is_active_for_facilitators=True
         )

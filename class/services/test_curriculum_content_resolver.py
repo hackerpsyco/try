@@ -8,7 +8,7 @@ from django.core.cache import cache
 from django.utils import timezone
 from unittest.mock import patch, mock_open
 
-from ..models import CurriculumSession, User, Role
+from ..models import CurriculumSession, User, Role, CurriculumStatus
 from .curriculum_content_resolver import CurriculumContentResolver, ContentResult, AvailabilityStatus, ContentMetadata
 
 
@@ -42,7 +42,7 @@ class TestCurriculumContentResolver(TestCase):
             learning_objectives='Test learning objectives',
             activities={'warm_up': 'Test warm up activity'},
             resources={'video': 'http://example.com/video.mp4'},
-            status='published',
+            status=CurriculumStatus.PUBLISHED,
             created_by=self.admin_user,
             is_active_for_facilitators=True
         )

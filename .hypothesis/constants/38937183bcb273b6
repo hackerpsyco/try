@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0033_plannedsession_content_version_and_more.py
+# hypothesis_version: 6.148.11
+
+['class', 'content_version', 'curriculum_session', 'last_content_sync', 'planned_sessions', 'plannedsession']

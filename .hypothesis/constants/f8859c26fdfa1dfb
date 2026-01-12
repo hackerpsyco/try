@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\services\session_integration_service.py
+# hypothesis_version: 6.148.11
+
+[100, ',', 'HTTP_USER_AGENT', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR', 'admin_managed', 'content_source', 'curriculum_session', 'day_number', 'english', 'error', 'errors', 'failed', 'issue', 'language', 'linked_to_admin', 'linked_to_static', 'recommendation', 'static_fallback', 'sync_status', 'synced', 'title', 'total_sessions']

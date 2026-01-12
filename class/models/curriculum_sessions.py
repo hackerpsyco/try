@@ -4,6 +4,14 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 
 
+# PHASE 1 OPTIMIZATION: CurriculumStatus choices
+class CurriculumStatus(models.IntegerChoices):
+    """Status choices for CurriculumSession - optimized for performance"""
+    DRAFT = 1, "Draft"
+    PUBLISHED = 2, "Published"
+    ARCHIVED = 3, "Archived"
+
+
 class CurriculumSession(models.Model):
     """
     Represents a curriculum session for admin management.
@@ -13,12 +21,6 @@ class CurriculumSession(models.Model):
     LANGUAGE_CHOICES = [
         ('hindi', 'Hindi'),
         ('english', 'English'),
-    ]
-    
-    STATUS_CHOICES = [
-        ('draft', 'Draft'),
-        ('published', 'Published'),
-        ('archived', 'Archived'),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -69,10 +71,10 @@ class CurriculumSession(models.Model):
         help_text="Optional source template"
     )
     
-    status = models.CharField(
-        max_length=20,
-        choices=STATUS_CHOICES,
-        default='draft'
+    status = models.SmallIntegerField(
+        choices=CurriculumStatus.choices,
+        default=CurriculumStatus.DRAFT,
+        help_text="Status: 1=Draft, 2=Published, 3=Archived"
     )
     
     created_at = models.DateTimeField(auto_now_add=True)
@@ -233,6 +235,11 @@ class SessionUsageLog(models.Model):
 
     class Meta:
         ordering = ['-access_timestamp']
+        # PHASE 1 OPTIMIZATION: Add critical indexes
+        indexes = [
+            models.Index(fields=['session', 'facilitator'], name='suslog_sess_facil_idx'),
+            models.Index(fields=['facilitator', 'access_timestamp'], name='suslog_facil_ts_idx'),
+        ]
         verbose_name = "Session Usage Log"
         verbose_name_plural = "Session Usage Logs"
 
@@ -401,6 +408,11 @@ class CurriculumUsageLog(models.Model):
 
     class Meta:
         ordering = ['-access_timestamp']
+        # PHASE 1 OPTIMIZATION: Add critical indexes
+        indexes = [
+            models.Index(fields=['curriculum_session', 'facilitator'], name='culog_curr_facil_idx'),
+            models.Index(fields=['facilitator', 'access_timestamp'], name='culog_facil_ts_idx'),
+        ]
         verbose_name = "Curriculum Usage Log"
         verbose_name_plural = "Curriculum Usage Logs"
 

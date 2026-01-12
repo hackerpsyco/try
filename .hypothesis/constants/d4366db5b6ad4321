@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\session_management.py
+# hypothesis_version: 6.148.11
+
+[0.0, 100, 150, 151, '-date', 'Unknown', 'attendance_marked', 'can_be_rescheduled', 'cancellation_reason', 'cancelled', 'conducted', 'conducted_at', 'count', 'created_count', 'date', 'day_number', 'description', 'duration_minutes', 'errors', 'facilitator', 'gaps_filled', 'holiday', 'id', 'pending', 'planned_session', 'remarks', 'sessions_created', 'skipped_count', 'status', 'status_change_reason', 'status_changed_by', 'success', 'title']

@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from .models import ActualSession, FacilitatorTask
+from .models import ActualSession, FacilitatorTask, CurriculumSession, CurriculumStatus
 from .decorators import facilitator_required
 import os
 import logging
@@ -45,7 +45,7 @@ def facilitator_task_step(request, actual_session_id):
         # Assuming curriculum is language-specific, try to match by day
         curriculum_session = CurriculumSession.objects.filter(
             day_number=planned_session.day_number,
-            status='published'
+            status=CurriculumStatus.PUBLISHED
         ).first()
     except Exception as e:
         logger.warning(f"Error loading curriculum session: {str(e)}")

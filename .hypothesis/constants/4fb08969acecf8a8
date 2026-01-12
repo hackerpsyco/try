@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0025_facilitatortask.py
+# hypothesis_version: 6.148.11
+
+['-created_at', 'Facebook Link', 'FacilitatorTask', 'Photo', 'Photo or video file', 'Video', 'actual_session', 'class', 'class.actualsession', 'created_at', 'description', 'facebook_link', 'facilitator', 'facilitator_tasks', 'id', 'indexes', 'media_file', 'media_type', 'ordering', 'photo', 'updated_at', 'video']

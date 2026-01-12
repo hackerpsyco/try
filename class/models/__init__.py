@@ -6,14 +6,15 @@ from .facilitor_school import FacilitatorSchool
 from .students import (
     Student, Enrollment, PlannedSession, ActualSession, Attendance, SessionStep,
     SessionBulkTemplate, LessonPlanUpload, SessionReward, SessionFeedback, 
-    SessionPreparationChecklist, StudentFeedback, TeacherFeedback, FeedbackAnalytics, CANCELLATION_REASONS
+    SessionPreparationChecklist, StudentFeedback, TeacherFeedback, FeedbackAnalytics, CANCELLATION_REASONS,
+    SessionStatus, AttendanceStatus, SessionCancellation
 )
 from .curriculum_sessions import (
     CurriculumSession, SessionTemplate, SessionUsageLog, ImportHistory, 
-    SessionVersionHistory, CurriculumUsageLog, SessionContentMapping
+    SessionVersionHistory, CurriculumUsageLog, SessionContentMapping, CurriculumStatus
 )
 from .calendar import (
-    SupervisorCalendar, CalendarDate, OfficeWorkAttendance
+    SupervisorCalendar, CalendarDate, OfficeWorkAttendance, DateType
 )
 from .facilitator_task import FacilitatorTask
 from .student_performance import (

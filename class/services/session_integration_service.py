@@ -11,7 +11,7 @@ from django.db import transaction
 
 from ..models import (
     PlannedSession, CurriculumSession, SessionContentMapping, 
-    ClassSection, CurriculumUsageLog
+    ClassSection, CurriculumUsageLog, CurriculumStatus
 )
 
 logger = logging.getLogger(__name__)
@@ -340,7 +340,7 @@ class SessionIntegrationService:
             return CurriculumSession.objects.get(
                 day_number=day_number,
                 language=language,
-                status='published'
+                status=CurriculumStatus.PUBLISHED
             )
         except CurriculumSession.DoesNotExist:
             return None

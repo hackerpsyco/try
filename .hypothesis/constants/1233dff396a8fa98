@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\urls_reports.py
+# hypothesis_version: 6.148.11
+
+['admin/reports/', 'download_pdf_report', 'get_report_data', 'reports_dashboard']

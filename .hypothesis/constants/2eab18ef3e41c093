@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0020_curriculum_integration.py
+# hypothesis_version: 6.148.11
+
+['-access_timestamp', 'Admin Managed', 'Curriculum Usage Log', 'CurriculumUsageLog', 'Failed', 'Not Available', 'Outdated', 'Static Fallback', 'Synced', 'access_timestamp', 'admin_managed', 'class', 'class.classsection', 'class.plannedsession', 'class_section', 'content_source', 'curriculum_accesses', 'curriculum_mapping', 'curriculum_session', 'curriculumsession', 'facilitator', 'failed', 'fallback_to_static', 'id', 'ip_address', 'last_accessed', 'last_sync', 'not_available', 'ordering', 'outdated', 'planned_mappings', 'planned_session', 'session', 'session_duration', 'session_usage_logs', 'sessionusagelog', 'static_fallback', 'sync_status', 'synced', 'usage_count', 'user_agent', 'verbose_name', 'verbose_name_plural']

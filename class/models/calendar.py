@@ -5,6 +5,14 @@ from .school import School
 from .class_section import ClassSection
 
 
+# PHASE 1 OPTIMIZATION: DateType choices
+class DateType(models.IntegerChoices):
+    """Date type choices for CalendarDate - optimized for performance"""
+    SESSION = 1, "Planned Session"
+    HOLIDAY = 2, "Holiday / No Session"
+    OFFICE_WORK = 3, "Office Work / Task"
+
+
 class SupervisorCalendar(models.Model):
     """
     Calendar management for a supervisor
@@ -31,11 +39,6 @@ class CalendarDate(models.Model):
     Can be: planned session, holiday, or office work
     Supports multiple classes for grouped sessions
     """
-    DATE_TYPE_CHOICES = [
-        ('session', 'Planned Session'),
-        ('holiday', 'Holiday / No Session'),
-        ('office_work', 'Office Work / Task'),
-    ]
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
@@ -51,10 +54,11 @@ class CalendarDate(models.Model):
         blank=True,
         help_text="Time for the session/office work"
     )
-    date_type = models.CharField(
-        max_length=20,
-        choices=DATE_TYPE_CHOICES,
-        default='session'
+    # PHASE 1 OPTIMIZATION: Use SmallIntegerField with IntegerChoices
+    date_type = models.SmallIntegerField(
+        choices=DateType.choices,
+        default=DateType.SESSION,
+        help_text="Type: 1=Session, 2=Holiday, 3=Office Work"
     )
     
     # For session type - support multiple classes (grouped sessions)
@@ -108,9 +112,11 @@ class CalendarDate(models.Model):
     
     class Meta:
         ordering = ['date']
+        # PHASE 1 OPTIMIZATION: Add critical indexes
         indexes = [
-            models.Index(fields=['calendar', 'date']),
-            models.Index(fields=['date_type']),
+            models.Index(fields=['calendar', 'date'], name='caldate_cal_date_idx'),
+            models.Index(fields=['date_type', 'date'], name='caldate_type_date_idx'),
+            models.Index(fields=['school', 'date'], name='caldate_sch_date_idx'),
         ]
     
     def __str__(self):

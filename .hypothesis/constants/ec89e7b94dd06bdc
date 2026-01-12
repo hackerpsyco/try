@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\performance_middleware.py
+# hypothesis_version: 6.148.11
+
+[1024, '.css', '.eot', '.gif', '.html', '.jpeg', '.jpg', '.js', '.png', '.svg', '.ttf', '.webp', '.woff', '.woff2', '/api/', '/static/', '0', '1; mode=block', 'Accept-Encoding', 'Cache-Control', 'Content-Encoding', 'Content-Length', 'Content-Type', 'Expires', 'HTTP_ACCEPT_ENCODING', 'IE=edge', 'Pragma', 'Referrer-Policy', 'SAMEORIGIN', 'Vary', 'X-Frame-Options', 'X-UA-Compatible', 'X-XSS-Protection', 'application/json', 'dashboard', 'gzip', 'no-cache', 'nosniff', 'public, max-age=300', 'reports', 'text/', 'wb']

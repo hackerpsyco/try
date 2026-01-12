@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0031_sessioncancellation.py
+# hypothesis_version: 6.148.11
+
+['Can be rescheduled', 'Cannot be undone', 'Session Cancellation', 'SessionCancellation', 'actual_session', 'can_be_rescheduled', 'cancellation', 'category', 'change_reason', 'changed_by', 'class', 'class.actualsession', 'created_at', 'duplicate_session', 'emergency', 'exam_period', 'id', 'indexes', 'is_permanent', 'reason', 'school_shutdown', 'syllabus_change', 'updated_at', 'verbose_name', 'verbose_name_plural']

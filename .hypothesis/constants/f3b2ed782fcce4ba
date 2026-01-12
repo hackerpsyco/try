@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\mixins.py
+# hypothesis_version: 6.148.11
+
+[0.5, 1.0, 200, 300, 400, '#', '-date', 'Cache-Control', 'FACILITATOR', 'User-Agent', '_', 'actual_sessions', 'anon', 'class_level', 'class_section', 'classsection', 'classsection_set', 'created_by', 'day_from', 'day_number', 'day_to', 'enrollment_set', 'error', 'facilitator', 'has_more', 'initial_count', 'initial_items', 'is_paginated', 'language', 'load_more_url', 'login', 'max-age=300', 'no_permission', 'object_list', 'page_obj', 'paginator', 'queries', 'school', 'school__name', 'school_id', 'section', 'status', 'student', 'template', 'time', 'total_count', 'view']

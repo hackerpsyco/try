@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 import os
 
-from ..models import CurriculumSession, ClassSection
+from ..models import CurriculumSession, ClassSection, CurriculumStatus
 
 logger = logging.getLogger(__name__)
 
@@ -220,7 +220,7 @@ class CurriculumContentResolver:
             return CurriculumSession.objects.get(
                 day_number=day,
                 language=language,
-                status='published'
+                status=CurriculumStatus.PUBLISHED
             )
         except CurriculumSession.DoesNotExist:
             return None

@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0018_add_leave_attendance_option.py
+# hypothesis_version: 6.148.11
+
+['Absent', 'Leave', 'Present', 'absent', 'attendance', 'class', 'leave', 'present', 'status']

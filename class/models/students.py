@@ -5,6 +5,24 @@ from django.core.exceptions import ValidationError
 
 
 # =========================
+# CHOICE ENUMS (PHASE 1 OPTIMIZATION)
+# =========================
+
+class SessionStatus(models.IntegerChoices):
+    """Status choices for ActualSession - optimized for performance"""
+    CONDUCTED = 1, "Conducted"
+    HOLIDAY = 2, "Holiday"
+    CANCELLED = 3, "Cancelled"
+
+
+class AttendanceStatus(models.IntegerChoices):
+    """Status choices for Attendance - optimized for performance"""
+    PRESENT = 1, "Present"
+    ABSENT = 2, "Absent"
+    LEAVE = 3, "Leave"
+
+
+# =========================
 # STUDENT
 # =========================
 class Student(models.Model):
@@ -43,6 +61,11 @@ class Enrollment(models.Model):
 
     class Meta:
         unique_together = ("student", "class_section", "is_active")
+        # PHASE 1 OPTIMIZATION: Add critical indexes
+        indexes = [
+            models.Index(fields=['is_active', 'school'], name='enroll_active_sch_idx'),
+            models.Index(fields=['student', 'is_active'], name='enroll_stud_active_idx'),
+        ]
 
     def save(self, *args, **kwargs):
         if not self.school and self.class_section:
@@ -110,6 +133,27 @@ class PlannedSession(models.Model):
         null=True,
         blank=True,
         help_text="If set, this session is part of a grouped session. All classes with same grouped_session_id share this session."
+    )
+    
+    # PHASE 2: Content Versioning Fields
+    curriculum_session = models.ForeignKey(
+        'CurriculumSession',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='planned_sessions',
+        help_text="Linked curriculum content"
+    )
+    
+    content_version = models.PositiveIntegerField(
+        default=1,
+        help_text="Version of curriculum content"
+    )
+    
+    last_content_sync = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="When content was last synced"
     )
     
     created_at = models.DateTimeField(auto_now_add=True)
@@ -231,14 +275,10 @@ class ActualSession(models.Model):
         related_name="conducted_sessions"
     )
 
-    status = models.CharField(
-        max_length=20,
-        choices=[
-            ("conducted", "Conducted"),
-            ("holiday", "Holiday"),
-            ("cancelled", "Cancelled"),
-        ],
-        default="conducted"
+    status = models.SmallIntegerField(
+        choices=SessionStatus.choices,
+        default=SessionStatus.CONDUCTED,
+        help_text="Session status: 1=Conducted, 2=Holiday, 3=Cancelled"
     )
 
     remarks = models.TextField(blank=True)
@@ -305,10 +345,12 @@ class ActualSession(models.Model):
         unique_together = ("planned_session", "date")
         verbose_name = "Actual Session"
         verbose_name_plural = "Actual Sessions"
+        # PHASE 1 OPTIMIZATION: Add critical indexes
         indexes = [
-            models.Index(fields=['planned_session', 'status']),
-            models.Index(fields=['date', 'status']),
-            models.Index(fields=['facilitator', 'date']),
+            models.Index(fields=['planned_session', 'status'], name='asess_sess_stat_idx'),
+            models.Index(fields=['date', 'status'], name='asess_date_stat_idx'),
+            models.Index(fields=['facilitator', 'date'], name='asess_facil_date_idx'),
+            models.Index(fields=['status', 'date'], name='asess_stat_date_idx'),
         ]
 
     def __str__(self):
@@ -316,16 +358,84 @@ class ActualSession(models.Model):
     
     def save(self, *args, **kwargs):
         # Set conducted_at when status changes to conducted
-        if self.status == 'conducted' and not self.conducted_at:
+        if self.status == SessionStatus.CONDUCTED and not self.conducted_at:
             from django.utils import timezone
             self.conducted_at = timezone.now()
         
         # Set permanent cancellation flag
-        if self.status == 'cancelled':
+        if self.status == SessionStatus.CANCELLED:
             self.is_permanent_cancellation = True
             self.can_be_rescheduled = False
         
         super().save(*args, **kwargs)
+
+
+# =========================
+# SESSION CANCELLATION - NEW (Phase 2)
+# =========================
+class SessionCancellation(models.Model):
+    """
+    Stores cancellation details for ActualSession
+    Only created when status = CANCELLED
+    Reduces ActualSession row size by moving cancellation fields
+    """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
+    actual_session = models.OneToOneField(
+        ActualSession,
+        on_delete=models.CASCADE,
+        related_name='cancellation',
+        help_text="Reference to the cancelled session"
+    )
+    
+    reason = models.CharField(
+        max_length=50,
+        choices=CANCELLATION_REASONS,
+        help_text="Why session was cancelled"
+    )
+    
+    category = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text="Cancellation category"
+    )
+    
+    is_permanent = models.BooleanField(
+        default=False,
+        help_text="Cannot be undone"
+    )
+    
+    can_be_rescheduled = models.BooleanField(
+        default=True,
+        help_text="Can be rescheduled"
+    )
+    
+    changed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='session_cancellations',
+        help_text="Who changed the status"
+    )
+    
+    change_reason = models.TextField(
+        blank=True,
+        help_text="Why status was changed"
+    )
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Session Cancellation"
+        verbose_name_plural = "Session Cancellations"
+        indexes = [
+            models.Index(fields=['actual_session', 'is_permanent'], name='scancel_sess_perm_idx'),
+        ]
+    
+    def __str__(self):
+        return f"Cancellation - {self.actual_session}"
 
 
 class Attendance(models.Model):
@@ -343,26 +453,43 @@ class Attendance(models.Model):
         related_name="attendances"
     )
 
-    status = models.CharField(
-        max_length=15,
-        choices=[
-            ("present", "Present"),
-            ("absent", "Absent"),
-            ("leave", "Leave"),
-        ]
+    # PHASE 1 OPTIMIZATION: Denormalized fields for faster reports
+    student_id = models.UUIDField(db_index=True, null=True, blank=True, help_text="Cached from enrollment.student_id")
+    class_section_id = models.UUIDField(db_index=True, null=True, blank=True, help_text="Cached from enrollment.class_section_id")
+    school_id = models.UUIDField(db_index=True, null=True, blank=True, help_text="Cached from enrollment.school_id")
+
+    status = models.SmallIntegerField(
+        choices=AttendanceStatus.choices,
+        default=AttendanceStatus.PRESENT,
+        help_text="Attendance status: 1=Present, 2=Absent, 3=Leave"
     )
 
     marked_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ("actual_session", "enrollment")
+        # PHASE 1 OPTIMIZATION: Add critical indexes
+        indexes = [
+            models.Index(fields=['status', 'marked_at'], name='attend_status_date_idx'),
+            models.Index(fields=['student_id', 'marked_at'], name='attend_stud_date_idx'),
+            models.Index(fields=['class_section_id', 'marked_at'], name='attend_cls_date_idx'),
+            models.Index(fields=['school_id', 'marked_at'], name='attend_sch_date_idx'),
+        ]
+
+    def save(self, *args, **kwargs):
+        # PHASE 1 OPTIMIZATION: Auto-populate denormalized fields
+        if self.enrollment:
+            self.student_id = self.enrollment.student_id
+            self.class_section_id = self.enrollment.class_section_id
+            self.school_id = self.enrollment.school_id
+        super().save(*args, **kwargs)
 
     def clean(self):
-        if self.actual_session.status != "conducted":
+        if self.actual_session.status != SessionStatus.CONDUCTED:
             raise ValidationError("Attendance can only be marked for conducted sessions.")
 
     def __str__(self):
-        return f"{self.enrollment} - {self.status}"
+        return f"{self.enrollment} - {self.get_status_display()}"
 
 
 # =========================

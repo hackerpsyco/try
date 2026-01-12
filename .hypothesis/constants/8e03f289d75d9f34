@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0022_supervisorcalendar_calendardate_officeworkattendance_and_more.py
+# hypothesis_version: 6.148.11
+
+[200, '-recorded_at', 'Absent', 'CalendarDate', 'Holiday / No Session', 'Office Work / Task', 'OfficeWorkAttendance', 'Planned Session', 'Present', 'SupervisorCalendar', 'absent', 'attendance_records', 'calendar', 'calendar_date', 'calendar_sessions', 'calendardate', 'class', 'class.calendardate', 'class.classsection', 'class_section', 'created_at', 'date', 'date_type', 'dates', 'facilitator', 'holiday', 'holiday_name', 'id', 'indexes', 'notes', 'office_work', 'ordering', 'present', 'recorded_at', 'remarks', 'session', 'status', 'supervisor', 'unique_together', 'updated_at']

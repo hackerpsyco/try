@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0024_alter_calendardate_unique_together_and_more.py
+# hypothesis_version: 6.148.11
+
+['calendar', 'calendardate', 'class', 'class_section', 'date']

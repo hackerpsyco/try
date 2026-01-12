@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0026_student_performance.py
+# hypothesis_version: 6.148.11
+
+[100, '-recorded_date', '0025_facilitatortask', 'A', 'Average (40-59)', 'B', 'C', 'Excellent (80-100)', 'F', 'Failed (0-39)', 'Good (60-79)', 'Performance Cutoffs', 'PerformanceCutoff', 'Rank in class', 'Score out of 100', 'StudentPerformance', 'Subject', 'Teacher remarks', 'average_score', 'class', 'class.classsection', 'class.student', 'class.subject', 'class_section', 'code', 'created_at', 'description', 'excellent_score', 'failed_subjects', 'good_score', 'grade', 'id', 'is_active', 'is_passed', 'last_updated', 'name', 'ordering', 'passed_subjects', 'passing_score', 'performance_cutoff', 'performance_records', 'performance_summary', 'rank', 'recorded_by', 'recorded_date', 'remarks', 'score', 'student', 'student_performances', 'studentperformance', 'subject', 'total_subjects', 'unique_together', 'updated_at', 'updated_date', 'verbose_name_plural']

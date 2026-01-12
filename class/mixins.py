@@ -175,6 +175,15 @@ class FacilitatorAccessMixin:
         """Check if facilitator has access to a specific school"""
         return self.get_facilitator_schools().filter(id=school_id).exists()
     
+    def check_class_access(self, class_section_id):
+        """Check if facilitator has access to a specific class section"""
+        from .models import ClassSection
+        try:
+            class_section = ClassSection.objects.get(id=class_section_id)
+            return self.check_school_access(class_section.school.id)
+        except ClassSection.DoesNotExist:
+            return False
+    
     def verify_school_access_or_403(self, school_id):
         """Verify school access or raise 403"""
         if not self.check_school_access(school_id):
@@ -192,6 +201,11 @@ class FacilitatorAccessMixin:
         except ClassSection.DoesNotExist:
             from django.core.exceptions import PermissionDenied
             raise PermissionDenied("Class section not found.")
+    
+    def filter_by_assigned_schools(self, queryset):
+        """Filter a queryset to only include items from schools assigned to the facilitator"""
+        facilitator_schools = self.get_facilitator_schools()
+        return queryset.filter(school__in=facilitator_schools)
 
 
 class DatabaseOptimizedMixin:

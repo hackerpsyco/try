@@ -82,9 +82,10 @@ class StudentPerformance(models.Model):
     class Meta:
         unique_together = ('student', 'class_section', 'subject')
         ordering = ['-recorded_date']
+        # PHASE 1 OPTIMIZATION: Add critical indexes
         indexes = [
-            models.Index(fields=['student', 'class_section']),
-            models.Index(fields=['class_section', 'subject']),
+            models.Index(fields=['student', 'subject'], name='perf_stud_subj_idx'),
+            models.Index(fields=['class_section', 'subject'], name='perf_cls_subj_idx'),
         ]
     
     def __str__(self):

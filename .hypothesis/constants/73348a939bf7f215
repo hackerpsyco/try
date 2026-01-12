@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\session_timeout_middleware.py
+# hypothesis_version: 6.148.11
+
+[3600, '/', '/admin/dashboard/', '/admin/login/', '/login', '/login/', '/media/', '/static/', 'ADMIN', 'FACILITATOR', 'POST', 'SESSION_TIMEOUT', 'SUPERVISOR', 'last_activity', 'next_url', 'session_expired']

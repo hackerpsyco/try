@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
-from ..models import CurriculumUsageLog, CurriculumSession, ClassSection, PlannedSession
+from ..models import CurriculumUsageLog, CurriculumSession, ClassSection, PlannedSession, CurriculumStatus
 
 logger = logging.getLogger(__name__)
 
@@ -266,7 +266,7 @@ class UsageTrackingService:
                 curriculum_session = CurriculumSession.objects.get(
                     day_number=day_number,
                     language=language,
-                    status='published'
+                    status=CurriculumStatus.PUBLISHED
                 )
             except CurriculumSession.DoesNotExist:
                 # Return default metrics if no admin-managed content exists

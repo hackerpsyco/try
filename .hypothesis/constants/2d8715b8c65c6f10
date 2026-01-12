@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\student_performance_views.py
+# hypothesis_version: 6.148.11
+
+[100, 400, 403, '-average_score', '-passed_subjects', 'A', 'Access denied', 'B', 'C', 'F', 'Invalid score', 'Invalid subject', 'POST', 'average_score', 'class_section', 'cutoff', 'error', 'excellent_score', 'failed_subjects', 'full_name', 'good_score', 'grade', 'is_passed', 'message', 'name', 'passed_subjects', 'passing_score', 'performance_data', 'performance_dict', 'recorded_by', 'remarks', 'score', 'score__avg', 'student', 'subject', 'subject_id', 'subjects', 'success', 'summary', 'total_subjects']

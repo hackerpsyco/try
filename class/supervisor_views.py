@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count, Q, Prefetch
 from django.core.cache import cache
 from django.db import transaction
-from .models import User, Role, School, ClassSection, FacilitatorSchool, PlannedSession
+from .models import User, Role, School, ClassSection, FacilitatorSchool, PlannedSession, DateType
 from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm, AssignFacilitatorForm
 
 User = get_user_model()
@@ -1022,7 +1022,7 @@ def supervisor_calendar_add_date(request):
                 existing = CalendarDate.objects.filter(
                     calendar=calendar,
                     date=date_to_create,
-                    date_type='session',
+                    date_type=DateType.SESSION,
                     school=school
                 ).first()
                 
@@ -1036,7 +1036,7 @@ def supervisor_calendar_add_date(request):
                         calendar=calendar,
                         date=date_to_create,
                         time=time_obj,
-                        date_type='session',
+                        date_type=DateType.SESSION,
                         school=school
                     )
                     # Add all selected classes to this single entry
@@ -1054,7 +1054,7 @@ def supervisor_calendar_add_date(request):
                 existing = CalendarDate.objects.filter(
                     calendar=calendar,
                     date=date_to_create,
-                    date_type='holiday'
+                    date_type=DateType.HOLIDAY
                 ).exists()
                 
                 if existing:
@@ -1065,7 +1065,7 @@ def supervisor_calendar_add_date(request):
                     calendar=calendar,
                     date=date_to_create,
                     time=time_obj,
-                    date_type='holiday',
+                    date_type=DateType.HOLIDAY,
                     holiday_name=holiday_name
                 )
                 created_count += 1
@@ -1089,7 +1089,7 @@ def supervisor_calendar_add_date(request):
                 existing = CalendarDate.objects.filter(
                     calendar=calendar,
                     date=date_to_create,
-                    date_type='office_work'
+                    date_type=DateType.OFFICE_WORK
                 ).exists()
                 
                 if existing:
@@ -1100,7 +1100,7 @@ def supervisor_calendar_add_date(request):
                     calendar=calendar,
                     date=date_to_create,
                     time=time_obj,
-                    date_type='office_work',
+                    date_type=DateType.OFFICE_WORK,
                     office_task_description=task_desc,
                     school=school
                 )
@@ -1157,7 +1157,7 @@ def supervisor_calendar_edit_date(request, date_id):
                 try:
                     classes = ClassSection.objects.filter(id__in=class_ids)
                     calendar_date.class_sections.set(classes)
-                    calendar_date.date_type = 'session'
+                    calendar_date.date_type = DateType.SESSION
                     calendar_date.holiday_name = ''
                     calendar_date.office_task_description = ''
                     calendar_date.save()
@@ -1169,7 +1169,7 @@ def supervisor_calendar_edit_date(request, date_id):
             holiday_name = request.POST.get('holiday_name', '').strip()
             if holiday_name:
                 calendar_date.holiday_name = holiday_name
-                calendar_date.date_type = 'holiday'
+                calendar_date.date_type = DateType.HOLIDAY
                 calendar_date.class_sections.clear()
                 calendar_date.office_task_description = ''
                 calendar_date.save()
@@ -1181,7 +1181,7 @@ def supervisor_calendar_edit_date(request, date_id):
             task_desc = request.POST.get('office_task_description', '').strip()
             if task_desc:
                 calendar_date.office_task_description = task_desc
-                calendar_date.date_type = 'office_work'
+                calendar_date.date_type = DateType.OFFICE_WORK
                 calendar_date.class_sections.clear()
                 calendar_date.holiday_name = ''
                 calendar_date.save()
@@ -1225,3 +1225,139 @@ def supervisor_calendar_delete_date(request, date_id):
     }
     
     return render(request, "supervisor/calendar/delete_confirm.html", context)
+
+
+# =====================================================
+# BULK STUDENT IMPORT FUNCTIONS
+# =====================================================
+
+@login_required
+def supervisor_student_import(request, school_id):
+    """Bulk import students via CSV/Excel for a specific school"""
+    from django.http import HttpResponse
+    import csv
+    import openpyxl
+    from datetime import date
+    
+    school = get_object_or_404(School, id=school_id)
+    
+    # Check if supervisor has access to this school
+    if not request.user.role or request.user.role.name.upper() != "SUPERVISOR":
+        messages.error(request, "Permission denied")
+        return redirect("no_permission")
+    
+    class_sections = ClassSection.objects.filter(school=school)
+    
+    if request.method == "POST":
+        file = request.FILES.get("file")
+        if not file:
+            messages.error(request, "Please upload a file")
+            return redirect(request.path)
+        
+        ext = file.name.split(".")[-1].lower()
+        
+        # Parse file
+        if ext == "csv":
+            rows = csv.DictReader(file.read().decode("utf-8").splitlines())
+        elif ext in ["xlsx", "xls"]:
+            wb = openpyxl.load_workbook(file)
+            sheet = wb.active
+            headers = [str(cell.value).strip() for cell in sheet[1]]
+            rows = []
+            for r in sheet.iter_rows(min_row=2, values_only=True):
+                rows.append(dict(zip(headers, r)))
+        else:
+            messages.error(request, "Unsupported file format. Use CSV or Excel.")
+            return redirect(request.path)
+        
+        created_count = 0
+        skipped_count = 0
+        
+        # Process rows
+        for row in rows:
+            enrollment_no = str(row.get("enrollment_number", "")).strip()
+            full_name = str(row.get("full_name", "")).strip()
+            gender = str(row.get("gender", "")).strip()
+            class_level = str(row.get("class_level", "")).strip()
+            section = str(row.get("section", "")).strip()
+            start_date = row.get("start_date") or date.today()
+            
+            # Validate
+            if not all([enrollment_no, full_name, gender, class_level, section]):
+                skipped_count += 1
+                continue
+            
+            if gender.upper() not in ["M", "F"]:
+                skipped_count += 1
+                continue
+            
+            # Find class section
+            class_section = ClassSection.objects.filter(
+                school=school,
+                class_level=class_level,
+                section=section
+            ).first()
+            
+            if not class_section:
+                skipped_count += 1
+                continue
+            
+            # Create student
+            from .models import Student, Enrollment
+            student, _ = Student.objects.get_or_create(
+                enrollment_number=enrollment_no,
+                defaults={
+                    "full_name": full_name,
+                    "gender": gender.upper()
+                }
+            )
+            
+            # Create enrollment
+            enrollment, created = Enrollment.objects.get_or_create(
+                student=student,
+                school=school,
+                class_section=class_section,
+                defaults={
+                    "start_date": start_date,
+                    "is_active": True
+                }
+            )
+            
+            if created:
+                created_count += 1
+        
+        # Feedback
+        if created_count == 0:
+            messages.warning(request, f"No students imported. Skipped: {skipped_count}")
+        else:
+            messages.success(request, f"{created_count} students imported (Skipped: {skipped_count})")
+        
+        return redirect("supervisor_school_students", school_id=school_id)
+    
+    return render(request, "supervisor/students/import.html", {
+        "school": school,
+        "class_sections": class_sections
+    })
+
+
+@login_required
+def supervisor_download_sample_csv(request):
+    """Download sample CSV for student import"""
+    from django.http import HttpResponse
+    import csv
+    
+    sample_data = [
+        ["enrollment_number", "full_name", "gender", "class_level", "section", "start_date"],
+        ["E001", "John Doe", "M", "1", "A", "2026-01-12"],
+        ["E002", "Jane Smith", "F", "1", "A", "2026-01-12"],
+        ["E003", "Bob Johnson", "M", "2", "B", "2026-01-12"],
+    ]
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="students_sample.csv"'
+    
+    writer = csv.writer(response)
+    for row in sample_data:
+        writer.writerow(row)
+    
+    return response

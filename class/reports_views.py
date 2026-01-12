@@ -27,7 +27,7 @@ from io import BytesIO
 from .models import (
     School, ClassSection, Student, Enrollment, User, 
     ActualSession, PlannedSession, Attendance, 
-    FacilitatorSchool, SessionFeedback
+    FacilitatorSchool, SessionFeedback, SessionStatus
 )
 
 
@@ -51,7 +51,7 @@ def reports_dashboard(request):
             role__name='FACILITATOR'
         ).count(),
         'total_sessions': ActualSession.objects.filter(
-            status='conducted'
+            status=SessionStatus.CONDUCTED
         ).count(),
         'attendance_rate': 85.0  # Use cached value or calculate async
     }
@@ -158,12 +158,12 @@ def get_students_report_data(filters, date_filter):
                     # Calculate real attendance rate
                     total_sessions = ActualSession.objects.filter(
                         planned_session__class_section=enrollment.class_section,
-                        status='conducted'
+                        status=SessionStatus.CONDUCTED
                     ).count()
                     
                     attended_sessions = Attendance.objects.filter(
                         enrollment=enrollment,
-                        status='present'
+                        status=AttendanceStatus.PRESENT
                     ).count()
                     
                     attendance_rate = round((attended_sessions / total_sessions * 100) if total_sessions > 0 else 0, 1)
@@ -217,7 +217,7 @@ def get_facilitators_report_data(filters, date_filter):
                 schools_count = FacilitatorSchool.objects.filter(facilitator=facilitator).count()
                 sessions_conducted = ActualSession.objects.filter(
                     facilitator=facilitator,
-                    status='conducted'
+                    status=SessionStatus.CONDUCTED
                 ).count()
                 
                 # Get average rating from feedback
@@ -254,7 +254,7 @@ def get_attendance_report_data(filters, date_filter):
     """Get attendance report data - optimized for performance"""
     try:
         # Build the query
-        queryset = ActualSession.objects.filter(status='conducted')
+        queryset = ActualSession.objects.filter(status=SessionStatus.CONDUCTED)
         
         # Apply date filter
         if date_filter:
@@ -287,7 +287,7 @@ def get_attendance_report_data(filters, date_filter):
                 
                 present_count = Attendance.objects.filter(
                     actual_session=session,
-                    status='present'
+                    status=AttendanceStatus.PRESENT
                 ).count()
                 
                 absent_count = total_students - present_count
@@ -669,5 +669,5 @@ def calculate_overall_attendance_rate():
     if total_attendance_records == 0:
         return 0
     
-    present_records = Attendance.objects.filter(status='present').count()
+    present_records = Attendance.objects.filter(status=AttendanceStatus.PRESENT).count()
     return round((present_records / total_attendance_records) * 100, 1)

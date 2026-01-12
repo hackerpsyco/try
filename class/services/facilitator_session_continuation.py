@@ -75,7 +75,7 @@ class FacilitatorAssignmentHistory:
         try:
             last_session = ActualSession.objects.filter(
                 planned_session__class_section=self.class_section,
-                status__in=['conducted', 'cancelled']
+                status__in=[SessionStatus.CONDUCTED, SessionStatus.CANCELLED]
             ).select_related('planned_session').order_by('-planned_session__day_number').first()
             
             if last_session:
@@ -147,7 +147,7 @@ class FacilitatorSessionContinuation:
                     class_section=class_section,
                     is_active=True
                 ).exclude(
-                    actual_sessions__status__in=['conducted', 'cancelled']
+                    actual_sessions__status__in=[SessionStatus.CONDUCTED, SessionStatus.CANCELLED]
                 ).order_by('day_number').first()
                 
                 logger.info(f"Facilitator {facilitator} has worked before on {class_section}, next session: {next_session}")
@@ -315,7 +315,7 @@ class FacilitatorSessionContinuation:
                 days_conducted = ActualSession.objects.filter(
                     planned_session__class_section=class_section,
                     facilitator=facilitator,
-                    status='conducted'
+                    status=SessionStatus.CONDUCTED
                 ).count()
                 
                 # Get last day worked

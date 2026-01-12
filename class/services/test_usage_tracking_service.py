@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 
 from ..models import (
     CurriculumSession, CurriculumUsageLog, ClassSection, 
-    School, Role, PlannedSession, User
+    School, Role, PlannedSession, User, CurriculumStatus
 )
 from .usage_tracking_service import UsageTrackingService
 
@@ -66,7 +66,7 @@ class TestUsageTrackingService(TestCase):
             language='english',
             title='Day 1 English Content',
             content='Test content for day 1',
-            status='published',
+            status=CurriculumStatus.PUBLISHED,
             is_active_for_facilitators=True
         )
         
@@ -75,7 +75,7 @@ class TestUsageTrackingService(TestCase):
             language='hindi',
             title='Day 2 Hindi Content',
             content='Test content for day 2',
-            status='published',
+            status=CurriculumStatus.PUBLISHED,
             is_active_for_facilitators=True
         )
         

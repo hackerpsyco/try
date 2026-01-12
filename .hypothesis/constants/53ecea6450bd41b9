@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\models\calendar.py
+# hypothesis_version: 6.148.11
+
+[200, '-recorded_at', 'Absent', 'Holiday / No Session', 'Office Work / Task', 'Planned Session', 'Present', 'absent', 'attendance_records', 'caldate_cal_date_idx', 'caldate_sch_date_idx', 'calendar', 'calendar_date', 'calendar_entries', 'calendar_sessions', 'class.School', 'date', 'date_type', 'dates', 'facilitator', 'present', 'recorded_at', 'school']

@@ -138,6 +138,7 @@ from .views import (
     debug_sessions,
 )
 from . import facilitator_views
+from . import supervisor_views
 from . import facilitator_task_views
 from .admin_session_views import (
     admin_session_templates_list,
@@ -575,6 +576,14 @@ path(
     path("facilitator/class/<uuid:class_section_id>/performance/<uuid:student_id>/", facilitator_views.student_performance_detail, name="student_performance_detail"),
     path("facilitator/class/<uuid:class_section_id>/performance/<uuid:student_id>/save/", facilitator_views.student_performance_save, name="student_performance_save"),
     path("facilitator/class/<uuid:class_section_id>/performance/cutoff/", facilitator_views.performance_cutoff_settings, name="performance_cutoff_settings"),
+    
+    # ======================
+    # Bulk Student Import (NEW)
+    # ======================
+    path("facilitator/class/<uuid:class_section_id>/students/import/", facilitator_views.facilitator_student_import, name="facilitator_student_import"),
+    path("facilitator/students/download-sample/", facilitator_views.facilitator_download_sample_csv, name="facilitator_download_sample_csv"),
+    path("supervisor/school/<uuid:school_id>/students/import/", supervisor_views.supervisor_student_import, name="supervisor_student_import"),
+    path("supervisor/students/download-sample/", supervisor_views.supervisor_download_sample_csv, name="supervisor_download_sample_csv"),
     
     # ======================
     # Admin Session Sequence Management (NEW)

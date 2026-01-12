@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\views_auth.py
+# hypothesis_version: 6.148.11
+
+[400, 401, '/admin/dashboard/', '/login/', 'GET', 'POST', 'Session data cleared', 'Unknown', 'X-Clear-Storage', 'admin', 'auth/login.html', 'email', 'error', 'expired', 'facilitator', 'last_activity', 'message', 'password', 'role', 'status', 'success', 'supervisor', 'true', 'user', 'valid']

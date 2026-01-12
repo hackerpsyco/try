@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0021_add_school_details_fields.py
+# hypothesis_version: 6.148.11
+
+[200, 254, 'Class Section', 'Class Sections', 'address', 'area', 'class', 'class_level', 'classsection', 'contact_number', 'contact_person', 'email', 'logo', 'ordering', 'school', 'school__name', 'schools/logos/', 'section', 'verbose_name', 'verbose_name_plural']

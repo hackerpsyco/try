@@ -12,7 +12,7 @@ import logging
 
 from .models import (
     PlannedSession, ActualSession, ClassSection, User,
-    SessionBulkTemplate, CANCELLATION_REASONS
+    SessionBulkTemplate, CANCELLATION_REASONS, SessionStatus
 )
 
 logger = logging.getLogger(__name__)
@@ -95,7 +95,7 @@ class SessionSequenceCalculator:
                 class_section=class_section,
                 is_active=True
             ).exclude(
-                actual_sessions__status__in=['conducted', 'cancelled']
+                actual_sessions__status__in=[SessionStatus.CONDUCTED, SessionStatus.CANCELLED]
             ).order_by('day_number').first()
             
             # If no session found, check if we have any sessions at all
@@ -112,7 +112,7 @@ class SessionSequenceCalculator:
                 # Check if all sessions are truly completed
                 completed_count = ActualSession.objects.filter(
                     planned_session__class_section=class_section,
-                    status__in=['conducted', 'cancelled']
+                    status__in=[SessionStatus.CONDUCTED, SessionStatus.CANCELLED]
                 ).count()
                 
                 if completed_count >= total_sessions:
@@ -210,11 +210,11 @@ class SessionSequenceCalculator:
                 status = status_count['status']
                 count = status_count['count']
                 
-                if status == 'conducted':
+                if status == SessionStatus.CONDUCTED:
                     metrics.conducted_sessions = count
-                elif status == 'cancelled':
+                elif status == SessionStatus.CANCELLED:
                     metrics.cancelled_sessions = count
-                elif status == 'holiday':
+                elif status == SessionStatus.HOLIDAY:
                     metrics.holiday_sessions = count
             
             # Calculate pending sessions
@@ -268,11 +268,11 @@ class SessionSequenceCalculator:
                 status = status_count['status']
                 count = status_count['count']
                 
-                if status == 'conducted':
+                if status == SessionStatus.CONDUCTED:
                     metrics.conducted_sessions = count
-                elif status == 'cancelled':
+                elif status == SessionStatus.CANCELLED:
                     metrics.cancelled_sessions = count
-                elif status == 'holiday':
+                elif status == SessionStatus.HOLIDAY:
                     metrics.holiday_sessions = count
             
             # Calculate pending sessions
@@ -364,7 +364,7 @@ class SessionStatusManager:
                 
                 if not created:
                     # Update existing session
-                    actual_session.status = 'conducted'
+                    actual_session.status=SessionStatus.CONDUCTED
                     actual_session.facilitator = facilitator
                     actual_session.remarks = remarks
                     actual_session.conducted_at = timezone.now()
@@ -403,7 +403,7 @@ class SessionStatusManager:
                 
                 if not created:
                     # Update existing session
-                    actual_session.status = 'holiday'
+                    actual_session.status=SessionStatus.HOLIDAY
                     actual_session.facilitator = facilitator
                     actual_session.remarks = reason
                     actual_session.can_be_rescheduled = True
@@ -449,7 +449,7 @@ class SessionStatusManager:
                 
                 if not created:
                     # Update existing session
-                    actual_session.status = 'cancelled'
+                    actual_session.status=SessionStatus.CANCELLED
                     actual_session.facilitator = facilitator
                     actual_session.remarks = remarks
                     actual_session.cancellation_reason = cancellation_reason

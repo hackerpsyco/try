@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\services\session_auth_fix.py
+# hypothesis_version: 6.148.11
+
+[1800, '/admin/', '/admin/dashboard/', '/api/', '/api/auth/', '/facilitator/', '/login', '/login/', '/logout/', '/media/', '/static/', '/supervisor/', '0', 'Admin', 'Cache-Control', 'Expires', 'Facilitator', 'Pragma', 'SESSION_TIMEOUT', 'Supervisor', 'X-Clear-Storage', 'anonymous', 'last_activity', 'next_url', 'no-cache', 'session_expired', 'true', 'user_preferences']

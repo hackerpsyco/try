@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0030_remove_actualsession_class_actua_planned_f63c56_idx_and_more.py
+# hypothesis_version: 6.148.11
+
+['actualsession', 'calendardate', 'class', 'plannedsession', 'studentperformance']

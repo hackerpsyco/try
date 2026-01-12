@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0028_grouped_session_support.py
+# hypothesis_version: 6.148.11
+
+['class', 'grouped_session_id', 'plannedsession']

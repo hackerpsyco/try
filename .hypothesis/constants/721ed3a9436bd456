@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0032_migrate_cancellation_data.py
+# hypothesis_version: 6.148.11
+
+['ActualSession', 'SessionCancellation', 'class', 'emergency']

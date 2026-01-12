@@ -8,9 +8,9 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.core.exceptions import PermissionDenied
-from .models import School, ClassSection, Student, Enrollment, FacilitatorSchool, User
+from .models import School, ClassSection, Student, Enrollment, FacilitatorSchool, User, SessionStatus, AttendanceStatus, DateType
 from .mixins import FacilitatorAccessMixin
 from .decorators import facilitator_required
 from .forms import AddUserForm  # We'll need to create a student form
@@ -20,6 +20,8 @@ from .student_performance_views import (
 )
 import logging
 from datetime import date
+import csv
+import openpyxl
 logger = logging.getLogger(__name__)
 
 
@@ -187,20 +189,20 @@ class FacilitatorStudentListView(FacilitatorAccessMixin, ListView):
             # Get total conducted sessions for this class
             total_sessions = ActualSession.objects.filter(
                 planned_session__class_section=enrollment.class_section,
-                status="conducted"
+                status=SessionStatus.CONDUCTED
             ).count()
             
             # Count attendance records for this student
             present_count = Attendance.objects.filter(
                 enrollment=enrollment,
                 actual_session__planned_session__class_section=enrollment.class_section,
-                status="present"
+                status=AttendanceStatus.PRESENT
             ).count()
             
             absent_count = Attendance.objects.filter(
                 enrollment=enrollment,
                 actual_session__planned_session__class_section=enrollment.class_section,
-                status="absent"
+                status=AttendanceStatus.ABSENT
             ).count()
             
             attendance_percentage = (present_count / total_sessions * 100) if total_sessions > 0 else 0
@@ -404,17 +406,17 @@ def facilitator_student_detail(request, student_id):
     
     total_sessions = ActualSession.objects.filter(
         planned_session__class_section=enrollment.class_section,
-        status='conducted'
+        status=SessionStatus.CONDUCTED
     ).count()
     
     present_count = Attendance.objects.filter(
         enrollment=enrollment,
-        status='present'
+        status=AttendanceStatus.PRESENT
     ).count()
     
     absent_count = Attendance.objects.filter(
         enrollment=enrollment,
-        status='absent'
+        status=AttendanceStatus.ABSENT
     ).count()
     
     attendance_percentage = (present_count / total_sessions * 100) if total_sessions > 0 else 0
@@ -593,7 +595,7 @@ def facilitator_dashboard(request):
     
     conducted_sessions = ActualSession.objects.filter(
         planned_session__class_section__in=facilitator_classes,
-        status='conducted'
+        status=SessionStatus.CONDUCTED
     ).count()
     
     # Attendance statistics
@@ -603,7 +605,7 @@ def facilitator_dashboard(request):
     
     present_count = Attendance.objects.filter(
         enrollment__school__in=facilitator_schools,
-        status='present'
+        status=AttendanceStatus.PRESENT
     ).count()
     
     # Calculate percentages
@@ -626,7 +628,7 @@ def facilitator_dashboard(request):
         
         class_present_count = Attendance.objects.filter(
             enrollment__class_section=class_section,
-            status='present'
+            status=AttendanceStatus.PRESENT
         ).count()
         
         class_attendance_rate = (class_present_count / class_total_attendance * 100) if class_total_attendance > 0 else 0
@@ -651,7 +653,7 @@ def facilitator_dashboard(request):
         class_section__in=facilitator_classes,
         is_active=True
     ).exclude(
-        actual_sessions__status='conducted'
+        actual_sessions__status=SessionStatus.CONDUCTED
     ).order_by('day_number')[:5]
     
     context = {
@@ -729,7 +731,7 @@ def facilitator_mark_office_work_attendance(request):
             }
         )
         
-        status_text = "Present" if status == 'present' else "Absent"
+        status_text = "Present" if status == AttendanceStatus.PRESENT else "Absent"
         messages.success(request, f"Office work attendance marked as {status_text}")
         
         return redirect("facilitator_today_session")
@@ -869,19 +871,19 @@ def facilitator_today_session_calendar(request):
                 ).first()
                 
                 # Get attendance summary if session was conducted
-                if actual_session and actual_session.status == 'conducted':
+                if actual_session and actual_session.status == SessionStatus.CONDUCTED:
                     attendance_summary = {
                         'present': Attendance.objects.filter(
                             actual_session=actual_session,
-                            status='present'
+                            status=AttendanceStatus.PRESENT
                         ).count(),
                         'absent': Attendance.objects.filter(
                             actual_session=actual_session,
-                            status='absent'
+                            status=AttendanceStatus.ABSENT
                         ).count(),
                         'leave': Attendance.objects.filter(
                             actual_session=actual_session,
-                            status='leave'
+                            status=AttendanceStatus.LEAVE
                         ).count(),
                         'total': Attendance.objects.filter(
                             actual_session=actual_session
@@ -891,12 +893,12 @@ def facilitator_today_session_calendar(request):
         # Determine status based on calendar
         status = 'no_session'
         if calendar_date:
-            if calendar_date.date_type == 'session':
-                status = 'session'
-            elif calendar_date.date_type == 'holiday':
-                status = 'holiday'
-            elif calendar_date.date_type == 'office_work':
-                status = 'office_work'
+            if calendar_date.date_type == DateType.SESSION:
+                status = DateType.SESSION
+            elif calendar_date.date_type == DateType.HOLIDAY:
+                status = DateType.HOLIDAY
+            elif calendar_date.date_type == DateType.OFFICE_WORK:
+                status = DateType.OFFICE_WORK
         
         # Add grouped classes as single entry
         classes_today.append({
@@ -913,7 +915,7 @@ def facilitator_today_session_calendar(request):
     office_work_today = None
     office_work_calendar = CalendarDate.objects.filter(
         date=today,
-        date_type='office_work'
+        date_type=DateType.OFFICE_WORK
     ).first()
     
     # Check if facilitator is assigned to office work
@@ -937,7 +939,7 @@ def facilitator_today_session_calendar(request):
     holiday_today = None
     holiday_calendar = CalendarDate.objects.filter(
         date=today,
-        date_type='holiday'
+        date_type=DateType.HOLIDAY
     ).first()
     
     if holiday_calendar:
@@ -949,7 +951,7 @@ def facilitator_today_session_calendar(request):
     # Check if there are any session entries for today
     has_any_sessions = CalendarDate.objects.filter(
         date=today,
-        date_type='session'
+        date_type=DateType.SESSION
     ).exists()
     
     # If office work is assigned AND no sessions exist, hide classes
@@ -1078,3 +1080,116 @@ def facilitator_grouped_session(request):
 def facilitator_settings(request):
     """Facilitator settings page"""
     return render(request, "facilitator/settings.html", {})
+
+
+# =====================================================
+# BULK STUDENT IMPORT FUNCTIONS
+# =====================================================
+
+@login_required
+@facilitator_required
+def facilitator_student_import(request, class_section_id):
+    """Bulk import students via CSV/Excel for a specific class"""
+    class_section = get_object_or_404(ClassSection, id=class_section_id)
+    
+    # Check access - facilitator must have access to this class
+    mixin = FacilitatorAccessMixin()
+    mixin.request = request
+    if not mixin.check_class_access(class_section_id):
+        raise PermissionDenied("You don't have access to this class")
+    
+    if request.method == "POST":
+        file = request.FILES.get("file")
+        if not file:
+            messages.error(request, "Please upload a file")
+            return redirect(request.path)
+        
+        ext = file.name.split(".")[-1].lower()
+        
+        # Parse file
+        if ext == "csv":
+            rows = csv.DictReader(file.read().decode("utf-8").splitlines())
+        elif ext in ["xlsx", "xls"]:
+            wb = openpyxl.load_workbook(file)
+            sheet = wb.active
+            headers = [str(cell.value).strip() for cell in sheet[1]]
+            rows = []
+            for r in sheet.iter_rows(min_row=2, values_only=True):
+                rows.append(dict(zip(headers, r)))
+        else:
+            messages.error(request, "Unsupported file format. Use CSV or Excel.")
+            return redirect(request.path)
+        
+        created_count = 0
+        skipped_count = 0
+        
+        # Process rows
+        for row in rows:
+            enrollment_no = str(row.get("enrollment_number", "")).strip()
+            full_name = str(row.get("full_name", "")).strip()
+            gender = str(row.get("gender", "")).strip()
+            start_date = row.get("start_date") or date.today()
+            
+            # Validate
+            if not all([enrollment_no, full_name, gender]):
+                skipped_count += 1
+                continue
+            
+            if gender.upper() not in ["M", "F"]:
+                skipped_count += 1
+                continue
+            
+            # Create student
+            student, _ = Student.objects.get_or_create(
+                enrollment_number=enrollment_no,
+                defaults={
+                    "full_name": full_name,
+                    "gender": gender.upper()
+                }
+            )
+            
+            # Create enrollment
+            enrollment, created = Enrollment.objects.get_or_create(
+                student=student,
+                school=class_section.school,
+                class_section=class_section,
+                defaults={
+                    "start_date": start_date,
+                    "is_active": True
+                }
+            )
+            
+            if created:
+                created_count += 1
+        
+        # Feedback
+        if created_count == 0:
+            messages.warning(request, f"No students imported. Skipped: {skipped_count}")
+        else:
+            messages.success(request, f"{created_count} students imported (Skipped: {skipped_count})")
+        
+        return redirect("facilitator_class_students", class_section_id=class_section_id)
+    
+    return render(request, "facilitator/students/import.html", {
+        "class_section": class_section
+    })
+
+
+@login_required
+@facilitator_required
+def facilitator_download_sample_csv(request):
+    """Download sample CSV for student import"""
+    sample_data = [
+        ["enrollment_number", "full_name", "gender", "start_date"],
+        ["E001", "John Doe", "M", "2026-01-12"],
+        ["E002", "Jane Smith", "F", "2026-01-12"],
+    ]
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="students_sample.csv"'
+    
+    writer = csv.writer(response)
+    for row in sample_data:
+        writer.writerow(row)
+    
+    return response

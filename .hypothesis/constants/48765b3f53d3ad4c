@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\migrations\0023_calendardate_assigned_facilitators_and_more.py
+# hypothesis_version: 6.148.11
+
+['calendar_entries', 'calendardate', 'class', 'class.school', 'school', 'time']

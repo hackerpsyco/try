@@ -21,7 +21,7 @@ import os
 import json
 import logging
 from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm, AssignFacilitatorForm
-from .models import User, Role, School, ClassSection, FacilitatorSchool,Student,Enrollment,PlannedSession,SessionStep, ActualSession, Attendance, CANCELLATION_REASONS, FacilitatorTask
+from .models import User, Role, School, ClassSection, FacilitatorSchool,Student,Enrollment,PlannedSession,SessionStep, ActualSession, Attendance, CANCELLATION_REASONS, FacilitatorTask, SessionStatus, DateType, CurriculumStatus
 from .models import CurriculumSession, SessionTemplate, SessionUsageLog, ImportHistory, SessionVersionHistory
 from .services.session_integration_service import SessionIntegrationService, IntegratedSessionData
 from .mixins import PerformanceOptimizedMixin, OptimizedListMixin, CachedViewMixin, AjaxOptimizedMixin, DatabaseOptimizedMixin, cache_expensive_operation, monitor_performance
@@ -847,7 +847,7 @@ def sessions_view(request, class_section_id):
             is_conducted=Exists(
                 ActualSession.objects.filter(
                     planned_session=OuterRef("pk"),
-                    status="conducted"
+                    status=SessionStatus.CONDUCTED
                 )
             )
         )
@@ -867,10 +867,10 @@ def sessions_view(request, class_section_id):
             last_actual = ps.actual_sessions.first()  # Already ordered by -date
 
             if last_actual:
-                if last_actual.status == "holiday":
+                if last_actual.status == SessionStatus.HOLIDAY:
                     ps.status_info = "holiday"
                     ps.status_class = "warning"
-                elif last_actual.status == "cancelled":
+                elif last_actual.status == SessionStatus.CANCELLED:
                     ps.status_info = "cancelled"
                     ps.status_class = "danger"
 
@@ -882,12 +882,12 @@ def sessions_view(request, class_section_id):
         # Get summary statistics
         conducted_count = ActualSession.objects.filter(
             planned_session__class_section=class_section,
-            status="conducted"
+            status=SessionStatus.CONDUCTED
         ).count()
         
         cancelled_count = ActualSession.objects.filter(
             planned_session__class_section=class_section,
-            status="cancelled"
+            status=SessionStatus.CANCELLED
         ).count()
         
         pending_count = total_sessions - conducted_count - cancelled_count
@@ -1030,7 +1030,7 @@ def today_session(request, class_section_id):
         # Check CalendarDate to see if this class is part of a grouped session
         calendar_entry = CalendarDate.objects.filter(
             class_sections=class_section,
-            date_type='session'
+            date_type=DateType.SESSION
         ).first()
         
         if calendar_entry and calendar_entry.class_sections.count() > 1:
@@ -1048,7 +1048,7 @@ def today_session(request, class_section_id):
     calendar_entry = CalendarDate.objects.filter(
         date=today,
         class_sections=class_section,
-        date_type='session'
+        date_type=DateType.SESSION
     ).first()
     
     if calendar_entry and calendar_entry.class_sections.exists():
@@ -1141,7 +1141,7 @@ def today_session(request, class_section_id):
         
         completed_sessions = ActualSession.objects.filter(
             planned_session__class_section=class_section,
-            status__in=['conducted', 'cancelled']
+            status__in=[SessionStatus.CONDUCTED, SessionStatus.CANCELLED]
         ).count()
         
         if total_sessions > 0 and completed_sessions >= total_sessions:
@@ -1188,7 +1188,7 @@ def today_session(request, class_section_id):
         from .models import CalendarDate
         calendar_entry = CalendarDate.objects.filter(
             class_sections=class_section,
-            date_type='session'
+            date_type=DateType.SESSION
         ).first()
         
         if calendar_entry and calendar_entry.class_sections.count() > 1:
@@ -1391,7 +1391,7 @@ def start_session(request, planned_session_id):
     from django.core.exceptions import ValidationError
 
     try:
-        if status == "conducted":
+        if status == SessionStatus.CONDUCTED.name.lower():
             actual_session = SessionStatusManager.conduct_session(
                 planned_session=planned,
                 facilitator=request.user,
@@ -1416,7 +1416,7 @@ def start_session(request, planned_session_id):
             # Redirect to facilitator task step instead of directly to mark_attendance
             return redirect("facilitator_task_step", actual_session_id=actual_session.id)
             
-        elif status == "holiday":
+        elif status == SessionStatus.HOLIDAY.name.lower():
             actual_session = SessionStatusManager.mark_holiday(
                 planned_session=planned,
                 facilitator=request.user,
@@ -1439,7 +1439,7 @@ def start_session(request, planned_session_id):
             
             messages.success(request, "Session marked as holiday. You can conduct it later.")
             
-        elif status == "cancelled":
+        elif status == SessionStatus.CANCELLED.name.lower():
             if not cancellation_reason:
                 messages.error(request, "Please select a cancellation reason.")
                 return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
@@ -1510,7 +1510,7 @@ def mark_attendance(request, actual_session_id):
         from .models import CalendarDate
         calendar_entry = CalendarDate.objects.filter(
             class_sections=session.planned_session.class_section,
-            date_type='session'
+            date_type=DateType.SESSION
         ).first()
         
         if calendar_entry and calendar_entry.class_sections.count() > 1:
@@ -1818,14 +1818,14 @@ def facilitator_classes(request):
             processed_class_ids.add(str(cls.id))
         
         # Determine today's status
-        today_status = 'session'  # default
+        today_status = DateType.SESSION  # default
         if calendar_entry:
-            if calendar_entry.date_type == 'holiday':
-                today_status = 'holiday'
-            elif calendar_entry.date_type == 'office_work':
-                today_status = 'office_work'
-            elif calendar_entry.date_type == 'session':
-                today_status = 'session'
+            if calendar_entry.date_type == DateType.HOLIDAY:
+                today_status = DateType.HOLIDAY
+            elif calendar_entry.date_type == DateType.OFFICE_WORK:
+                today_status = DateType.OFFICE_WORK
+            elif calendar_entry.date_type == DateType.SESSION:
+                today_status = DateType.SESSION
         
         classes_with_calendar.append({
             'class_sections': grouped_classes,  # List of grouped classes
@@ -1957,7 +1957,7 @@ def facilitator_attendance(request):
                 # Base query for sessions
                 sessions_query = ActualSession.objects.filter(
                     planned_session__class_section=class_section,
-                    status="conducted"
+                    status=SessionStatus.CONDUCTED
                 )
                 
                 # Apply date filter if specified
@@ -1976,8 +1976,8 @@ def facilitator_attendance(request):
                 if attendance_date_filter:
                     attendance_query = attendance_query.filter(**attendance_date_filter)
                 
-                present_count = attendance_query.filter(status="present").count()
-                absent_count = attendance_query.filter(status="absent").count()
+                present_count = attendance_query.filter(status=AttendanceStatus.PRESENT).count()
+                absent_count = attendance_query.filter(status=AttendanceStatus.ABSENT).count()
                 
                 attendance_percentage = (present_count / total_sessions * 100) if total_sessions > 0 else 0
                 
@@ -1995,7 +1995,7 @@ def facilitator_attendance(request):
             recent_sessions_data = []
             recent_sessions_query = ActualSession.objects.filter(
                 planned_session__class_section=class_section,
-                status="conducted"
+                status=SessionStatus.CONDUCTED
             ).select_related("planned_session")
             
             # Apply date filter to recent sessions
@@ -2006,8 +2006,8 @@ def facilitator_attendance(request):
             recent_sessions = recent_sessions_query.order_by("-date")[:20]
             
             for session in recent_sessions:
-                present_count = session.attendances.filter(status="present").count()
-                absent_count = session.attendances.filter(status="absent").count()
+                present_count = session.attendances.filter(status=AttendanceStatus.PRESENT).count()
+                absent_count = session.attendances.filter(status=AttendanceStatus.ABSENT).count()
                 total_count = session.attendances.count()
                 
                 recent_sessions_data.append({
@@ -2063,13 +2063,13 @@ def admin_attendance_filter(request):
 
             total_sessions = ActualSession.objects.filter(
                 planned_session__class_section=class_section,
-                status="conducted"
+                status=SessionStatus.CONDUCTED
             ).count()
 
             stats = []
             for e in enrollments:
-                present = Attendance.objects.filter(enrollment=e, status="present").count()
-                absent = Attendance.objects.filter(enrollment=e, status="absent").count()
+                present = Attendance.objects.filter(enrollment=e, status=AttendanceStatus.PRESENT).count()
+                absent = Attendance.objects.filter(enrollment=e, status=AttendanceStatus.ABSENT).count()
                 percent = (present / total_sessions * 100) if total_sessions else 0
 
                 stats.append({
@@ -2084,7 +2084,7 @@ def admin_attendance_filter(request):
 
             context["recent_sessions"] = ActualSession.objects.filter(
                 planned_session__class_section=class_section,
-                status="conducted"
+                status=SessionStatus.CONDUCTED
             ).select_related("planned_session").order_by("-date")[:10]
 
     return render(request, "admin/attendance_filter.html", context)
@@ -2874,23 +2874,23 @@ def dashboard(request):
         context["pending_validations"] = PlannedSession.objects.filter(
             is_active=True
         ).exclude(
-            actual_sessions__status="conducted"
+            actual_sessions__status=SessionStatus.CONDUCTED
         ).count()
 
         # ===== SYSTEM SNAPSHOT (TODAY) =====
         context["sessions_today"] = ActualSession.objects.filter(
             date=today,
-            status="conducted"
+            status=SessionStatus.CONDUCTED
         ).count()
 
         context["holidays_today"] = ActualSession.objects.filter(
             date=today,
-            status="holiday"
+            status=SessionStatus.HOLIDAY
         ).count()
 
         context["cancelled_today"] = ActualSession.objects.filter(
             date=today,
-            status="cancelled"
+            status=SessionStatus.CANCELLED
         ).count()
 
         # ===== RECENT ACTIVITY =====
@@ -3364,7 +3364,7 @@ def facilitator_students_list(request, class_section_id):
     # Get total conducted sessions for this class (single query)
     total_sessions = ActualSession.objects.filter(
         planned_session__class_section=class_section,
-        status="conducted"
+        status=SessionStatus.CONDUCTED
     ).count()
     
     # Calculate attendance statistics for each student
@@ -3374,13 +3374,13 @@ def facilitator_students_list(request, class_section_id):
         present_count = Attendance.objects.filter(
             enrollment=enrollment,
             actual_session__planned_session__class_section=class_section,
-            status="present"
+            status=AttendanceStatus.PRESENT
         ).count()
         
         absent_count = Attendance.objects.filter(
             enrollment=enrollment,
             actual_session__planned_session__class_section=class_section,
-            status="absent"
+            status=AttendanceStatus.ABSENT
         ).count()
         
         attendance_percentage = (present_count / total_sessions * 100) if total_sessions > 0 else 0
@@ -3435,17 +3435,17 @@ def facilitator_student_detail(request, class_section_id, student_id):
     # Calculate attendance stats
     total_sessions = ActualSession.objects.filter(
         planned_session__class_section=class_section,
-        status="conducted"
+        status=SessionStatus.CONDUCTED
     ).count()
     
     present_count = Attendance.objects.filter(
         enrollment=enrollment,
-        status="present"
+        status=AttendanceStatus.PRESENT
     ).count()
     
     absent_count = Attendance.objects.filter(
         enrollment=enrollment,
-        status="absent"
+        status=AttendanceStatus.ABSENT
     ).count()
     
     attendance_percentage = (present_count / total_sessions * 100) if total_sessions > 0 else 0
@@ -3626,7 +3626,7 @@ def admin_curriculum_sessions_list(request):
             'hindi_count': counts['hindi_count'],
             'english_count': counts['english_count'],
             'language_choices': CurriculumSession.LANGUAGE_CHOICES,
-            'status_choices': CurriculumSession.STATUS_CHOICES,
+            'status_choices': CurriculumStatus.choices,
             'page_obj': page_obj,
             'paginator': paginator,
             'filters': {
@@ -3693,7 +3693,7 @@ def admin_curriculum_session_create(request):
                     messages.error(request, "End day must be greater than start day.")
                     return render(request, "admin/sessions/curriculum_form.html", {
                         'language_choices': CurriculumSession.LANGUAGE_CHOICES,
-                        'status_choices': CurriculumSession.STATUS_CHOICES,
+                        'status_choices': CurriculumStatus.choices,
                         'schools': School.objects.all().order_by('name'),
                         'form_data': request.POST
                     })
@@ -3738,7 +3738,7 @@ def admin_curriculum_session_create(request):
                     messages.error(request, f"A session for Day {day_number} in {language.title()} already exists.")
                     return render(request, "admin/sessions/curriculum_form.html", {
                         'language_choices': CurriculumSession.LANGUAGE_CHOICES,
-                        'status_choices': CurriculumSession.STATUS_CHOICES,
+                        'status_choices': CurriculumStatus.choices,
                         'schools': School.objects.all().order_by('name'),
                         'form_data': request.POST
                     })
@@ -3770,7 +3770,7 @@ def admin_curriculum_session_create(request):
     # GET request - show form
     context = {
         'language_choices': CurriculumSession.LANGUAGE_CHOICES,
-        'status_choices': CurriculumSession.STATUS_CHOICES,
+        'status_choices': CurriculumStatus.choices,
         'schools': School.objects.all().order_by('name'),
         'is_create': True,
         # Pre-fill from URL parameters
@@ -3825,7 +3825,7 @@ def admin_curriculum_session_edit(request, session_id):
                 return render(request, "admin/sessions/curriculum_form.html", {
                     'session': session,
                     'language_choices': CurriculumSession.LANGUAGE_CHOICES,
-                    'status_choices': CurriculumSession.STATUS_CHOICES,
+                    'status_choices': CurriculumStatus.choices,
                     'is_edit': True
                 })
 
@@ -3839,7 +3839,7 @@ def admin_curriculum_session_edit(request, session_id):
     context = {
         'session': session,
         'language_choices': CurriculumSession.LANGUAGE_CHOICES,
-        'status_choices': CurriculumSession.STATUS_CHOICES,
+        'status_choices': CurriculumStatus.choices,
         'is_edit': True
     }
 
@@ -4068,9 +4068,9 @@ def api_dashboard_stats(request):
         )
         
         session_stats = ActualSession.objects.filter(date=today).aggregate(
-            sessions_today=Count('id', filter=Q(status="conducted")),
-            holidays_today=Count('id', filter=Q(status="holiday")),
-            cancelled_today=Count('id', filter=Q(status="cancelled"))
+            sessions_today=Count('id', filter=Q(status=SessionStatus.CONDUCTED)),
+            holidays_today=Count('id', filter=Q(status=SessionStatus.HOLIDAY)),
+            cancelled_today=Count('id', filter=Q(status=SessionStatus.CANCELLED))
         )
         
         curriculum_stats = CurriculumSession.objects.aggregate(
@@ -4236,7 +4236,7 @@ def admin_sessions_overview(request):
     total_curriculum_sessions = CurriculumSession.objects.count()
     hindi_sessions = CurriculumSession.objects.filter(language='hindi').count()
     english_sessions = CurriculumSession.objects.filter(language='english').count()
-    published_sessions = CurriculumSession.objects.filter(status='published').count()
+    published_sessions = CurriculumSession.objects.filter(status=CurriculumStatus.PUBLISHED).count()
 
     # Recent activity from both systems
     recent_class_sessions = ActualSession.objects.select_related(
@@ -5478,16 +5478,16 @@ def api_class_sessions_lazy(request, class_section_id):
             status_info = "pending"
             status_class = "secondary"
             
-            if session.actual_sessions.filter(status="conducted").exists():
+            if session.actual_sessions.filter(status=SessionStatus.CONDUCTED).exists():
                 status_info = "completed"
                 status_class = "success"
             else:
                 last_actual = session.actual_sessions.order_by("-date").first()
                 if last_actual:
-                    if last_actual.status == "holiday":
+                    if last_actual.status == SessionStatus.HOLIDAY:
                         status_info = "holiday"
                         status_class = "warning"
-                    elif last_actual.status == "cancelled":
+                    elif last_actual.status == SessionStatus.CANCELLED:
                         status_info = "cancelled"
                         status_class = "danger"
             

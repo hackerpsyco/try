@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\models\facilitor_school.py
+# hypothesis_version: 6.148.11
+
+['assigned_schools', 'facilitator', 'facilitators', 'is_active', 'role_id', 'school']

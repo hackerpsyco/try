@@ -9,7 +9,7 @@ from datetime import timedelta
 from django.contrib.auth import get_user_model
 
 # Import models using relative imports to avoid 'class' keyword issue
-from ..models import School, ClassSection, PlannedSession, ActualSession, Student, Enrollment, Attendance
+from ..models import School, ClassSection, PlannedSession, ActualSession, Student, Enrollment, Attendance, SessionStatus
 from .facilitator_session_continuation import (
     FacilitatorAssignmentHistory, FacilitatorSessionContinuation
 )
@@ -86,7 +86,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         history = FacilitatorAssignmentHistory(self.class_section)
@@ -104,7 +104,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         # Get next session for facilitator2 (new to this class)
@@ -125,7 +125,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         # Get next session for facilitator1 (already worked on this class)
@@ -147,7 +147,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         # Facilitator2 conducts days 51-100
@@ -156,7 +156,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator2,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         history = FacilitatorAssignmentHistory(self.class_section)
@@ -187,7 +187,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         # Assign facilitator2
@@ -212,7 +212,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         # Validate transition from facilitator1 to facilitator2
@@ -237,7 +237,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         workload = FacilitatorSessionContinuation.get_facilitator_workload(self.facilitator1)
@@ -260,7 +260,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         # Facilitator2 conducts days 51-100
@@ -269,7 +269,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator2,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         timeline = FacilitatorSessionContinuation.get_class_facilitator_timeline(self.class_section)
@@ -301,7 +301,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         # Cancel days 41-50
@@ -310,7 +310,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='cancelled',
+                status=SessionStatus.CANCELLED,
                 cancellation_reason='emergency'
             )
         
@@ -330,7 +330,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='conducted'
+                status=SessionStatus.CONDUCTED
             )
         
         # Mark days 41-50 as holiday
@@ -339,7 +339,7 @@ class TestFacilitatorSessionContinuation(TestCase):
                 planned_session=self.planned_sessions[day - 1],
                 date=today,
                 facilitator=self.facilitator1,
-                status='holiday'
+                status=SessionStatus.HOLIDAY
             )
         
         # Get next session for facilitator2

@@ -16276,3 +16276,2122 @@ INFO 2026-01-11 21:50:02,861 curriculum_content_resolver 19700 8768 Fixed image 
 INFO 2026-01-11 21:50:02,862 curriculum_content_resolver 19700 8768 Loaded static fallback content for Day 1 hindi
 INFO 2026-01-11 21:50:03,206 basehttp 19700 8768 "GET /api/curriculum/content/?day=1&language=hindi HTTP/1.1" 200 4232
 INFO 2026-01-11 21:50:09,963 basehttp 19700 36348 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-12 11:56:08,325 autoreload 6784 29044 Watching for file changes with StatReloader
+WARNING 2026-01-12 11:56:20,511 session_auth_fix 6784 25240 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-12 11:56:20,584 basehttp 6784 25240 "GET / HTTP/1.1" 302 0
+INFO 2026-01-12 11:56:22,355 autoreload 6784 29044 C:\Users\piyus\CLAS\CLAS\class\migrations\0030_convert_status_to_integer.py changed, reloading.
+INFO 2026-01-12 11:56:23,995 autoreload 35736 40828 Watching for file changes with StatReloader
+ERROR 2026-01-12 11:57:04,121 log 35736 7600 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+INFO 2026-01-12 11:57:04,153 basehttp 35736 7600 - Broken pipe from ('127.0.0.1', 65164)
+ERROR 2026-01-12 11:57:16,796 log 35736 17560 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 11:57:16,817 basehttp 35736 17560 "GET /facilitator/dashboard/ HTTP/1.1" 500 18485
+WARNING 2026-01-12 11:57:20,999 session_auth_fix 35736 17560 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-12 11:57:21,066 basehttp 35736 17560 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2026-01-12 11:57:52,324 log 35736 17560 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 11:57:52,340 basehttp 35736 17560 "GET /facilitator/dashboard/ HTTP/1.1" 500 18431
+ERROR 2026-01-12 11:58:29,063 log 35736 17560 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 11:58:29,079 basehttp 35736 17560 "GET /facilitator/dashboard/ HTTP/1.1" 500 18331
+WARNING 2026-01-12 11:58:32,386 session_auth_fix 35736 17560 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-12 11:58:32,388 basehttp 35736 17560 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2026-01-12 11:59:11,871 log 35736 17560 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 11:59:11,886 basehttp 35736 17560 "GET /facilitator/dashboard/ HTTP/1.1" 500 18433
+WARNING 2026-01-12 11:59:29,693 session_auth_fix 35736 20908 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-12 11:59:29,694 basehttp 35736 20908 "GET / HTTP/1.1" 302 0
+INFO 2026-01-12 11:59:48,861 autoreload 28264 32668 Watching for file changes with StatReloader
+WARNING 2026-01-12 12:00:01,625 session_auth_fix 28264 24476 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-12 12:00:01,672 basehttp 28264 24476 "GET / HTTP/1.1" 302 0
+ERROR 2026-01-12 12:00:28,433 log 28264 32572 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+INFO 2026-01-12 12:00:28,457 basehttp 28264 32572 - Broken pipe from ('127.0.0.1', 59121)
+ERROR 2026-01-12 12:00:33,172 log 28264 24476 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 12:00:33,191 basehttp 28264 24476 "GET /facilitator/dashboard/ HTTP/1.1" 500 18486
+WARNING 2026-01-12 12:00:37,255 session_auth_fix 28264 24476 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-12 12:00:37,257 basehttp 28264 24476 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2026-01-12 12:01:08,691 log 28264 24476 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 12:01:08,708 basehttp 28264 24476 "GET /facilitator/dashboard/ HTTP/1.1" 500 18449
+INFO 2026-01-12 12:01:11,454 autoreload 28264 32668 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 12:01:13,116 autoreload 32052 48032 Watching for file changes with StatReloader
+INFO 2026-01-12 12:01:35,599 autoreload 32052 48032 C:\Users\piyus\CLAS\CLAS\class\session_management.py changed, reloading.
+INFO 2026-01-12 12:01:37,304 autoreload 15336 12752 Watching for file changes with StatReloader
+INFO 2026-01-12 12:01:50,192 autoreload 15336 12752 C:\Users\piyus\CLAS\CLAS\class\session_management.py changed, reloading.
+INFO 2026-01-12 12:01:51,354 autoreload 40096 39064 Watching for file changes with StatReloader
+INFO 2026-01-12 12:01:53,733 autoreload 40096 39064 C:\Users\piyus\CLAS\CLAS\class\session_management.py changed, reloading.
+INFO 2026-01-12 12:01:55,387 autoreload 27980 16380 Watching for file changes with StatReloader
+INFO 2026-01-12 12:04:45,235 autoreload 27980 16380 C:\Users\piyus\CLAS\CLAS\class\models\__init__.py changed, reloading.
+INFO 2026-01-12 12:04:46,606 autoreload 47160 45836 Watching for file changes with StatReloader
+INFO 2026-01-12 12:08:25,635 signals 37260 43888 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:08:27,368 session_management 37260 43888 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:08:27,642 signals 37260 43888 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:08:27,916 signals 37260 43888 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:08:29,324 session_management 37260 43888 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:08:29,597 signals 37260 43888 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:08:33,381 signals 37260 43888 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+WARNING 2026-01-12 12:09:05,157 session_auth_fix 47160 6288 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-12 12:09:05,224 basehttp 47160 6288 "GET / HTTP/1.1" 302 0
+ERROR 2026-01-12 12:09:15,700 log 47160 25488 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+INFO 2026-01-12 12:09:15,727 basehttp 47160 25488 - Broken pipe from ('127.0.0.1', 52860)
+ERROR 2026-01-12 12:09:38,154 log 47160 6288 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 12:09:38,172 basehttp 47160 6288 "GET /facilitator/dashboard/ HTTP/1.1" 500 18478
+WARNING 2026-01-12 12:09:42,422 session_auth_fix 47160 6288 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-12 12:09:42,423 basehttp 47160 6288 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-12 12:09:50,209 autoreload 47160 45836 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 12:09:52,070 autoreload 38560 5604 Watching for file changes with StatReloader
+INFO 2026-01-12 12:10:18,402 autoreload 38560 5604 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 12:10:19,827 autoreload 10496 5936 Watching for file changes with StatReloader
+INFO 2026-01-12 12:24:06,221 signals 31564 36320 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:07,920 session_management 31564 36320 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:08,200 signals 31564 36320 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:08,477 signals 31564 36320 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:09,921 session_management 31564 36320 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:10,201 signals 31564 36320 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:13,939 signals 31564 36320 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:15,399 session_management 31564 36320 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:15,674 signals 31564 36320 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:15,950 signals 31564 36320 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:17,397 session_management 31564 36320 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:24:17,676 signals 31564 36320 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:25:44,711 signals 45280 9580 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:25:46,687 session_management 45280 9580 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:25:46,968 signals 45280 9580 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:25:47,248 signals 45280 9580 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:25:48,980 session_management 45280 9580 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:25:49,264 signals 45280 9580 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:45,761 signals 31952 44100 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:47,445 session_management 31952 44100 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:47,722 signals 31952 44100 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:48,005 signals 31952 44100 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:49,424 session_management 31952 44100 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:49,699 signals 31952 44100 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:54,453 signals 31952 44100 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:55,869 session_management 31952 44100 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:56,144 signals 31952 44100 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:56,420 signals 31952 44100 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:58,193 session_management 31952 44100 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:30:58,473 signals 31952 44100 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:34:29,931 autoreload 10496 5936 C:\Users\piyus\CLAS\CLAS\class\mixins.py changed, reloading.
+INFO 2026-01-12 12:34:31,787 autoreload 32180 25096 Watching for file changes with StatReloader
+INFO 2026-01-12 12:35:47,494 signals 2916 31344 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:35:49,176 session_management 2916 31344 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:35:49,445 signals 2916 31344 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:35:49,715 signals 2916 31344 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:35:51,116 session_management 2916 31344 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:35:51,386 signals 2916 31344 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:35:59,959 signals 2916 31344 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:36:01,398 session_management 2916 31344 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:36:01,667 signals 2916 31344 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:36:01,937 signals 2916 31344 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:36:03,330 session_management 2916 31344 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:36:03,604 signals 2916 31344 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:38:51,808 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:38:53,426 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:38:53,689 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:38:53,954 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:38:55,324 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:38:55,587 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:04,767 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:06,143 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:06,407 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:06,670 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:08,037 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:08,300 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:18,870 signals 16776 8284 Auto-generating sessions for new class: Assigned  - 1A (2024-2025)
+INFO 2026-01-12 12:39:20,222 session_management 16776 8284 Generated 150 sessions for Assigned  - 1A (2024-2025)
+INFO 2026-01-12 12:39:20,486 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned  - 1A (2024-2025)
+INFO 2026-01-12 12:39:20,752 signals 16776 8284 Auto-generating sessions for new class: Unassigned  - 1A (2024-2025)
+INFO 2026-01-12 12:39:22,100 session_management 16776 8284 Generated 150 sessions for Unassigned  - 1A (2024-2025)
+INFO 2026-01-12 12:39:22,363 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned  - 1A (2024-2025)
+INFO 2026-01-12 12:39:31,487 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:33,144 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:33,408 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:33,674 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:35,034 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:35,302 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:57,760 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:59,283 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:59,545 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:39:59,808 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:01,186 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:01,454 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:23,601 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:24,980 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:25,244 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:25,509 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:27,428 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:27,693 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:49,578 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:50,945 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:51,210 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:51,475 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:52,831 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:40:53,093 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:02,268 signals 16776 8284 Auto-generating sessions for new class: Assigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:03,627 session_management 16776 8284 Generated 150 sessions for Assigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:03,889 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:04,154 signals 16776 8284 Auto-generating sessions for new class: Unassigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:05,511 session_management 16776 8284 Generated 150 sessions for Unassigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:05,774 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:14,888 signals 16776 8284 Auto-generating sessions for new class: Assigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:16,266 session_management 16776 8284 Generated 150 sessions for Assigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:16,532 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:16,795 signals 16776 8284 Auto-generating sessions for new class: Unassigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:18,142 session_management 16776 8284 Generated 150 sessions for Unassigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:18,409 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned J - 1A (2024-2025)
+INFO 2026-01-12 12:41:27,572 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:28,938 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:29,203 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:29,482 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:30,852 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:31,119 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:40,373 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:41,842 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:42,106 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:42,371 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:43,750 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:44,015 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:53,267 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:54,673 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:54,936 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:55,200 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:56,560 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:41:56,823 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:18,698 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:20,158 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:20,421 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:20,686 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:22,117 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:22,386 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:32,269 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:33,661 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:33,930 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:34,194 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:35,603 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:35,866 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:45,012 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:46,398 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:46,662 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:46,926 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:48,288 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:48,552 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:57,697 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:59,078 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:59,353 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:42:59,616 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:01,052 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:01,316 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:10,444 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:11,822 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:12,088 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:12,352 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:13,699 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:13,962 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:23,046 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:24,661 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:24,924 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:25,188 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:26,916 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:43:27,190 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:02,999 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:04,351 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:04,616 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:04,882 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:06,324 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:06,586 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:16,080 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:17,470 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:17,736 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:18,005 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:19,408 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:19,674 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:30,489 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:31,868 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:32,133 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:32,402 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:33,806 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:34,079 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:44:43,410 signals 16776 8284 Auto-generating sessions for new class: Assigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:44:45,134 session_management 16776 8284 Generated 150 sessions for Assigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:44:45,400 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:44:45,666 signals 16776 8284 Auto-generating sessions for new class: Unassigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:44:47,051 session_management 16776 8284 Generated 150 sessions for Unassigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:44:47,319 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:44:56,717 signals 16776 8284 Auto-generating sessions for new class: Assigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:44:58,211 session_management 16776 8284 Generated 150 sessions for Assigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:44:58,548 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:44:58,887 signals 16776 8284 Auto-generating sessions for new class: Unassigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:45:00,596 session_management 16776 8284 Generated 150 sessions for Unassigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:45:00,861 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned ALIGN - 1A (2024-2025)
+INFO 2026-01-12 12:45:10,182 signals 16776 8284 Auto-generating sessions for new class: Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:11,852 session_management 16776 8284 Generated 150 sessions for Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:12,117 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:12,383 signals 16776 8284 Auto-generating sessions for new class: Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:13,751 session_management 16776 8284 Generated 150 sessions for Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:14,019 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:23,416 signals 16776 8284 Auto-generating sessions for new class: Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:24,786 session_management 16776 8284 Generated 150 sessions for Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:25,051 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:25,317 signals 16776 8284 Auto-generating sessions for new class: Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:26,709 session_management 16776 8284 Generated 150 sessions for Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:26,977 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:36,159 signals 16776 8284 Auto-generating sessions for new class: Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:37,527 session_management 16776 8284 Generated 150 sessions for Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:37,799 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:38,081 signals 16776 8284 Auto-generating sessions for new class: Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:39,465 session_management 16776 8284 Generated 150 sessions for Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:39,730 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:48,949 signals 16776 8284 Auto-generating sessions for new class: Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:50,324 session_management 16776 8284 Generated 150 sessions for Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:50,589 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:50,854 signals 16776 8284 Auto-generating sessions for new class: Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:52,291 session_management 16776 8284 Generated 150 sessions for Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:45:52,556 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:46:01,773 signals 16776 8284 Auto-generating sessions for new class: Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:46:03,404 session_management 16776 8284 Generated 150 sessions for Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:46:03,681 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned X - 1A (2024-2025)
+INFO 2026-01-12 12:46:03,948 signals 16776 8284 Auto-generating sessions for new class: Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:46:05,332 session_management 16776 8284 Generated 150 sessions for Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:46:05,597 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned X - 1A (2024-2025)
+INFO 2026-01-12 12:46:14,769 signals 16776 8284 Auto-generating sessions for new class: Assigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:16,137 session_management 16776 8284 Generated 150 sessions for Assigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:16,404 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:16,672 signals 16776 8284 Auto-generating sessions for new class: Unassigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:18,047 session_management 16776 8284 Generated 150 sessions for Unassigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:18,315 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:27,543 signals 16776 8284 Auto-generating sessions for new class: Assigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:28,922 session_management 16776 8284 Generated 150 sessions for Assigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:29,189 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:29,464 signals 16776 8284 Auto-generating sessions for new class: Unassigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:30,824 session_management 16776 8284 Generated 150 sessions for Unassigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:31,090 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned ä - 1A (2024-2025)
+INFO 2026-01-12 12:46:40,299 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:41,686 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:41,952 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:42,220 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:43,590 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:43,854 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:53,084 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:54,444 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:54,709 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:54,975 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:56,600 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:46:56,866 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:06,088 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:07,728 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:07,993 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:08,259 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:09,634 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:09,901 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:19,172 signals 16776 8284 Auto-generating sessions for new class: Assigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:20,571 session_management 16776 8284 Generated 150 sessions for Assigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:20,836 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:21,104 signals 16776 8284 Auto-generating sessions for new class: Unassigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:22,467 session_management 16776 8284 Generated 150 sessions for Unassigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:22,735 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:31,974 signals 16776 8284 Auto-generating sessions for new class: Assigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:33,611 session_management 16776 8284 Generated 150 sessions for Assigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:33,875 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:34,141 signals 16776 8284 Auto-generating sessions for new class: Unassigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:35,503 session_management 16776 8284 Generated 150 sessions for Unassigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:35,770 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned Ü - 1A (2024-2025)
+INFO 2026-01-12 12:47:45,081 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:46,451 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:46,718 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:46,985 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:48,624 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:48,895 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:58,065 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:59,427 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:59,693 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:47:59,960 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:48:01,385 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:48:01,652 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:48:10,918 signals 16776 8284 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:48:12,335 session_management 16776 8284 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:48:12,606 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:48:12,873 signals 16776 8284 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:48:14,281 session_management 16776 8284 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:48:14,546 signals 16776 8284 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:48:25,713 signals 16776 8284 Auto-generating sessions for new class: Assigned fW - 1A (2024-2025)
+INFO 2026-01-12 12:48:27,215 session_management 16776 8284 Generated 150 sessions for Assigned fW - 1A (2024-2025)
+INFO 2026-01-12 12:48:27,482 signals 16776 8284 Successfully auto-generated 150 sessions for Assigned fW - 1A (2024-2025)
+INFO 2026-01-12 12:48:27,749 signals 16776 8284 Auto-generating sessions for new class: Unassigned fW - 1A (2024-2025)
+INFO 2026-01-12 12:49:20,790 signals 34184 10504 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:22,541 session_management 34184 10504 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:22,827 signals 34184 10504 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:23,113 signals 34184 10504 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:24,590 session_management 34184 10504 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:24,875 signals 34184 10504 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:34,756 signals 34184 10504 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:36,270 session_management 34184 10504 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:36,562 signals 34184 10504 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:36,847 signals 34184 10504 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:38,305 session_management 34184 10504 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:49:38,590 signals 34184 10504 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:02,184 signals 34184 10504 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:04,052 session_management 34184 10504 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:04,348 signals 34184 10504 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:04,632 signals 34184 10504 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:06,151 session_management 34184 10504 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:06,438 signals 34184 10504 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:30,640 signals 34184 10504 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:32,103 session_management 34184 10504 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:32,388 signals 34184 10504 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:32,674 signals 34184 10504 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:34,149 session_management 34184 10504 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:34,435 signals 34184 10504 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:44,254 signals 34184 10504 Auto-generating sessions for new class: Assigned Ãv - 1A (2024-2025)
+INFO 2026-01-12 12:50:45,766 session_management 34184 10504 Generated 150 sessions for Assigned Ãv - 1A (2024-2025)
+INFO 2026-01-12 12:50:46,052 signals 34184 10504 Successfully auto-generated 150 sessions for Assigned Ãv - 1A (2024-2025)
+INFO 2026-01-12 12:50:46,344 signals 34184 10504 Auto-generating sessions for new class: Unassigned Ãv - 1A (2024-2025)
+INFO 2026-01-12 12:50:47,816 session_management 34184 10504 Generated 150 sessions for Unassigned Ãv - 1A (2024-2025)
+INFO 2026-01-12 12:50:48,105 signals 34184 10504 Successfully auto-generated 150 sessions for Unassigned Ãv - 1A (2024-2025)
+INFO 2026-01-12 12:50:58,030 signals 34184 10504 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:59,503 session_management 34184 10504 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:50:59,788 signals 34184 10504 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:00,073 signals 34184 10504 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:01,617 session_management 34184 10504 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:01,902 signals 34184 10504 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:14,452 signals 34184 10504 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:16,426 session_management 34184 10504 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:16,711 signals 34184 10504 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:16,996 signals 34184 10504 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:18,754 session_management 34184 10504 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:19,039 signals 34184 10504 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:43,684 signals 34184 10504 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:45,148 session_management 34184 10504 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:45,434 signals 34184 10504 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:45,719 signals 34184 10504 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:47,198 session_management 34184 10504 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:51:47,486 signals 34184 10504 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:52:11,115 signals 34184 10504 Auto-generating sessions for new class: Assigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:12,589 session_management 34184 10504 Generated 150 sessions for Assigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:12,884 signals 34184 10504 Successfully auto-generated 150 sessions for Assigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:13,175 signals 34184 10504 Auto-generating sessions for new class: Unassigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:14,938 session_management 34184 10504 Generated 150 sessions for Unassigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:15,224 signals 34184 10504 Successfully auto-generated 150 sessions for Unassigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:26,791 signals 34184 10504 Auto-generating sessions for new class: Assigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:28,253 session_management 34184 10504 Generated 150 sessions for Assigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:28,546 signals 34184 10504 Successfully auto-generated 150 sessions for Assigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:28,835 signals 34184 10504 Auto-generating sessions for new class: Unassigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:30,310 session_management 34184 10504 Generated 150 sessions for Unassigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:52:30,598 signals 34184 10504 Successfully auto-generated 150 sessions for Unassigned >ù - 1A (2024-2025)
+INFO 2026-01-12 12:55:02,384 signals 43124 13120 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:04,329 session_management 43124 13120 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:04,638 signals 43124 13120 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:04,943 signals 43124 13120 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:06,582 session_management 43124 13120 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:06,894 signals 43124 13120 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:18,646 signals 43124 13120 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:20,308 session_management 43124 13120 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:20,582 signals 43124 13120 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:20,866 signals 43124 13120 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:22,339 session_management 43124 13120 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:22,659 signals 43124 13120 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:55:48,977 signals 43124 13120 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:22,075 signals 46444 19988 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:24,431 session_management 46444 19988 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:24,738 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:25,018 signals 46444 19988 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:26,549 session_management 46444 19988 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:26,950 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:38,789 signals 46444 19988 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:40,437 session_management 46444 19988 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:40,701 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:41,020 signals 46444 19988 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:42,582 session_management 46444 19988 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:42,852 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:56,793 signals 46444 19988 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:58,306 session_management 46444 19988 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:58,554 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 12:59:58,833 signals 46444 19988 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:00:00,564 session_management 46444 19988 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:00:00,822 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:00:13,071 signals 46444 19988 Auto-generating sessions for new class: Assigned ¦t - 1A (2024-2025)
+INFO 2026-01-12 13:00:15,018 session_management 46444 19988 Generated 150 sessions for Assigned ¦t - 1A (2024-2025)
+INFO 2026-01-12 13:00:15,325 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned ¦t - 1A (2024-2025)
+INFO 2026-01-12 13:00:15,632 signals 46444 19988 Auto-generating sessions for new class: Unassigned ¦t - 1A (2024-2025)
+INFO 2026-01-12 13:00:17,512 session_management 46444 19988 Generated 150 sessions for Unassigned ¦t - 1A (2024-2025)
+INFO 2026-01-12 13:00:17,772 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned ¦t - 1A (2024-2025)
+INFO 2026-01-12 13:00:28,740 signals 46444 19988 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:00:31,311 session_management 46444 19988 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:00:31,709 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:00:32,302 signals 46444 19988 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:00:34,359 session_management 46444 19988 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:00:34,624 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:03,965 signals 46444 19988 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:05,605 session_management 46444 19988 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:06,218 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:06,526 signals 46444 19988 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:08,268 session_management 46444 19988 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:08,574 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:38,578 signals 46444 19988 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:40,525 session_management 46444 19988 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:41,049 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:41,342 signals 46444 19988 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:43,300 session_management 46444 19988 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:43,597 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:01:54,433 signals 46444 19988 Auto-generating sessions for new class: Assigned µ³  - 1A (2024-2025)
+INFO 2026-01-12 13:01:56,193 session_management 46444 19988 Generated 150 sessions for Assigned µ³  - 1A (2024-2025)
+INFO 2026-01-12 13:01:56,498 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned µ³  - 1A (2024-2025)
+INFO 2026-01-12 13:01:56,871 signals 46444 19988 Auto-generating sessions for new class: Unassigned µ³  - 1A (2024-2025)
+INFO 2026-01-12 13:01:58,432 session_management 46444 19988 Generated 150 sessions for Unassigned µ³  - 1A (2024-2025)
+INFO 2026-01-12 13:01:58,747 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned µ³  - 1A (2024-2025)
+INFO 2026-01-12 13:02:11,152 signals 46444 19988 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:02:13,360 session_management 46444 19988 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:02:13,702 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:02:14,111 signals 46444 19988 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:02:15,648 session_management 46444 19988 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:02:15,916 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:03:19,956 signals 46444 19988 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:03:21,595 session_management 46444 19988 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:03:21,903 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:03:22,209 signals 46444 19988 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:03:23,754 session_management 46444 19988 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:03:24,053 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:03:35,011 signals 46444 19988 Auto-generating sessions for new class: Assigned 5g#Zl1htS*$CJl - 1A (2024-2025)
+INFO 2026-01-12 13:03:36,443 session_management 46444 19988 Generated 150 sessions for Assigned 5g#Zl1htS*$CJl - 1A (2024-2025)
+INFO 2026-01-12 13:03:36,719 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned 5g#Zl1htS*$CJl - 1A (2024-2025)
+INFO 2026-01-12 13:03:36,995 signals 46444 19988 Auto-generating sessions for new class: Unassigned 5g#Zl1htS*$CJl - 1A (2024-2025)
+INFO 2026-01-12 13:03:38,391 session_management 46444 19988 Generated 150 sessions for Unassigned 5g#Zl1htS*$CJl - 1A (2024-2025)
+INFO 2026-01-12 13:03:38,655 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned 5g#Zl1htS*$CJl - 1A (2024-2025)
+INFO 2026-01-12 13:03:50,369 signals 46444 19988 Auto-generating sessions for new class: Assigned OCÄ86P_ - 1A (2024-2025)
+INFO 2026-01-12 13:03:52,216 session_management 46444 19988 Generated 150 sessions for Assigned OCÄ86P_ - 1A (2024-2025)
+INFO 2026-01-12 13:03:52,521 signals 46444 19988 Successfully auto-generated 150 sessions for Assigned OCÄ86P_ - 1A (2024-2025)
+INFO 2026-01-12 13:03:52,905 signals 46444 19988 Auto-generating sessions for new class: Unassigned OCÄ86P_ - 1A (2024-2025)
+INFO 2026-01-12 13:03:54,316 session_management 46444 19988 Generated 150 sessions for Unassigned OCÄ86P_ - 1A (2024-2025)
+INFO 2026-01-12 13:03:54,575 signals 46444 19988 Successfully auto-generated 150 sessions for Unassigned OCÄ86P_ - 1A (2024-2025)
+INFO 2026-01-12 13:09:36,697 signals 31440 32020 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:38,455 session_management 31440 32020 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:38,741 signals 31440 32020 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:39,010 signals 31440 32020 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:40,613 session_management 31440 32020 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:40,893 signals 31440 32020 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:52,923 signals 31440 32020 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:54,922 session_management 31440 32020 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:55,230 signals 31440 32020 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:55,595 signals 31440 32020 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:57,411 session_management 31440 32020 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:09:57,687 signals 31440 32020 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:23,287 signals 31440 32020 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:24,756 session_management 31440 32020 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:25,018 signals 31440 32020 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:25,291 signals 31440 32020 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:26,748 session_management 31440 32020 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:27,003 signals 31440 32020 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:36,953 signals 31440 32020 Auto-generating sessions for new class: Assigned J - 1A (2024-2025)
+INFO 2026-01-12 13:10:38,801 session_management 31440 32020 Generated 150 sessions for Assigned J - 1A (2024-2025)
+INFO 2026-01-12 13:10:39,094 signals 31440 32020 Successfully auto-generated 150 sessions for Assigned J - 1A (2024-2025)
+INFO 2026-01-12 13:10:39,403 signals 31440 32020 Auto-generating sessions for new class: Unassigned J - 1A (2024-2025)
+INFO 2026-01-12 13:10:41,298 session_management 31440 32020 Generated 150 sessions for Unassigned J - 1A (2024-2025)
+INFO 2026-01-12 13:10:41,845 signals 31440 32020 Successfully auto-generated 150 sessions for Unassigned J - 1A (2024-2025)
+INFO 2026-01-12 13:10:53,393 signals 31440 32020 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:55,237 session_management 31440 32020 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:55,545 signals 31440 32020 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:55,837 signals 31440 32020 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:57,275 session_management 31440 32020 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:10:57,574 signals 31440 32020 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:11:26,675 signals 31440 32020 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:11:28,313 session_management 31440 32020 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:11:28,886 signals 31440 32020 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:11:29,234 signals 31440 32020 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:11:31,078 session_management 31440 32020 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:11:31,487 signals 31440 32020 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:11:56,796 signals 31440 32020 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:11:58,263 session_management 31440 32020 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:11:58,523 signals 31440 32020 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:11:58,814 signals 31440 32020 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:12:00,288 session_management 31440 32020 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:12:00,568 signals 31440 32020 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:13:02,776 signals 29804 45132 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:13:04,464 session_management 29804 45132 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:13:04,725 signals 29804 45132 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:13:04,999 signals 29804 45132 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:13:06,498 session_management 29804 45132 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:13:06,766 signals 29804 45132 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:13:32,897 signals 29804 45132 Auto-generating sessions for new class: Assigned àò¡ð - 1A (2024-2025)
+INFO 2026-01-12 13:13:34,559 session_management 29804 45132 Generated 150 sessions for Assigned àò¡ð - 1A (2024-2025)
+INFO 2026-01-12 13:13:34,813 signals 29804 45132 Successfully auto-generated 150 sessions for Assigned àò¡ð - 1A (2024-2025)
+INFO 2026-01-12 13:13:35,093 signals 29804 45132 Auto-generating sessions for new class: Unassigned àò¡ð - 1A (2024-2025)
+INFO 2026-01-12 13:13:36,828 session_management 29804 45132 Generated 150 sessions for Unassigned àò¡ð - 1A (2024-2025)
+INFO 2026-01-12 13:13:37,123 signals 29804 45132 Successfully auto-generated 150 sessions for Unassigned àò¡ð - 1A (2024-2025)
+INFO 2026-01-12 13:17:35,938 signals 43152 38140 Auto-generating sessions for new class: Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:17:38,191 session_management 43152 38140 Generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:17:38,497 signals 43152 38140 Successfully auto-generated 150 sessions for Assigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:17:38,805 signals 43152 38140 Auto-generating sessions for new class: Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:17:40,375 session_management 43152 38140 Generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:17:40,653 signals 43152 38140 Successfully auto-generated 150 sessions for Unassigned 0 - 1A (2024-2025)
+INFO 2026-01-12 13:18:43,813 signals 43152 38140 Auto-generating sessions for new class: Assigned Duration in minutes - 1A (2024-2025)
+INFO 2026-01-12 13:18:45,983 session_management 43152 38140 Generated 150 sessions for Assigned Duration in minutes - 1A (2024-2025)
+INFO 2026-01-12 13:18:46,288 signals 43152 38140 Successfully auto-generated 150 sessions for Assigned Duration in minutes - 1A (2024-2025)
+INFO 2026-01-12 13:18:46,814 signals 43152 38140 Auto-generating sessions for new class: Unassigned Duration in minutes - 1A (2024-2025)
+INFO 2026-01-12 13:18:48,962 session_management 43152 38140 Generated 150 sessions for Unassigned Duration in minutes - 1A (2024-2025)
+INFO 2026-01-12 13:18:49,547 signals 43152 38140 Successfully auto-generated 150 sessions for Unassigned Duration in minutes - 1A (2024-2025)
+INFO 2026-01-12 13:20:59,142 autoreload 26768 22312 Watching for file changes with StatReloader
+WARNING 2026-01-12 13:21:43,827 session_auth_fix 26768 15712 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-12 13:21:43,889 basehttp 26768 15712 "GET / HTTP/1.1" 302 0
+ERROR 2026-01-12 13:22:18,744 log 26768 15712 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 13:22:18,775 basehttp 26768 15712 "GET /facilitator/dashboard/ HTTP/1.1" 500 18494
+WARNING 2026-01-12 13:22:22,988 session_auth_fix 26768 15712 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-12 13:22:22,990 basehttp 26768 15712 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2026-01-12 13:22:58,141 log 26768 15712 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 13:22:58,160 basehttp 26768 15712 "GET /facilitator/dashboard/ HTTP/1.1" 500 18450
+INFO 2026-01-12 14:11:53,881 autoreload 26768 22312 C:\Users\piyus\CLAS\CLAS\class\models\students.py changed, reloading.
+INFO 2026-01-12 14:11:55,420 autoreload 30596 8676 Watching for file changes with StatReloader
+INFO 2026-01-12 14:12:03,252 autoreload 30596 8676 C:\Users\piyus\CLAS\CLAS\class\models\__init__.py changed, reloading.
+INFO 2026-01-12 14:12:04,496 autoreload 42736 40920 Watching for file changes with StatReloader
+INFO 2026-01-12 14:23:14,768 autoreload 42736 40920 C:\Users\piyus\CLAS\CLAS\class\models\students.py changed, reloading.
+INFO 2026-01-12 14:23:16,266 autoreload 4540 26520 Watching for file changes with StatReloader
+ERROR 2026-01-12 14:44:56,434 log 4540 31500 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 14:44:56,459 basehttp 4540 31500 "GET /facilitator/dashboard/ HTTP/1.1" 500 18336
+WARNING 2026-01-12 14:45:01,596 session_auth_fix 4540 31500 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-12 14:45:01,646 basehttp 4540 31500 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2026-01-12 14:45:12,406 log 4540 31500 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'conducted'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 594, in facilitator_dashboard
+    conducted_sessions = ActualSession.objects.filter(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__in=facilitator_classes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        status='conducted'
+        ^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'status' expected a number but got 'conducted'.
+ERROR 2026-01-12 14:45:12,428 basehttp 4540 31500 "GET /facilitator/dashboard/ HTTP/1.1" 500 18452
+INFO 2026-01-12 14:45:27,111 autoreload 4540 26520 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 14:45:28,714 autoreload 48252 15716 Watching for file changes with StatReloader
+INFO 2026-01-12 14:47:44,928 autoreload 48252 15716 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 14:47:46,442 autoreload 18300 24068 Watching for file changes with StatReloader
+INFO 2026-01-12 14:48:15,565 autoreload 18300 24068 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 14:48:17,037 autoreload 26904 44392 Watching for file changes with StatReloader
+INFO 2026-01-12 14:50:46,654 autoreload 26904 44392 C:\Users\piyus\CLAS\CLAS\class\reports_views.py changed, reloading.
+INFO 2026-01-12 14:50:48,312 autoreload 41052 25152 Watching for file changes with StatReloader
+ERROR 2026-01-12 14:51:16,437 log 41052 48156 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column class_plannedsession.curriculum_session_id does not exist
+LINE 1: ...ys", "class_plannedsession"."grouped_session_id", "class_pla...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 683, in facilitator_dashboard
+    return render(request, 'facilitator/dashboard.html', context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 326, in render
+    if match:
+       ^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 416, in __bool__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column class_plannedsession.curriculum_session_id does not exist
+LINE 1: ...ys", "class_plannedsession"."grouped_session_id", "class_pla...
+                                                             ^
+
+ERROR 2026-01-12 14:51:16,474 basehttp 41052 48156 "GET /facilitator/dashboard/ HTTP/1.1" 500 24076
+WARNING 2026-01-12 14:51:21,389 session_auth_fix 41052 48156 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-12 14:51:21,391 basehttp 41052 48156 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2026-01-12 14:51:41,610 log 41052 48156 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column class_plannedsession.curriculum_session_id does not exist
+LINE 1: ...ys", "class_plannedsession"."grouped_session_id", "class_pla...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 683, in facilitator_dashboard
+    return render(request, 'facilitator/dashboard.html', context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 326, in render
+    if match:
+       ^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 416, in __bool__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column class_plannedsession.curriculum_session_id does not exist
+LINE 1: ...ys", "class_plannedsession"."grouped_session_id", "class_pla...
+                                                             ^
+
+ERROR 2026-01-12 14:51:41,666 basehttp 41052 48156 "GET /facilitator/dashboard/ HTTP/1.1" 500 24206
+INFO 2026-01-12 14:57:32,826 basehttp 41052 9212 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-12 14:57:32,930 basehttp 41052 9212 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+WARNING 2026-01-12 14:57:34,036 basehttp 41052 9212 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-12 14:57:41,921 basehttp 41052 47084 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-12 14:57:52,904 basehttp 41052 47084 "GET /facilitator/classes/ HTTP/1.1" 200 4487
+ERROR 2026-01-12 14:58:11,556 log 41052 47084 Internal Server Error: /facilitator/class/5db21088-f58f-46b6-b03b-197ec7f5efcc/today/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2123, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'session'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 1031, in today_session
+    calendar_entry = CalendarDate.objects.filter(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        class_sections=class_section,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        date_type='session'
+        ^^^^^^^^^^^^^^^^^^^
+    ).first()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'date_type' expected a number but got 'session'.
+ERROR 2026-01-12 14:58:11,593 basehttp 41052 47084 "GET /facilitator/class/5db21088-f58f-46b6-b03b-197ec7f5efcc/today/ HTTP/1.1" 500 17932
+WARNING 2026-01-12 14:58:15,523 session_auth_fix 41052 47084 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-12 14:58:15,525 basehttp 41052 47084 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-12 14:58:30,133 basehttp 41052 47084 "GET /facilitator/dashboard/ HTTP/1.1" 200 6298
+INFO 2026-01-12 15:02:44,678 autoreload 41052 25152 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 15:02:46,306 autoreload 12524 2956 Watching for file changes with StatReloader
+INFO 2026-01-12 15:03:30,706 autoreload 12524 2956 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 15:03:32,298 autoreload 48876 40904 Watching for file changes with StatReloader
+INFO 2026-01-12 15:03:50,906 autoreload 48876 40904 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-12 15:03:52,576 autoreload 46992 42148 Watching for file changes with StatReloader
+INFO 2026-01-12 15:04:08,489 autoreload 46992 42148 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-12 15:04:10,116 autoreload 9360 31608 Watching for file changes with StatReloader
+INFO 2026-01-12 15:04:23,951 autoreload 9360 31608 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 15:04:25,569 autoreload 19308 39788 Watching for file changes with StatReloader
+INFO 2026-01-12 15:04:50,491 autoreload 19308 39788 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 15:04:51,910 autoreload 16864 15372 Watching for file changes with StatReloader
+INFO 2026-01-12 15:05:05,951 session_management 16864 31824 Next pending session for Gov. Sabo - 1A (2026-2027): Day 2
+INFO 2026-01-12 15:05:07,181 views 16864 31824 Grouped session detected via CalendarDate for class 5db21088-f58f-46b6-b03b-197ec7f5efcc: classes_in_group=3
+INFO 2026-01-12 15:05:08,284 autoreload 16864 15372 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-12 15:05:09,742 autoreload 2548 14088 Watching for file changes with StatReloader
+INFO 2026-01-12 15:05:29,198 session_management 2548 35640 Next pending session for Gov. Sabo - 1A (2026-2027): Day 2
+INFO 2026-01-12 15:05:30,426 views 2548 35640 Grouped session detected via CalendarDate for class 5db21088-f58f-46b6-b03b-197ec7f5efcc: classes_in_group=3
+ERROR 2026-01-12 15:05:31,541 curriculum_content_resolver 2548 35640 Error fetching curriculum session for Day 2 english: Field 'status' expected a number but got 'published'.
+INFO 2026-01-12 15:05:33,089 session_management 2548 35640 Next pending session for Gov. Sabo - 1A (2026-2027): Day 2
+INFO 2026-01-12 15:05:33,090 session_management 2548 35640 Progress metrics for Gov. Sabo - 1A (2026-2027): 1.3333333333333335% complete
+INFO 2026-01-12 15:05:35,329 basehttp 2548 35640 "GET /facilitator/class/5db21088-f58f-46b6-b03b-197ec7f5efcc/today/ HTTP/1.1" 200 19059
+ERROR 2026-01-12 15:05:38,722 curriculum_content_resolver 2548 35640 Error fetching curriculum session for Day 2 english: Field 'status' expected a number but got 'published'.
+INFO 2026-01-12 15:05:38,727 curriculum_content_resolver 2548 35640 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-12 15:05:40,080 curriculum_content_resolver 2548 35640 Found 5251 rows in curriculum table
+INFO 2026-01-12 15:05:40,083 curriculum_content_resolver 2548 35640 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-12 15:05:40,085 curriculum_content_resolver 2548 35640 Found next day boundary at row 71, day 3
+INFO 2026-01-12 15:05:40,086 curriculum_content_resolver 2548 35640 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-12 15:05:40,093 curriculum_content_resolver 2548 35640 Fixed image and resource paths in curriculum content
+INFO 2026-01-12 15:05:40,095 curriculum_content_resolver 2548 35640 Loaded static fallback content for Day 2 english
+ERROR 2026-01-12 15:05:40,097 curriculum_content_resolver 2548 35640 Error fetching curriculum session for Day 2 english: Field 'status' expected a number but got 'published'.
+INFO 2026-01-12 15:05:40,101 basehttp 2548 35640 "GET /api/curriculum/content/?day=2&language=english&class_section_id=5db21088-f58f-46b6-b03b-197ec7f5efcc HTTP/1.1" 200 3185
+INFO 2026-01-12 15:05:40,120 basehttp 2548 35640 "GET /static/images/wes-logo.jpg HTTP/1.1" 304 0
+INFO 2026-01-12 15:07:02,086 basehttp 2548 35640 "GET /facilitator/classes/ HTTP/1.1" 200 4487
+INFO 2026-01-12 15:07:15,388 session_management 2548 35640 Next pending session for Gov. Sabo - 6A (2026-2027): Day 2
+INFO 2026-01-12 15:07:16,822 views 2548 35640 Single session for class 3831fed9-7c66-4385-bb27-b625a2bc3089: no grouped_session_id and not in grouped CalendarDate
+ERROR 2026-01-12 15:07:21,738 session_integration_service 2548 35640 Error finding curriculum session for day 2, language english: Field 'status' expected a number but got 'published'.
+ERROR 2026-01-12 15:07:23,479 curriculum_content_resolver 2548 35640 Error fetching curriculum session for Day 2 english: Field 'status' expected a number but got 'published'.
+INFO 2026-01-12 15:07:26,140 session_management 2548 35640 Next pending session for Gov. Sabo - 6A (2026-2027): Day 2
+INFO 2026-01-12 15:07:26,141 session_management 2548 35640 Progress metrics for Gov. Sabo - 6A (2026-2027): 0.6666666666666667% complete
+INFO 2026-01-12 15:07:27,999 basehttp 2548 35640 "GET /facilitator/class/3831fed9-7c66-4385-bb27-b625a2bc3089/today/ HTTP/1.1" 200 18712
+ERROR 2026-01-12 15:07:31,876 curriculum_content_resolver 2548 35640 Error fetching curriculum session for Day 2 english: Field 'status' expected a number but got 'published'.
+INFO 2026-01-12 15:07:31,878 basehttp 2548 35640 "GET /api/curriculum/content/?day=2&language=english&class_section_id=3831fed9-7c66-4385-bb27-b625a2bc3089 HTTP/1.1" 200 3185
+INFO 2026-01-12 15:07:45,357 basehttp 2548 35640 "GET /facilitator/classes/ HTTP/1.1" 200 4487
+INFO 2026-01-12 15:07:57,281 basehttp 2548 35640 "GET /facilitator/class/3831fed9-7c66-4385-bb27-b625a2bc3089/curriculum/ HTTP/1.1" 200 9558
+ERROR 2026-01-12 15:08:00,562 curriculum_content_resolver 2548 35640 Error fetching curriculum session for Day 1 english: Field 'status' expected a number but got 'published'.
+INFO 2026-01-12 15:08:00,568 curriculum_content_resolver 2548 35640 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-12 15:08:01,902 curriculum_content_resolver 2548 35640 Found 5251 rows in curriculum table
+INFO 2026-01-12 15:08:01,904 curriculum_content_resolver 2548 35640 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-12 15:08:01,905 curriculum_content_resolver 2548 35640 Found next day boundary at row 36, day 2
+INFO 2026-01-12 15:08:01,906 curriculum_content_resolver 2548 35640 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-12 15:08:01,910 curriculum_content_resolver 2548 35640 Fixed image and resource paths in curriculum content
+INFO 2026-01-12 15:08:01,911 curriculum_content_resolver 2548 35640 Loaded static fallback content for Day 1 english
+ERROR 2026-01-12 15:08:01,912 curriculum_content_resolver 2548 35640 Error fetching curriculum session for Day 1 english: Field 'status' expected a number but got 'published'.
+INFO 2026-01-12 15:08:01,913 basehttp 2548 35640 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 3106
+INFO 2026-01-12 15:08:15,506 basehttp 2548 35640 "GET /facilitator/my-schools/ HTTP/1.1" 200 4407
+INFO 2026-01-12 15:08:52,066 basehttp 2548 35640 "GET /facilitator/my-schools/59102664-e22e-453b-addb-45a0afe9659e/ HTTP/1.1" 200 5481
+INFO 2026-01-12 15:09:54,597 basehttp 2548 35640 - Broken pipe from ('127.0.0.1', 50991)
+INFO 2026-01-12 15:09:57,083 session_auth_fix 2548 29960 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-12 15:09:57,083 views_auth 2548 29960 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-12 15:09:57,084 session_auth_fix 2548 29960 Logout detected for anonymous
+INFO 2026-01-12 15:09:58,313 basehttp 2548 29960 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-12 15:10:00,464 basehttp 2548 29960 "GET /login/ HTTP/1.1" 200 1098
+INFO 2026-01-12 15:10:00,509 basehttp 2548 29960 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-12 15:10:23,195 views_auth 2548 29960 User piyush81@gmail.com logged in successfully
+INFO 2026-01-12 15:10:25,039 basehttp 2548 29960 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-12 15:10:29,753 basehttp 2548 29960 "GET /supervisor/dashboard/ HTTP/1.1" 200 4734
+INFO 2026-01-12 15:12:38,584 basehttp 2548 29960 "GET /supervisor/schools/ HTTP/1.1" 200 5591
+INFO 2026-01-12 15:13:43,670 basehttp 2548 29960 "GET /supervisor/classes/ HTTP/1.1" 200 8082
+INFO 2026-01-12 15:13:56,001 basehttp 2548 29960 "GET /supervisor/calendar/ HTTP/1.1" 200 5726
+INFO 2026-01-12 15:14:07,873 basehttp 2548 29960 "GET /supervisor/calendar/delete-date/255e51b1-e84f-49e3-8d5c-6968076bd8d6/ HTTP/1.1" 200 4172
+INFO 2026-01-12 15:14:16,365 basehttp 2548 29960 "POST /supervisor/calendar/delete-date/255e51b1-e84f-49e3-8d5c-6968076bd8d6/ HTTP/1.1" 302 0
+INFO 2026-01-12 15:14:20,062 basehttp 2548 29960 "GET /supervisor/calendar/ HTTP/1.1" 200 5932
+INFO 2026-01-12 15:14:27,531 basehttp 2548 29960 - Broken pipe from ('127.0.0.1', 51053)
+INFO 2026-01-12 15:14:27,635 basehttp 2548 48628 "GET /supervisor/calendar/delete-date/d006d683-6296-4068-9570-144899304d5e/ HTTP/1.1" 200 4171
+INFO 2026-01-12 15:14:36,233 basehttp 2548 48628 "POST /supervisor/calendar/delete-date/d006d683-6296-4068-9570-144899304d5e/ HTTP/1.1" 302 0
+INFO 2026-01-12 15:14:40,132 basehttp 2548 48628 "GET /supervisor/calendar/ HTTP/1.1" 200 5882
+INFO 2026-01-12 15:14:49,755 basehttp 2548 48628 "GET /supervisor/calendar/ HTTP/1.1" 200 5672
+INFO 2026-01-12 15:14:59,028 basehttp 2548 48628 "GET /supervisor/calendar/add-date/ HTTP/1.1" 200 8055
+INFO 2026-01-12 15:15:43,149 basehttp 2548 48628 "POST /supervisor/calendar/add-date/ HTTP/1.1" 302 0
+INFO 2026-01-12 15:15:47,207 basehttp 2548 48628 "GET /supervisor/calendar/ HTTP/1.1" 200 5926
+INFO 2026-01-12 15:15:56,008 basehttp 2548 48628 "GET /supervisor/calendar/add-date/ HTTP/1.1" 200 8057
+INFO 2026-01-12 15:16:24,575 basehttp 2548 48628 "POST /supervisor/calendar/add-date/ HTTP/1.1" 302 0
+INFO 2026-01-12 15:16:28,475 basehttp 2548 48628 "GET /supervisor/calendar/ HTTP/1.1" 200 5939
+INFO 2026-01-12 15:16:50,674 autoreload 2548 14088 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 15:16:52,498 autoreload 30816 43316 Watching for file changes with StatReloader
+INFO 2026-01-12 15:17:44,526 autoreload 30816 43316 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 15:17:46,477 autoreload 3260 48524 Watching for file changes with StatReloader
+INFO 2026-01-12 15:17:53,185 autoreload 3260 48524 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-12 15:17:54,679 autoreload 28260 20484 Watching for file changes with StatReloader
+INFO 2026-01-12 15:18:10,226 basehttp 28260 18776 "GET /supervisor/calendar/ HTTP/1.1" 200 5724
+INFO 2026-01-12 15:18:14,152 autoreload 28260 20484 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 15:18:15,794 autoreload 21224 27184 Watching for file changes with StatReloader
+INFO 2026-01-12 15:18:54,438 autoreload 21224 27184 C:\Users\piyus\CLAS\CLAS\class\services\session_integration_service.py changed, reloading.
+INFO 2026-01-12 15:18:55,972 autoreload 39788 43700 Watching for file changes with StatReloader
+INFO 2026-01-12 15:22:32,484 basehttp 39788 31696 "GET /supervisor/calendar/ HTTP/1.1" 200 5724
+INFO 2026-01-12 15:23:09,720 autoreload 39788 43700 C:\Users\piyus\CLAS\CLAS\class\facilitator_task_views.py changed, reloading.
+INFO 2026-01-12 15:23:11,577 autoreload 27016 20804 Watching for file changes with StatReloader
+INFO 2026-01-12 15:25:11,942 basehttp 27016 40288 "GET /supervisor/facilitators/ HTTP/1.1" 200 4982
+INFO 2026-01-12 15:25:25,560 basehttp 27016 40288 "GET /supervisor/classes/ HTTP/1.1" 200 8134
+INFO 2026-01-12 15:25:35,042 basehttp 27016 40288 "GET /supervisor/dashboard/ HTTP/1.1" 200 4529
+INFO 2026-01-12 15:25:41,541 session_auth_fix 27016 40288 User piyush81@gmail.com logged out successfully
+INFO 2026-01-12 15:25:41,542 views_auth 27016 40288 User piyush81@gmail.com logged out successfully
+INFO 2026-01-12 15:25:41,545 session_auth_fix 27016 40288 Logout detected for anonymous
+INFO 2026-01-12 15:25:42,846 basehttp 27016 40288 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-12 15:25:44,923 basehttp 27016 40288 "GET /login/ HTTP/1.1" 200 1095
+INFO 2026-01-12 15:27:48,923 views_auth 27016 40288 User piyush812@gmail.com logged in successfully
+INFO 2026-01-12 15:27:50,227 basehttp 27016 40288 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-12 15:27:55,795 basehttp 27016 40288 "GET /admin/dashboard/ HTTP/1.1" 200 8178
+INFO 2026-01-12 15:29:03,996 basehttp 27016 35640 "GET /admin/users/ HTTP/1.1" 200 5917
+INFO 2026-01-12 15:29:03,999 basehttp 27016 40288 - Broken pipe from ('127.0.0.1', 58815)
+WARNING 2026-01-12 15:29:20,274 mixins 27016 35640 Slow function: schools took 6.66s
+INFO 2026-01-12 15:29:20,279 basehttp 27016 35640 "GET /admin/schools/ HTTP/1.1" 200 7715
+INFO 2026-01-12 15:29:27,344 basehttp 27016 35640 "GET /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/ HTTP/1.1" 200 6254
+INFO 2026-01-12 15:29:38,609 basehttp 27016 35640 "GET /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/classes/ HTTP/1.1" 200 8031
+INFO 2026-01-12 15:29:56,830 basehttp 27016 35640 "GET /admin/attendance/ HTTP/1.1" 200 5766
+ERROR 2026-01-12 15:30:03,533 log 27016 35640 Internal Server Error: /admin/curriculum-sessions/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\mixins.py", line 327, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 3629, in admin_curriculum_sessions_list
+    'status_choices': CurriculumSession.STATUS_CHOICES,
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'CurriculumSession' has no attribute 'STATUS_CHOICES'
+ERROR 2026-01-12 15:30:03,548 basehttp 27016 35640 "GET /admin/curriculum-sessions/ HTTP/1.1" 500 13122
+WARNING 2026-01-12 15:30:07,065 session_auth_fix 27016 35640 Unauthorized access attempt by piyush812@gmail.com to /favicon.ico
+INFO 2026-01-12 15:30:07,066 basehttp 27016 35640 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-12 15:30:13,063 basehttp 27016 35640 "GET /admin/dashboard/ HTTP/1.1" 200 8192
+INFO 2026-01-12 15:36:19,412 autoreload 40756 25152 Watching for file changes with StatReloader
+WARNING 2026-01-12 15:36:41,925 mixins 40756 23884 Slow function: admin_curriculum_sessions_list took 2.88s
+INFO 2026-01-12 15:36:41,936 basehttp 40756 23884 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 12361
+INFO 2026-01-12 15:36:48,032 curriculum_content_resolver 40756 17648 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-12 15:36:49,787 curriculum_content_resolver 40756 17648 Found 5251 rows in curriculum table
+INFO 2026-01-12 15:36:49,788 curriculum_content_resolver 40756 17648 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-12 15:36:49,790 curriculum_content_resolver 40756 17648 Found next day boundary at row 36, day 2
+INFO 2026-01-12 15:36:49,790 curriculum_content_resolver 40756 17648 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-12 15:36:49,796 curriculum_content_resolver 40756 17648 Fixed image and resource paths in curriculum content
+INFO 2026-01-12 15:36:49,797 curriculum_content_resolver 40756 17648 Loaded static fallback content for Day 1 english
+INFO 2026-01-12 15:36:50,211 basehttp 40756 17648 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 3106
+ERROR 2026-01-12 15:37:03,740 log 40756 17648 Internal Server Error: /admin/reports/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\reports_views.py", line 54, in reports_dashboard
+    status=SessionStatus.CONDUCTED
+           ^^^^^^^^^^^^^
+NameError: name 'SessionStatus' is not defined
+ERROR 2026-01-12 15:37:03,752 basehttp 40756 17648 "GET /admin/reports/ HTTP/1.1" 500 12316
+WARNING 2026-01-12 15:37:07,534 session_auth_fix 40756 6720 Unauthorized access attempt by piyush812@gmail.com to /favicon.ico
+INFO 2026-01-12 15:37:07,535 basehttp 40756 6720 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-12 15:37:13,675 basehttp 40756 6720 "GET /admin/dashboard/ HTTP/1.1" 200 8190
+INFO 2026-01-12 15:38:00,160 autoreload 40756 25152 C:\Users\piyus\CLAS\CLAS\class\reports_views.py changed, reloading.
+INFO 2026-01-12 15:38:02,507 autoreload 42252 26552 Watching for file changes with StatReloader
+INFO 2026-01-12 15:38:56,801 autoreload 43484 18636 Watching for file changes with StatReloader
+INFO 2026-01-12 15:39:48,372 basehttp 43484 40172 "GET /admin/reports/ HTTP/1.1" 200 10111
+INFO 2026-01-12 15:42:23,985 basehttp 43484 16736 - Broken pipe from ('127.0.0.1', 54755)
+INFO 2026-01-12 15:42:24,467 basehttp 43484 38884 - Broken pipe from ('127.0.0.1', 56231)
+INFO 2026-01-12 15:42:25,060 basehttp 43484 1344 - Broken pipe from ('127.0.0.1', 53329)
+INFO 2026-01-12 15:42:26,057 basehttp 43484 43640 - Broken pipe from ('127.0.0.1', 50658)
+INFO 2026-01-12 15:42:26,257 basehttp 43484 42568 "GET /admin/feedback/ HTTP/1.1" 200 4970
+INFO 2026-01-12 15:42:49,873 basehttp 43484 28712 "GET /admin/feedback/student/ HTTP/1.1" 200 4899
+INFO 2026-01-12 15:44:00,120 basehttp 43484 17336 "GET /admin/sessions/ HTTP/1.1" 200 7266
+INFO 2026-01-12 15:44:04,409 basehttp 43484 17888 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 8365
+WARNING 2026-01-12 15:44:05,343 mixins 43484 26652 Slow function: admin_curriculum_sessions_list took 1.23s
+INFO 2026-01-12 15:44:05,352 basehttp 43484 26652 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 12361
+WARNING 2026-01-12 15:44:51,143 mixins 43484 5844 Slow function: ajax_school_classes_admin took 1.16s
+INFO 2026-01-12 15:44:51,144 basehttp 43484 5844 "GET /api/school-classes/?school_id=59102664-e22e-453b-addb-45a0afe9659e HTTP/1.1" 200 398
+WARNING 2026-01-12 15:45:06,284 mixins 43484 5844 Slow function: sessions_view took 3.40s
+INFO 2026-01-12 15:45:06,289 basehttp 43484 5844 "GET /admin/classes/5db21088-f58f-46b6-b03b-197ec7f5efcc/sessions/ HTTP/1.1" 200 6703
+INFO 2026-01-12 15:47:04,986 basehttp 43484 11864 "GET /admin/dashboard/ HTTP/1.1" 200 8014
+INFO 2026-01-12 15:47:47,921 basehttp 43484 29688 "POST /admin/users/create-ajax/ HTTP/1.1" 200 161
+INFO 2026-01-12 15:47:54,302 basehttp 43484 47688 "POST /admin/users/create-ajax/ HTTP/1.1" 200 51
+ERROR 2026-01-12 15:47:56,217 basehttp 43484 2108 "POST /admin/users/create-ajax/ HTTP/1.1" 500 7817
+ERROR 2026-01-12 15:47:56,512 basehttp 43484 42252 "POST /admin/users/create-ajax/ HTTP/1.1" 500 7817
+ERROR 2026-01-12 15:47:58,170 basehttp 43484 15336 "POST /admin/users/create-ajax/ HTTP/1.1" 500 7816
+INFO 2026-01-12 15:48:12,322 basehttp 43484 26404 - Broken pipe from ('127.0.0.1', 53233)
+INFO 2026-01-12 15:48:26,116 basehttp 43484 45824 - Broken pipe from ('127.0.0.1', 54896)
+INFO 2026-01-12 15:48:28,416 basehttp 43484 19924 "GET /admin/users/ HTTP/1.1" 200 6027
+INFO 2026-01-12 15:49:30,026 basehttp 43484 41816 "GET /admin/users/delete/b7db94d9-ec98-4c7b-876c-e995eb74055d/ HTTP/1.1" 302 0
+INFO 2026-01-12 15:49:50,237 basehttp 43484 47340 "GET /admin/users/ HTTP/1.1" 200 6090
+WARNING 2026-01-12 15:51:51,271 mixins 43484 43316 Slow function: schools took 11.56s
+INFO 2026-01-12 15:51:51,276 basehttp 43484 43316 "GET /admin/schools/ HTTP/1.1" 200 7716
+INFO 2026-01-12 15:52:01,524 basehttp 43484 26696 "GET /admin/schools/add/ HTTP/1.1" 200 4765
+INFO 2026-01-12 15:52:31,939 basehttp 43484 2864 "POST /admin/schools/add/ HTTP/1.1" 200 4862
+INFO 2026-01-12 15:52:52,297 basehttp 43484 30540 "POST /admin/schools/add/ HTTP/1.1" 302 0
+WARNING 2026-01-12 15:53:05,748 mixins 43484 18504 Slow function: schools took 9.42s
+INFO 2026-01-12 15:53:05,754 basehttp 43484 18504 "GET /admin/schools/ HTTP/1.1" 200 8004
+INFO 2026-01-12 15:53:13,605 basehttp 43484 4244 "GET /admin/schools/d0ceece1-736f-42e0-a6d9-069497588728/ HTTP/1.1" 200 5520
+INFO 2026-01-12 15:53:20,676 basehttp 43484 4244 "GET /admin/schools/d0ceece1-736f-42e0-a6d9-069497588728/classes/ HTTP/1.1" 200 6522
+WARNING 2026-01-12 15:53:20,739 basehttp 43484 4244 "GET /static/admin/assets/img/empty-state.svg HTTP/1.1" 404 1910
+INFO 2026-01-12 15:53:28,393 basehttp 43484 48532 "GET /admin/classes/bulk-create/ HTTP/1.1" 200 5704
+INFO 2026-01-12 15:54:11,095 basehttp 43484 42324 "POST /admin/classes/bulk-create/ HTTP/1.1" 200 6075
+INFO 2026-01-12 15:56:24,083 basehttp 43484 28236 "POST /admin/classes/bulk-create/ HTTP/1.1" 200 6054
+INFO 2026-01-12 15:56:51,202 signals 43484 26688 Auto-generating sessions for new class: n k - 1A (2026-2027)
+INFO 2026-01-12 15:56:53,233 session_management 43484 26688 Generated 150 sessions for n k - 1A (2026-2027)
+INFO 2026-01-12 15:56:53,560 signals 43484 26688 Successfully auto-generated 150 sessions for n k - 1A (2026-2027)
+INFO 2026-01-12 15:56:54,383 basehttp 43484 26688 "POST /admin/classes/bulk-create/ HTTP/1.1" 302 0
+INFO 2026-01-12 15:57:04,754 basehttp 43484 26688 "GET /admin/schools/d0ceece1-736f-42e0-a6d9-069497588728/classes/ HTTP/1.1" 200 7334
+INFO 2026-01-12 15:57:37,496 basehttp 43484 44612 "GET /admin/classes/695e11ec-e452-4c63-a3b0-e38f5b1e8900/assign-facilitator/ HTTP/1.1" 200 4895
+INFO 2026-01-12 15:58:07,704 basehttp 43484 18376 "POST /admin/classes/695e11ec-e452-4c63-a3b0-e38f5b1e8900/assign-facilitator/ HTTP/1.1" 200 4893
+INFO 2026-01-12 15:58:26,061 basehttp 43484 18376 "POST /admin/classes/695e11ec-e452-4c63-a3b0-e38f5b1e8900/assign-facilitator/ HTTP/1.1" 200 4894
+WARNING 2026-01-12 15:58:26,490 session_auth_fix 43484 42836 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-12 15:58:26,492 basehttp 43484 42836 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-12 15:58:49,531 basehttp 43484 30668 - Broken pipe from ('127.0.0.1', 65191)
+INFO 2026-01-12 15:59:11,090 basehttp 43484 26792 "POST /admin/classes/695e11ec-e452-4c63-a3b0-e38f5b1e8900/assign-facilitator/ HTTP/1.1" 200 5103
+INFO 2026-01-12 15:59:41,097 basehttp 43484 27228 - Broken pipe from ('127.0.0.1', 64104)
+WARNING 2026-01-12 15:59:44,550 log 43484 20880 Not Found: /admin/classe/
+INFO 2026-01-12 15:59:44,552 basehttp 43484 20880 - Broken pipe from ('127.0.0.1', 61375)
+INFO 2026-01-12 15:59:46,088 basehttp 43484 44536 - Broken pipe from ('127.0.0.1', 57195)
+INFO 2026-01-12 15:59:46,524 basehttp 43484 33244 - Broken pipe from ('127.0.0.1', 50580)
+INFO 2026-01-12 15:59:53,800 basehttp 43484 29600 - Broken pipe from ('127.0.0.1', 54579)
+INFO 2026-01-12 15:59:55,327 basehttp 43484 27156 - Broken pipe from ('127.0.0.1', 51060)
+INFO 2026-01-12 16:00:02,788 basehttp 43484 29436 - Broken pipe from ('127.0.0.1', 56092)
+INFO 2026-01-12 16:00:06,334 autoreload 8580 2636 Watching for file changes with StatReloader
+WARNING 2026-01-12 16:01:44,619 mixins 8580 9060 Slow function: schools took 27.36s
+INFO 2026-01-12 16:01:44,625 basehttp 8580 9060 "GET /admin/schools/ HTTP/1.1" 200 7818
+INFO 2026-01-12 16:01:57,083 basehttp 8580 18912 "GET /admin/schools/d0ceece1-736f-42e0-a6d9-069497588728/ HTTP/1.1" 200 5515
+INFO 2026-01-12 16:02:15,307 basehttp 8580 15412 "GET /admin/schools/d0ceece1-736f-42e0-a6d9-069497588728/classes/ HTTP/1.1" 200 7155
+WARNING 2026-01-12 16:02:30,915 mixins 8580 43448 Slow function: schools took 5.30s
+INFO 2026-01-12 16:02:30,919 basehttp 8580 43448 "GET /admin/schools/ HTTP/1.1" 200 7823
+INFO 2026-01-12 16:03:44,604 basehttp 8580 42264 "POST /admin/schools/assign-facilitator/ HTTP/1.1" 302 0
+WARNING 2026-01-12 16:04:06,620 mixins 8580 42264 Slow function: schools took 13.93s
+INFO 2026-01-12 16:04:06,626 basehttp 8580 42264 "GET /admin/schools/ HTTP/1.1" 200 8000
+WARNING 2026-01-12 16:05:15,640 mixins 8580 37976 Slow function: schools took 5.92s
+INFO 2026-01-12 16:05:15,645 basehttp 8580 37976 "GET /admin/schools/ HTTP/1.1" 200 7814
+INFO 2026-01-12 16:05:33,773 basehttp 8580 45936 - Broken pipe from ('127.0.0.1', 60507)
+INFO 2026-01-12 16:05:41,760 basehttp 8580 47608 - Broken pipe from ('127.0.0.1', 54104)
+INFO 2026-01-12 16:05:42,070 basehttp 8580 41936 "GET /admin/users/ HTTP/1.1" 200 5927
+WARNING 2026-01-12 16:08:40,547 mixins 8580 17456 Slow function: schools took 5.43s
+INFO 2026-01-12 16:08:40,552 basehttp 8580 17456 "GET /admin/schools/ HTTP/1.1" 200 7816
+INFO 2026-01-12 16:09:17,111 basehttp 8580 43264 "GET /admin/schools/d0ceece1-736f-42e0-a6d9-069497588728/ HTTP/1.1" 200 6109
+INFO 2026-01-12 16:09:28,680 basehttp 8580 48744 "GET /admin/schools/d0ceece1-736f-42e0-a6d9-069497588728/students/ HTTP/1.1" 200 4551
+INFO 2026-01-12 16:09:36,771 basehttp 8580 48744 "GET /admin/schools/d0ceece1-736f-42e0-a6d9-069497588728/students/add/ HTTP/1.1" 200 4656
+INFO 2026-01-12 16:10:26,353 basehttp 8580 35388 "POST /admin/schools/d0ceece1-736f-42e0-a6d9-069497588728/students/add/ HTTP/1.1" 302 0
+INFO 2026-01-12 16:10:29,918 basehttp 8580 42588 "GET /admin/schools/d0ceece1-736f-42e0-a6d9-069497588728/students/ HTTP/1.1" 200 4859
+INFO 2026-01-12 16:14:30,563 autoreload 8580 2636 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:14:32,860 autoreload 37524 48960 Watching for file changes with StatReloader
+INFO 2026-01-12 16:21:52,555 autoreload 37524 48960 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:21:54,096 autoreload 15036 15304 Watching for file changes with StatReloader
+INFO 2026-01-12 16:22:03,407 autoreload 15036 15304 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:22:04,774 autoreload 42052 44384 Watching for file changes with StatReloader
+INFO 2026-01-12 16:22:12,688 autoreload 42052 44384 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:22:14,014 autoreload 34396 42268 Watching for file changes with StatReloader
+INFO 2026-01-12 16:22:41,113 autoreload 34396 42268 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:22:42,315 autoreload 8200 31308 Watching for file changes with StatReloader
+INFO 2026-01-12 16:23:20,328 autoreload 8200 31308 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:23:21,525 autoreload 2968 22060 Watching for file changes with StatReloader
+INFO 2026-01-12 16:23:48,183 autoreload 2968 22060 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:23:49,456 autoreload 32964 44476 Watching for file changes with StatReloader
+INFO 2026-01-12 16:23:56,285 autoreload 32964 44476 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:23:57,479 autoreload 22016 48908 Watching for file changes with StatReloader
+INFO 2026-01-12 16:26:02,541 autoreload 22016 48908 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:26:03,722 autoreload 25884 46692 Watching for file changes with StatReloader
+INFO 2026-01-12 16:26:11,739 autoreload 25884 46692 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:26:12,839 autoreload 2300 34428 Watching for file changes with StatReloader
+INFO 2026-01-12 16:26:16,000 autoreload 2300 34428 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 16:26:17,668 autoreload 48928 40372 Watching for file changes with StatReloader
+INFO 2026-01-12 16:28:00,185 autoreload 48928 40372 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-12 16:28:01,206 autoreload 33008 5532 Watching for file changes with StatReloader
+INFO 2026-01-12 16:28:09,081 autoreload 33008 5532 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-12 16:28:10,084 autoreload 43364 40548 Watching for file changes with StatReloader
+INFO 2026-01-12 16:28:13,461 autoreload 43364 40548 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-12 16:28:14,808 autoreload 30208 42836 Watching for file changes with StatReloader
+INFO 2026-01-12 17:48:16,277 autoreload 30208 42836 C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py changed, reloading.
+INFO 2026-01-12 17:48:17,597 autoreload 41824 50764 Watching for file changes with StatReloader
+INFO 2026-01-12 17:49:46,061 autoreload 41824 50764 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-12 17:49:47,498 autoreload 36784 20344 Watching for file changes with StatReloader
+WARNING 2026-01-12 17:52:28,808 session_auth_fix 36784 18084 Unauthorized access attempt by piyush812@gmail.com to /
+INFO 2026-01-12 17:52:28,850 basehttp 36784 18084 - Broken pipe from ('127.0.0.1', 53676)
+INFO 2026-01-12 17:52:36,700 basehttp 36784 35340 - Broken pipe from ('127.0.0.1', 65392)
+INFO 2026-01-12 17:52:36,702 basehttp 36784 21212 "GET /admin/sessions/ HTTP/1.1" 200 7302
+INFO 2026-01-12 17:52:37,412 basehttp 36784 444 - Broken pipe from ('127.0.0.1', 58958)
+INFO 2026-01-12 17:52:37,618 basehttp 36784 48484 - Broken pipe from ('127.0.0.1', 60627)
+INFO 2026-01-12 17:52:41,615 basehttp 36784 50076 "GET /admin/curriculum-sessions/create/ HTTP/1.1" 200 8425
+WARNING 2026-01-12 17:52:42,509 mixins 36784 21212 Slow function: admin_curriculum_sessions_list took 1.52s
+INFO 2026-01-12 17:52:42,518 basehttp 36784 21212 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 12361
+WARNING 2026-01-12 17:52:47,959 mixins 36784 50076 Slow function: admin_curriculum_sessions_list took 1.44s
+INFO 2026-01-12 17:52:47,967 basehttp 36784 50076 "GET /admin/curriculum-sessions/ HTTP/1.1" 200 12361
+INFO 2026-01-12 17:52:52,468 curriculum_content_resolver 36784 50076 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-12 17:52:53,615 curriculum_content_resolver 36784 50076 Found 5251 rows in curriculum table
+INFO 2026-01-12 17:52:53,616 curriculum_content_resolver 36784 50076 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-12 17:52:53,618 curriculum_content_resolver 36784 50076 Found next day boundary at row 36, day 2
+INFO 2026-01-12 17:52:53,619 curriculum_content_resolver 36784 50076 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-12 17:52:53,623 curriculum_content_resolver 36784 50076 Fixed image and resource paths in curriculum content
+INFO 2026-01-12 17:52:53,625 curriculum_content_resolver 36784 50076 Loaded static fallback content for Day 1 english
+INFO 2026-01-12 17:52:53,999 basehttp 36784 50076 "GET /api/curriculum/content/?day=1&language=english HTTP/1.1" 200 3106
+INFO 2026-01-12 17:53:11,314 curriculum_content_resolver 36784 50076 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-12 17:53:12,509 curriculum_content_resolver 36784 50076 Found 5251 rows in curriculum table
+INFO 2026-01-12 17:53:12,512 curriculum_content_resolver 36784 50076 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-12 17:53:12,513 curriculum_content_resolver 36784 50076 Found next day boundary at row 71, day 3
+INFO 2026-01-12 17:53:12,514 curriculum_content_resolver 36784 50076 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-12 17:53:12,518 curriculum_content_resolver 36784 50076 Fixed image and resource paths in curriculum content
+INFO 2026-01-12 17:53:12,519 curriculum_content_resolver 36784 50076 Loaded static fallback content for Day 2 english
+INFO 2026-01-12 17:53:12,851 basehttp 36784 50076 "GET /api/curriculum/content/?day=2&language=english HTTP/1.1" 200 3185

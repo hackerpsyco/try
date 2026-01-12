@@ -1,0 +1,4 @@
+# file: C:\Users\piyus\CLAS\CLAS\class\models\student_performance.py
+# hypothesis_version: 6.148.11
+
+[100, '-recorded_date', 'A', 'Average (40-59)', 'B', 'C', 'Excellent (80-100)', 'F', 'Failed (0-39)', 'Good (60-79)', 'Performance Cutoffs', 'Rank in class', 'Score out of 100', 'Teacher remarks', 'class_section', 'name', 'perf_cls_subj_idx', 'perf_stud_subj_idx', 'performance_cutoff', 'performance_records', 'performance_summary', 'rank', 'student', 'student_performances', 'subject']
