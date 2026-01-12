@@ -9,6 +9,48 @@
         <div class="mb-4">
             <h1 class="h2 fw-bold text-dark">Facilitator Task - Preparation</h1>
             <p class="text-muted">{{ actual_session.planned_session.class_section.display_name }} - {{ actual_session.date }}</p>
+            
+            <!-- Grouped Session Notice -->
+            {% if is_grouped_session %}
+            <div class="alert alert-info mt-3">
+                <strong>🔗 Grouped Session</strong><br>
+                <small>This task applies to ALL grouped classes:
+                    {% for grouped_class in grouped_classes %}
+                        <span class="badge bg-info">{{ grouped_class.display_name }}</span>
+                    {% endfor %}
+                </small>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Task Completion Status -->
+        <div class="card mb-4 {% if task_count > 0 %}border-success{% else %}border-warning{% endif %}">
+            <div class="card-header {% if task_count > 0 %}bg-success{% else %}bg-warning{% endif %} text-white">
+                <h5 class="mb-0">
+                    {% if task_count > 0 %}
+                        ✅ Tasks Completed: {{ task_count }}
+                    {% else %}
+                        ⚠️ No Tasks Submitted Yet
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if task_count == 0 %}
+                    <div class="alert alert-warning mb-0">
+                        <strong>Please complete at least ONE of the following tasks:</strong>
+                        <ul class="mb-0 mt-2">
+                            <li>📷 Take a Photo</li>
+                            <li>🎥 Take a Video</li>
+                            <li>👍 Add a Facebook Link</li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <p class="mb-0 text-success">
+                        <i class="bi bi-check-circle"></i> Great! You have completed {{ task_count }} task(s). 
+                        You can now proceed to mark attendance.
+                    </p>
+                {% endif %}
+            </div>
         </div>
 
         <!-- Lesson Plan Content (if available) -->
@@ -179,12 +221,30 @@
             <a href="{% url 'facilitator_today_session' %}" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Back
             </a>
-            <form method="POST" action="{% url 'facilitator_task_complete' actual_session.id %}" style="flex: 1;">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-success w-100">
-                    <i class="bi bi-check-lg"></i> Complete & Continue to Conduct
+            
+            {% if task_count > 0 %}
+                <!-- Task completed - show proceed button -->
+                <form method="POST" action="{% url 'facilitator_task_complete' actual_session.id %}" style="flex: 1;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="bi bi-check-lg"></i> 
+                        {% if is_grouped_session %}
+                            Complete & Mark Attendance ({{ grouped_classes|length }} Classes)
+                        {% else %}
+                            Complete & Mark Attendance
+                        {% endif %}
+                    </button>
+                </form>
+            {% else %}
+                <!-- No task completed - disable proceed button -->
+                <button type="button" class="btn btn-success w-100" disabled title="Please complete at least one task first">
+                    <i class="bi bi-check-lg"></i> Complete & Mark Attendance (Complete a task first)
                 </button>
-            </form>
+            {% endif %}
+            
+            <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-warning">
+                <i class="bi bi-skip-forward"></i> Skip Task
+            </a>
         </div>
     </div>
 </div>

@@ -57,6 +57,10 @@ from .supervisor_views import (
     supervisor_calendar_add_date,
     supervisor_calendar_edit_date,
     supervisor_calendar_delete_date,
+    
+    # Supervisor - Student Import
+    supervisor_student_import,
+    supervisor_download_sample_csv,
 )
 from .views import (
 

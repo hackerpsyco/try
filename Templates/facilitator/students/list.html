@@ -320,11 +320,19 @@
                     </h2>
                     <p class="text-muted mb-0">Manage students from your assigned schools</p>
                 </div>
-                <div>
+                <div class="d-flex gap-2">
                     <a href="{% url 'facilitator_student_create' %}" class="btn filter-btn">
                         <i class="fas fa-plus me-1"></i>
                         Add Student
                     </a>
+                    <a href="{% url 'facilitator_download_sample_csv' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-download me-1"></i>
+                        Download Sample
+                    </a>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#importModal">
+                        <i class="fas fa-file-import me-1"></i>
+                        Import Students
+                    </button>
                 </div>
             </div>
         </div>
@@ -590,7 +598,115 @@
         </div>
     {% endif %}
 </div>
+
+<!-- Import Students Modal -->
+<div class="modal fade" id="importModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-file-import me-2"></i>
+                    Import Students
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info mb-3">
+                    <strong>📋 Import Instructions:</strong>
+                    <ul class="mb-0 mt-2">
+                        <li>Download the sample CSV file first</li>
+                        <li>Fill in student data following the format</li>
+                        <li>Upload the file to import all students at once</li>
+                    </ul>
+                </div>
+                
+                <form method="post" enctype="multipart/form-data" id="importForm">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="classSelect" class="form-label">Select Class *</label>
+                        <select name="class_section" id="classSelect" class="form-select" required>
+                            <option value="">Choose a class...</option>
+                            {% for class_section in classes %}
+                                <option value="{{ class_section.id }}">
+                                    {{ class_section.school.name }} - {{ class_section.display_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <small class="text-muted">Students will be enrolled in the selected class</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="fileInput" class="form-label">Upload CSV/Excel File *</label>
+                        <input type="file" name="file" id="fileInput" class="form-control" 
+                               accept=".csv,.xlsx,.xls" required>
+                        <small class="text-muted">Supported formats: CSV, XLSX, XLS</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'facilitator_download_sample_csv' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-download me-1"></i>
+                    Download Sample
+                </a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="submitImportForm()">
+                    <i class="fas fa-upload me-1"></i>
+                    Import
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
+
+<!-- Import Form Handler -->
+<script>
+function submitImportForm() {
+    const form = document.getElementById('importForm');
+    const classSelect = document.getElementById('classSelect');
+    const fileInput = document.getElementById('fileInput');
+    
+    if (!classSelect.value) {
+        alert('Please select a class');
+        return;
+    }
+    
+    if (!fileInput.files.length) {
+        alert('Please select a file');
+        return;
+    }
+    
+    // Create form data and submit
+    const formData = new FormData(form);
+    const classId = classSelect.value;
+    
+    // Submit to the import endpoint
+    const importUrl = `/facilitator/class/${classId}/students/import/`;
+    
+    const submitForm = document.createElement('form');
+    submitForm.method = 'POST';
+    submitForm.action = importUrl;
+    submitForm.enctype = 'multipart/form-data';
+    
+    // Add CSRF token
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const csrfInput = document.createElement('input');
+    csrfInput.type = 'hidden';
+    csrfInput.name = 'csrfmiddlewaretoken';
+    csrfInput.value = csrfToken;
+    submitForm.appendChild(csrfInput);
+    
+    // Add file
+    const fileClone = fileInput.cloneNode(true);
+    submitForm.appendChild(fileClone);
+    
+    document.body.appendChild(submitForm);
+    submitForm.submit();
+    document.body.removeChild(submitForm);
+}
+</script>
 
 {% block extra_js %}
 <script>

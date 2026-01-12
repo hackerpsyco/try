@@ -1042,7 +1042,7 @@ def today_session(request, class_section_id):
                 primary_class_id = primary_class.id
     
     if should_redirect and primary_class_id:
-        return redirect('facilitator_today_session', class_section_id=primary_class_id)
+        return redirect('facilitator_class_today_session', class_section_id=primary_class_id)
     
     # Also check calendar entry for today (for holiday/office work redirects)
     calendar_entry = CalendarDate.objects.filter(
@@ -1056,7 +1056,7 @@ def today_session(request, class_section_id):
         primary_class = calendar_entry.class_sections.first()
         if primary_class.id != class_section.id:
             # Redirect to primary class's session
-            return redirect('facilitator_today_session', class_section_id=primary_class.id)
+            return redirect('facilitator_class_today_session', class_section_id=primary_class.id)
     
     # CHECK CALENDAR FIRST - check both class-level and school-level entries
     # First check class-specific entry
@@ -1442,7 +1442,7 @@ def start_session(request, planned_session_id):
         elif status == SessionStatus.CANCELLED.name.lower():
             if not cancellation_reason:
                 messages.error(request, "Please select a cancellation reason.")
-                return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
+                return redirect("facilitator_class_today_session", class_section_id=planned.class_section.id)
             
             actual_session = SessionStatusManager.cancel_session(
                 planned_session=planned,
@@ -1470,16 +1470,16 @@ def start_session(request, planned_session_id):
         
         else:
             messages.error(request, "Invalid session status.")
-            return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
+            return redirect("facilitator_class_today_session", class_section_id=planned.class_section.id)
             
     except ValidationError as e:
         messages.error(request, str(e))
-        return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
+        return redirect("facilitator_class_today_session", class_section_id=planned.class_section.id)
     except Exception as e:
         messages.error(request, f"Error processing session: {str(e)}")
-        return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
+        return redirect("facilitator_class_today_session", class_section_id=planned.class_section.id)
 
-    return redirect("facilitator_today_session", class_section_id=planned.class_section.id)
+    return redirect("facilitator_class_today_session", class_section_id=planned.class_section.id)
 
 @login_required
 def mark_attendance(request, actual_session_id):
@@ -1597,7 +1597,7 @@ def mark_attendance(request, actual_session_id):
                     success_message = "Attendance saved successfully for all grouped classes! " + ", ".join(message_parts) + "."
                     messages.success(request, success_message)
                     
-                    return redirect("facilitator_today_session", class_section_id=session.planned_session.class_section.id)
+                    return redirect("facilitator_class_today_session", class_section_id=session.planned_session.class_section.id)
                     
             except Exception as e:
                 messages.error(request, f"Error saving attendance: {str(e)}")
@@ -1670,7 +1670,7 @@ def mark_attendance(request, actual_session_id):
                     success_message = "Attendance saved successfully! " + ", ".join(message_parts) + "."
                     messages.success(request, success_message)
                     
-                    return redirect("facilitator_today_session", class_section_id=session.planned_session.class_section.id)
+                    return redirect("facilitator_class_today_session", class_section_id=session.planned_session.class_section.id)
                     
             except Exception as e:
                 messages.error(request, f"Error saving attendance: {str(e)}")
@@ -1742,15 +1742,15 @@ def facilitator_classes(request):
     
     for cal_date in calendar_dates_today:
         # For session type with class_sections (new ManyToMany field)
-        if cal_date.date_type == 'session' and cal_date.class_sections.exists():
+        if cal_date.date_type == DateType.SESSION and cal_date.class_sections.exists():
             for class_section in cal_date.class_sections.all():
                 calendar_by_class[str(class_section.id)] = cal_date
         # Legacy: single class_section field (backward compatibility)
-        elif cal_date.date_type == 'session' and cal_date.class_section:
+        elif cal_date.date_type == DateType.SESSION and cal_date.class_section:
             calendar_by_class[str(cal_date.class_section.id)] = cal_date
         
         # School-level entries (holidays, office work - not sessions)
-        if cal_date.date_type in ['holiday', 'office_work'] and cal_date.school:
+        if cal_date.date_type in [DateType.HOLIDAY, DateType.OFFICE_WORK] and cal_date.school:
             calendar_by_school[str(cal_date.school.id)] = cal_date
     
     # Group classes that share the same calendar entry (same group created by supervisor)
@@ -1818,14 +1818,14 @@ def facilitator_classes(request):
             processed_class_ids.add(str(cls.id))
         
         # Determine today's status
-        today_status = DateType.SESSION  # default
+        today_status = 'session'  # default
         if calendar_entry:
             if calendar_entry.date_type == DateType.HOLIDAY:
-                today_status = DateType.HOLIDAY
+                today_status = 'holiday'
             elif calendar_entry.date_type == DateType.OFFICE_WORK:
-                today_status = DateType.OFFICE_WORK
+                today_status = 'office_work'
             elif calendar_entry.date_type == DateType.SESSION:
-                today_status = DateType.SESSION
+                today_status = 'session'
         
         classes_with_calendar.append({
             'class_sections': grouped_classes,  # List of grouped classes

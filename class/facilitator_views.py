@@ -775,15 +775,15 @@ def facilitator_today_session_calendar(request):
     
     for cal_date in calendar_dates_today:
         # For session type with class_sections (new ManyToMany field)
-        if cal_date.date_type == 'session' and cal_date.class_sections.exists():
+        if cal_date.date_type == DateType.SESSION and cal_date.class_sections.exists():
             for class_section in cal_date.class_sections.all():
                 calendar_by_class[str(class_section.id)] = cal_date
         # Legacy: single class_section field (backward compatibility)
-        elif cal_date.date_type == 'session' and cal_date.class_section:
+        elif cal_date.date_type == DateType.SESSION and cal_date.class_section:
             calendar_by_class[str(cal_date.class_section.id)] = cal_date
         
         # School-level entries (holidays, office work - not sessions)
-        if cal_date.date_type in ['holiday', 'office_work'] and cal_date.school:
+        if cal_date.date_type in [DateType.HOLIDAY, DateType.OFFICE_WORK] and cal_date.school:
             calendar_by_school[str(cal_date.school.id)] = cal_date
     
     # Build classes with today's session info
@@ -894,11 +894,11 @@ def facilitator_today_session_calendar(request):
         status = 'no_session'
         if calendar_date:
             if calendar_date.date_type == DateType.SESSION:
-                status = DateType.SESSION
+                status = 'session'
             elif calendar_date.date_type == DateType.HOLIDAY:
-                status = DateType.HOLIDAY
+                status = 'holiday'
             elif calendar_date.date_type == DateType.OFFICE_WORK:
-                status = DateType.OFFICE_WORK
+                status = 'office_work'
         
         # Add grouped classes as single entry
         classes_today.append({

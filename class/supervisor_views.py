@@ -23,65 +23,55 @@ def initialize_grouped_session_plans(classes, grouped_session_id):
     """
     Initialize 150-day session plans for grouped classes.
     
-    - Creates ONE shared 150-day plan for the primary class
-    - Creates placeholder sessions for other classes that reference the same grouped_session_id
-    - Deletes any existing individual session plans for these classes
+    - Creates 150-day sessions for each class that doesn't have them yet
+    - Links all sessions with the same grouped_session_id
+    - Preserves existing sessions for classes that already have them
     """
     if not classes:
         return {'success': False, 'error': 'No classes provided'}
     
     try:
         with transaction.atomic():
-            primary_class = classes[0]
+            sessions_created = 0
             
-            # Delete any existing individual session plans for ALL classes in the group
-            # (they will now share ONE grouped session)
-            PlannedSession.objects.filter(
-                class_section__in=classes
-            ).delete()
-            
-            # Create ONE shared 150-day session plan for the primary class
-            sessions_to_create = []
-            for day_number in range(1, 151):
-                session = PlannedSession(
-                    class_section=primary_class,
-                    day_number=day_number,
-                    title=f"Day {day_number} Session",
-                    description=f"Grouped session for {', '.join([c.display_name for c in classes])}",
-                    sequence_position=day_number,
-                    is_required=True,
-                    is_active=True,
-                    grouped_session_id=grouped_session_id
-                )
-                sessions_to_create.append(session)
-            
-            # Bulk create all sessions for primary class
-            PlannedSession.objects.bulk_create(sessions_to_create)
-            
-            # Create placeholder sessions for other classes that reference the same grouped_session_id
-            for cls in classes[1:]:
-                placeholder_sessions = []
-                for day_number in range(1, 151):
-                    session = PlannedSession(
-                        class_section=cls,
-                        day_number=day_number,
-                        title=f"Day {day_number} Session",
-                        description=f"Grouped session for {', '.join([c.display_name for c in classes])}",
-                        sequence_position=day_number,
-                        is_required=True,
-                        is_active=True,
-                        grouped_session_id=grouped_session_id
-                    )
-                    placeholder_sessions.append(session)
+            # For each class, create sessions if they don't exist
+            for class_section in classes:
+                # Check if this class already has sessions
+                existing_sessions = PlannedSession.objects.filter(
+                    class_section=class_section
+                ).exists()
                 
-                # Bulk create placeholder sessions for this class
-                PlannedSession.objects.bulk_create(placeholder_sessions)
+                if not existing_sessions:
+                    # Create 150 sessions for this class
+                    sessions_to_create = []
+                    for day_number in range(1, 151):
+                        session = PlannedSession(
+                            class_section=class_section,
+                            day_number=day_number,
+                            title=f"Day {day_number} Session",
+                            description=f"Grouped session for {', '.join([c.display_name for c in classes])}",
+                            sequence_position=day_number,
+                            is_required=True,
+                            is_active=True,
+                            grouped_session_id=grouped_session_id
+                        )
+                        sessions_to_create.append(session)
+                    
+                    # Bulk create all sessions for this class
+                    PlannedSession.objects.bulk_create(sessions_to_create)
+                    sessions_created += 150
+                else:
+                    # Class already has sessions - just update grouped_session_id if not set
+                    PlannedSession.objects.filter(
+                        class_section=class_section,
+                        grouped_session_id__isnull=True
+                    ).update(grouped_session_id=grouped_session_id)
             
             return {
                 'success': True,
-                'message': f'Created 150-day grouped session plan for {len(classes)} classes',
+                'message': f'Initialized grouped session plan for {len(classes)} classes',
                 'classes_count': len(classes),
-                'sessions_created': 150 * len(classes)
+                'sessions_created': sessions_created
             }
     
     except Exception as e:
@@ -985,6 +975,7 @@ def supervisor_calendar_add_date(request):
             # This creates the 150-day session plan with grouped_session_id
             if len(classes) > 1:
                 # Multiple classes - create grouped session
+                # Don't delete existing sessions - just add new ones for classes that don't have them
                 init_result = initialize_grouped_session_plans(classes, grouped_session_id)
                 if not init_result['success']:
                     messages.error(request, f"Error initializing grouped session: {init_result['error']}")
@@ -994,54 +985,43 @@ def supervisor_calendar_add_date(request):
                 if len(classes) == 1:
                     from .session_management import SessionBulkManager
                     try:
-                        # Delete any existing sessions for this class
-                        PlannedSession.objects.filter(class_section=classes[0]).delete()
+                        # Check if sessions already exist for this class
+                        existing_sessions = PlannedSession.objects.filter(class_section=classes[0]).exists()
                         
-                        # Create 150 individual sessions
-                        sessions_to_create = []
-                        for day_number in range(1, 151):
-                            session = PlannedSession(
-                                class_section=classes[0],
-                                day_number=day_number,
-                                title=f"Day {day_number} Session",
-                                description=f"Session for day {day_number}",
-                                sequence_position=day_number,
-                                is_required=True,
-                                is_active=True,
-                                grouped_session_id=None  # No grouped_session_id for single class
-                            )
-                            sessions_to_create.append(session)
-                        
-                        PlannedSession.objects.bulk_create(sessions_to_create)
+                        if not existing_sessions:
+                            # Create 150 individual sessions only if they don't exist
+                            sessions_to_create = []
+                            for day_number in range(1, 151):
+                                session = PlannedSession(
+                                    class_section=classes[0],
+                                    day_number=day_number,
+                                    title=f"Day {day_number} Session",
+                                    description=f"Session for day {day_number}",
+                                    sequence_position=day_number,
+                                    is_required=True,
+                                    is_active=True,
+                                    grouped_session_id=None  # No grouped_session_id for single class
+                                )
+                                sessions_to_create.append(session)
+                            
+                            PlannedSession.objects.bulk_create(sessions_to_create)
                     except Exception as e:
                         messages.error(request, f"Error creating session plan: {str(e)}")
                         return redirect("supervisor_calendar")
             
             for date_to_create in dates_to_create:
-                # Check if entry already exists for this date and school
-                existing = CalendarDate.objects.filter(
+                # Always create a new entry for each grouped session
+                # Don't merge - allow multiple grouped sessions on the same day
+                calendar_date = CalendarDate.objects.create(
                     calendar=calendar,
                     date=date_to_create,
+                    time=time_obj,
                     date_type=DateType.SESSION,
                     school=school
-                ).first()
-                
-                if existing:
-                    # Update existing entry with new classes
-                    existing.class_sections.set(classes)
-                    skipped_count += 1
-                else:
-                    # Create new entry
-                    calendar_date = CalendarDate.objects.create(
-                        calendar=calendar,
-                        date=date_to_create,
-                        time=time_obj,
-                        date_type=DateType.SESSION,
-                        school=school
-                    )
-                    # Add all selected classes to this single entry
-                    calendar_date.class_sections.set(classes)
-                    created_count += 1
+                )
+                # Add all selected classes to this entry
+                calendar_date.class_sections.set(classes)
+                created_count += 1
         
         elif date_type == 'holiday':
             holiday_name = request.POST.get('holiday_name', '').strip()
@@ -1114,12 +1094,10 @@ def supervisor_calendar_add_date(request):
         
         # Show summary message
         if created_count > 0:
-            msg = f"✅ Created {created_count} calendar entries"
-            if skipped_count > 0:
-                msg += f" ({skipped_count} skipped due to conflicts)"
+            msg = f"✅ Successfully processed {created_count} calendar entries"
             messages.success(request, msg)
         else:
-            messages.warning(request, f"No entries created ({skipped_count} skipped due to conflicts)")
+            messages.warning(request, "No calendar entries were created or updated")
         
         return redirect("supervisor_calendar")
     

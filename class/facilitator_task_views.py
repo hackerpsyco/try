@@ -50,11 +50,26 @@ def facilitator_task_step(request, actual_session_id):
     except Exception as e:
         logger.warning(f"Error loading curriculum session: {str(e)}")
     
+    # Check if this is a grouped session
+    is_grouped_session = planned_session.grouped_session_id is not None
+    grouped_classes = []
+    
+    if is_grouped_session:
+        # Get all classes in the group
+        grouped_sessions = PlannedSession.objects.filter(
+            grouped_session_id=planned_session.grouped_session_id,
+            day_number=planned_session.day_number
+        ).select_related('class_section')
+        grouped_classes = [gs.class_section for gs in grouped_sessions]
+    
     context = {
         'actual_session': actual_session,
         'planned_session': planned_session,
         'existing_tasks': existing_tasks,
         'curriculum_session': curriculum_session,
+        'is_grouped_session': is_grouped_session,
+        'grouped_classes': grouped_classes,
+        'task_count': existing_tasks.count(),
     }
     
     return render(request, 'facilitator/facilitator_task.html', context)
@@ -179,7 +194,7 @@ def facilitator_task_delete(request, task_id):
 @facilitator_required
 def facilitator_task_complete(request, actual_session_id):
     """
-    Mark facilitator task step as complete and move to next step
+    Mark facilitator task step as complete and move to attendance marking
     """
     actual_session = get_object_or_404(ActualSession, id=actual_session_id)
     
@@ -193,9 +208,10 @@ def facilitator_task_complete(request, actual_session_id):
         messages.warning(request, "Please add at least one task before proceeding")
         return redirect('facilitator_task_step', actual_session_id=actual_session_id)
     
-    # Update session status to next step (conduct)
-    actual_session.status = 'conduct'
+    # Update session status to mark attendance
+    actual_session.status = 'conducted'
     actual_session.save()
     
-    messages.success(request, "Facilitator task completed. Proceeding to conduct session.")
-    return redirect('start_session', planned_session_id=actual_session.planned_session.id)
+    messages.success(request, "Facilitator task completed. Now mark attendance.")
+    # Redirect to mark_attendance instead of start_session to avoid loop
+    return redirect('mark_attendance', actual_session_id=actual_session_id)
