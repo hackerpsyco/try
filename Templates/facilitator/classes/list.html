@@ -68,7 +68,7 @@
           {% endif %}
 
           <!-- Curriculum Button -->
-          <a href="{% url 'facilitator_curriculum_session' item.class_section.id %}"
+          <a href="{% url 'facilitator_curriculum_session' item.class_sections.0.id %}"
              class="btn btn-success btn-sm flex-grow-1">
             <i class="fas fa-book"></i> Curriculum
           </a>
