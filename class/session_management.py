@@ -77,20 +77,21 @@ class SessionSequenceCalculator:
                     class_section, facilitator
                 )
             
-            # First, check if there's a session that was conducted or marked as holiday TODAY
+            # First, check if there's an ActualSession for TODAY
             # If so, return that session (don't advance until tomorrow)
-            todays_session = ActualSession.objects.filter(
+            todays_actual_session = ActualSession.objects.filter(
                 planned_session__class_section=class_section,
                 date=today
             ).select_related('planned_session').first()
             
-            if todays_session:
+            if todays_actual_session:
                 # If there's a session for today, return that planned session
                 # This ensures we don't advance to next day until tomorrow
-                logger.info(f"Found today's session for {class_section}: Day {todays_session.planned_session.day_number} (Status: {todays_session.status})")
-                return todays_session.planned_session
+                logger.info(f"Found today's session for {class_section}: Day {todays_actual_session.planned_session.day_number} (Status: {todays_actual_session.status})")
+                return todays_actual_session.planned_session
             
             # If no session for today, find the next session that hasn't been conducted or cancelled
+            # This includes sessions with NO ActualSession record yet (brand new sessions)
             next_session = PlannedSession.objects.filter(
                 class_section=class_section,
                 is_active=True
@@ -353,7 +354,7 @@ class SessionStatusManager:
                     date=timezone.now().date(),
                     defaults={
                         'facilitator': facilitator,
-                        'status': 'conducted',
+                        'status': SessionStatus.CONDUCTED,
                         'remarks': remarks,
                         'conducted_at': timezone.now(),
                         'duration_minutes': duration_minutes,
@@ -364,7 +365,7 @@ class SessionStatusManager:
                 
                 if not created:
                     # Update existing session
-                    actual_session.status=SessionStatus.CONDUCTED
+                    actual_session.status = SessionStatus.CONDUCTED
                     actual_session.facilitator = facilitator
                     actual_session.remarks = remarks
                     actual_session.conducted_at = timezone.now()
@@ -393,7 +394,7 @@ class SessionStatusManager:
                     date=timezone.now().date(),
                     defaults={
                         'facilitator': facilitator,
-                        'status': 'holiday',
+                        'status': SessionStatus.HOLIDAY,
                         'remarks': reason,
                         'can_be_rescheduled': True,
                         'status_changed_by': facilitator,
@@ -403,7 +404,7 @@ class SessionStatusManager:
                 
                 if not created:
                     # Update existing session
-                    actual_session.status=SessionStatus.HOLIDAY
+                    actual_session.status = SessionStatus.HOLIDAY
                     actual_session.facilitator = facilitator
                     actual_session.remarks = reason
                     actual_session.can_be_rescheduled = True
@@ -436,7 +437,7 @@ class SessionStatusManager:
                     date=timezone.now().date(),
                     defaults={
                         'facilitator': facilitator,
-                        'status': 'cancelled',
+                        'status': SessionStatus.CANCELLED,
                         'remarks': remarks,
                         'cancellation_reason': cancellation_reason,
                         'cancellation_category': cancellation_reason,
@@ -449,7 +450,7 @@ class SessionStatusManager:
                 
                 if not created:
                     # Update existing session
-                    actual_session.status=SessionStatus.CANCELLED
+                    actual_session.status = SessionStatus.CANCELLED
                     actual_session.facilitator = facilitator
                     actual_session.remarks = remarks
                     actual_session.cancellation_reason = cancellation_reason

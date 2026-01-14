@@ -1025,6 +1025,7 @@ def facilitator_grouped_session(request):
     Stores grouped class info in session, then redirects to primary class today_session
     """
     from datetime import date
+    import uuid
     
     # Get class IDs from query parameter
     class_ids_str = request.GET.get('classes', '')
@@ -1032,7 +1033,19 @@ def facilitator_grouped_session(request):
         messages.error(request, "No classes specified")
         return redirect('facilitator_classes')
     
-    class_ids = [cid.strip() for cid in class_ids_str.split(',') if cid.strip()]
+    # Parse and validate UUIDs
+    class_ids = []
+    for cid in class_ids_str.split(','):
+        cid = cid.strip()
+        if cid:
+            try:
+                # Validate UUID format
+                uuid.UUID(cid)
+                class_ids.append(cid)
+            except ValueError:
+                messages.error(request, f"Invalid class ID format: {cid}")
+                return redirect('facilitator_classes')
+    
     if not class_ids:
         messages.error(request, "Invalid class IDs")
         return redirect('facilitator_classes')
@@ -1060,8 +1073,9 @@ def facilitator_grouped_session(request):
     primary_class = grouped_classes.first()
     
     # Store grouped class info in session for display in today_session template
+    # Store as list of UUID strings for consistency
     request.session['is_grouped_session'] = True
-    request.session['grouped_class_ids'] = class_ids_str
+    request.session['grouped_class_ids'] = [str(cls.id) for cls in grouped_classes]
     request.session['grouped_classes_display'] = [
         {'id': str(cls.id), 'display_name': cls.display_name} 
         for cls in grouped_classes

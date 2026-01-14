@@ -569,6 +569,10 @@ path(
     path("facilitator/task/<uuid:actual_session_id>/upload-photo/", facilitator_task_views.facilitator_task_upload_photo, name="facilitator_task_upload_photo"),
     path("facilitator/task/<uuid:actual_session_id>/upload-video/", facilitator_task_views.facilitator_task_upload_video, name="facilitator_task_upload_video"),
     path("facilitator/task/<uuid:actual_session_id>/facebook-link/", facilitator_task_views.facilitator_task_facebook_link, name="facilitator_task_facebook_link"),
+    # Upload without session ID (for pre-session uploads)
+    path("facilitator/task/upload-photo/", facilitator_task_views.facilitator_task_upload_photo, name="facilitator_task_upload_photo_no_session"),
+    path("facilitator/task/upload-video/", facilitator_task_views.facilitator_task_upload_video, name="facilitator_task_upload_video_no_session"),
+    path("facilitator/task/facebook-link/", facilitator_task_views.facilitator_task_facebook_link, name="facilitator_task_facebook_link_no_session"),
     path("facilitator/task/<uuid:task_id>/delete/", facilitator_task_views.facilitator_task_delete, name="facilitator_task_delete"),
     path("facilitator/task/<uuid:actual_session_id>/complete/", facilitator_task_views.facilitator_task_complete, name="facilitator_task_complete"),
     

@@ -249,6 +249,59 @@
         height: 40px;
         font-size: 16px;
     }
+    
+    /* Modal mobile optimization */
+    .modal-dialog {
+        margin: 10px;
+    }
+    
+    .modal-content {
+        border-radius: 12px;
+    }
+    
+    .modal-header {
+        padding: 12px 16px;
+    }
+    
+    .modal-body {
+        padding: 16px;
+    }
+    
+    .modal-footer {
+        padding: 12px 16px;
+    }
+    
+    .modal-footer .btn {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+        min-height: 40px;
+    }
+    
+    /* Form controls mobile */
+    .form-select,
+    .form-control {
+        font-size: 16px;
+        padding: 12px;
+        border-radius: 8px;
+    }
+    
+    .form-label {
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+    }
+    
+    /* Header buttons mobile */
+    .d-flex.gap-2 {
+        flex-wrap: wrap;
+        gap: 8px !important;
+    }
+    
+    .d-flex.gap-2 .btn {
+        flex: 1;
+        min-width: 120px;
+        font-size: 0.9rem;
+        padding: 10px 8px;
+    }
 }
 
 @media (min-width: 769px) {
@@ -601,7 +654,7 @@
 
 <!-- Import Students Modal -->
 <div class="modal fade" id="importModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
@@ -624,7 +677,7 @@
                     {% csrf_token %}
                     
                     <div class="mb-3">
-                        <label for="classSelect" class="form-label">Select Class *</label>
+                        <label for="classSelect" class="form-label fw-medium">Select Class *</label>
                         <select name="class_section" id="classSelect" class="form-select" required>
                             <option value="">Choose a class...</option>
                             {% for class_section in classes %}
@@ -633,26 +686,28 @@
                                 </option>
                             {% endfor %}
                         </select>
-                        <small class="text-muted">Students will be enrolled in the selected class</small>
+                        <small class="text-muted d-block mt-1">Students will be enrolled in the selected class</small>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="fileInput" class="form-label">Upload CSV/Excel File *</label>
+                        <label for="fileInput" class="form-label fw-medium">Upload CSV/Excel File *</label>
                         <input type="file" name="file" id="fileInput" class="form-control" 
                                accept=".csv,.xlsx,.xls" required>
-                        <small class="text-muted">Supported formats: CSV, XLSX, XLS</small>
+                        <small class="text-muted d-block mt-1">Supported formats: CSV, XLSX, XLS (Max 5MB)</small>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer flex-wrap gap-2">
                 <a href="{% url 'facilitator_download_sample_csv' %}" class="btn btn-outline-primary">
                     <i class="fas fa-download me-1"></i>
-                    Download Sample
+                    <span class="d-none d-sm-inline">Download Sample</span>
+                    <span class="d-sm-none">Sample</span>
                 </a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-success" onclick="submitImportForm()">
                     <i class="fas fa-upload me-1"></i>
-                    Import
+                    <span class="d-none d-sm-inline">Import</span>
+                    <span class="d-sm-none">Upload</span>
                 </button>
             </div>
         </div>
@@ -661,7 +716,7 @@
 
 {% endblock %}
 
-<!-- Import Form Handler -->
+<!-- Import Form Handler Script -->
 <script>
 function submitImportForm() {
     const form = document.getElementById('importForm');

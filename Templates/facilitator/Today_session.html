@@ -336,6 +336,255 @@
         padding: 8px 12px;
     }
 }
+
+/* Task Workflow Mobile Optimization */
+.row.g-2 {
+    gap: 0.5rem !important;
+}
+
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:active {
+    transform: scale(0.98);
+}
+
+/* Ensure buttons are always clickable on mobile */
+@media (max-width: 768px) {
+    .btn {
+        min-height: 44px;
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        border-radius: 6px;
+        touch-action: manipulation;
+    }
+    
+    .btn-sm {
+        min-height: 40px;
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+    
+    .btn:active {
+        opacity: 0.8;
+    }
+    
+    /* Fix modal on mobile */
+    .modal-dialog {
+        margin: 10px;
+    }
+    
+    .modal-content {
+        border-radius: 8px;
+    }
+    
+    .modal-header {
+        padding: 12px;
+    }
+    
+    .modal-body {
+        padding: 12px;
+    }
+    
+    .modal-footer {
+        padding: 12px;
+    }
+    
+    /* Form controls mobile */
+    .form-control,
+    .form-select {
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 4px;
+    }
+    
+    .form-label {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+    }
+    
+    /* Tab content mobile */
+    .tab-content {
+        padding: 0;
+    }
+    
+    .tab-pane {
+        padding: 12px 0;
+    }
+    
+    .tab-pane h6 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+    
+    /* Card mobile optimization */
+    .card {
+        margin-bottom: 12px;
+        border-radius: 8px;
+    }
+    
+    .card-header {
+        padding: 10px 12px;
+    }
+    
+    .card-body {
+        padding: 12px;
+    }
+    
+    /* Workflow nav mobile */
+    .workflow-nav .nav-link {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+        margin-bottom: 6px;
+        border-radius: 4px;
+    }
+    
+    .workflow-nav .nav-link.active {
+        background-color: #0d6efd;
+        color: white;
+    }
+    
+    /* Ensure text is readable */
+    body {
+        font-size: 16px;
+    }
+    
+    /* Fix dropdown menu positioning */
+    .dropdown-menu {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90vw !important;
+        max-width: 400px !important;
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+        z-index: 1050 !important;
+        border-radius: 8px;
+    }
+    
+    .dropdown-menu.show {
+        display: block !important;
+    }
+    
+    /* Alert mobile */
+    .alert {
+        padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 6px;
+    }
+    
+    /* Progress bar mobile */
+    .progress {
+        height: 8px;
+        border-radius: 4px;
+    }
+    
+    /* Badge mobile */
+    .badge {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Extra small devices (< 576px) */
+@media (max-width: 575px) {
+    .btn {
+        min-height: 48px;
+        padding: 12px 10px;
+        font-size: 0.95rem;
+    }
+    
+    .btn-sm {
+        min-height: 44px;
+        padding: 10px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .card {
+        margin-bottom: 10px;
+    }
+    
+    .card-body {
+        padding: 10px;
+    }
+    
+    .form-control,
+    .form-select {
+        font-size: 16px;
+        padding: 12px;
+    }
+    
+    .modal-dialog {
+        margin: 5px;
+    }
+    
+    .modal-content {
+        border-radius: 12px;
+    }
+}
+
+/* Prevent zoom on input focus */
+@media (max-width: 768px) {
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Ensure file inputs work properly */
+input[type="file"] {
+    cursor: pointer;
+}
+
+/* Touch-friendly spacing */
+@media (max-width: 768px) {
+    .row > [class*="col-"] {
+        padding-right: 6px;
+        padding-left: 6px;
+    }
+    
+    .row {
+        margin-right: -6px;
+        margin-left: -6px;
+    }
+}
+
+/* FIX: Modal freezing issues */
+.modal {
+    -webkit-overflow-scrolling: touch;
+}
+
+.modal-dialog {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content {
+    border-radius: 12px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Prevent body scrolling when modal is open */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* Fix button loading states */
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Rating buttons fix */
+.btn-group .btn.rating-btn.active {
+    z-index: 3;
+}
 </style>
 {% endblock %}
 
@@ -364,19 +613,28 @@
 </div>
 {% endif %}
 
-<h5 class="fw-bold mb-3">
-  {% if is_grouped_session %}
-    🔗 Grouped Session — Today's Session
-    <br>
-    <small class="text-muted">
-      {% for grouped_class in grouped_classes %}
-        <span class="badge bg-info me-2 mb-1">{{ grouped_class.school.name }} — {{ grouped_class.class_level }}-{{ grouped_class.section }}</span>
-      {% endfor %}
-    </small>
-  {% else %}
-    {{ class_section.school.name }} — {{ class_section.class_level }}-{{ class_section.section }} — Today's Session
-  {% endif %}
-</h5>
+<div class="d-flex justify-content-between align-items-start mb-3">
+  <div>
+    <h5 class="fw-bold mb-2">
+      {% if is_grouped_session %}
+        🔗 Grouped Session — Today's Session
+        <br>
+        <small class="text-muted">
+          {% for grouped_class in grouped_classes %}
+            <span class="badge bg-info me-2 mb-1">{{ grouped_class.school.name }} — {{ grouped_class.class_level }}-{{ grouped_class.section }}</span>
+          {% endfor %}
+        </small>
+      {% else %}
+        {{ class_section.school.name }} — {{ class_section.class_level }}-{{ class_section.section }} — Today's Session
+      {% endif %}
+    </h5>
+  </div>
+  <div>
+    <span class="badge bg-success" title="Attendance can be marked anytime">
+      <i class="fas fa-clock me-1"></i>Anytime
+    </span>
+  </div>
+</div>
 
 <!-- Language Selector -->
 <div class="row mb-3">
@@ -572,14 +830,15 @@
         <!-- FINAL ACTIONS (Always show for current day) -->
         <div class="final-actions mt-3" id="finalActions">
           {% if session_status == "pending" or session_status == "holiday" and not is_today %}
-            <!-- NORMAL SESSION ACTIONS - Show for pending sessions OR past holidays -->
-            <form method="post" action="{% url 'start_session' planned_session.id %}" id="conductForm">
+            <!-- SIMPLIFIED CONDUCT BUTTON -->
+            <form method="post" action="{% url 'start_session' planned_session.id %}" onsubmit="this.querySelector('button').disabled=true; this.querySelector('button').innerHTML='<i class=\"fas fa-spinner fa-spin me-1\"></i>Processing...';">
               {% csrf_token %}
-              <button class="btn btn-success btn-sm w-100 mb-2" type="submit">
+              <button class="btn btn-success btn-lg w-100 mb-3 py-3" type="submit" name="status" value="conducted">
+                <i class="fas fa-play-circle me-2"></i>
                 {% if is_grouped_session %}
-                  🔗 Conduct Grouped Session (All {{ grouped_classes|length }} Classes)
+                  CONDUCT GROUPED SESSION ({{ grouped_classes|length }} Classes)
                 {% else %}
-                  ▶ Conduct Session
+                  CONDUCT TODAY'S SESSION
                 {% endif %}
               </button>
             </form>
@@ -740,7 +999,7 @@
 
           {% else %}
             <!-- FALLBACK - NORMAL SESSION ACTIONS -->
-            <form method="post" action="{% url 'start_session' planned_session.id %}" id="conductForm">
+            <form method="post" action="{% url 'start_session' planned_session.id %}">
               {% csrf_token %}
               <button class="btn btn-success btn-sm w-100 mb-2" type="submit">
                 {% if is_grouped_session %}
@@ -964,8 +1223,8 @@
             </form>
 
             <div class="text-center">
-              <button class="btn btn-primary" onclick="nextWorkflowStep('rewards')" id="preparationNextBtn" disabled>
-                Next: Student Rewards <i class="fas fa-arrow-right ms-1"></i>
+              <button class="btn btn-primary" onclick="nextWorkflowStep('facilitator-task')" id="preparationNextBtn" disabled>
+                Next: Task <i class="fas fa-arrow-right ms-1"></i>
               </button>
             </div>
           </div>
@@ -974,20 +1233,20 @@
           <div class="tab-pane fade" id="facilitator-task" role="tabpanel">
             <h6><i class="fas fa-camera me-2"></i>Facilitator Task - Preparation Media</h6>
             
-            <p class="text-muted small mb-3">Upload preparation media (photos, videos, or Facebook links) before conducting the session.</p>
+            <p class="text-muted small mb-3">Upload preparation media (photos, videos, or Facebook links) to document the session.</p>
 
-            <!-- Task Options -->
-            <div class="row mb-4">
+            <!-- Task Options - Mobile Responsive -->
+            <div class="row g-2 mb-4">
               <!-- Option 1: Take Photo -->
-              <div class="col-md-6 col-lg-4 mb-3">
+              <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card border-primary h-100">
-                  <div class="card-header bg-primary text-white">
-                    <h6 class="mb-0">📷 Take Photo</h6>
+                  <div class="card-header bg-primary text-white py-2">
+                    <h6 class="mb-0 fs-6">📷 Photo</h6>
                   </div>
-                  <div class="card-body">
-                    <p class="card-text text-muted small">Capture a photo directly from your camera</p>
+                  <div class="card-body d-flex flex-column">
+                    <p class="card-text text-muted small flex-grow-1">Capture photo</p>
                     <button type="button" class="btn btn-primary btn-sm w-100" id="btn-take-photo">
-                      <i class="bi bi-camera"></i> Open Camera
+                      <i class="bi bi-camera"></i> Camera
                     </button>
                     <input type="file" id="photo-input" accept="image/*" capture="environment" style="display: none;">
                   </div>
@@ -995,15 +1254,15 @@
               </div>
 
               <!-- Option 2: Take Video -->
-              <div class="col-md-6 col-lg-4 mb-3">
+              <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card border-success h-100">
-                  <div class="card-header bg-success text-white">
-                    <h6 class="mb-0">🎥 Take Video</h6>
+                  <div class="card-header bg-success text-white py-2">
+                    <h6 class="mb-0 fs-6">🎥 Video</h6>
                   </div>
-                  <div class="card-body">
-                    <p class="card-text text-muted small">Record a video directly from your camera</p>
+                  <div class="card-body d-flex flex-column">
+                    <p class="card-text text-muted small flex-grow-1">Record video</p>
                     <button type="button" class="btn btn-success btn-sm w-100" id="btn-take-video">
-                      <i class="bi bi-camera-video"></i> Open Camera
+                      <i class="bi bi-camera-video"></i> Record
                     </button>
                     <input type="file" id="video-input" accept="video/*" capture="environment" style="display: none;">
                   </div>
@@ -1011,16 +1270,24 @@
               </div>
 
               <!-- Option 3: Facebook Link -->
-              <div class="col-md-6 col-lg-4 mb-3">
+              <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card border-info h-100">
-                  <div class="card-header bg-info text-white">
-                    <h6 class="mb-0">👍 Facebook Link</h6>
+                  <div class="card-header bg-info text-white py-2">
+                    <h6 class="mb-0 fs-6">👍 Facebook</h6>
                   </div>
-                  <div class="card-body">
-                    <p class="card-text text-muted small">Share a Facebook post or video link</p>
-                    <button type="button" class="btn btn-info btn-sm w-100" data-bs-toggle="modal" data-bs-target="#facebookModal">
-                      <i class="bi bi-facebook"></i> Add Link
-                    </button>
+                  <div class="card-body d-flex flex-column">
+                    <p class="card-text text-muted small flex-grow-1">Share link</p>
+                    <form id="facebookLinkForm" class="w-100">
+                      <div class="input-group input-group-sm mb-2">
+                        <input type="url" class="form-control" id="facebook-link" 
+                               placeholder="facebook.com/..." 
+                               style="font-size: 14px;">
+                        <button class="btn btn-info" type="button" id="facebookAddBtn">
+                          <i class="bi bi-send"></i>
+                        </button>
+                      </div>
+                      <small class="text-muted d-block">Paste Facebook link and click send</small>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -1033,38 +1300,38 @@
                 <h6 class="mb-0">📋 Uploaded Tasks ({{ facilitator_tasks.count }})</h6>
               </div>
               <div class="card-body">
-                <div class="row">
+                <div class="row g-2">
                   {% for task in facilitator_tasks %}
-                  <div class="col-md-6 col-lg-4 mb-3">
-                    <div class="card">
+                  <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="card h-100">
                       {% if task.media_type == 'photo' %}
-                        <img src="{{ task.media_file.url }}" class="card-img-top" alt="Photo" style="height: 150px; object-fit: cover;">
-                        <div class="card-body">
-                          <h6 class="card-title">📷 Photo</h6>
-                          <p class="card-text text-muted small">{{ task.created_at|date:"M d, Y H:i" }}</p>
-                          <button type="button" class="btn btn-sm btn-danger" onclick="deleteTask('{{ task.id }}')">
+                        <img src="{{ task.media_file.url }}" class="card-img-top" alt="Photo" style="height: 120px; object-fit: cover;">
+                        <div class="card-body p-2">
+                          <h6 class="card-title fs-6 mb-1">📷 Photo</h6>
+                          <p class="card-text text-muted small mb-2">{{ task.created_at|date:"M d" }}</p>
+                          <button type="button" class="btn btn-sm btn-danger w-100" onclick="deleteTask('{{ task.id }}')">
                             <i class="bi bi-trash"></i> Delete
                           </button>
                         </div>
                       {% elif task.media_type == 'video' %}
-                        <div class="card-body">
-                          <h6 class="card-title">🎥 Video</h6>
-                          <video width="100%" height="120" controls style="background: #000; border-radius: 4px;">
+                        <div class="card-body p-2">
+                          <h6 class="card-title fs-6 mb-2">🎥 Video</h6>
+                          <video width="100%" height="100" controls style="background: #000; border-radius: 4px; margin-bottom: 8px;">
                             <source src="{{ task.media_file.url }}" type="video/mp4">
                           </video>
-                          <p class="card-text text-muted small mt-2">{{ task.created_at|date:"M d, Y H:i" }}</p>
-                          <button type="button" class="btn btn-sm btn-danger" onclick="deleteTask('{{ task.id }}')">
+                          <p class="card-text text-muted small mb-2">{{ task.created_at|date:"M d" }}</p>
+                          <button type="button" class="btn btn-sm btn-danger w-100" onclick="deleteTask('{{ task.id }}')">
                             <i class="bi bi-trash"></i> Delete
                           </button>
                         </div>
                       {% elif task.media_type == 'facebook_link' %}
-                        <div class="card-body">
-                          <h6 class="card-title">👍 Facebook Link</h6>
-                          <a href="{{ task.facebook_link }}" target="_blank" class="btn btn-sm btn-primary mb-2">
-                            <i class="bi bi-box-arrow-up-right"></i> Open Link
+                        <div class="card-body p-2">
+                          <h6 class="card-title fs-6 mb-2">👍 Facebook</h6>
+                          <a href="{{ task.facebook_link }}" target="_blank" class="btn btn-sm btn-primary w-100 mb-2">
+                            <i class="bi bi-box-arrow-up-right"></i> Open
                           </a>
-                          <p class="card-text text-muted small">{{ task.created_at|date:"M d, Y H:i" }}</p>
-                          <button type="button" class="btn btn-sm btn-danger" onclick="deleteTask('{{ task.id }}')">
+                          <p class="card-text text-muted small mb-2">{{ task.created_at|date:"M d" }}</p>
+                          <button type="button" class="btn btn-sm btn-danger w-100" onclick="deleteTask('{{ task.id }}')">
                             <i class="bi bi-trash"></i> Delete
                           </button>
                         </div>
@@ -1078,9 +1345,17 @@
             {% endif %}
 
             <div class="text-center">
-              <button class="btn btn-primary" onclick="nextWorkflowStep('rewards')" id="taskNextBtn">
+              <button class="btn btn-primary" onclick="validateAndNextWorkflowStep('rewards')" id="taskNextBtn" disabled>
                 Next: Student Rewards <i class="fas fa-arrow-right ms-1"></i>
               </button>
+              <button class="btn btn-outline-secondary ms-2" onclick="nextWorkflowStep('rewards')">
+                Skip <i class="fas fa-forward ms-1"></i>
+              </button>
+             
+              <div id="taskValidationMessage" class="alert alert-info mt-2" style="display: block;">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Optional:</strong> Upload at least one media item (photo, video, or Facebook link) to enable the Next button. Or click Skip to proceed without media.
+              </div>
             </div>
           </div>
 
@@ -1408,8 +1683,8 @@
             </div>
 
             <div class="text-center">
-              <button type="button" class="btn btn-success btn-lg" id="completeSessionBtn" disabled>
-                <i class="fas fa-check-circle me-2"></i>Complete Session
+              <button type="button" class="btn btn-success btn-lg" id="completeSessionBtn" disabled onclick="completeSession()">
+                <i class="fas fa-check-circle me-2"></i>Complete Session & Mark Attendance
               </button>
             </div>
           </div>
@@ -1563,6 +1838,29 @@
 
 <!-- JavaScript for Comprehensive Workflow -->
 <script>
+// Mobile notification system - GLOBAL SCOPE
+function showMobileNotification(message, type = 'success') {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.mobile-notification');
+    existingNotifications.forEach(n => n.remove());
+    
+    const notification = document.createElement('div');
+    notification.className = `mobile-notification alert alert-${type} alert-dismissible fade show`;
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>
+        ${message}
+        <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 3000);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     let currentLanguage = 'english';
     let currentDay = parseInt('{{ current_day|default:"1" }}') || 1;
@@ -1591,6 +1889,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Workflow tab management
+    function validateAndNextWorkflowStep(stepName) {
+        // If moving from task step, check if Next button is enabled
+        // (which means at least one media item was uploaded)
+        if (stepName === 'rewards') {
+            const nextBtn = document.getElementById('taskNextBtn');
+            if (nextBtn && nextBtn.disabled) {
+                // Show validation message
+                const validationMsg = document.getElementById('taskValidationMessage');
+                validationMsg.style.display = 'block';
+                validationMsg.classList.remove('alert-info', 'alert-success');
+                validationMsg.classList.add('alert-warning');
+                validationMsg.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i><strong>Please upload at least one media item</strong> (photo, video, or Facebook link) to proceed. Or click Skip to continue without media.';
+                showMobileNotification('Please upload at least one media item before proceeding', 'warning');
+                return false;
+            }
+        }
+        
+        // Proceed to next step
+        nextWorkflowStep(stepName);
+        return true;
+    }
+    
     function nextWorkflowStep(stepName) {
         // Activate the tab
         const tabButton = document.getElementById(stepName + '-tab');
@@ -1611,7 +1931,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateWorkflowProgress() {
-        const steps = ['lesson-plan', 'preparation', 'rewards', 'conduct', 'feedback'];
+        const steps = ['lesson-plan', 'preparation', 'facilitator-task', 'rewards', 'conduct', 'feedback'];
         const activeTab = document.querySelector('.nav-link.active').id.replace('-tab', '');
         const currentIndex = steps.indexOf(activeTab);
         const progress = ((currentIndex + 1) / steps.length) * 100;
@@ -1633,29 +1953,6 @@ document.addEventListener('DOMContentLoaded', function() {
         languageLabel.textContent = language === 'hindi' ? 'Hindi' : 'English';
         loadCurriculumContent(currentDay, language);
         showLanguageNotification(language);
-    }
-    
-    // Mobile notification system
-    function showMobileNotification(message, type = 'success') {
-        // Remove existing notifications
-        const existingNotifications = document.querySelectorAll('.mobile-notification');
-        existingNotifications.forEach(n => n.remove());
-        
-        const notification = document.createElement('div');
-        notification.className = `mobile-notification alert alert-${type} alert-dismissible fade show`;
-        notification.innerHTML = `
-            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>
-            ${message}
-            <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.remove();
-            }
-        }, 3000);
     }
     
     function showLanguageNotification(language) {
@@ -1911,13 +2208,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (result.success) {
                     workflowState.feedback = true;
                     showNotification('Session feedback saved successfully!', 'success');
-                    
-                    // Enable the conduct session button
-                    const conductForm = document.getElementById('conductForm');
-                    if (conductForm) {
-                        conductForm.style.display = 'block';
-                        showNotification('You can now conduct the session!', 'info');
-                    }
                 } else {
                     showNotification('Error saving feedback: ' + result.error, 'danger');
                 }
@@ -2020,8 +2310,12 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     window.showTeacherFeedbackForm = function() {
-        document.getElementById('teacherFeedbackForm').style.display = 'block';
-        document.getElementById('teacherFeedbackForm').scrollIntoView({ behavior: 'smooth' });
+        const form = document.getElementById('teacherFeedbackForm');
+        form.style.display = 'block';
+        // Use setTimeout to avoid blocking on touch devices
+        setTimeout(function() {
+            form.scrollIntoView(true);
+        }, 100);
     };
     
     window.hideTeacherFeedbackForm = function() {
@@ -2112,24 +2406,38 @@ document.addEventListener('DOMContentLoaded', function() {
             const sessionId = '{{ actual_session.id|default:"" }}';
             if (!sessionId) {
                 // No actual session yet, hide feedback sections
-                document.getElementById('studentFeedbackStatus').innerHTML = '<span class="badge bg-secondary">No session started</span>';
+                const elem = document.getElementById('studentFeedbackStatus');
+                if (elem) elem.innerHTML = '<span class="badge bg-secondary">No session started</span>';
                 return;
             }
             
-            const response = await fetch('{% url "get_feedback_status" %}?session_id=' + sessionId);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+            
+            const response = await fetch('{% url "get_feedback_status" %}?session_id=' + sessionId, {
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            
             const data = await response.json();
             
             const statusElement = document.getElementById('studentFeedbackStatus');
-            if (data.student_feedback_count > 0) {
-                statusElement.innerHTML = `<span class="badge bg-success">${data.student_feedback_count} responses</span>`;
-            } else {
-                statusElement.innerHTML = '<span class="badge bg-secondary">0 responses</span>';
+            if (statusElement) {
+                if (data.student_feedback_count > 0) {
+                    statusElement.innerHTML = `<span class="badge bg-success">${data.student_feedback_count} responses</span>`;
+                } else {
+                    statusElement.innerHTML = '<span class="badge bg-secondary">0 responses</span>';
+                }
             }
             
             // Show summary if feedback exists
             if (data.student_feedback_count > 0) {
-                document.getElementById('studentFeedbackSummary').style.display = 'block';
-                document.getElementById('studentFeedbackContent').innerHTML = data.student_summary_html;
+                const summaryElem = document.getElementById('studentFeedbackSummary');
+                const contentElem = document.getElementById('studentFeedbackContent');
+                if (summaryElem && contentElem) {
+                    summaryElem.style.display = 'block';
+                    contentElem.innerHTML = data.student_summary_html;
+                }
             }
         } catch (error) {
             console.error('Error updating student feedback status:', error);
@@ -2141,18 +2449,28 @@ document.addEventListener('DOMContentLoaded', function() {
             const sessionId = '{{ actual_session.id|default:"" }}';
             if (!sessionId) {
                 // No actual session yet, hide feedback sections
-                document.getElementById('teacherFeedbackStatus').innerHTML = '<span class="badge bg-secondary">No session started</span>';
+                const elem = document.getElementById('teacherFeedbackStatus');
+                if (elem) elem.innerHTML = '<span class="badge bg-secondary">No session started</span>';
                 return;
             }
             
-            const response = await fetch('{% url "get_feedback_status" %}?session_id=' + sessionId);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+            
+            const response = await fetch('{% url "get_feedback_status" %}?session_id=' + sessionId, {
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            
             const data = await response.json();
             
             const statusElement = document.getElementById('teacherFeedbackStatus');
-            if (data.teacher_feedback_completed) {
-                statusElement.innerHTML = '<span class="badge bg-success">Completed</span>';
-            } else {
-                statusElement.innerHTML = '<span class="badge bg-secondary">Not completed</span>';
+            if (statusElement) {
+                if (data.teacher_feedback_completed) {
+                    statusElement.innerHTML = '<span class="badge bg-success">Completed</span>';
+                } else {
+                    statusElement.innerHTML = '<span class="badge bg-secondary">Not completed</span>';
+                }
             }
         } catch (error) {
             console.error('Error updating teacher feedback status:', error);
@@ -2173,65 +2491,131 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- Facebook Link Modal -->
-<div class="modal fade" id="facebookModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Facebook Link</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="facebook-link" class="form-label">Facebook Link *</label>
-                    <input type="url" class="form-control" id="facebook-link" placeholder="https://www.facebook.com/...">
-                </div>
-                <div class="mb-3">
-                    <label for="facebook-description" class="form-label">Description (Optional)</label>
-                    <textarea class="form-control" id="facebook-description" rows="3" placeholder="Add a description..."></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="addFacebookLink()">Add Link</button>
-            </div>
-        </div>
-    </div>
-</div>
+</script>
 
 <script>
 // Facilitator Task Functions
 const actualSessionId = '{{ actual_session.id }}';
 
-// Photo capture
-document.getElementById('btn-take-photo').addEventListener('click', function() {
-    document.getElementById('photo-input').click();
-});
-
-document.getElementById('photo-input').addEventListener('change', function(e) {
-    if (this.files.length > 0) {
-        uploadPhoto(this.files[0]);
+// Helper function to get the actual session ID safely
+function getActualSessionId() {
+    if (!actualSessionId || actualSessionId.trim() === '') {
+        return null;
     }
-});
+    return actualSessionId;
+}
+
+// Workflow validation and navigation functions
+function validateAndNextWorkflowStep(stepName) {
+    // If moving from task step, check if Next button is enabled
+    // (which means at least one media item was uploaded)
+    if (stepName === 'rewards') {
+        const nextBtn = document.getElementById('taskNextBtn');
+        if (nextBtn && nextBtn.disabled) {
+            // Show validation message
+            const validationMsg = document.getElementById('taskValidationMessage');
+            validationMsg.style.display = 'block';
+            validationMsg.classList.remove('alert-info', 'alert-success');
+            validationMsg.classList.add('alert-warning');
+            validationMsg.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i><strong>Please upload at least one media item</strong> (photo, video, or Facebook link) to proceed. Or click Skip to continue without media.';
+            showMobileNotification('Please upload at least one media item before proceeding', 'warning');
+            return false;
+        }
+    }
+    
+    // Proceed to next step
+    nextWorkflowStep(stepName);
+    return true;
+}
+
+function nextWorkflowStep(stepName) {
+    // Activate the tab
+    const tabButton = document.getElementById(stepName + '-tab');
+    const tabPane = document.getElementById(stepName);
+    
+    if (!tabButton || !tabPane) {
+        console.error('Tab not found:', stepName);
+        return;
+    }
+    
+    // Remove active from all tabs
+    document.querySelectorAll('.nav-link').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.remove('show', 'active');
+    });
+    
+    // Activate target tab
+    tabButton.classList.add('active');
+    tabPane.classList.add('show', 'active');
+    
+    // Update workflow progress
+    updateWorkflowProgress();
+}
+
+function updateWorkflowProgress() {
+    const steps = ['lesson-plan', 'preparation', 'facilitator-task', 'rewards', 'conduct', 'feedback'];
+    const activeTab = document.querySelector('.nav-link.active');
+    if (!activeTab) return;
+    
+    const activeTabId = activeTab.id.replace('-tab', '');
+    const currentIndex = steps.indexOf(activeTabId);
+    const progress = ((currentIndex + 1) / steps.length) * 100;
+    
+    const progressBar = document.getElementById('workflowProgressBar');
+    const progressText = document.getElementById('workflowProgressText');
+    
+    if (progressBar) progressBar.style.width = progress + '%';
+    if (progressText) progressText.textContent = Math.round(progress) + '%';
+}
+
+// Photo capture
+const btnTakePhoto = document.getElementById('btn-take-photo');
+const photoInput = document.getElementById('photo-input');
+if (btnTakePhoto && photoInput) {
+    btnTakePhoto.addEventListener('click', function() {
+        photoInput.click();
+    });
+
+    photoInput.addEventListener('change', function(e) {
+        if (this.files.length > 0) {
+            uploadPhoto(this.files[0]);
+        }
+    });
+}
 
 // Video capture
-document.getElementById('btn-take-video').addEventListener('click', function() {
-    document.getElementById('video-input').click();
-});
+const btnTakeVideo = document.getElementById('btn-take-video');
+const videoInput = document.getElementById('video-input');
+if (btnTakeVideo && videoInput) {
+    btnTakeVideo.addEventListener('click', function() {
+        videoInput.click();
+    });
 
-document.getElementById('video-input').addEventListener('change', function(e) {
-    if (this.files.length > 0) {
-        uploadVideo(this.files[0]);
-    }
-});
+    videoInput.addEventListener('change', function(e) {
+        if (this.files.length > 0) {
+            uploadVideo(this.files[0]);
+        }
+    });
+}
 
 // Upload photo
 function uploadPhoto(file) {
+    const sessionId = getActualSessionId();
+    
     const formData = new FormData();
     formData.append('photo', file);
     formData.append('description', '');
     
-    fetch('/facilitator/task/' + actualSessionId + '/upload-photo/', {
+    // Build URL - use session ID if available, otherwise use class section ID
+    let uploadUrl;
+    if (sessionId) {
+        uploadUrl = `/facilitator/task/${sessionId}/upload-photo/`;
+    } else {
+        // Allow upload without session - will be linked later
+        uploadUrl = `/facilitator/task/upload-photo/`;
+    }
+    
+    fetch(uploadUrl, {
         method: 'POST',
         headers: {
             'X-CSRFToken': '{{ csrf_token }}'
@@ -2241,25 +2625,37 @@ function uploadPhoto(file) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Photo uploaded successfully!');
-            location.reload();
+            showMobileNotification('Photo uploaded successfully!', 'success');
+            // Increment task counter without reload
+            incrementTaskCounter();
         } else {
-            alert('Error: ' + data.error);
+            showMobileNotification('Error: ' + data.error, 'danger');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Upload failed');
+        showMobileNotification('Upload failed', 'danger');
     });
 }
 
 // Upload video
 function uploadVideo(file) {
+    const sessionId = getActualSessionId();
+    
     const formData = new FormData();
     formData.append('video', file);
     formData.append('description', '');
     
-    fetch('/facilitator/task/' + actualSessionId + '/upload-video/', {
+    // Build URL - use session ID if available, otherwise use class section ID
+    let uploadUrl;
+    if (sessionId) {
+        uploadUrl = `/facilitator/task/${sessionId}/upload-video/`;
+    } else {
+        // Allow upload without session - will be linked later
+        uploadUrl = `/facilitator/task/upload-video/`;
+    }
+    
+    fetch(uploadUrl, {
         method: 'POST',
         headers: {
             'X-CSRFToken': '{{ csrf_token }}'
@@ -2269,33 +2665,58 @@ function uploadVideo(file) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Video uploaded successfully!');
-            location.reload();
+            showMobileNotification('Video uploaded successfully!', 'success');
+            // Increment task counter without reload
+            incrementTaskCounter();
         } else {
-            alert('Error: ' + data.error);
+            showMobileNotification('Error: ' + data.error, 'danger');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Upload failed');
+        showMobileNotification('Upload failed', 'danger');
     });
 }
 
 // Add Facebook link
 function addFacebookLink() {
-    const link = document.getElementById('facebook-link').value;
-    const description = document.getElementById('facebook-description').value;
+    const sessionId = getActualSessionId();
+    
+    const link = document.getElementById('facebook-link').value.trim();
     
     if (!link) {
-        alert('Please enter a Facebook link');
+        showMobileNotification('Please enter a Facebook link', 'warning');
+        document.getElementById('facebook-link').focus();
+        return;
+    }
+    
+    // Validate Facebook URL
+    if (!link.includes('facebook.com') && !link.includes('fb.watch')) {
+        showMobileNotification('Please enter a valid Facebook link', 'warning');
+        document.getElementById('facebook-link').focus();
         return;
     }
     
     const formData = new FormData();
     formData.append('facebook_link', link);
-    formData.append('description', description);
+    formData.append('description', '');
     
-    fetch('/facilitator/task/' + actualSessionId + '/facebook-link/', {
+    // Show loading state
+    const addBtn = document.getElementById('facebookAddBtn');
+    const originalText = addBtn.innerHTML;
+    addBtn.disabled = true;
+    addBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Adding...';
+    
+    // Build URL - use session ID if available, otherwise use class section ID
+    let uploadUrl;
+    if (sessionId) {
+        uploadUrl = `/facilitator/task/${sessionId}/facebook-link/`;
+    } else {
+        // Allow upload without session - will be linked later
+        uploadUrl = `/facilitator/task/facebook-link/`;
+    }
+    
+    fetch(uploadUrl, {
         method: 'POST',
         headers: {
             'X-CSRFToken': '{{ csrf_token }}'
@@ -2305,17 +2726,109 @@ function addFacebookLink() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Facebook link added successfully!');
-            location.reload();
+            showMobileNotification('Facebook link added successfully!', 'success');
+            
+            // Clear form but keep focus on input
+            const facebookInput = document.getElementById('facebook-link');
+            facebookInput.value = '';
+            facebookInput.focus();
+            
+            // Reset button state
+            addBtn.disabled = false;
+            addBtn.innerHTML = originalText;
+            
+            // Increment task counter without reload
+            incrementTaskCounter();
         } else {
-            alert('Error: ' + data.error);
+            showMobileNotification('Error: ' + data.error, 'danger');
+            addBtn.disabled = false;
+            addBtn.innerHTML = originalText;
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Failed to add link');
+        showMobileNotification('Failed to add link. Please try again.', 'danger');
+        addBtn.disabled = false;
+        addBtn.innerHTML = originalText;
     });
 }
+
+// Initialize Facebook modal - Simple click handler only
+document.addEventListener('DOMContentLoaded', function() {
+    const facebookAddBtn = document.getElementById('facebookAddBtn');
+    
+    if (facebookAddBtn) {
+        // Single click handler - works on desktop and mobile
+        facebookAddBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            addFacebookLink();
+        });
+    }
+    
+    const facebookLink = document.getElementById('facebook-link');
+    if (facebookLink) {
+        // Handle Enter key to submit
+        facebookLink.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addFacebookLink();
+            }
+        });
+    }
+});
+
+// Update task counter and enable/disable Next button
+function updateTaskCounter() {
+    const taskItems = document.querySelectorAll('.task-item');
+    const taskCount = taskItems.length;
+    const nextBtn = document.getElementById('taskNextBtn');
+    const validationMsg = document.getElementById('taskValidationMessage');
+    
+    if (nextBtn) {
+        if (taskCount > 0) {
+            nextBtn.disabled = false;
+            if (validationMsg) {
+                validationMsg.style.display = 'block';
+                validationMsg.classList.remove('alert-warning');
+                validationMsg.classList.add('alert-success');
+                validationMsg.innerHTML = `<i class="fas fa-check-circle me-2"></i><strong>Great!</strong> You have uploaded ${taskCount} media item(s). Click Next to proceed to Student Rewards.`;
+            }
+        } else {
+            nextBtn.disabled = true;
+            if (validationMsg) {
+                validationMsg.style.display = 'block';
+                validationMsg.classList.remove('alert-warning', 'alert-success');
+                validationMsg.classList.add('alert-info');
+                validationMsg.innerHTML = '<i class="fas fa-info-circle me-2"></i><strong>Optional:</strong> Upload at least one media item (photo, video, or Facebook link) to enable the Next button. Or click Skip to proceed without media.';
+            }
+        }
+    }
+}
+
+// Increment task counter without page reload
+function incrementTaskCounter() {
+    // Increment counter by 1 (simulating a new upload)
+    const nextBtn = document.getElementById('taskNextBtn');
+    const validationMsg = document.getElementById('taskValidationMessage');
+    
+    if (nextBtn) {
+        // Enable the Next button
+        nextBtn.disabled = false;
+        
+        // Update validation message
+        if (validationMsg) {
+            validationMsg.style.display = 'block';
+            validationMsg.classList.remove('alert-warning', 'alert-info');
+            validationMsg.classList.add('alert-success');
+            validationMsg.innerHTML = '<i class="fas fa-check-circle me-2"></i><strong>Great!</strong> Media uploaded successfully! Click Next to proceed to Student Rewards.';
+        }
+    }
+}
+
+// Initialize task counter on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateTaskCounter();
+});
 
 // Delete task
 function deleteTask(taskId) {
@@ -2340,6 +2853,16 @@ function deleteTask(taskId) {
             alert('Delete failed');
         });
     }
+}
+
+// Complete session and redirect to mark attendance
+function completeSession() {
+    {% if actual_session %}
+    const attendanceUrl = '{% url 'mark_attendance' actual_session.id %}';
+    window.location.href = attendanceUrl;
+    {% else %}
+    alert('Session not initialized. Please refresh the page.');
+    {% endif %}
 }
 </script>
 
@@ -2746,3 +3269,136 @@ img.rounded {
 </style>
 
 {% endblock %}
+
+<!-- COMPREHENSIVE FIXES FOR CONDUCT BUTTON AND FEEDBACK FORM -->
+<script>
+// FIX 1: Conduct button - ensure form submits properly
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle all session action buttons
+    document.querySelectorAll('form[action*="start_session"]').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            if (submitBtn && !submitBtn.disabled) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Processing...';
+            }
+        });
+    });
+    
+    console.log('Conduct button fix applied');
+});
+
+// FIX 2: Student feedback form - prevent freezing
+document.addEventListener('DOMContentLoaded', function() {
+    const studentFeedbackForm = document.getElementById('studentFeedbackForm');
+    if (studentFeedbackForm) {
+        studentFeedbackForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Disable submit button
+            const submitBtn = this.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Submitting...';
+            }
+            
+            // Validate required fields
+            if (!document.getElementById('sessionRatingInput') || !document.getElementById('sessionRatingInput').value) {
+                alert('Please select a rating');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane me-1"></i>Submit Feedback';
+                }
+                return;
+            }
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('{% url "save_student_feedback" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Student feedback submitted successfully!');
+                    
+                    // Close modal PROPERLY
+                    const modalElement = document.getElementById('studentFeedbackModal');
+                    const modal = bootstrap.Modal.getInstance(modalElement);
+                    if (modal) modal.hide();
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Update feedback status
+                    if (typeof updateStudentFeedbackStatus === 'function') {
+                        updateStudentFeedbackStatus();
+                    }
+                } else {
+                    alert('Error submitting feedback: ' + (result.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error submitting feedback. Please try again.');
+            } finally {
+                // Re-enable button
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane me-1"></i>Submit Feedback';
+                }
+            }
+        });
+    }
+    
+    console.log('Student feedback form fix applied');
+});
+
+// FIX 3: Show student feedback modal - prevent freezing
+window.showStudentFeedbackModal = function() {
+    try {
+        // Generate anonymous student ID
+        const anonymousId = 'student_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        const idInput = document.getElementById('anonymousStudentId');
+        if (idInput) {
+            idInput.value = anonymousId;
+        }
+        
+        // Show modal using Bootstrap 5
+        const modalElement = document.getElementById('studentFeedbackModal');
+        if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+            
+            // Reset form when modal is shown
+            const form = document.getElementById('studentFeedbackForm');
+            if (form) {
+                form.reset();
+            }
+        }
+    } catch (error) {
+        console.error('Error showing feedback modal:', error);
+        alert('Error opening feedback form. Please try again.');
+    }
+};
+
+// FIX 4: Debug logging for troubleshooting
+console.log('Page loaded - checking for issues');
+if (typeof bootstrap === 'undefined') {
+    console.error('Bootstrap not loaded!');
+} else {
+    console.log('Bootstrap loaded successfully');
+}
+
+// Monitor form submissions
+document.addEventListener('submit', function(e) {
+    console.log('Form submitted:', e.target.id || e.target.className);
+}, true);
+
+console.log('All fixes applied successfully');
+</script>

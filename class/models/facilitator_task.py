@@ -19,7 +19,10 @@ class FacilitatorTask(models.Model):
     actual_session = models.ForeignKey(
         'class.ActualSession',
         on_delete=models.CASCADE,
-        related_name="facilitator_tasks"
+        related_name="facilitator_tasks",
+        null=True,
+        blank=True,
+        help_text="Optional - task can be created without a session"
     )
     
     facilitator = models.ForeignKey(
