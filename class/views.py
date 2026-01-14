@@ -1883,6 +1883,10 @@ def facilitator_classes(request):
         grouped_classes = group_data['classes']
         calendar_entry = group_data['calendar_entry']
         
+        # Skip empty groups
+        if not grouped_classes:
+            continue
+        
         # Mark all classes in this group as processed
         for cls in grouped_classes:
             processed_class_ids.add(str(cls.id))
@@ -1899,7 +1903,7 @@ def facilitator_classes(request):
         
         classes_with_calendar.append({
             'class_sections': grouped_classes,  # List of grouped classes
-            'class_section': grouped_classes[0] if grouped_classes else None,  # Primary class for display
+            'class_section': grouped_classes[0],  # Primary class for display (always safe now)
             'today_status': today_status,
             'calendar_entry': calendar_entry,
         })
