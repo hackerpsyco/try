@@ -1567,14 +1567,14 @@ body.modal-open {
             <!-- Feedback Collection Status -->
             <div class="row mb-4">
               <div class="col-md-6">
-                <div class="card border-primary">
+                <div class="card border-info">
                   <div class="card-body text-center py-3">
-                    <h6 class="text-primary mb-2">🧑‍🎓 Student Feedback</h6>
-                    <div class="feedback-status" id="studentFeedbackStatus">
-                      <span class="badge bg-secondary">0 responses</span>
+                    <h6 class="text-info mb-2">👤 Student Feedback</h6>
+                    <div class="feedback-status" id="facilitatorStudentFeedbackStatus">
+                      <span class="badge bg-secondary">Not started</span>
                     </div>
-                    <button class="btn btn-outline-primary btn-sm mt-2" onclick="showStudentFeedbackModal()">
-                      <i class="fas fa-plus me-1"></i>Collect Student Feedback
+                    <button class="btn btn-outline-info btn-sm mt-2" onclick="showFacilitatorStudentFeedbackForm()">
+                      <i class="fas fa-user-check me-1"></i>Add Feedback
                     </button>
                   </div>
                 </div>
@@ -1657,6 +1657,106 @@ body.modal-open {
                       </button>
                       <button type="submit" class="btn btn-success">
                         <i class="fas fa-save me-1"></i>Save Teacher Reflection
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Facilitator Student Feedback Form -->
+            <div id="facilitatorStudentFeedbackForm" style="display: none;">
+              <div class="card border-info mb-4">
+                <div class="card-header bg-info text-white">
+                  <h6 class="mb-0"><i class="fas fa-user-check me-2"></i>Facilitator Student Feedback</h6>
+                </div>
+                <div class="card-body">
+                  <form id="facilitatorStudentFeedbackFormElement">
+                    {% csrf_token %}
+                    <input type="hidden" name="actual_session_id" value="{{ actual_session.id|default:'' }}">
+                    
+                    <div class="mb-3">
+                      <label class="form-label">Select Student <span class="text-danger">*</span></label>
+                      <select name="student_id" id="studentSelect" class="form-select" required>
+                        <option value="">Choose a student...</option>
+                        {% for enrollment in enrollments %}
+                        <option value="{{ enrollment.student.id }}">{{ enrollment.student.full_name }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label">1️⃣ Student Participation Level <span class="text-danger">*</span></label>
+                        <select name="participation_level" class="form-select" required>
+                          <option value="">Select...</option>
+                          <option value="excellent">Excellent</option>
+                          <option value="good">Good</option>
+                          <option value="average">Average</option>
+                          <option value="low">Low</option>
+                          <option value="absent">Absent</option>
+                        </select>
+                      </div>
+                      
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label">2️⃣ Understanding of Topic <span class="text-danger">*</span></label>
+                        <select name="topic_understanding" class="form-select" required>
+                          <option value="">Select...</option>
+                          <option value="excellent">Excellent</option>
+                          <option value="good">Good</option>
+                          <option value="fair">Fair</option>
+                          <option value="poor">Poor</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label">3️⃣ Behavior & Conduct <span class="text-danger">*</span></label>
+                        <select name="behavior" class="form-select" required>
+                          <option value="">Select...</option>
+                          <option value="excellent">Excellent</option>
+                          <option value="good">Good</option>
+                          <option value="satisfactory">Satisfactory</option>
+                          <option value="needs_improvement">Needs Improvement</option>
+                        </select>
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <label class="form-label">4️⃣ Effort & Engagement <span class="text-danger">*</span></label>
+                        <select name="effort_level" class="form-select" required>
+                          <option value="">Select...</option>
+                          <option value="high">High</option>
+                          <option value="moderate">Moderate</option>
+                          <option value="low">Low</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">5️⃣ Strengths Observed <span class="text-danger">*</span></label>
+                      <textarea name="strengths" class="form-control" rows="3" required
+                                placeholder="What are the student's strengths in this session?"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">6️⃣ Areas for Improvement <span class="text-danger">*</span></label>
+                      <textarea name="improvement_areas" class="form-control" rows="3" required
+                                placeholder="What areas does the student need to work on?"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">7️⃣ Additional Comments (optional)</label>
+                      <textarea name="additional_comments" class="form-control" rows="2"
+                                placeholder="Any other observations or notes..."></textarea>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="button" class="btn btn-secondary me-2" onclick="hideFacilitatorStudentFeedbackForm()">
+                        Cancel
+                      </button>
+                      <button type="submit" class="btn btn-info">
+                        <i class="fas fa-save me-1"></i>Save Student Feedback
                       </button>
                     </div>
                   </form>
@@ -2321,6 +2421,62 @@ document.addEventListener('DOMContentLoaded', function() {
     window.hideTeacherFeedbackForm = function() {
         document.getElementById('teacherFeedbackForm').style.display = 'none';
     };
+
+    window.showFacilitatorStudentFeedbackForm = function() {
+        const form = document.getElementById('facilitatorStudentFeedbackForm');
+        form.style.display = 'block';
+        // Use setTimeout to avoid blocking on touch devices
+        setTimeout(function() {
+            form.scrollIntoView(true);
+        }, 100);
+    };
+    
+    window.hideFacilitatorStudentFeedbackForm = function() {
+        document.getElementById('facilitatorStudentFeedbackForm').style.display = 'none';
+    };
+    
+    // Facilitator Student Feedback Form Handler
+    const facilitatorStudentFeedbackForm = document.getElementById('facilitatorStudentFeedbackFormElement');
+    if (facilitatorStudentFeedbackForm) {
+        facilitatorStudentFeedbackForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('{% url "save_student_feedback" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification('Student feedback saved successfully!', 'success');
+                    
+                    // Hide form
+                    hideFacilitatorStudentFeedbackForm();
+                    
+                    // Update feedback status
+                    const status = document.getElementById('facilitatorStudentFeedbackStatus');
+                    if (status) {
+                        status.innerHTML = '<span class="badge bg-success">Feedback recorded</span>';
+                    }
+                    
+                    // Reset form
+                    this.reset();
+                } else {
+                    showNotification(result.error || 'Error saving feedback', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Error saving feedback', 'error');
+            }
+        });
+    }
     
     // Student Feedback Form Handler
     const studentFeedbackForm = document.getElementById('studentFeedbackForm');

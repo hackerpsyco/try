@@ -21274,3 +21274,111 @@ INFO 2026-01-14 21:25:04,422 basehttp 35868 32256 - Broken pipe from ('127.0.0.1
 INFO 2026-01-14 21:25:06,748 basehttp 35868 31972 "GET /facilitator/attendance/?school=d0ceece1-736f-42e0-a6d9-069497588728&class_section=f4328c0a-ff59-4b58-95df-d4df9f9f474c&period=all&start_date=2025-12-13&end_date=2026-01-14 HTTP/1.1" 200 8006
 INFO 2026-01-14 21:25:26,689 basehttp 35868 31972 - Broken pipe from ('127.0.0.1', 62574)
 INFO 2026-01-14 21:25:28,701 basehttp 35868 36048 "GET /facilitator/attendance/?school=d0ceece1-736f-42e0-a6d9-069497588728&class_section=49caa4b6-db6a-415c-b944-74e57df42705&period=all&start_date=2025-12-13&end_date=2026-01-14 HTTP/1.1" 200 8006
+INFO 2026-01-16 00:01:06,966 autoreload 716 24240 Watching for file changes with StatReloader
+WARNING 2026-01-16 00:20:54,886 session_auth_fix 716 18860 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-16 00:20:54,943 basehttp 716 18860 "GET / HTTP/1.1" 302 0
+INFO 2026-01-16 00:21:14,206 basehttp 716 18124 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:21:14,310 basehttp 716 18124 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+WARNING 2026-01-16 00:21:15,680 basehttp 716 18124 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-16 00:21:31,568 basehttp 716 28516 "GET /facilitator/my-schools/ HTTP/1.1" 200 4389
+INFO 2026-01-16 00:21:36,996 basehttp 716 28516 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-16 00:21:44,107 basehttp 716 28516 "GET /facilitator/classes/ HTTP/1.1" 200 4340
+INFO 2026-01-16 00:21:58,056 session_management 716 28516 Next pending session for n k - 1A (2026-2027): Day 2
+INFO 2026-01-16 00:21:59,053 views 716 28516 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-16 00:22:01,716 session_management 716 28516 Next pending session for n k - 1A (2026-2027): Day 2
+INFO 2026-01-16 00:22:01,716 session_management 716 28516 Progress metrics for n k - 1A (2026-2027): 0.6666666666666667% complete
+INFO 2026-01-16 00:22:02,654 basehttp 716 28516 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 21424
+INFO 2026-01-16 00:22:06,676 curriculum_content_resolver 716 28516 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-16 00:22:08,000 curriculum_content_resolver 716 28516 Found 5251 rows in curriculum table
+INFO 2026-01-16 00:22:08,002 curriculum_content_resolver 716 28516 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-16 00:22:08,004 curriculum_content_resolver 716 28516 Found next day boundary at row 71, day 3
+INFO 2026-01-16 00:22:08,004 curriculum_content_resolver 716 28516 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-16 00:22:08,011 curriculum_content_resolver 716 28516 Fixed image and resource paths in curriculum content
+INFO 2026-01-16 00:22:08,011 curriculum_content_resolver 716 28516 Loaded static fallback content for Day 2 english
+INFO 2026-01-16 00:22:08,356 basehttp 716 28516 "GET /api/curriculum/content/?day=2&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3185
+INFO 2026-01-16 00:22:18,920 basehttp 716 28516 - Broken pipe from ('127.0.0.1', 54620)
+INFO 2026-01-16 00:22:30,038 basehttp 716 28356 - Broken pipe from ('127.0.0.1', 57359)
+INFO 2026-01-16 00:22:33,465 basehttp 716 34412 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:23:16,883 basehttp 716 34412 "GET /facilitator/attendance/ HTTP/1.1" 200 7555
+WARNING 2026-01-16 00:23:28,363 session_auth_fix 716 37408 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:23:28,365 basehttp 716 37408 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:23:39,412 basehttp 716 34412 - Broken pipe from ('127.0.0.1', 54915)
+INFO 2026-01-16 00:23:41,968 basehttp 716 18056 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-16 00:23:49,179 basehttp 716 18056 "GET /facilitator/classes/ HTTP/1.1" 200 4340
+INFO 2026-01-16 00:23:54,280 basehttp 716 37408 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+WARNING 2026-01-16 00:23:56,919 session_auth_fix 716 37408 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:23:56,920 basehttp 716 37408 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:24:14,842 basehttp 716 37408 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:24:56,631 session_management 716 37408 Next pending session for n k - 1A (2026-2027): Day 2
+INFO 2026-01-16 00:24:57,164 views 716 37408 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-16 00:24:59,861 session_management 716 37408 Next pending session for n k - 1A (2026-2027): Day 2
+INFO 2026-01-16 00:24:59,862 session_management 716 37408 Progress metrics for n k - 1A (2026-2027): 0.6666666666666667% complete
+INFO 2026-01-16 00:25:00,685 basehttp 716 37408 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 21423
+WARNING 2026-01-16 00:25:03,190 session_auth_fix 716 37408 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:25:03,192 basehttp 716 37408 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:25:05,018 basehttp 716 18056 "GET /api/curriculum/content/?day=2&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3185
+INFO 2026-01-16 00:25:24,271 basehttp 716 37408 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:25:50,852 basehttp 716 37408 "GET /facilitator/classes/ HTTP/1.1" 200 4340
+WARNING 2026-01-16 00:25:54,271 session_auth_fix 716 37408 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:25:54,272 basehttp 716 37408 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:26:15,885 basehttp 716 37408 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:26:41,960 basehttp 716 37408 "GET /facilitator/class/f4328c0a-ff59-4b58-95df-d4df9f9f474c/today/ HTTP/1.1" 302 0
+INFO 2026-01-16 00:26:48,629 session_management 716 37408 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 00:26:49,158 views 716 37408 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 00:26:54,124 session_management 716 37408 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 00:26:54,125 session_management 716 37408 Progress metrics for n k - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-16 00:26:55,732 basehttp 716 37408 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 21742
+WARNING 2026-01-16 00:26:59,435 session_auth_fix 716 37408 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:26:59,437 basehttp 716 37408 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:27:00,202 basehttp 716 18056 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 00:27:17,874 basehttp 716 37408 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:37:17,705 session_management 716 31276 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 00:37:18,502 views 716 31276 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 00:37:20,983 session_management 716 31276 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 00:37:20,983 session_management 716 31276 Progress metrics for n k - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-16 00:37:22,536 basehttp 716 31276 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 22465
+WARNING 2026-01-16 00:37:26,103 session_auth_fix 716 31276 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:37:26,104 basehttp 716 31276 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:37:27,231 basehttp 716 5904 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 00:37:40,235 basehttp 716 31276 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:37:45,447 basehttp 716 5904 "GET /facilitator/classes/ HTTP/1.1" 200 4340
+WARNING 2026-01-16 00:37:49,142 session_auth_fix 716 5904 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:37:49,143 basehttp 716 5904 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:37:52,728 basehttp 716 31276 "GET /facilitator/class/f4328c0a-ff59-4b58-95df-d4df9f9f474c/today/ HTTP/1.1" 302 0
+INFO 2026-01-16 00:38:00,629 session_management 716 31276 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 00:38:01,432 views 716 31276 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 00:38:04,608 session_management 716 31276 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 00:38:04,608 session_management 716 31276 Progress metrics for n k - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-16 00:38:04,612 basehttp 716 5904 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:38:06,572 basehttp 716 31276 - Broken pipe from ('127.0.0.1', 64588)
+INFO 2026-01-16 00:38:09,530 basehttp 716 5904 "GET /facilitator/class/f4328c0a-ff59-4b58-95df-d4df9f9f474c/today/ HTTP/1.1" 302 0
+INFO 2026-01-16 00:38:16,040 session_management 716 5904 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 00:38:16,791 views 716 5904 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 00:38:20,274 session_management 716 5904 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 00:38:20,274 session_management 716 5904 Progress metrics for n k - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-16 00:38:21,827 basehttp 716 5904 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 22464
+WARNING 2026-01-16 00:38:25,080 session_auth_fix 716 5904 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:38:25,082 basehttp 716 5904 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:38:25,703 basehttp 716 29404 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 00:38:44,546 basehttp 716 5904 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:40:00,628 session_management 716 5904 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 00:40:01,244 views 716 5904 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 00:40:03,920 session_management 716 5904 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 00:40:03,921 session_management 716 5904 Progress metrics for n k - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-16 00:40:05,460 basehttp 716 5904 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 22408
+WARNING 2026-01-16 00:40:09,126 session_auth_fix 716 5904 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:40:09,128 basehttp 716 5904 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:40:09,948 basehttp 716 29404 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 00:40:29,101 basehttp 716 5904 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:41:20,098 basehttp 716 5904 "GET /facilitator/performance/ HTTP/1.1" 200 4845
+WARNING 2026-01-16 00:41:24,290 session_auth_fix 716 5904 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:41:24,291 basehttp 716 5904 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:41:31,977 basehttp 716 29404 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/performance/ HTTP/1.1" 200 4426
+INFO 2026-01-16 00:41:43,398 basehttp 716 5904 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+WARNING 2026-01-16 00:41:46,204 session_auth_fix 716 5904 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:41:46,206 basehttp 716 5904 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 00:41:47,643 basehttp 716 29404 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/performance/4fef1489-94ab-4a35-8d55-75549ad10ce3/ HTTP/1.1" 200 5707
+INFO 2026-01-16 00:42:06,280 basehttp 716 5904 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+INFO 2026-01-16 00:42:09,658 basehttp 716 29404 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/performance/ HTTP/1.1" 200 4426
+WARNING 2026-01-16 00:42:09,982 session_auth_fix 716 5904 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 00:42:09,984 basehttp 716 5904 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
