@@ -1384,6 +1384,16 @@ def today_session(request, class_section_id):
             logger.error(f"Error checking attendance: {e}")
             attendance_saved = False
 
+    # Get enrollments for student feedback form
+    try:
+        enrollments = Enrollment.objects.filter(
+            class_section=class_section,
+            is_active=True
+        ).select_related("student").order_by("student__full_name")
+    except Exception as e:
+        logger.error(f"Error getting enrollments: {e}")
+        enrollments = []
+
     return render(request, "facilitator/Today_session.html", {
         "class_section": class_section,
         "planned_session": planned_session,
@@ -1398,6 +1408,7 @@ def today_session(request, class_section_id):
         "session_rewards": session_rewards,
         "preparation_checklist": preparation_checklist,
         "attendance_saved": attendance_saved,
+        "enrollments": enrollments,  # For student feedback form
         # Facilitator tasks
         "facilitator_tasks": FacilitatorTask.objects.filter(
             actual_session=actual_session,

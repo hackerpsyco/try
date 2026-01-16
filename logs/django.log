@@ -21678,3 +21678,64 @@ INFO 2026-01-16 13:30:06,063 session_management 13832 6056 Progress metrics for 
 INFO 2026-01-16 13:30:08,026 basehttp 13832 6056 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 21850
 INFO 2026-01-16 13:30:12,104 basehttp 13832 38828 "GET /api/get-feedback-status/?session_id=2abf2a5f-8e67-4246-abfe-77a253b27979 HTTP/1.1" 200 111
 INFO 2026-01-16 13:30:12,104 basehttp 13832 6056 "GET /api/curriculum/content/?day=2&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3185
+INFO 2026-01-16 16:17:54,024 autoreload 36504 27436 Watching for file changes with StatReloader
+WARNING 2026-01-16 16:18:07,980 session_auth_fix 36504 31816 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-16 16:18:08,035 basehttp 36504 31816 "GET / HTTP/1.1" 302 0
+INFO 2026-01-16 16:18:23,754 basehttp 36504 31816 "GET /facilitator/dashboard/ HTTP/1.1" 200 6364
+INFO 2026-01-16 16:18:23,835 basehttp 36504 31816 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+WARNING 2026-01-16 16:18:24,891 basehttp 36504 31816 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-16 16:18:36,242 basehttp 36504 28160 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-16 16:18:41,468 views 36504 28160 Facilitator PIYUSH TAMOLI: Found 300 PlannedSession records with grouped_session_id
+INFO 2026-01-16 16:18:43,019 views 36504 28160 Facilitator PIYUSH TAMOLI: Found 1 permanent groups with 2 total classes
+INFO 2026-01-16 16:18:43,019 views 36504 28160   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['2A', '3A']
+INFO 2026-01-16 16:18:43,340 views 36504 28160   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 16:18:43,341 views 36504 28160   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 16:18:43,617 views 36504 28160   Single class (no grouping): 1A
+INFO 2026-01-16 16:18:43,949 views 36504 28160   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-16 16:18:44,641 views 36504 28160   Single class (no grouping): 4A
+INFO 2026-01-16 16:18:44,947 views 36504 28160   Single class (no grouping): 5A
+INFO 2026-01-16 16:18:45,264 views 36504 28160   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-16 16:18:45,265 views 36504 28160 Facilitator PIYUSH TAMOLI: Returning 4 class items to template
+INFO 2026-01-16 16:18:45,265 views 36504 28160   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-16 16:18:45,273 basehttp 36504 28160 "GET /facilitator/classes/ HTTP/1.1" 200 4434
+INFO 2026-01-16 16:18:57,954 session_management 36504 28160 Next pending session for n k - 5A (2024-2025): Day 1
+INFO 2026-01-16 16:18:58,978 views 36504 28160 Single session for class 4984b721-3bd5-4dd7-a02c-149e821570f0: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-16 16:19:02,357 session_management 36504 28160 Next pending session for n k - 5A (2024-2025): Day 1
+INFO 2026-01-16 16:19:02,358 session_management 36504 28160 Progress metrics for n k - 5A (2024-2025): 0.0% complete
+INFO 2026-01-16 16:19:04,740 basehttp 36504 28160 "GET /facilitator/class/4984b721-3bd5-4dd7-a02c-149e821570f0/today/ HTTP/1.1" 200 22087
+INFO 2026-01-16 16:19:08,918 curriculum_content_resolver 36504 28160 Successfully loaded static file for english, extracting Day 1 content
+INFO 2026-01-16 16:19:10,416 curriculum_content_resolver 36504 28160 Found 5251 rows in curriculum table
+INFO 2026-01-16 16:19:10,417 curriculum_content_resolver 36504 28160 Found Day 1 at row 1, cell text: 'Day 1'
+INFO 2026-01-16 16:19:10,419 curriculum_content_resolver 36504 28160 Found next day boundary at row 36, day 2
+INFO 2026-01-16 16:19:10,419 curriculum_content_resolver 36504 28160 Extracting 35 rows for Day 1 (from row 1 to 36)
+INFO 2026-01-16 16:19:10,423 curriculum_content_resolver 36504 28160 Fixed image and resource paths in curriculum content
+INFO 2026-01-16 16:19:10,425 curriculum_content_resolver 36504 28160 Loaded static fallback content for Day 1 english
+INFO 2026-01-16 16:19:10,764 basehttp 36504 28160 "GET /api/curriculum/content/?day=1&language=english&class_section_id=4984b721-3bd5-4dd7-a02c-149e821570f0 HTTP/1.1" 200 3106
+INFO 2026-01-16 16:19:30,723 views 36504 28160 Facilitator PIYUSH TAMOLI: Found 300 PlannedSession records with grouped_session_id
+INFO 2026-01-16 16:19:32,294 views 36504 28160 Facilitator PIYUSH TAMOLI: Found 1 permanent groups with 2 total classes
+INFO 2026-01-16 16:19:32,295 views 36504 28160   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['2A', '3A']
+INFO 2026-01-16 16:19:32,668 views 36504 28160   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 16:19:32,669 views 36504 28160   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 16:19:33,078 views 36504 28160   Single class (no grouping): 1A
+INFO 2026-01-16 16:19:33,397 views 36504 28160   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-16 16:19:34,101 views 36504 28160   Single class (no grouping): 4A
+INFO 2026-01-16 16:19:34,511 views 36504 28160   Single class (no grouping): 5A
+INFO 2026-01-16 16:19:34,921 views 36504 28160   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-16 16:19:34,921 views 36504 28160 Facilitator PIYUSH TAMOLI: Returning 4 class items to template
+INFO 2026-01-16 16:19:34,922 views 36504 28160   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-16 16:19:34,927 basehttp 36504 28160 "GET /facilitator/classes/ HTTP/1.1" 200 4434
+INFO 2026-01-16 16:19:49,871 session_management 36504 28160 Found today's session for n k - 1A (2026-2027): Day 2 (Status: 1)
+INFO 2026-01-16 16:19:50,690 views 36504 28160 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-16 16:19:53,354 session_management 36504 28160 Found today's session for n k - 1A (2026-2027): Day 2 (Status: 1)
+INFO 2026-01-16 16:19:53,354 session_management 36504 28160 Progress metrics for n k - 1A (2026-2027): 1.3333333333333335% complete
+INFO 2026-01-16 16:19:56,109 basehttp 36504 28160 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 21896
+INFO 2026-01-16 16:20:00,604 curriculum_content_resolver 36504 28160 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-16 16:20:00,764 basehttp 36504 33064 "GET /api/get-feedback-status/?session_id=2abf2a5f-8e67-4246-abfe-77a253b27979 HTTP/1.1" 200 111
+INFO 2026-01-16 16:20:02,034 curriculum_content_resolver 36504 28160 Found 5251 rows in curriculum table
+INFO 2026-01-16 16:20:02,037 curriculum_content_resolver 36504 28160 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-16 16:20:02,039 curriculum_content_resolver 36504 28160 Found next day boundary at row 71, day 3
+INFO 2026-01-16 16:20:02,039 curriculum_content_resolver 36504 28160 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-16 16:20:02,043 curriculum_content_resolver 36504 28160 Fixed image and resource paths in curriculum content
+INFO 2026-01-16 16:20:02,045 curriculum_content_resolver 36504 28160 Loaded static fallback content for Day 2 english
+INFO 2026-01-16 16:20:02,468 basehttp 36504 28160 "GET /api/curriculum/content/?day=2&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3185
+INFO 2026-01-16 16:20:05,384 basehttp 36504 33064 - Broken pipe from ('127.0.0.1', 62314)

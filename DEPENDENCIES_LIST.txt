@@ -1,0 +1,297 @@
+================================================================================
+CLAS APPLICATION - COMPLETE DEPENDENCIES LIST
+================================================================================
+
+Total Dependencies: 29 packages
+Python Version: 3.10+
+Django Version: 5.1.x
+Database: PostgreSQL 12+
+
+================================================================================
+CORE DEPENDENCIES (4)
+================================================================================
+
+1. Django>=5.1,<5.2
+   - Web framework
+   - Location: CLAS/settings.py, CLAS/urls.py, class/views.py, class/models/
+   - PyPI: https://pypi.org/project/Django/
+
+2. psycopg2-binary>=2.9.9
+   - PostgreSQL database adapter
+   - Location: CLAS/settings.py (DATABASE config)
+   - PyPI: https://pypi.org/project/psycopg2-binary/
+
+3. python-dotenv>=1.0.1
+   - Load environment variables from .env
+   - Location: Application startup
+   - PyPI: https://pypi.org/project/python-dotenv/
+
+4. django-environ>=0.10.0
+   - Django environment variable management
+   - Location: CLAS/settings.py
+   - PyPI: https://pypi.org/project/django-environ/
+
+================================================================================
+PRODUCTION & DEPLOYMENT (2)
+================================================================================
+
+5. gunicorn>=22.0.0
+   - Production WSGI server
+   - Location: Render/Heroku deployment
+   - PyPI: https://pypi.org/project/gunicorn/
+
+6. whitenoise>=6.7.0
+   - Static file serving in production
+   - Location: CLAS/settings.py (MIDDLEWARE, STATICFILES_STORAGE)
+   - PyPI: https://pypi.org/project/whitenoise/
+
+================================================================================
+FRONTEND & UI (5)
+================================================================================
+
+7. Pillow>=10.3.0
+   - Image processing
+   - Location: class/models/students.py (ImageField)
+   - PyPI: https://pypi.org/project/Pillow/
+
+8. django-tailwind>=3.6.2
+   - Tailwind CSS integration
+   - Location: CLAS/settings.py, theme/, Templates/
+   - PyPI: https://pypi.org/project/django-tailwind/
+
+9. django-browser-reload>=1.2.4
+   - Auto-reload browser during development
+   - Location: CLAS/settings.py (MIDDLEWARE)
+   - PyPI: https://pypi.org/project/django-browser-reload/
+
+10. django-widget-tweaks>=1.4.12
+    - Form widget customization
+    - Location: CLAS/settings.py, Templates/
+    - PyPI: https://pypi.org/project/django-widget-tweaks/
+
+11. beautifulsoup4>=4.12.0
+    - HTML parsing and optimization
+    - Location: Content optimization utilities
+    - PyPI: https://pypi.org/project/beautifulsoup4/
+
+================================================================================
+DATA HANDLING & EXPORT (3)
+================================================================================
+
+12. openpyxl>=3.1.2
+    - Excel file handling
+    - Location: class/views.py (student_import function)
+    - PyPI: https://pypi.org/project/openpyxl/
+
+13. pandas>=2.0.0
+    - Data analysis and manipulation
+    - Location: class/reports_views.py
+    - PyPI: https://pypi.org/project/pandas/
+
+14. reportlab>=4.0.0
+    - PDF generation
+    - Location: Report generation views
+    - PyPI: https://pypi.org/project/reportlab/
+
+================================================================================
+CACHING & PERFORMANCE (7)
+================================================================================
+
+15. psutil>=5.9.0
+    - System and process monitoring
+    - Location: class/performance_middleware.py
+    - PyPI: https://pypi.org/project/psutil/
+
+16. redis>=4.6.0
+    - In-memory cache store
+    - Location: CLAS/settings.py (CACHES config)
+    - PyPI: https://pypi.org/project/redis/
+
+17. django-redis>=5.3.0
+    - Django Redis cache backend
+    - Location: CLAS/settings.py (CACHES)
+    - PyPI: https://pypi.org/project/django-redis/
+
+18. django-cachalot>=2.6.1
+    - ORM query caching
+    - Location: CLAS/settings.py (INSTALLED_APPS)
+    - PyPI: https://pypi.org/project/django-cachalot/
+
+19. django-compressor>=4.4
+    - Static file compression
+    - Location: CLAS/settings.py
+    - PyPI: https://pypi.org/project/django-compressor/
+
+20. django-pipeline>=3.0.0
+    - Asset pipeline optimization
+    - Location: CLAS/settings.py
+    - PyPI: https://pypi.org/project/django-pipeline/
+
+21. django-htmlmin>=0.11.0
+    - HTML minification
+    - Location: CLAS/settings.py
+    - PyPI: https://pypi.org/project/django-htmlmin/
+
+================================================================================
+API & REST FRAMEWORK (1) - OPTIONAL
+================================================================================
+
+22. django-ninja>=1.4.0
+    - Modern API framework (optional, for future use)
+    - Location: Not currently used
+    - PyPI: https://pypi.org/project/django-ninja/
+
+================================================================================
+DEVELOPMENT & DEBUGGING (4)
+================================================================================
+
+23. django-extensions>=3.4.0
+    - Django utilities and commands
+    - Location: CLAS/settings.py (INSTALLED_APPS)
+    - PyPI: https://pypi.org/project/django-extensions/
+
+24. django-debug-toolbar>=4.2.0
+    - Debug toolbar for development
+    - Location: CLAS/settings.py (MIDDLEWARE)
+    - PyPI: https://pypi.org/project/django-debug-toolbar/
+
+25. django-silk>=5.0.4
+    - Request profiling and monitoring
+    - Location: CLAS/settings.py (MIDDLEWARE)
+    - PyPI: https://pypi.org/project/django-silk/
+
+26. django-cors-headers>=4.0.0
+    - CORS handling for APIs
+    - Location: CLAS/settings.py (MIDDLEWARE)
+    - PyPI: https://pypi.org/project/django-cors-headers/
+
+================================================================================
+TESTING & QUALITY ASSURANCE (3)
+================================================================================
+
+27. pytest>=7.4.0
+    - Testing framework
+    - Location: class/tests.py, pytest.ini
+    - PyPI: https://pypi.org/project/pytest/
+
+28. pytest-django>=4.5.2
+    - Django plugin for pytest
+    - Location: pytest.ini, test files
+    - PyPI: https://pypi.org/project/pytest-django/
+
+29. hypothesis>=6.82.0
+    - Property-based testing
+    - Location: class/tests.py, .hypothesis/
+    - PyPI: https://pypi.org/project/hypothesis/
+
+================================================================================
+INSTALLATION COMMAND
+================================================================================
+
+pip install -r requirements.txt
+
+================================================================================
+QUICK REFERENCE BY CATEGORY
+================================================================================
+
+CORE (Required):
+  Django, psycopg2-binary, python-dotenv, django-environ
+
+PRODUCTION (Required for deployment):
+  gunicorn, whitenoise
+
+FRONTEND (Required for UI):
+  Pillow, django-tailwind, django-browser-reload, django-widget-tweaks, beautifulsoup4
+
+DATA (Required for imports/exports):
+  openpyxl, pandas, reportlab
+
+PERFORMANCE (Recommended):
+  psutil, redis, django-redis, django-cachalot, django-compressor, django-pipeline, django-htmlmin
+
+API (Optional):
+  django-ninja
+
+DEVELOPMENT (Development only):
+  django-extensions, django-debug-toolbar, django-silk, django-cors-headers
+
+TESTING (Testing only):
+  pytest, pytest-django, hypothesis
+
+================================================================================
+ENVIRONMENT SETUP
+================================================================================
+
+Create .env file with:
+  DEBUG=True
+  SECRET_KEY=your-secret-key
+  ALLOWED_HOSTS=localhost,127.0.0.1
+  DATABASE_URL=postgresql://user:password@host:5432/dbname
+  REDIS_URL=redis://localhost:6379/0
+
+================================================================================
+VERIFICATION COMMANDS
+================================================================================
+
+Check Django version:
+  python -m django --version
+
+List all installed packages:
+  pip list
+
+Check for dependency issues:
+  pip check
+
+Verify specific package:
+  pip show package-name
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+PostgreSQL connection error:
+  pip install --force-reinstall psycopg2-binary>=2.9.9
+
+Redis connection error:
+  redis-server (start Redis)
+
+Static files not loading:
+  python manage.py collectstatic --noinput
+
+Import errors:
+  pip install -r requirements.txt --upgrade
+
+================================================================================
+DOCUMENTATION FILES
+================================================================================
+
+1. requirements.txt - Actual dependency list
+2. DEPENDENCIES.md - Detailed dependency information
+3. DEPENDENCIES_MAPPING.md - Complete mapping with file locations
+4. DEPENDENCIES_LIST.txt - This file (quick reference)
+5. REQUIREMENTS_GUIDE.md - Quick reference guide
+6. SETUP_INSTRUCTIONS.md - Installation instructions
+
+================================================================================
+SUPPORT & RESOURCES
+================================================================================
+
+Django Documentation: https://docs.djangoproject.com/
+PostgreSQL Documentation: https://www.postgresql.org/docs/
+Tailwind CSS: https://tailwindcss.com/
+pytest Documentation: https://docs.pytest.org/
+Redis Documentation: https://redis.io/documentation
+
+================================================================================
+VERSION COMPATIBILITY
+================================================================================
+
+Python: 3.10+
+Django: 5.1.x
+PostgreSQL: 12+
+Redis: 6+ (optional)
+Node.js: 16+ (for Tailwind CSS)
+
+================================================================================
+LAST UPDATED: 2024
+================================================================================
