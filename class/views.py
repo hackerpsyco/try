@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import cache_page
+from django.views.decorators.http import require_http_methods
 from django.core.cache import cache
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -598,11 +599,13 @@ def no_permission(request):
 # Heartbeat Endpoint
 # -------------------------------
 @csrf_exempt
+@require_http_methods(["GET", "POST", "HEAD"])
 def heartbeat(request):
     """
     Lightweight heartbeat endpoint to keep Render app active.
     Prevents cold starts and database sleep.
     
+    Accepts GET, POST, and HEAD requests.
     Usage: Ping this endpoint every 5 minutes using UptimeRobot or a cron job.
     URL: https://your-app.onrender.com/heartbeat/
     """
