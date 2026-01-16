@@ -595,6 +595,23 @@ def no_permission(request):
     return render(request, "no_permission.html")
 
 
+# Heartbeat Endpoint
+# -------------------------------
+@csrf_exempt
+def heartbeat(request):
+    """
+    Lightweight heartbeat endpoint to keep Render app active.
+    Prevents cold starts and database sleep.
+    
+    Usage: Ping this endpoint every 5 minutes using UptimeRobot or a cron job.
+    URL: https://your-app.onrender.com/heartbeat/
+    """
+    return JsonResponse({
+        'status': 'ok',
+        'timestamp': timezone.now().isoformat()
+    }, status=200)
+
+
 # -------------------------------
 # Admin Settings
 # -------------------------------

@@ -5,7 +5,7 @@ from .views_auth import (
 )
 from .views import (
     # Auth
-    dashboard, no_permission, admin_settings,
+    dashboard, no_permission, admin_settings, heartbeat,
 
     # Admin – users & setup
     users_view, add_user, edit_user, delete_user, create_user_ajax,
@@ -154,6 +154,11 @@ from .admin_session_views import (
 )
 
 urlpatterns = [
+
+    # ======================
+    # Heartbeat (Keep-Alive)
+    # ======================
+    path("heartbeat/", heartbeat, name="heartbeat"),
 
     # ======================
     # Authentication
