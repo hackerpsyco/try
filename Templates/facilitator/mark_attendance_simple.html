@@ -226,35 +226,9 @@
                 </a>
               </div>
               <div>
-                <button type="submit" class="btn btn-success btn-lg" id="saveAttendanceBtn">
+                <button type="button" class="btn btn-success btn-lg" id="saveAttendanceBtn">
                   <i class="fas fa-save me-2"></i>Save Attendance
                 </button>
-              </div>
-            </div>
-
-            <!-- Confirmation Modal -->
-            <div class="modal fade" id="confirmModal" tabindex="-1">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Confirm Attendance</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                  </div>
-                  <div class="modal-body">
-                    <p>Are you sure you want to save the attendance with the following summary?</p>
-                    <div id="confirmSummary"></div>
-                    <div class="alert alert-warning mt-3">
-                      <i class="fas fa-exclamation-triangle me-2"></i>
-                      <strong>Note:</strong> Students marked as "Not Marked" will not have attendance recorded.
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-success" id="confirmSave">
-                      <i class="fas fa-save me-1"></i>Yes, Save Attendance
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -270,7 +244,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const attendanceSelects = document.querySelectorAll('.attendance-select');
     const saveBtn = document.getElementById('saveAttendanceBtn');
     const attendanceForm = document.getElementById('attendanceForm');
-    const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
     
     // Update summary when attendance changes
     attendanceSelects.forEach(select => {
@@ -280,16 +253,41 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial summary update
     updateSummary();
     
-    // Handle form submission with confirmation
-    attendanceForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        showConfirmation();
-    });
-    
-    // Confirm save button
-    document.getElementById('confirmSave').addEventListener('click', function() {
-        confirmModal.hide();
-        attendanceForm.submit();
+    // Handle save button click - save directly without confirmation
+    saveBtn.addEventListener('click', function() {
+        // Show loading state
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Saving...';
+        
+        // Collect form data
+        const formData = new FormData(attendanceForm);
+        
+        // Send AJAX request
+        fetch(attendanceForm.action || window.location.href, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success message
+                alert('✅ Attendance saved successfully!\n\nSaved: ' + data.saved + '\nUpdated: ' + data.updated + '\nNot Marked: ' + data.skipped);
+                // Redirect
+                window.location.href = data.redirect_url;
+            } else {
+                alert('❌ Error: ' + data.message);
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save me-2"></i>Save Attendance';
+            }
+        })
+        .catch(error => {
+            alert('❌ Error saving attendance: ' + error.message);
+            saveBtn.disabled = false;
+            saveBtn.innerHTML = '<i class="fas fa-save me-2"></i>Save Attendance';
+        });
     });
     
     function updateSummary() {
@@ -340,12 +338,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         
         document.getElementById('attendanceSummary').innerHTML = summaryHtml;
-    }
-    
-    function showConfirmation() {
-        const summary = document.getElementById('attendanceSummary').innerHTML;
-        document.getElementById('confirmSummary').innerHTML = summary;
-        confirmModal.show();
     }
     
     // Quick action functions

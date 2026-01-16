@@ -223,6 +223,9 @@
 </div>
 
 <script>
+// Convert pre-selected IDs to JSON array
+const preSelectedIds = {{ pre_selected_class_ids|safe }};
+
 function toggleBulkOptions() {
     const isBulk = document.getElementById('is_bulk').checked;
     const bulkOptions = document.getElementById('bulk-options');
@@ -315,6 +318,29 @@ document.addEventListener('DOMContentLoaded', function() {
     if (firstRadio) {
         firstRadio.checked = true;
         updateFormFields();
+    }
+    
+    // Pre-select classes if they were passed from bulk add
+    if (preSelectedIds && preSelectedIds.length > 0) {
+        // Set to session type
+        document.querySelector('input[name="date_type"][value="session"]').checked = true;
+        updateFormFields();
+        
+        // Set to specific classes scope
+        document.querySelector('input[name="scope"][value="specific"]').checked = true;
+        updateClassDisplay();
+        
+        // Pre-select the classes
+        preSelectedIds.forEach(classId => {
+            const checkbox = document.querySelector(`.class-checkbox[value="${classId}"]`);
+            if (checkbox) {
+                checkbox.checked = true;
+                // Get the school from this class and set it
+                const schoolId = checkbox.dataset.school;
+                document.getElementById('school_session').value = schoolId;
+                updateClasses();
+            }
+        });
     }
     
     // Add form submission handler to sync values

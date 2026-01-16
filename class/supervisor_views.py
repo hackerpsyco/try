@@ -738,44 +738,29 @@ def supervisor_class_delete(request, class_id):
 @login_required
 @supervisor_required
 def supervisor_bulk_add_classes(request):
-    """Bulk add multiple classes - Show form to add classes in group"""
+    """Bulk add multiple classes - Redirect to calendar to create grouped session"""
     
-    # Get selected class IDs from query params or session
+    # Get selected class IDs from query params
     selected_ids = request.GET.getlist('ids')
     
     if not selected_ids:
         messages.error(request, "No classes selected")
         return redirect("supervisor_classes_list")
     
-    # Get the selected classes
+    # Get the selected classes to verify they exist
     selected_classes = ClassSection.objects.filter(
         id__in=selected_ids
     ).select_related('school').order_by('school__name', 'class_level', 'section')
     
-    if request.method == "POST":
-        # Get form data
-        class_name = request.POST.get('class_name', '').strip()
-        description = request.POST.get('description', '').strip()
-        
-        if not class_name:
-            messages.error(request, "Class name is required")
-            return render(request, "supervisor/classes/bulk_add.html", {
-                'selected_classes': selected_classes,
-                'selected_ids': selected_ids,
-            })
-        
-        # Here you can add logic to create a group or perform bulk operations
-        # For now, just show success message
-        messages.success(request, f"Successfully processed {len(selected_classes)} classes")
+    if not selected_classes.exists():
+        messages.error(request, "No valid classes selected")
         return redirect("supervisor_classes_list")
     
-    context = {
-        'selected_classes': selected_classes,
-        'selected_ids': ','.join(selected_ids),
-        'class_count': len(selected_classes),
-    }
-    
-    return render(request, "supervisor/classes/bulk_add.html", context)
+    # Redirect to calendar add date with selected class IDs as query params
+    # The calendar view will handle creating the grouped session
+    query_string = '&'.join([f'class_ids={id}' for id in selected_ids])
+    messages.info(request, f"Creating grouped session for {len(selected_classes)} classes. Select a date and confirm.")
+    return redirect(f"{reverse('supervisor_calendar_add_date')}?{query_string}")
 
 
 
@@ -1106,10 +1091,14 @@ def supervisor_calendar_add_date(request):
     classes = ClassSection.objects.filter(is_active=True).select_related('school').order_by('school__name', 'class_level', 'section')
     facilitators = User.objects.filter(role__name__iexact="FACILITATOR", is_active=True).order_by('full_name')
     
+    # Check if class IDs were passed from bulk add
+    pre_selected_class_ids = request.GET.getlist('class_ids')
+    
     context = {
         'schools': schools,
         'classes': classes,
         'facilitators': facilitators,
+        'pre_selected_class_ids': pre_selected_class_ids,
     }
     
     return render(request, "supervisor/calendar/add_date.html", context)

@@ -21382,3 +21382,299 @@ INFO 2026-01-16 00:42:06,280 basehttp 716 5904 "GET /facilitator/dashboard/ HTTP
 INFO 2026-01-16 00:42:09,658 basehttp 716 29404 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/performance/ HTTP/1.1" 200 4426
 WARNING 2026-01-16 00:42:09,982 session_auth_fix 716 5904 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
 INFO 2026-01-16 00:42:09,984 basehttp 716 5904 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:02:46,247 autoreload 24284 30544 Watching for file changes with StatReloader
+INFO 2026-01-16 13:02:51,417 autoreload 24284 30544 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-16 13:02:53,085 autoreload 33740 24232 Watching for file changes with StatReloader
+WARNING 2026-01-16 13:03:07,487 session_auth_fix 33740 38184 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-16 13:03:07,539 basehttp 33740 38184 "GET / HTTP/1.1" 302 0
+INFO 2026-01-16 13:03:21,725 basehttp 33740 38184 "GET /facilitator/dashboard/ HTTP/1.1" 200 6360
+WARNING 2026-01-16 13:03:23,290 basehttp 33740 38184 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-16 13:03:31,130 basehttp 33740 34252 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:03:35,340 views 33740 34252 Facilitator PIYUSH TAMOLI: Found 300 PlannedSession records with grouped_session_id
+INFO 2026-01-16 13:03:36,484 views 33740 34252 Facilitator PIYUSH TAMOLI: Found 1 permanent groups with 2 total classes
+INFO 2026-01-16 13:03:36,484 views 33740 34252   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['2A', '3A']
+INFO 2026-01-16 13:03:36,773 views 33740 34252   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 13:03:36,773 views 33740 34252   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 13:03:37,082 views 33740 34252   Single class (no grouping): 1A
+INFO 2026-01-16 13:03:37,388 views 33740 34252   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-16 13:03:37,955 views 33740 34252   Single class (no grouping): 4A
+INFO 2026-01-16 13:03:38,223 views 33740 34252   Single class (no grouping): 5A
+INFO 2026-01-16 13:03:38,520 views 33740 34252   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-16 13:03:38,521 views 33740 34252 Facilitator PIYUSH TAMOLI: Returning 4 class items to template
+INFO 2026-01-16 13:03:38,522 views 33740 34252   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-16 13:03:38,534 basehttp 33740 34252 "GET /facilitator/classes/ HTTP/1.1" 200 4434
+INFO 2026-01-16 13:04:17,633 session_management 33740 34252 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 13:04:18,790 views 33740 34252 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 13:04:21,430 session_management 33740 34252 Next pending session for n k - 2A (2024-2025): Day 2
+INFO 2026-01-16 13:04:21,431 session_management 33740 34252 Progress metrics for n k - 2A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-16 13:04:22,974 basehttp 33740 34252 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 22406
+INFO 2026-01-16 13:04:26,545 curriculum_content_resolver 33740 34252 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-16 13:04:27,706 curriculum_content_resolver 33740 34252 Found 5251 rows in curriculum table
+INFO 2026-01-16 13:04:27,708 curriculum_content_resolver 33740 34252 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-16 13:04:27,710 curriculum_content_resolver 33740 34252 Found next day boundary at row 71, day 3
+INFO 2026-01-16 13:04:27,711 curriculum_content_resolver 33740 34252 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-16 13:04:27,716 curriculum_content_resolver 33740 34252 Fixed image and resource paths in curriculum content
+INFO 2026-01-16 13:04:27,718 curriculum_content_resolver 33740 34252 Loaded static fallback content for Day 2 english
+INFO 2026-01-16 13:04:28,079 basehttp 33740 34252 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 13:04:28,091 basehttp 33740 34252 "GET /static/images/wes-logo.jpg HTTP/1.1" 304 0
+INFO 2026-01-16 13:05:08,732 basehttp 33740 34252 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 128
+INFO 2026-01-16 13:05:09,346 basehttp 33740 29588 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-16 13:05:09,828 basehttp 33740 13968 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-16 13:05:10,143 basehttp 33740 7972 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-16 13:05:12,520 basehttp 33740 10232 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-16 13:05:12,827 basehttp 33740 17692 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-16 13:05:39,491 session_management 33740 17692 Session conducted: n k - 2A (2024-2025) - Day 2 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-16 13:05:43,679 session_management 33740 17692 Session conducted: n k - 3A (2024-2025) - Day 2 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-16 13:05:45,687 basehttp 33740 17692 "POST /facilitator/session/start/94915dfa-ae8f-4949-aee3-5d9069f87f70/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:05:52,994 basehttp 33740 17692 "GET /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 200 6849
+WARNING 2026-01-16 13:08:01,139 session_auth_fix 33740 17692 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:08:01,141 basehttp 33740 17692 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:08:14,390 basehttp 33740 17692 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+INFO 2026-01-16 13:10:08,867 basehttp 33740 17692 "POST /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:10:14,609 session_management 33740 17692 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:10:15,227 views 33740 17692 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 13:10:17,374 session_management 33740 17692 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:10:17,375 session_management 33740 17692 Progress metrics for n k - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-16 13:10:19,852 basehttp 33740 17692 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 21914
+INFO 2026-01-16 13:10:23,586 basehttp 33740 16884 "GET /api/get-feedback-status/?session_id=64c79301-7f1d-458b-a9e5-8030ccf5814c HTTP/1.1" 200 111
+INFO 2026-01-16 13:10:23,595 basehttp 33740 17692 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 13:10:27,512 basehttp 33740 16884 - Broken pipe from ('127.0.0.1', 59636)
+INFO 2026-01-16 13:11:04,383 autoreload 33740 24232 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-16 13:11:06,128 autoreload 39352 29544 Watching for file changes with StatReloader
+INFO 2026-01-16 13:11:44,723 session_management 39352 37588 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:11:45,542 views 39352 37588 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 13:11:48,494 session_management 39352 37588 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:11:48,494 session_management 39352 37588 Progress metrics for n k - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-16 13:11:51,605 basehttp 39352 37588 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 21914
+WARNING 2026-01-16 13:11:55,167 session_auth_fix 39352 37588 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:11:55,169 basehttp 39352 37588 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:11:57,260 curriculum_content_resolver 39352 39340 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-16 13:11:57,576 basehttp 39352 27224 "GET /api/get-feedback-status/?session_id=64c79301-7f1d-458b-a9e5-8030ccf5814c HTTP/1.1" 200 111
+INFO 2026-01-16 13:11:59,336 curriculum_content_resolver 39352 39340 Found 5251 rows in curriculum table
+INFO 2026-01-16 13:11:59,338 curriculum_content_resolver 39352 39340 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-16 13:11:59,341 curriculum_content_resolver 39352 39340 Found next day boundary at row 71, day 3
+INFO 2026-01-16 13:11:59,341 curriculum_content_resolver 39352 39340 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-16 13:11:59,348 curriculum_content_resolver 39352 39340 Fixed image and resource paths in curriculum content
+INFO 2026-01-16 13:11:59,350 curriculum_content_resolver 39352 39340 Loaded static fallback content for Day 2 english
+INFO 2026-01-16 13:11:59,657 basehttp 39352 39340 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 13:12:01,210 basehttp 39352 27224 - Broken pipe from ('127.0.0.1', 51534)
+INFO 2026-01-16 13:12:09,914 basehttp 39352 37588 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+INFO 2026-01-16 13:12:14,726 session_management 39352 39340 Session conducted: n k - 2A (2024-2025) - Day 2 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-16 13:12:18,026 session_management 39352 39340 Session conducted: n k - 3A (2024-2025) - Day 2 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-16 13:12:19,540 basehttp 39352 39340 "POST /facilitator/session/start/94915dfa-ae8f-4949-aee3-5d9069f87f70/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:12:26,099 basehttp 39352 39340 "GET /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 200 7233
+WARNING 2026-01-16 13:12:29,072 session_auth_fix 39352 39340 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:12:29,074 basehttp 39352 39340 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:12:37,664 basehttp 39352 37588 "POST /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:12:43,401 session_management 39352 37588 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:12:43,975 views 39352 37588 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 13:12:46,266 session_management 39352 37588 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:12:46,267 session_management 39352 37588 Progress metrics for n k - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-16 13:12:47,504 basehttp 39352 39340 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+INFO 2026-01-16 13:12:48,622 basehttp 39352 37588 - Broken pipe from ('127.0.0.1', 50391)
+INFO 2026-01-16 13:12:54,357 basehttp 39352 39340 "POST /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:13:01,216 session_management 39352 39340 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:13:02,036 views 39352 39340 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 13:13:05,312 session_management 39352 39340 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:13:05,313 session_management 39352 39340 Progress metrics for n k - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-16 13:13:09,123 basehttp 39352 39340 - Broken pipe from ('127.0.0.1', 49671)
+INFO 2026-01-16 13:13:14,018 basehttp 39352 5824 "POST /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:13:22,222 session_management 39352 5824 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:13:23,336 views 39352 5824 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 13:13:26,715 session_management 39352 5824 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:13:26,715 session_management 39352 5824 Progress metrics for n k - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-16 13:13:30,930 basehttp 39352 5824 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 21913
+WARNING 2026-01-16 13:13:33,781 session_auth_fix 39352 5824 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:13:33,783 basehttp 39352 5824 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:13:34,408 basehttp 39352 30476 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 13:13:34,414 basehttp 39352 37004 "GET /api/get-feedback-status/?session_id=64c79301-7f1d-458b-a9e5-8030ccf5814c HTTP/1.1" 200 111
+INFO 2026-01-16 13:13:37,887 basehttp 39352 37004 - Broken pipe from ('127.0.0.1', 60585)
+INFO 2026-01-16 13:13:48,120 basehttp 39352 5824 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+INFO 2026-01-16 13:14:14,639 session_management 39352 5824 Session conducted: n k - 2A (2024-2025) - Day 2 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-16 13:14:17,274 session_management 39352 5824 Session conducted: n k - 3A (2024-2025) - Day 2 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-16 13:14:19,555 basehttp 39352 5824 "POST /facilitator/session/start/94915dfa-ae8f-4949-aee3-5d9069f87f70/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:14:27,444 basehttp 39352 5824 "GET /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 200 7231
+WARNING 2026-01-16 13:14:30,204 session_auth_fix 39352 5824 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:14:30,206 basehttp 39352 5824 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:14:36,554 basehttp 39352 30476 "POST /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:14:43,927 session_management 39352 30476 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:14:44,452 basehttp 39352 5824 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+INFO 2026-01-16 13:14:44,848 views 39352 30476 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 13:14:47,818 session_management 39352 30476 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:14:47,819 session_management 39352 30476 Progress metrics for n k - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-16 13:14:51,127 basehttp 39352 30476 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 21911
+WARNING 2026-01-16 13:14:54,253 session_auth_fix 39352 30476 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:14:54,255 basehttp 39352 30476 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:14:54,794 basehttp 39352 5824 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 13:14:54,800 basehttp 39352 19212 "GET /api/get-feedback-status/?session_id=64c79301-7f1d-458b-a9e5-8030ccf5814c HTTP/1.1" 200 111
+INFO 2026-01-16 13:14:57,958 basehttp 39352 5824 - Broken pipe from ('127.0.0.1', 63848)
+INFO 2026-01-16 13:15:07,590 basehttp 39352 30476 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+INFO 2026-01-16 13:15:11,888 basehttp 39352 30476 "GET /facilitator/attendance/ HTTP/1.1" 200 7555
+WARNING 2026-01-16 13:15:14,611 session_auth_fix 39352 30476 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:15:14,612 basehttp 39352 30476 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:15:21,815 basehttp 39352 19212 "GET /api/facilitator/classes/?school_id=d0ceece1-736f-42e0-a6d9-069497588728 HTTP/1.1" 200 659
+INFO 2026-01-16 13:15:32,382 basehttp 39352 19212 - Broken pipe from ('127.0.0.1', 56468)
+INFO 2026-01-16 13:15:33,194 basehttp 39352 30476 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+INFO 2026-01-16 13:15:35,138 basehttp 39352 27932 - Broken pipe from ('127.0.0.1', 53966)
+INFO 2026-01-16 13:15:35,954 basehttp 39352 22140 "GET /facilitator/attendance/?school=d0ceece1-736f-42e0-a6d9-069497588728&class_section=49caa4b6-db6a-415c-b944-74e57df42705&period=today&start_date=2025-12-15&end_date=2026-01-16 HTTP/1.1" 200 8083
+WARNING 2026-01-16 13:15:38,466 session_auth_fix 39352 22140 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:15:38,468 basehttp 39352 22140 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:15:47,651 basehttp 39352 30476 "GET /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 200 7231
+INFO 2026-01-16 13:15:52,030 basehttp 39352 22140 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+WARNING 2026-01-16 13:15:54,536 session_auth_fix 39352 22140 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:15:54,537 basehttp 39352 22140 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:16:02,235 basehttp 39352 30476 - Broken pipe from ('127.0.0.1', 56058)
+INFO 2026-01-16 13:16:04,024 basehttp 39352 19296 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:16:09,233 basehttp 39352 22140 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+INFO 2026-01-16 13:16:09,740 views 39352 19296 Facilitator PIYUSH TAMOLI: Found 300 PlannedSession records with grouped_session_id
+INFO 2026-01-16 13:16:11,495 views 39352 19296 Facilitator PIYUSH TAMOLI: Found 1 permanent groups with 2 total classes
+INFO 2026-01-16 13:16:11,496 views 39352 19296   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['2A', '3A']
+INFO 2026-01-16 13:16:12,095 views 39352 19296   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 13:16:12,095 views 39352 19296   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 13:16:12,711 views 39352 19296   Single class (no grouping): 1A
+INFO 2026-01-16 13:16:13,059 views 39352 19296   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-16 13:16:13,732 views 39352 19296   Single class (no grouping): 4A
+INFO 2026-01-16 13:16:14,064 views 39352 19296   Single class (no grouping): 5A
+INFO 2026-01-16 13:16:14,399 views 39352 19296   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-16 13:16:14,399 views 39352 19296 Facilitator PIYUSH TAMOLI: Returning 4 class items to template
+INFO 2026-01-16 13:16:14,400 views 39352 19296   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-16 13:16:14,407 basehttp 39352 19296 "GET /facilitator/classes/ HTTP/1.1" 200 4434
+WARNING 2026-01-16 13:16:17,932 session_auth_fix 39352 19296 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:16:17,934 basehttp 39352 19296 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:16:28,481 session_management 39352 22140 Next pending session for n k - 1A (2026-2027): Day 2
+INFO 2026-01-16 13:16:29,095 views 39352 22140 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-16 13:16:31,672 session_management 39352 22140 Next pending session for n k - 1A (2026-2027): Day 2
+INFO 2026-01-16 13:16:31,672 session_management 39352 22140 Progress metrics for n k - 1A (2026-2027): 0.6666666666666667% complete
+INFO 2026-01-16 13:16:32,761 basehttp 39352 22140 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 22093
+INFO 2026-01-16 13:16:36,573 basehttp 39352 19296 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+INFO 2026-01-16 13:16:36,778 basehttp 39352 22140 "GET /api/curriculum/content/?day=2&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3185
+WARNING 2026-01-16 13:16:40,358 session_auth_fix 39352 19296 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:16:40,359 basehttp 39352 19296 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:16:52,851 session_management 39352 22140 Session conducted: n k - 1A (2026-2027) - Day 2 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-16 13:16:54,080 basehttp 39352 22140 "POST /facilitator/session/start/7290dbec-1341-4d39-a2bb-55c616f072c8/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:16:54,288 basehttp 39352 19296 "GET /facilitator/dashboard/ HTTP/1.1" 200 6358
+INFO 2026-01-16 13:17:01,703 basehttp 39352 22140 "GET /facilitator/session/2abf2a5f-8e67-4246-abfe-77a253b27979/attendance/ HTTP/1.1" 200 6630
+WARNING 2026-01-16 13:17:04,526 session_auth_fix 39352 22140 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:17:04,527 basehttp 39352 22140 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:17:25,198 basehttp 39352 22140 "GET /facilitator/dashboard/ HTTP/1.1" 200 6364
+WARNING 2026-01-16 13:17:45,282 session_auth_fix 39352 22140 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:17:45,284 basehttp 39352 22140 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:18:01,197 basehttp 39352 22140 "GET /facilitator/dashboard/ HTTP/1.1" 200 6364
+INFO 2026-01-16 13:19:44,072 basehttp 39352 22140 "GET /facilitator/session/2abf2a5f-8e67-4246-abfe-77a253b27979/attendance/ HTTP/1.1" 200 6263
+WARNING 2026-01-16 13:19:46,935 session_auth_fix 39352 22140 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:19:46,937 basehttp 39352 22140 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:20:00,352 basehttp 39352 19296 "POST /facilitator/session/2abf2a5f-8e67-4246-abfe-77a253b27979/attendance/ HTTP/1.1" 200 184
+INFO 2026-01-16 13:20:00,867 basehttp 39352 22140 "GET /facilitator/dashboard/ HTTP/1.1" 200 6364
+INFO 2026-01-16 13:20:11,411 session_management 39352 22140 Found today's session for n k - 1A (2026-2027): Day 2 (Status: 1)
+INFO 2026-01-16 13:20:11,993 views 39352 22140 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-16 13:20:14,277 session_management 39352 22140 Found today's session for n k - 1A (2026-2027): Day 2 (Status: 1)
+INFO 2026-01-16 13:20:14,277 session_management 39352 22140 Progress metrics for n k - 1A (2026-2027): 1.3333333333333335% complete
+INFO 2026-01-16 13:20:16,125 basehttp 39352 22140 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 21587
+WARNING 2026-01-16 13:20:19,092 session_auth_fix 39352 22140 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:20:19,094 basehttp 39352 22140 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:20:19,697 basehttp 39352 11684 "GET /api/get-feedback-status/?session_id=2abf2a5f-8e67-4246-abfe-77a253b27979 HTTP/1.1" 200 111
+INFO 2026-01-16 13:20:19,699 basehttp 39352 19296 "GET /api/curriculum/content/?day=2&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3185
+INFO 2026-01-16 13:20:23,291 basehttp 39352 11684 - Broken pipe from ('127.0.0.1', 55553)
+INFO 2026-01-16 13:20:33,001 basehttp 39352 22140 "GET /facilitator/dashboard/ HTTP/1.1" 200 6348
+INFO 2026-01-16 13:23:35,943 autoreload 39352 29544 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-16 13:23:37,701 autoreload 32672 39428 Watching for file changes with StatReloader
+INFO 2026-01-16 13:23:46,325 autoreload 32672 39428 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-16 13:23:47,806 autoreload 12388 8728 Watching for file changes with StatReloader
+INFO 2026-01-16 13:24:06,713 autoreload 12388 8728 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-16 13:24:08,306 autoreload 8676 39820 Watching for file changes with StatReloader
+INFO 2026-01-16 13:24:14,245 autoreload 8676 39820 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-16 13:24:15,885 autoreload 13372 19504 Watching for file changes with StatReloader
+INFO 2026-01-16 13:24:26,801 session_management 13372 31524 Found today's session for n k - 1A (2026-2027): Day 2 (Status: 1)
+INFO 2026-01-16 13:24:27,417 views 13372 31524 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-16 13:24:29,525 session_management 13372 31524 Found today's session for n k - 1A (2026-2027): Day 2 (Status: 1)
+INFO 2026-01-16 13:24:29,526 session_management 13372 31524 Progress metrics for n k - 1A (2026-2027): 1.3333333333333335% complete
+INFO 2026-01-16 13:24:31,429 basehttp 13372 31524 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 21590
+WARNING 2026-01-16 13:24:34,203 session_auth_fix 13372 31524 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:24:34,206 basehttp 13372 31524 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:24:35,099 basehttp 13372 3356 "GET /api/get-feedback-status/?session_id=2abf2a5f-8e67-4246-abfe-77a253b27979 HTTP/1.1" 200 111
+INFO 2026-01-16 13:24:35,104 curriculum_content_resolver 13372 33232 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-16 13:24:37,290 curriculum_content_resolver 13372 33232 Found 5251 rows in curriculum table
+INFO 2026-01-16 13:24:37,294 curriculum_content_resolver 13372 33232 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-16 13:24:37,296 curriculum_content_resolver 13372 33232 Found next day boundary at row 71, day 3
+INFO 2026-01-16 13:24:37,296 curriculum_content_resolver 13372 33232 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-16 13:24:37,304 curriculum_content_resolver 13372 33232 Fixed image and resource paths in curriculum content
+INFO 2026-01-16 13:24:37,305 curriculum_content_resolver 13372 33232 Loaded static fallback content for Day 2 english
+INFO 2026-01-16 13:24:37,653 basehttp 13372 33232 "GET /api/curriculum/content/?day=2&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3185
+INFO 2026-01-16 13:24:38,238 basehttp 13372 3356 - Broken pipe from ('127.0.0.1', 58902)
+INFO 2026-01-16 13:24:47,531 basehttp 13372 31524 "GET /facilitator/dashboard/ HTTP/1.1" 200 6348
+INFO 2026-01-16 13:25:01,314 basehttp 13372 31524 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 128
+INFO 2026-01-16 13:25:01,586 basehttp 13372 33232 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-16 13:25:02,752 basehttp 13372 31360 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-16 13:25:03,671 basehttp 13372 11108 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-16 13:25:05,270 basehttp 13372 28896 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-16 13:25:07,150 basehttp 13372 33232 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-16 13:25:17,798 session_management 13372 33232 Session conducted: n k - 1A (2026-2027) - Day 2 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-16 13:25:19,029 basehttp 13372 33232 "POST /facilitator/session/start/7290dbec-1341-4d39-a2bb-55c616f072c8/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:25:24,868 basehttp 13372 33232 "GET /facilitator/session/2abf2a5f-8e67-4246-abfe-77a253b27979/attendance/ HTTP/1.1" 200 6263
+WARNING 2026-01-16 13:25:27,731 session_auth_fix 13372 33232 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:25:27,734 basehttp 13372 33232 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:25:38,295 basehttp 13372 28896 "POST /facilitator/session/2abf2a5f-8e67-4246-abfe-77a253b27979/attendance/ HTTP/1.1" 200 194
+INFO 2026-01-16 13:25:41,351 basehttp 13372 33232 "GET /facilitator/dashboard/ HTTP/1.1" 200 6348
+INFO 2026-01-16 13:25:49,441 session_management 13372 33232 Found today's session for n k - 1A (2026-2027): Day 2 (Status: 1)
+INFO 2026-01-16 13:25:50,055 views 13372 33232 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-16 13:25:52,512 session_management 13372 33232 Found today's session for n k - 1A (2026-2027): Day 2 (Status: 1)
+INFO 2026-01-16 13:25:52,513 session_management 13372 33232 Progress metrics for n k - 1A (2026-2027): 1.3333333333333335% complete
+INFO 2026-01-16 13:25:54,352 basehttp 13372 33232 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/?refresh=1 HTTP/1.1" 200 21589
+WARNING 2026-01-16 13:25:57,223 session_auth_fix 13372 33232 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-16 13:25:57,225 basehttp 13372 33232 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-16 13:25:57,867 basehttp 13372 28896 "GET /api/curriculum/content/?day=2&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3185
+INFO 2026-01-16 13:25:57,870 basehttp 13372 11108 "GET /api/get-feedback-status/?session_id=2abf2a5f-8e67-4246-abfe-77a253b27979 HTTP/1.1" 200 111
+INFO 2026-01-16 13:26:01,112 basehttp 13372 28896 - Broken pipe from ('127.0.0.1', 55609)
+INFO 2026-01-16 13:26:11,062 basehttp 13372 33232 "GET /facilitator/dashboard/ HTTP/1.1" 200 6364
+INFO 2026-01-16 13:28:41,691 autoreload 13372 19504 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-16 13:28:43,701 autoreload 13832 5628 Watching for file changes with StatReloader
+INFO 2026-01-16 13:29:05,594 basehttp 13832 6056 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:29:10,149 views 13832 6056 Facilitator PIYUSH TAMOLI: Found 300 PlannedSession records with grouped_session_id
+INFO 2026-01-16 13:29:11,405 views 13832 6056 Facilitator PIYUSH TAMOLI: Found 1 permanent groups with 2 total classes
+INFO 2026-01-16 13:29:11,406 views 13832 6056   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['2A', '3A']
+INFO 2026-01-16 13:29:11,789 views 13832 6056   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 13:29:11,789 views 13832 6056   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 13:29:12,096 views 13832 6056   Single class (no grouping): 1A
+INFO 2026-01-16 13:29:12,403 views 13832 6056   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-16 13:29:13,017 views 13832 6056   Single class (no grouping): 4A
+INFO 2026-01-16 13:29:13,329 views 13832 6056   Single class (no grouping): 5A
+INFO 2026-01-16 13:29:13,628 views 13832 6056   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-16 13:29:13,629 views 13832 6056 Facilitator PIYUSH TAMOLI: Returning 4 class items to template
+INFO 2026-01-16 13:29:13,629 views 13832 6056   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-16 13:29:13,654 basehttp 13832 6056 "GET /facilitator/classes/ HTTP/1.1" 200 4434
+INFO 2026-01-16 13:29:22,335 session_management 13832 6056 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:29:23,154 views 13832 6056 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 13:29:25,269 session_management 13832 6056 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 13:29:25,269 session_management 13832 6056 Progress metrics for n k - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-16 13:29:27,987 basehttp 13832 6056 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 22629
+INFO 2026-01-16 13:29:32,167 basehttp 13832 10232 "GET /api/get-feedback-status/?session_id=64c79301-7f1d-458b-a9e5-8030ccf5814c HTTP/1.1" 200 111
+INFO 2026-01-16 13:29:32,174 curriculum_content_resolver 13832 6056 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-16 13:29:33,685 curriculum_content_resolver 13832 6056 Found 5251 rows in curriculum table
+INFO 2026-01-16 13:29:33,689 curriculum_content_resolver 13832 6056 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-16 13:29:33,691 curriculum_content_resolver 13832 6056 Found next day boundary at row 71, day 3
+INFO 2026-01-16 13:29:33,691 curriculum_content_resolver 13832 6056 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-16 13:29:33,698 curriculum_content_resolver 13832 6056 Fixed image and resource paths in curriculum content
+INFO 2026-01-16 13:29:33,699 curriculum_content_resolver 13832 6056 Loaded static fallback content for Day 2 english
+INFO 2026-01-16 13:29:34,013 basehttp 13832 6056 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 13:29:35,854 basehttp 13832 10232 - Broken pipe from ('127.0.0.1', 54691)
+INFO 2026-01-16 13:29:46,196 basehttp 13832 6056 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-16 13:29:50,975 views 13832 6056 Facilitator PIYUSH TAMOLI: Found 300 PlannedSession records with grouped_session_id
+INFO 2026-01-16 13:29:52,676 views 13832 6056 Facilitator PIYUSH TAMOLI: Found 1 permanent groups with 2 total classes
+INFO 2026-01-16 13:29:52,679 views 13832 6056   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['2A', '3A']
+INFO 2026-01-16 13:29:53,024 views 13832 6056   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 13:29:53,026 views 13832 6056   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 13:29:53,364 views 13832 6056   Single class (no grouping): 1A
+INFO 2026-01-16 13:29:53,670 views 13832 6056   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-16 13:29:54,455 views 13832 6056   Single class (no grouping): 4A
+INFO 2026-01-16 13:29:54,818 views 13832 6056   Single class (no grouping): 5A
+INFO 2026-01-16 13:29:55,082 views 13832 6056   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-16 13:29:55,083 views 13832 6056 Facilitator PIYUSH TAMOLI: Returning 4 class items to template
+INFO 2026-01-16 13:29:55,083 views 13832 6056   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-16 13:29:55,090 basehttp 13832 6056 "GET /facilitator/classes/ HTTP/1.1" 200 4434
+INFO 2026-01-16 13:30:02,888 session_management 13832 6056 Found today's session for n k - 1A (2026-2027): Day 2 (Status: 1)
+INFO 2026-01-16 13:30:03,707 views 13832 6056 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-16 13:30:06,063 session_management 13832 6056 Found today's session for n k - 1A (2026-2027): Day 2 (Status: 1)
+INFO 2026-01-16 13:30:06,063 session_management 13832 6056 Progress metrics for n k - 1A (2026-2027): 1.3333333333333335% complete
+INFO 2026-01-16 13:30:08,026 basehttp 13832 6056 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 21850
+INFO 2026-01-16 13:30:12,104 basehttp 13832 38828 "GET /api/get-feedback-status/?session_id=2abf2a5f-8e67-4246-abfe-77a253b27979 HTTP/1.1" 200 111
+INFO 2026-01-16 13:30:12,104 basehttp 13832 6056 "GET /api/curriculum/content/?day=2&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3185
