@@ -13,6 +13,12 @@ from .views import (
     class_sections_list, class_section_add, edit_class_section, class_section_delete, admin_bulk_add_classes, admin_bulk_create_classes,
     assign_facilitator,admin_sessions_filter,
 )
+from .reports_views import (
+    # Admin - Reports
+    reports_dashboard,
+    get_report_data,
+    get_classes_for_school,
+)
 from .supervisor_views import (
     # Supervisor - Dashboard
     supervisor_dashboard,
@@ -226,6 +232,13 @@ urlpatterns = [
     path("admin/feedback/student/", admin_student_feedback_list, name="admin_student_feedback_list"),
     path("admin/feedback/teacher/", admin_teacher_feedback_list, name="admin_teacher_feedback_list"),
     path("admin/feedback/analytics/", admin_feedback_analytics, name="admin_feedback_analytics"),
+
+    # ======================
+    # Reports (ADMIN)
+    # ======================
+    path("admin/reports/", reports_dashboard, name="reports_dashboard"),
+    path("admin/reports/data/<str:report_type>/", get_report_data, name="get_report_data"),
+    path("admin/reports/classes/<uuid:school_id>/", get_classes_for_school, name="get_classes_for_school"),
 
     # ======================
     # Users (ADMIN)

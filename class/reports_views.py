@@ -27,7 +27,7 @@ from io import BytesIO
 from .models import (
     School, ClassSection, Student, Enrollment, User, 
     ActualSession, PlannedSession, Attendance, 
-    FacilitatorSchool, SessionFeedback, SessionStatus
+    FacilitatorSchool, SessionFeedback, SessionStatus, AttendanceStatus
 )
 
 

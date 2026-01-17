@@ -387,10 +387,10 @@
                 <div class="calendar-header-top">
                     <div class="calendar-nav">
                         <div class="calendar-nav-buttons">
-                            <a href="?year={{ prev_year }}&month={{ prev_month }}" class="bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-700 font-medium transition-colors">
+                            <a href="?year={{ prev_year }}&month={{ prev_month }}{% if selected_school_id %}&school_filter={{ selected_school_id }}{% endif %}" class="bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-700 font-medium transition-colors">
                                 ← Previous
                             </a>
-                            <a href="?year={{ next_year }}&month={{ next_month }}" class="bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-700 font-medium transition-colors">
+                            <a href="?year={{ next_year }}&month={{ next_month }}{% if selected_school_id %}&school_filter={{ selected_school_id }}{% endif %}" class="bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-700 font-medium transition-colors">
                                 Next →
                             </a>
                         </div>
@@ -402,6 +402,24 @@
                 <a href="{% url 'supervisor_calendar_add_date' %}" class="calendar-add-btn bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
                     + Add Date
                 </a>
+            </div>
+
+            <!-- School Filter -->
+            <div class="mt-4 pt-4 border-t border-gray-200">
+                <form method="get" class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                    <label for="school_filter" class="text-sm font-medium text-gray-700">Filter by School:</label>
+                    <select name="school_filter" id="school_filter" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1 sm:flex-none">
+                        <option value="">All Schools</option>
+                        {% for school in all_schools %}
+                        <option value="{{ school.id }}" {% if selected_school_id == school.id|stringformat:"s" %}selected{% endif %}>
+                            {{ school.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <!-- Hidden inputs to preserve year and month -->
+                    <input type="hidden" name="year" value="{{ current_year }}">
+                    <input type="hidden" name="month" value="{{ current_month }}">
+                </form>
             </div>
         </div>
 

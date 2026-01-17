@@ -21739,3 +21739,627 @@ INFO 2026-01-16 16:20:02,043 curriculum_content_resolver 36504 28160 Fixed image
 INFO 2026-01-16 16:20:02,045 curriculum_content_resolver 36504 28160 Loaded static fallback content for Day 2 english
 INFO 2026-01-16 16:20:02,468 basehttp 36504 28160 "GET /api/curriculum/content/?day=2&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3185
 INFO 2026-01-16 16:20:05,384 basehttp 36504 33064 - Broken pipe from ('127.0.0.1', 62314)
+INFO 2026-01-16 22:21:32,254 autoreload 27780 6240 Watching for file changes with StatReloader
+WARNING 2026-01-16 22:24:23,796 session_auth_fix 27780 30656 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-16 22:24:23,908 basehttp 27780 30656 "GET / HTTP/1.1" 302 0
+INFO 2026-01-16 22:24:38,979 basehttp 27780 30656 "GET /facilitator/dashboard/ HTTP/1.1" 200 6364
+WARNING 2026-01-16 22:24:40,204 basehttp 27780 30656 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-16 22:54:57,712 autoreload 27780 6240 C:\Users\piyus\CLAS\CLAS\class\reports_views.py changed, reloading.
+INFO 2026-01-16 22:54:59,302 autoreload 31104 29984 Watching for file changes with StatReloader
+INFO 2026-01-16 22:57:06,844 autoreload 31104 29984 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-16 22:57:08,374 autoreload 34612 22796 Watching for file changes with StatReloader
+INFO 2026-01-16 22:57:37,021 autoreload 34612 22796 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-16 22:57:38,405 autoreload 35760 17696 Watching for file changes with StatReloader
+WARNING 2026-01-16 23:19:17,400 session_auth_fix 35760 22668 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-16 23:19:17,480 basehttp 35760 22668 "GET / HTTP/1.1" 302 0
+INFO 2026-01-16 23:19:34,107 basehttp 35760 22668 "GET /facilitator/dashboard/ HTTP/1.1" 200 6364
+INFO 2026-01-16 23:19:51,203 basehttp 35760 22668 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-16 23:19:56,809 views 35760 22668 Facilitator PIYUSH TAMOLI: Found 300 PlannedSession records with grouped_session_id
+INFO 2026-01-16 23:20:01,220 views 35760 22668 Facilitator PIYUSH TAMOLI: Found 1 permanent groups with 2 total classes
+INFO 2026-01-16 23:20:01,221 views 35760 22668   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['2A', '3A']
+INFO 2026-01-16 23:20:01,541 views 35760 22668   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 23:20:01,542 views 35760 22668   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-16 23:20:01,893 views 35760 22668   Single class (no grouping): 1A
+INFO 2026-01-16 23:20:02,247 views 35760 22668   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-16 23:20:02,862 views 35760 22668   Single class (no grouping): 4A
+INFO 2026-01-16 23:20:03,176 views 35760 22668   Single class (no grouping): 5A
+INFO 2026-01-16 23:20:03,514 views 35760 22668   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-16 23:20:03,514 views 35760 22668 Facilitator PIYUSH TAMOLI: Returning 4 class items to template
+INFO 2026-01-16 23:20:03,515 views 35760 22668   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-16 23:20:03,529 basehttp 35760 22668 "GET /facilitator/classes/ HTTP/1.1" 200 4434
+INFO 2026-01-16 23:20:24,509 session_management 35760 22668 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 23:20:25,169 views 35760 22668 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 23:20:27,555 session_management 35760 22668 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 23:20:27,555 session_management 35760 22668 Progress metrics for n k - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-16 23:20:30,510 basehttp 35760 22668 "GET /facilitator/class/49caa4b6-db6a-415c-b944-74e57df42705/today/ HTTP/1.1" 200 22628
+INFO 2026-01-16 23:20:33,982 curriculum_content_resolver 35760 22668 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-16 23:20:34,662 basehttp 35760 29680 "GET /api/get-feedback-status/?session_id=64c79301-7f1d-458b-a9e5-8030ccf5814c HTTP/1.1" 200 111
+INFO 2026-01-16 23:20:35,611 curriculum_content_resolver 35760 22668 Found 5251 rows in curriculum table
+INFO 2026-01-16 23:20:35,614 curriculum_content_resolver 35760 22668 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-16 23:20:35,616 curriculum_content_resolver 35760 22668 Found next day boundary at row 71, day 3
+INFO 2026-01-16 23:20:35,617 curriculum_content_resolver 35760 22668 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-16 23:20:35,622 curriculum_content_resolver 35760 22668 Fixed image and resource paths in curriculum content
+INFO 2026-01-16 23:20:35,623 curriculum_content_resolver 35760 22668 Loaded static fallback content for Day 2 english
+INFO 2026-01-16 23:20:35,954 basehttp 35760 22668 "GET /api/curriculum/content/?day=2&language=english&class_section_id=49caa4b6-db6a-415c-b944-74e57df42705 HTTP/1.1" 200 3185
+INFO 2026-01-16 23:20:38,653 basehttp 35760 30404 - Broken pipe from ('127.0.0.1', 60753)
+INFO 2026-01-16 23:21:25,428 basehttp 35760 22668 "GET /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 200 6492
+INFO 2026-01-16 23:21:42,874 basehttp 35760 22668 "POST /facilitator/session/64c79301-7f1d-458b-a9e5-8030ccf5814c/attendance/ HTTP/1.1" 200 218
+INFO 2026-01-16 23:21:48,525 session_auth_fix 35760 29680 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-16 23:21:48,526 views_auth 35760 29680 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-16 23:21:48,526 session_auth_fix 35760 29680 Logout detected for anonymous
+INFO 2026-01-16 23:21:48,631 session_management 35760 22668 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 23:21:49,221 views 35760 22668 Grouped session detected via grouped_session_id for class 49caa4b6-db6a-415c-b944-74e57df42705: grouped_session_id=54ca253d-1c27-49a2-a213-29ef2842469b, classes_in_group=2
+INFO 2026-01-16 23:21:49,959 basehttp 35760 29680 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-16 23:21:51,353 session_management 35760 22668 Found today's session for n k - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-16 23:21:51,354 session_management 35760 22668 Progress metrics for n k - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-16 23:21:52,096 basehttp 35760 29680 "GET /login/ HTTP/1.1" 200 1099
+INFO 2026-01-16 23:21:52,151 basehttp 35760 29680 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-16 23:21:54,125 basehttp 35760 22668 - Broken pipe from ('127.0.0.1', 62904)
+INFO 2026-01-16 23:23:23,497 views_auth 35760 29680 User piyush81@gmail.com logged in successfully
+INFO 2026-01-16 23:23:24,734 basehttp 35760 29680 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-16 23:23:29,630 basehttp 35760 29680 "GET /supervisor/dashboard/ HTTP/1.1" 200 4736
+INFO 2026-01-16 23:24:03,759 basehttp 35760 29680 "GET /supervisor/calendar/ HTTP/1.1" 200 6006
+INFO 2026-01-16 23:24:38,477 basehttp 35760 29680 "GET /supervisor/facilitators/ HTTP/1.1" 200 5089
+INFO 2026-01-16 23:24:59,443 basehttp 35760 29680 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 200 5738
+WARNING 2026-01-16 23:25:02,236 session_auth_fix 35760 29680 Unauthorized access attempt by piyush81@gmail.com to /facilitator_tasks/2026/01/13/WhatsApp_Image_2026-01-12_at_12.00.50_AM.jpeg
+INFO 2026-01-16 23:25:02,237 basehttp 35760 29680 "GET /facilitator_tasks/2026/01/13/WhatsApp_Image_2026-01-12_at_12.00.50_AM.jpeg HTTP/1.1" 302 0
+INFO 2026-01-16 23:25:06,948 basehttp 35760 29680 "GET /supervisor/dashboard/ HTTP/1.1" 200 4751
+ERROR 2026-01-16 23:26:00,656 db_connection_middleware 35760 29680 Database connection error: could not translate host name "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" to address: Name or service not known
+
+ERROR 2026-01-16 23:26:31,916 db_connection_middleware 35760 29680 Failed to reconnect to database: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+
+ERROR 2026-01-16 23:26:55,903 db_connection_middleware 35760 26972 Database connection error: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+
+ERROR 2026-01-16 23:26:56,108 db_connection_middleware 35760 33204 Database connection error: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+
+ERROR 2026-01-16 23:27:03,207 db_connection_middleware 35760 35672 Database connection error: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+
+INFO 2026-01-16 23:27:04,674 db_connection_middleware 35760 26972 Database connection re-established
+INFO 2026-01-16 23:27:04,688 db_connection_middleware 35760 33204 Database connection re-established
+INFO 2026-01-16 23:27:05,850 db_connection_middleware 35760 35672 Database connection re-established
+INFO 2026-01-16 23:27:07,142 basehttp 35760 26972 - Broken pipe from ('127.0.0.1', 58713)
+INFO 2026-01-16 23:27:07,168 basehttp 35760 33204 - Broken pipe from ('127.0.0.1', 61860)
+ERROR 2026-01-16 23:27:16,135 log 35760 29680 Internal Server Error: /supervisor/reports/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\services\session_auth_fix.py", line 124, in process_request
+    if not request.user.is_authenticated:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+
+INFO 2026-01-16 23:27:16,152 basehttp 35760 29680 - Broken pipe from ('127.0.0.1', 57496)
+ERROR 2026-01-16 23:28:01,246 db_connection_middleware 35760 33736 Database connection error: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+
+ERROR 2026-01-16 23:28:31,501 db_connection_middleware 35760 33736 Failed to reconnect to database: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+
+ERROR 2026-01-16 23:30:21,616 log 35760 33736 Internal Server Error: /supervisor/facilitators/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\services\session_auth_fix.py", line 124, in process_request
+    if not request.user.is_authenticated:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+
+INFO 2026-01-16 23:30:21,626 basehttp 35760 33736 - Broken pipe from ('127.0.0.1', 64821)
+WARNING 2026-01-16 23:32:02,266 db_connection_middleware 35760 35672 Database connection issue detected: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+ERROR 2026-01-16 23:32:02,327 db_connection_middleware 35760 35672 Failed to reconnect: could not translate host name "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" to address: Name or service not known
+
+ERROR 2026-01-16 23:32:03,142 log 35760 35672 Internal Server Error: /supervisor/classes/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py", line 88, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py", line 357, in supervisor_classes_list
+    return render(request, "supervisor/classes/list.html", context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 548, in render
+    values = {key: val.resolve(context) for key, val in self.extra_context.items()}
+                   ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 745, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaultfilters.py", line 580, in dictsort
+    return sorted(value, key=_property_resolver(arg))
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 402, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+INFO 2026-01-16 23:32:03,345 basehttp 35760 35672 - Broken pipe from ('127.0.0.1', 52694)
+INFO 2026-01-17 19:48:10,374 autoreload 12736 21300 Watching for file changes with StatReloader
+WARNING 2026-01-17 19:52:56,744 session_auth_fix 12736 13412 Unauthorized access attempt by piyush81@gmail.com to /
+INFO 2026-01-17 19:52:56,824 basehttp 12736 13412 "GET / HTTP/1.1" 302 0
+INFO 2026-01-17 19:53:01,723 basehttp 12736 13412 "GET /supervisor/dashboard/ HTTP/1.1" 200 4767
+INFO 2026-01-17 19:53:17,647 basehttp 12736 13412 "GET /supervisor/facilitators/ HTTP/1.1" 200 5089
+INFO 2026-01-17 19:53:32,904 basehttp 12736 13412 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 200 5738
+WARNING 2026-01-17 19:53:36,551 session_auth_fix 12736 6272 Unauthorized access attempt by piyush81@gmail.com to /facilitator_tasks/2026/01/13/WhatsApp_Image_2026-01-12_at_12.00.50_AM.jpeg
+INFO 2026-01-17 19:53:36,552 basehttp 12736 6272 "GET /facilitator_tasks/2026/01/13/WhatsApp_Image_2026-01-12_at_12.00.50_AM.jpeg HTTP/1.1" 302 0
+INFO 2026-01-17 19:53:40,737 basehttp 12736 6272 "GET /supervisor/dashboard/ HTTP/1.1" 200 4767
+WARNING 2026-01-17 19:53:50,807 session_auth_fix 12736 6272 Unauthorized access attempt by piyush81@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 19:53:50,808 basehttp 12736 6272 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 19:53:55,135 basehttp 12736 6272 "GET /supervisor/dashboard/ HTTP/1.1" 200 4767
+INFO 2026-01-17 19:54:11,923 basehttp 12736 6272 "GET /supervisor/facilitators/ HTTP/1.1" 200 5089
+INFO 2026-01-17 20:01:19,740 autoreload 12736 21300 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 20:01:21,155 autoreload 17940 8100 Watching for file changes with StatReloader
+INFO 2026-01-17 20:03:42,624 basehttp 17940 32540 "GET /supervisor/facilitators/ HTTP/1.1" 200 5136
+INFO 2026-01-17 20:04:08,284 basehttp 17940 32540 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 200 5738
+WARNING 2026-01-17 20:04:10,810 session_auth_fix 17940 32540 Unauthorized access attempt by piyush81@gmail.com to /facilitator_tasks/2026/01/13/WhatsApp_Image_2026-01-12_at_12.00.50_AM.jpeg
+INFO 2026-01-17 20:04:10,811 basehttp 17940 32540 "GET /facilitator_tasks/2026/01/13/WhatsApp_Image_2026-01-12_at_12.00.50_AM.jpeg HTTP/1.1" 302 0
+INFO 2026-01-17 20:04:14,660 basehttp 17940 32540 "GET /supervisor/dashboard/ HTTP/1.1" 200 4767
+INFO 2026-01-17 20:08:59,119 autoreload 17940 8100 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 20:09:00,639 autoreload 34864 448 Watching for file changes with StatReloader
+ERROR 2026-01-17 20:12:47,859 log 34864 34208 Internal Server Error: /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py", line 88, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py", line 576, in supervisor_facilitator_detail
+    'student_count': facilitator_students.count(),
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 622, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 630, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 616, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1561, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 2100, in as_sql
+    ).as_sql(with_col_aliases=True)
+      ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 747, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+                                       ~~~~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases or bool(combinator),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 85, in pre_sql_setup
+    order_by = self.get_order_by()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 470, in get_order_by
+    for expr, is_ref in self._order_by_pairs():
+                        ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 453, in _order_by_pairs
+    yield from self.find_ordering_name(
+               ~~~~~~~~~~~~~~~~~~~~~~~^
+        field,
+        ^^^^^^
+        self.query.get_meta(),
+        ^^^^^^^^^^^^^^^^^^^^^^
+        default_order=default_order,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1100, in find_ordering_name
+    (OrderBy(transform_function(t, alias), descending=descending), False)
+             ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1887, in transform
+    return self.try_transform(wrapped, name)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1423, in try_transform
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Unsupported lookup 'created_at' for UUIDField or join on the field not permitted.
+ERROR 2026-01-17 20:12:47,885 basehttp 34864 34208 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 500 19043
+WARNING 2026-01-17 20:12:51,195 session_auth_fix 34864 34208 Unauthorized access attempt by piyush81@gmail.com to /favicon.ico
+INFO 2026-01-17 20:12:51,249 basehttp 34864 34208 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-17 20:12:54,970 basehttp 34864 34208 "GET /supervisor/dashboard/ HTTP/1.1" 200 4767
+INFO 2026-01-17 20:15:08,335 autoreload 34864 448 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 20:15:10,008 autoreload 20728 2044 Watching for file changes with StatReloader
+INFO 2026-01-17 20:15:43,816 basehttp 20728 21548 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 200 5765
+INFO 2026-01-17 20:16:23,797 basehttp 20728 21548 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/?date_filter=7 HTTP/1.1" 200 5759
+INFO 2026-01-17 20:17:26,874 autoreload 20728 2044 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 20:17:28,514 autoreload 35132 22636 Watching for file changes with StatReloader
+INFO 2026-01-17 20:21:36,632 basehttp 35132 24880 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/?date_filter=7 HTTP/1.1" 200 5873
+INFO 2026-01-17 20:25:19,558 basehttp 35132 24880 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/?date_filter=7 HTTP/1.1" 200 5684
+INFO 2026-01-17 20:28:29,090 basehttp 35132 24880 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/?date_filter=7 HTTP/1.1" 200 5684
+INFO 2026-01-17 20:29:50,755 basehttp 35132 24880 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/?date_filter=7 HTTP/1.1" 200 5689
+INFO 2026-01-17 20:30:11,459 basehttp 35132 24880 - Broken pipe from ('127.0.0.1', 57486)
+INFO 2026-01-17 20:30:35,596 basehttp 35132 15632 "GET /supervisor/calendar/ HTTP/1.1" 200 6266
+INFO 2026-01-17 20:30:37,424 basehttp 35132 14608 - Broken pipe from ('127.0.0.1', 63974)
+INFO 2026-01-17 20:30:45,490 basehttp 35132 32712 - Broken pipe from ('127.0.0.1', 65286)
+INFO 2026-01-17 21:08:28,206 basehttp 35132 13368 "GET /supervisor/facilitators/ HTTP/1.1" 200 5136
+INFO 2026-01-17 21:08:40,648 basehttp 35132 13368 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 200 5697
+INFO 2026-01-17 21:10:52,615 autoreload 35132 22636 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 21:10:54,357 autoreload 29364 37904 Watching for file changes with StatReloader
+INFO 2026-01-17 21:11:06,069 autoreload 29364 37904 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 21:11:07,530 autoreload 21384 24660 Watching for file changes with StatReloader
+INFO 2026-01-17 21:12:48,992 basehttp 21384 27944 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 200 6036
+INFO 2026-01-17 21:15:01,612 autoreload 21384 24660 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 21:15:03,015 autoreload 28460 3732 Watching for file changes with StatReloader
+INFO 2026-01-17 21:15:08,765 autoreload 28460 3732 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 21:15:10,362 autoreload 14356 2784 Watching for file changes with StatReloader
+INFO 2026-01-17 21:17:04,772 basehttp 14356 32492 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 200 5415
+INFO 2026-01-17 21:17:27,374 basehttp 14356 32492 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/?task_date=2026-01-14 HTTP/1.1" 200 5556
+INFO 2026-01-17 21:21:53,336 basehttp 14356 32492 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/?task_date=2026-01-14 HTTP/1.1" 200 5606
+INFO 2026-01-17 21:22:16,649 basehttp 14356 32492 - Broken pipe from ('127.0.0.1', 49671)
+INFO 2026-01-17 21:22:19,390 basehttp 14356 6732 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/assign-classes/ HTTP/1.1" 200 4141
+INFO 2026-01-17 21:22:31,202 basehttp 14356 6732 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 200 5415
+WARNING 2026-01-17 21:22:40,670 session_auth_fix 14356 6732 Unauthorized access attempt by piyush81@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:22:40,673 basehttp 14356 6732 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:22:44,419 basehttp 14356 6732 "GET /supervisor/dashboard/ HTTP/1.1" 200 4767
+INFO 2026-01-17 21:24:38,460 basehttp 14356 6732 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 200 5463
+WARNING 2026-01-17 21:24:41,264 session_auth_fix 14356 6732 Unauthorized access attempt by piyush81@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:24:41,265 basehttp 14356 6732 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:24:46,172 basehttp 14356 6732 "GET /supervisor/dashboard/ HTTP/1.1" 200 4767
+INFO 2026-01-17 21:24:56,772 basehttp 14356 38576 "GET /supervisor/facilitators/ HTTP/1.1" 200 5341
+WARNING 2026-01-17 21:24:59,513 session_auth_fix 14356 38576 Unauthorized access attempt by piyush81@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:24:59,514 basehttp 14356 38576 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:25:03,973 basehttp 14356 38576 "GET /supervisor/dashboard/ HTTP/1.1" 200 4767
+INFO 2026-01-17 21:27:18,496 autoreload 14356 2784 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 21:27:19,918 autoreload 13204 3200 Watching for file changes with StatReloader
+INFO 2026-01-17 21:27:27,651 autoreload 13204 3200 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 21:27:29,109 autoreload 18960 14848 Watching for file changes with StatReloader
+INFO 2026-01-17 21:27:54,250 autoreload 18960 14848 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 21:27:56,009 autoreload 22460 33588 Watching for file changes with StatReloader
+INFO 2026-01-17 21:29:50,905 basehttp 22460 34708 "GET /supervisor/facilitators/ HTTP/1.1" 200 5136
+INFO 2026-01-17 21:30:09,321 basehttp 22460 34708 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/ HTTP/1.1" 200 5518
+INFO 2026-01-17 21:30:23,909 basehttp 22460 34708 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/?school_filter=d0ceece1-736f-42e0-a6d9-069497588728&task_date= HTTP/1.1" 200 5516
+INFO 2026-01-17 21:30:35,937 autoreload 22460 33588 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 21:30:38,242 autoreload 8956 2748 Watching for file changes with StatReloader
+INFO 2026-01-17 21:31:03,207 basehttp 8956 5320 "GET /supervisor/facilitators/ac613269-d629-47b1-938b-91923c3037f8/?school_filter=d0ceece1-736f-42e0-a6d9-069497588728&task_date= HTTP/1.1" 200 5460
+INFO 2026-01-17 21:32:07,146 autoreload 8956 2748 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-17 21:32:08,468 autoreload 1124 16656 Watching for file changes with StatReloader
+INFO 2026-01-17 21:35:14,828 basehttp 1124 25976 "GET /supervisor/calendar/ HTTP/1.1" 200 6832
+INFO 2026-01-17 21:35:27,114 basehttp 1124 25976 "GET /supervisor/calendar/?school_filter=3d72b365-d424-480d-b6da-61a96bbcd5c5&year=2026&month=1 HTTP/1.1" 200 6064
+INFO 2026-01-17 21:35:40,214 basehttp 1124 25976 "GET /supervisor/calendar/?school_filter=d0ceece1-736f-42e0-a6d9-069497588728&year=2026&month=1 HTTP/1.1" 200 6847
+INFO 2026-01-17 21:35:57,129 basehttp 1124 25976 "GET /supervisor/calendar/?school_filter=59102664-e22e-453b-addb-45a0afe9659e&year=2026&month=1 HTTP/1.1" 200 6069
+INFO 2026-01-17 21:36:32,516 session_auth_fix 1124 25976 User piyush81@gmail.com logged out successfully
+INFO 2026-01-17 21:36:32,516 views_auth 1124 25976 User piyush81@gmail.com logged out successfully
+INFO 2026-01-17 21:36:32,517 session_auth_fix 1124 25976 Logout detected for anonymous
+INFO 2026-01-17 21:36:33,659 basehttp 1124 25976 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-17 21:36:35,733 basehttp 1124 25976 "GET /login/ HTTP/1.1" 200 1098
+INFO 2026-01-17 21:36:35,784 basehttp 1124 25976 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-17 21:36:50,705 views_auth 1124 25976 User piyush812@gmail.com logged in successfully
+INFO 2026-01-17 21:36:51,796 basehttp 1124 25976 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-17 21:36:58,659 basehttp 1124 25976 "GET /admin/dashboard/ HTTP/1.1" 200 8331
+INFO 2026-01-17 21:37:09,410 basehttp 1124 25976 "GET /admin/reports/ HTTP/1.1" 200 10161
+WARNING 2026-01-17 21:37:27,453 session_auth_fix 1124 8800 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:37:27,455 basehttp 1124 8800 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:37:33,962 basehttp 1124 8800 "GET /admin/dashboard/ HTTP/1.1" 200 8345
+INFO 2026-01-17 21:37:35,027 basehttp 1124 2352 "GET /admin/reports/classes/d0ceece1-736f-42e0-a6d9-069497588728/ HTTP/1.1" 200 325
+INFO 2026-01-17 21:37:44,301 basehttp 1124 2352 "POST /admin/reports/data/students/ HTTP/1.1" 200 158
+INFO 2026-01-17 21:37:44,344 basehttp 1124 8800 "POST /admin/reports/data/students/ HTTP/1.1" 200 158
+INFO 2026-01-17 21:37:54,158 basehttp 1124 8800 "POST /admin/reports/data/students/ HTTP/1.1" 200 158
+INFO 2026-01-17 21:37:54,477 basehttp 1124 36972 "POST /admin/reports/data/students/ HTTP/1.1" 200 158
+INFO 2026-01-17 21:37:55,237 basehttp 1124 2352 "POST /admin/reports/data/students/ HTTP/1.1" 200 158
+INFO 2026-01-17 21:37:59,270 basehttp 1124 2352 "POST /admin/reports/data/facilitators/ HTTP/1.1" 200 2
+INFO 2026-01-17 21:38:11,301 basehttp 1124 2352 "POST /admin/reports/data/attendance/ HTTP/1.1" 200 531
+INFO 2026-01-17 21:38:24,106 basehttp 1124 2352 "POST /admin/reports/data/sessions/ HTTP/1.1" 200 296
+INFO 2026-01-17 21:38:30,127 basehttp 1124 2352 "POST /admin/reports/data/feedback/ HTTP/1.1" 200 2
+INFO 2026-01-17 21:38:38,276 basehttp 1124 2352 "GET /admin/feedback/ HTTP/1.1" 200 5146
+WARNING 2026-01-17 21:38:43,694 session_auth_fix 1124 2352 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:38:43,696 basehttp 1124 2352 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:38:50,457 basehttp 1124 2352 "GET /admin/dashboard/ HTTP/1.1" 200 8349
+INFO 2026-01-17 21:38:51,487 basehttp 1124 36972 "GET /admin/feedback/?start_date=2025-12-18&end_date=2026-01-17 HTTP/1.1" 200 5343
+WARNING 2026-01-17 21:38:54,961 session_auth_fix 1124 36972 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:38:54,963 basehttp 1124 36972 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:38:59,677 basehttp 1124 2352 "GET /admin/feedback/student/ HTTP/1.1" 200 5144
+INFO 2026-01-17 21:39:00,823 basehttp 1124 36972 "GET /admin/dashboard/ HTTP/1.1" 200 8347
+WARNING 2026-01-17 21:39:03,940 session_auth_fix 1124 36972 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:39:03,941 basehttp 1124 36972 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:39:10,683 basehttp 1124 36972 "GET /admin/dashboard/ HTTP/1.1" 200 8348
+INFO 2026-01-17 21:39:11,211 basehttp 1124 2352 "GET /admin/feedback/student/?school=&rating=&date=2026-01-14 HTTP/1.1" 200 5148
+INFO 2026-01-17 21:39:13,677 basehttp 1124 25976 - Broken pipe from ('127.0.0.1', 62442)
+WARNING 2026-01-17 21:39:14,169 session_auth_fix 1124 2352 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:39:14,170 basehttp 1124 2352 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:39:17,342 basehttp 1124 36972 "GET /admin/feedback/student/ HTTP/1.1" 200 4943
+INFO 2026-01-17 21:39:20,866 basehttp 1124 2352 "GET /admin/dashboard/ HTTP/1.1" 200 8347
+WARNING 2026-01-17 21:39:23,817 session_auth_fix 1124 2352 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:39:23,819 basehttp 1124 2352 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:39:25,372 basehttp 1124 36972 "GET /admin/feedback/student/ HTTP/1.1" 200 4943
+INFO 2026-01-17 21:39:29,526 basehttp 1124 2352 "GET /admin/dashboard/ HTTP/1.1" 200 8347
+WARNING 2026-01-17 21:39:32,551 session_auth_fix 1124 2352 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:39:32,552 basehttp 1124 2352 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:39:33,805 basehttp 1124 36972 "GET /admin/feedback/ HTTP/1.1" 200 5343
+INFO 2026-01-17 21:39:38,294 basehttp 1124 2352 "GET /admin/dashboard/ HTTP/1.1" 200 8345
+WARNING 2026-01-17 21:39:41,108 session_auth_fix 1124 2352 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:39:41,109 basehttp 1124 2352 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:39:47,142 basehttp 1124 2352 "GET /admin/dashboard/ HTTP/1.1" 200 8346
+INFO 2026-01-17 21:40:06,792 basehttp 1124 2352 "GET /admin/feedback/teacher/ HTTP/1.1" 200 5247
+WARNING 2026-01-17 21:40:09,847 session_auth_fix 1124 2352 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-17 21:40:09,849 basehttp 1124 2352 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-17 21:40:15,614 basehttp 1124 2352 "GET /admin/dashboard/ HTTP/1.1" 200 8347

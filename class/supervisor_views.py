@@ -456,6 +456,9 @@ def supervisor_create_user_ajax(request):
 def supervisor_facilitators_list(request):
     """List all facilitators with their details"""
     
+    from .models import ActualSession, Attendance, SessionFeedback
+    from django.db.models import Count, Sum, Q
+    
     facilitators = User.objects.filter(
         role__name__iexact="FACILITATOR"
     ).select_related('role').prefetch_related(
@@ -467,15 +470,40 @@ def supervisor_facilitators_list(request):
         school_count=Count('assigned_schools', filter=Q(assigned_schools__is_active=True), distinct=True)
     ).order_by("-created_at")
     
+    # Enrich facilitators with session and attendance data
+    facilitator_list = []
+    for facilitator in facilitators:
+        # Get total sessions conducted by this facilitator
+        total_sessions = ActualSession.objects.filter(
+            facilitator=facilitator,
+            status=1  # SessionStatus.CONDUCTED
+        ).count()
+        
+        # Get total strength (sum of students across all sessions)
+        total_strength = Attendance.objects.filter(
+            actual_session__facilitator=facilitator,
+            actual_session__status=1  # SessionStatus.CONDUCTED
+        ).values('enrollment__student').distinct().count()
+        
+        # Get feedback count
+        feedback_count = SessionFeedback.objects.filter(
+            facilitator=facilitator
+        ).count()
+        
+        facilitator.total_sessions = total_sessions
+        facilitator.total_strength = total_strength
+        facilitator.feedback_count = feedback_count
+        facilitator_list.append(facilitator)
+    
     # Filter by status
     status_filter = request.GET.get('status')
     if status_filter == 'active':
-        facilitators = facilitators.filter(is_active=True)
+        facilitator_list = [f for f in facilitator_list if f.is_active]
     elif status_filter == 'inactive':
-        facilitators = facilitators.filter(is_active=False)
+        facilitator_list = [f for f in facilitator_list if not f.is_active]
     
     context = {
-        'facilitators': facilitators,
+        'facilitators': facilitator_list,
         'selected_status': status_filter,
     }
     
@@ -485,6 +513,9 @@ def supervisor_facilitators_list(request):
 @supervisor_required
 def supervisor_facilitator_detail(request, facilitator_id):
     """View facilitator profile and their work"""
+    
+    from datetime import timedelta
+    from django.utils import timezone
     
     facilitator = get_object_or_404(User, id=facilitator_id, role__name__iexact="FACILITATOR")
     
@@ -500,37 +531,87 @@ def supervisor_facilitator_detail(request, facilitator_id):
         school_id__in=school_ids
     ).select_related('school').order_by('school__name', 'class_level', 'section')
     
-    # Get facilitator's students from their schools
+    # Get date filter from request (default: last 30 days)
+    date_filter = request.GET.get('date_filter', '30')
+    try:
+        days = int(date_filter)
+    except (ValueError, TypeError):
+        days = 30
+    
+    # Calculate date range
+    end_date = timezone.now().date()
+    start_date = end_date - timedelta(days=days)
+    
+    # Get class filter from request
+    selected_class_id = request.GET.get('class_filter', None)
+    
+    # Get task date filter from request
+    selected_task_date = request.GET.get('task_date', None)
+    
+    # Get facilitator's RECENT students (limit to 15)
     from django.db.models import Prefetch
     from .models import Student, Enrollment
-    facilitator_students = Student.objects.filter(
-        enrollments__class_section__school_id__in=school_ids,
-        enrollments__is_active=True
-    ).distinct().order_by('full_name')
+    if selected_class_id:
+        # Filter students by selected class
+        facilitator_students = Student.objects.filter(
+            enrollments__class_section_id=selected_class_id,
+            enrollments__is_active=True
+        ).distinct().order_by('-enrollments__start_date')[:15]
+    else:
+        # Show all students from all classes
+        facilitator_students = Student.objects.filter(
+            enrollments__class_section__school_id__in=school_ids,
+            enrollments__is_active=True
+        ).distinct().order_by('-enrollments__start_date')[:15]
     
-    # Get facilitator's sessions from their schools
-    from .models import PlannedSession
-    facilitator_sessions = PlannedSession.objects.filter(
-        class_section__school_id__in=school_ids
-    ).select_related('class_section', 'class_section__school').order_by('-created_at')[:10]
+    # Get facilitator's tasks (preparation media) - FILTERED BY SPECIFIC DATE if provided
+    from .models import FacilitatorTask, SessionFeedback
+    if selected_task_date:
+        # Filter by specific date
+        from datetime import datetime
+        task_date_obj = datetime.strptime(selected_task_date, '%Y-%m-%d').date()
+        facilitator_tasks = FacilitatorTask.objects.filter(
+            facilitator=facilitator,
+            created_at__date=task_date_obj
+        ).select_related('actual_session', 'actual_session__planned_session', 'actual_session__planned_session__class_section').order_by('-created_at')
+    else:
+        # No date selected, return empty
+        facilitator_tasks = FacilitatorTask.objects.none()
     
-    # Get facilitator's tasks (preparation media)
-    from .models import FacilitatorTask
-    facilitator_tasks = FacilitatorTask.objects.filter(
-        facilitator=facilitator
-    ).select_related('actual_session', 'actual_session__planned_session', 'actual_session__planned_session__class_section').order_by('-created_at')[:20]
+    # Get all task dates for calendar view (last 30 days)
+    from django.db.models import F
+    task_dates = FacilitatorTask.objects.filter(
+        facilitator=facilitator,
+        created_at__date__gte=start_date,
+        created_at__date__lte=end_date
+    ).values_list('created_at__date', flat=True).distinct()
+    task_dates_list = sorted(list(set([d.day for d in task_dates if d])))
+    
+    # Get facilitator's feedback - FILTERED BY DATE
+    facilitator_feedback = SessionFeedback.objects.filter(
+        actual_session__facilitator=facilitator,
+        feedback_date__gte=start_date,
+        feedback_date__lte=end_date
+    ).select_related('actual_session', 'actual_session__planned_session', 'actual_session__planned_session__class_section').order_by('-feedback_date')[:10]
     
     context = {
         'facilitator': facilitator,
         'schools': facilitator_schools,
         'classes': facilitator_classes,
         'students': facilitator_students,
-        'recent_sessions': facilitator_sessions,
         'facilitator_tasks': facilitator_tasks,
+        'facilitator_feedback': facilitator_feedback,
         'school_count': facilitator_schools.count(),
         'class_count': facilitator_classes.count(),
         'student_count': facilitator_students.count(),
         'task_count': facilitator_tasks.count(),
+        'feedback_count': facilitator_feedback.count(),
+        'date_filter': date_filter,
+        'start_date': start_date,
+        'end_date': end_date,
+        'task_dates': task_dates_list,
+        'selected_class_id': selected_class_id,
+        'selected_task_date': selected_task_date,
     }
     
     return render(request, "supervisor/facilitators/detail.html", context)
@@ -785,6 +866,12 @@ def supervisor_calendar(request):
     year = int(request.GET.get('year', today.year))
     month = int(request.GET.get('month', today.month))
     
+    # Get school filter from request
+    selected_school_id = request.GET.get('school_filter', None)
+    
+    # Get all schools for filter dropdown
+    all_schools = School.objects.all().order_by('name')
+    
     # Get all dates for this month
     from datetime import date
     first_day = date(year, month, 1)
@@ -793,11 +880,17 @@ def supervisor_calendar(request):
     else:
         last_day = date(year, month + 1, 1) - timedelta(days=1)
     
-    calendar_dates = CalendarDate.objects.filter(
+    # Filter calendar dates by school if selected
+    calendar_dates_query = CalendarDate.objects.filter(
         calendar=calendar,
         date__gte=first_day,
         date__lte=last_day
     ).select_related('class_section', 'school').prefetch_related('assigned_facilitators')
+    
+    if selected_school_id:
+        calendar_dates_query = calendar_dates_query.filter(school_id=selected_school_id)
+    
+    calendar_dates = calendar_dates_query
     
     # Create a dict for easy lookup - store ALL entries for each date
     dates_dict = {}
@@ -850,6 +943,8 @@ def supervisor_calendar(request):
         'next_month': next_month,
         'next_year': next_year,
         'today': today,
+        'all_schools': all_schools,
+        'selected_school_id': selected_school_id,
     }
     
     return render(request, "supervisor/calendar/calendar.html", context)

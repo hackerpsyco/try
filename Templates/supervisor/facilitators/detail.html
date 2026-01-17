@@ -15,22 +15,22 @@
     </div>
 
     <!-- Profile Header -->
-    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex items-center gap-4">
-                <div class="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-3xl">
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            <div class="flex items-center gap-3 sm:gap-4">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-2xl sm:text-3xl flex-shrink-0">
                     {{ facilitator.full_name|first|upper }}
                 </div>
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900">{{ facilitator.full_name }}</h3>
-                    <p class="text-gray-600">{{ facilitator.email }}</p>
-                    <div class="mt-2 flex items-center gap-2">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {% if facilitator.is_active %}bg-green-100 text-green-800{% else %}bg-gray-100 text-gray-800{% endif %}">
+                <div class="min-w-0">
+                    <h3 class="text-lg sm:text-2xl font-bold text-gray-900 truncate">{{ facilitator.full_name }}</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 truncate">{{ facilitator.email }}</p>
+                    <div class="mt-2 flex flex-col sm:flex-row sm:items-center gap-2">
+                        <span class="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium w-fit {% if facilitator.is_active %}bg-green-100 text-green-800{% else %}bg-gray-100 text-gray-800{% endif %}">
                             {% if facilitator.is_active %}Active{% else %}Inactive{% endif %}
                         </span>
-                        <span class="text-sm text-gray-600">
-                            <span class="material-symbols-outlined text-base align-middle mr-1">calendar_today</span>
-                            Joined {{ facilitator.created_at|date:"M d, Y" }}
+                        <span class="text-xs sm:text-sm text-gray-600 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm sm:text-base">calendar_today</span>
+                            <span class="truncate">Joined {{ facilitator.created_at|date:"M d, Y" }}</span>
                         </span>
                     </div>
                 </div>
@@ -39,49 +39,49 @@
     </div>
 
     <!-- Key Metrics -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-            <p class="text-sm font-medium text-gray-600 mb-2">Schools Assigned</p>
-            <p class="text-3xl font-bold text-blue-600">{{ school_count }}</p>
-            <div class="mt-3 flex items-center text-xs text-blue-600">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 sm:p-6">
+            <p class="text-xs sm:text-sm font-medium text-gray-600 mb-2">Schools Assigned</p>
+            <p class="text-2xl sm:text-3xl font-bold text-blue-600">{{ school_count }}</p>
+            <div class="mt-2 sm:mt-3 flex items-center text-xs text-blue-600">
                 <span class="material-symbols-outlined text-base mr-1">school</span>
-                <span>Active schools</span>
+                <span class="hidden sm:inline">Active schools</span>
             </div>
         </div>
 
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-            <p class="text-sm font-medium text-gray-600 mb-2">Classes Teaching</p>
-            <p class="text-3xl font-bold text-purple-600">{{ class_count }}</p>
-            <div class="mt-3 flex items-center text-xs text-purple-600">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 sm:p-6">
+            <p class="text-xs sm:text-sm font-medium text-gray-600 mb-2">Classes Teaching</p>
+            <p class="text-2xl sm:text-3xl font-bold text-purple-600">{{ class_count }}</p>
+            <div class="mt-2 sm:mt-3 flex items-center text-xs text-purple-600">
                 <span class="material-symbols-outlined text-base mr-1">class</span>
-                <span>Total classes</span>
+                <span class="hidden sm:inline">Total classes</span>
             </div>
         </div>
 
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-            <p class="text-sm font-medium text-gray-600 mb-2">Students</p>
-            <p class="text-3xl font-bold text-green-600">{{ student_count }}</p>
-            <div class="mt-3 flex items-center text-xs text-green-600">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 sm:p-6">
+            <p class="text-xs sm:text-sm font-medium text-gray-600 mb-2">Students</p>
+            <p class="text-2xl sm:text-3xl font-bold text-green-600">{{ student_count }}</p>
+            <div class="mt-2 sm:mt-3 flex items-center text-xs text-green-600">
                 <span class="material-symbols-outlined text-base mr-1">group</span>
-                <span>Active students</span>
+                <span class="hidden sm:inline">Active students</span>
             </div>
         </div>
 
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-            <p class="text-sm font-medium text-gray-600 mb-2">Recent Sessions</p>
-            <p class="text-3xl font-bold text-orange-600">{{ recent_sessions.count }}</p>
-            <div class="mt-3 flex items-center text-xs text-orange-600">
-                <span class="material-symbols-outlined text-base mr-1">event</span>
-                <span>Last 10 sessions</span>
-            </div>
-        </div>
-
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-            <p class="text-sm font-medium text-gray-600 mb-2">Preparation Tasks</p>
-            <p class="text-3xl font-bold text-indigo-600">{{ task_count }}</p>
-            <div class="mt-3 flex items-center text-xs text-indigo-600">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 sm:p-6">
+            <p class="text-xs sm:text-sm font-medium text-gray-600 mb-2">Preparation Tasks</p>
+            <p class="text-2xl sm:text-3xl font-bold text-indigo-600">{{ task_count }}</p>
+            <div class="mt-2 sm:mt-3 flex items-center text-xs text-indigo-600">
                 <span class="material-symbols-outlined text-base mr-1">task</span>
-                <span>Media uploads</span>
+                <span class="hidden sm:inline">Media uploads</span>
+            </div>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 sm:p-6">
+            <p class="text-xs sm:text-sm font-medium text-gray-600 mb-2">Feedback</p>
+            <p class="text-2xl sm:text-3xl font-bold text-pink-600">{{ feedback_count }}</p>
+            <div class="mt-2 sm:mt-3 flex items-center text-xs text-pink-600">
+                <span class="material-symbols-outlined text-base mr-1">comment</span>
+                <span class="hidden sm:inline">Session feedback</span>
             </div>
         </div>
     </div>
@@ -152,14 +152,26 @@
         {% endif %}
     </div>
 
-    <!-- Students Section -->
+    <!-- Students Section with Class Filter -->
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Students ({{ student_count }})</h3>
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">Students ({{ students|length }})</h3>
+            <form method="get" class="w-full sm:w-auto">
+                <select name="class_filter" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto">
+                    <option value="">All Classes</option>
+                    {% for class in classes %}
+                    <option value="{{ class.id }}" {% if selected_class_id == class.id|stringformat:"s" %}selected{% endif %}>
+                        {{ class.class_level }} - {{ class.section }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
         {% if students %}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {% for student in students %}
             <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-semibold text-sm">
+                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-semibold text-sm flex-shrink-0">
                     {{ student.full_name|first|upper }}
                 </div>
                 <div class="flex-1 min-w-0">
@@ -174,92 +186,144 @@
         {% endif %}
     </div>
 
-    <!-- Recent Sessions Section -->
+    <!-- Facilitator Tasks Section (Preparation Media) -->
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Sessions</h3>
-        {% if recent_sessions %}
-        <div class="space-y-3">
-            {% for session in recent_sessions %}
-            <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-orange-600">event</span>
-                    <div>
-                        <p class="font-medium text-gray-900">{{ session.class_section.class_level }} - {{ session.class_section.section }}</p>
-                        <p class="text-sm text-gray-600">{{ session.class_section.school.name }}</p>
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">Preparation Tasks</h3>
+            <form method="get" class="flex gap-2 w-full sm:w-auto">
+                <input type="date" name="task_date" value="{{ selected_task_date }}" class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" class="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition-colors">
+                    Search
+                </button>
+            </form>
+        </div>
+
+        {% if selected_task_date %}
+            {% if facilitator_tasks %}
+            <div class="space-y-4">
+                {% for task in facilitator_tasks %}
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <!-- Task Header -->
+                    <div class="flex items-start justify-between mb-3">
+                        <div>
+                            <p class="font-medium text-gray-900">{{ task.actual_session.planned_session.class_section.class_level }} - {{ task.actual_session.planned_session.class_section.section }}</p>
+                            <p class="text-sm text-gray-600">{{ task.actual_session.planned_session.class_section.school.name }}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-medium text-gray-900">{{ task.created_at|date:"M d, Y" }}</p>
+                            <p class="text-xs text-gray-600">{{ task.created_at|time:"H:i" }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Task Description -->
+                    {% if task.description %}
+                    <div class="mb-3">
+                        <p class="text-sm text-gray-700">{{ task.description }}</p>
+                    </div>
+                    {% endif %}
+
+                    <!-- Task Type -->
+                    <div class="flex items-center gap-2 text-xs text-gray-600">
+                        {% if task.media_type == 'photo' %}
+                            <span class="material-symbols-outlined text-blue-600">photo_camera</span>
+                            <span>Photo</span>
+                        {% elif task.media_type == 'video' %}
+                            <span class="material-symbols-outlined text-red-600">videocam</span>
+                            <span>Video</span>
+                        {% elif task.media_type == 'facebook_link' %}
+                            <a href="{{ task.facebook_link }}" target="_blank" class="flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded transition-colors">
+                                <span class="material-symbols-outlined text-base">facebook</span>
+                                <span>Open Facebook Link</span>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="text-right">
-                    <p class="text-sm font-medium text-gray-900">{{ session.created_at|date:"M d, Y" }}</p>
-                    <p class="text-xs text-gray-600">{{ session.created_at|time:"H:i" }}</p>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+            {% else %}
+            <p class="text-gray-600 text-center py-8">No tasks found for {{ selected_task_date|date:"M d, Y" }}</p>
+            {% endif %}
         {% else %}
-        <p class="text-gray-600 text-center py-4">No recent sessions</p>
+        <p class="text-gray-600 text-center py-8">Select a date to view preparation tasks</p>
         {% endif %}
     </div>
 
-    <!-- Facilitator Tasks Section (Preparation Media) -->
+    <!-- Facilitator Feedback Section -->
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Preparation Tasks ({{ task_count }})</h3>
-        {% if facilitator_tasks %}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {% for task in facilitator_tasks %}
-            <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
-                <!-- Task Header -->
-                <div class="bg-gray-50 p-3 border-b border-gray-200">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            {% if task.media_type == 'photo' %}
-                                <span class="material-symbols-outlined text-blue-600">photo_camera</span>
-                                <span class="text-sm font-medium text-gray-900">Photo</span>
-                            {% elif task.media_type == 'video' %}
-                                <span class="material-symbols-outlined text-red-600">videocam</span>
-                                <span class="text-sm font-medium text-gray-900">Video</span>
-                            {% elif task.media_type == 'facebook_link' %}
-                                <span class="material-symbols-outlined text-blue-500">facebook</span>
-                                <span class="text-sm font-medium text-gray-900">Facebook</span>
-                            {% endif %}
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">Feedback ({{ feedback_count }})</h3>
+            <form method="get" class="flex gap-2 w-full sm:w-auto">
+                <select name="date_filter" class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="7" {% if date_filter == '7' %}selected{% endif %}>Last 7 days</option>
+                    <option value="30" {% if date_filter == '30' %}selected{% endif %}>Last 30 days</option>
+                    <option value="90" {% if date_filter == '90' %}selected{% endif %}>Last 90 days</option>
+                    <option value="365" {% if date_filter == '365' %}selected{% endif %}>Last year</option>
+                </select>
+                <button type="submit" class="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition-colors">
+                    Filter
+                </button>
+            </form>
+        </div>
+        <p class="text-xs text-gray-600 mb-4">Showing {{ facilitator_feedback.count }} feedback from {{ start_date|date:"M d, Y" }} to {{ end_date|date:"M d, Y" }}</p>
+        {% if facilitator_feedback %}
+        <div class="space-y-4">
+            {% for feedback in facilitator_feedback %}
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <!-- Feedback Header -->
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <p class="font-medium text-gray-900">{{ feedback.actual_session.planned_session.class_section.class_level }} - {{ feedback.actual_session.planned_session.class_section.section }}</p>
+                        <p class="text-sm text-gray-600">{{ feedback.actual_session.planned_session.class_section.school.name }}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm font-medium text-gray-900">{{ feedback.feedback_date|date:"M d, Y" }}</p>
+                        <p class="text-xs text-gray-600">{{ feedback.feedback_date|time:"H:i" }}</p>
+                    </div>
+                </div>
+
+                <!-- Rating -->
+                <div class="mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-medium text-gray-700">Rating:</span>
+                        <div class="flex items-center">
+                            {% for i in "12345" %}
+                                {% if i|add:0 <= feedback.facilitator_satisfaction %}
+                                    <span class="material-symbols-outlined text-yellow-500 text-lg">star</span>
+                                {% else %}
+                                    <span class="material-symbols-outlined text-gray-300 text-lg">star</span>
+                                {% endif %}
+                            {% endfor %}
                         </div>
-                        <span class="text-xs text-gray-600">{{ task.created_at|date:"M d" }}</span>
+                        <span class="text-sm text-gray-600">({{ feedback.facilitator_satisfaction }}/5)</span>
                     </div>
                 </div>
 
-                <!-- Task Content -->
-                <div class="p-3">
-                    {% if task.media_type == 'photo' %}
-                        <img src="{{ task.media_file.url }}" alt="Photo" class="w-full h-40 object-cover rounded mb-2">
-                    {% elif task.media_type == 'video' %}
-                        <video width="100%" height="160" controls class="rounded mb-2" style="background: #000;">
-                            <source src="{{ task.media_file.url }}" type="video/mp4">
-                        </video>
-                    {% elif task.media_type == 'facebook_link' %}
-                        <a href="{{ task.facebook_link }}" target="_blank" class="flex items-center gap-2 p-2 bg-blue-50 rounded text-blue-600 hover:bg-blue-100 transition-colors mb-2">
-                            <span class="material-symbols-outlined text-base">open_in_new</span>
-                            <span class="text-sm font-medium truncate">View on Facebook</span>
-                        </a>
-                    {% endif %}
-
-                    <!-- Session Info -->
-                    <div class="text-xs text-gray-600 mb-2">
-                        <p class="font-medium">{{ task.actual_session.planned_session.class_section.class_level }} - {{ task.actual_session.planned_session.class_section.section }}</p>
-                        <p>{{ task.actual_session.date|date:"M d, Y" }}</p>
-                    </div>
-
-                    <!-- Description -->
-                    {% if task.description %}
-                    <p class="text-sm text-gray-700 mb-2">{{ task.description|truncatewords:15 }}</p>
-                    {% endif %}
-
-                    <!-- Time -->
-                    <p class="text-xs text-gray-500">{{ task.created_at|time:"H:i" }}</p>
+                <!-- Feedback Text -->
+                {% if feedback.what_went_well %}
+                <div class="mb-2">
+                    <p class="text-xs font-medium text-gray-700 mb-1">What went well:</p>
+                    <p class="text-sm text-gray-700">{{ feedback.what_went_well }}</p>
                 </div>
+                {% endif %}
+
+                {% if feedback.areas_for_improvement %}
+                <div class="mb-2">
+                    <p class="text-xs font-medium text-gray-700 mb-1">Areas for improvement:</p>
+                    <p class="text-sm text-gray-700">{{ feedback.areas_for_improvement }}</p>
+                </div>
+                {% endif %}
+
+                {% if feedback.additional_notes %}
+                <div>
+                    <p class="text-xs font-medium text-gray-700 mb-1">Additional notes:</p>
+                    <p class="text-sm text-gray-700">{{ feedback.additional_notes }}</p>
+                </div>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
         {% else %}
-        <p class="text-gray-600 text-center py-4">No preparation tasks uploaded yet</p>
+        <p class="text-gray-600 text-center py-4">No feedback in this period</p>
         {% endif %}
     </div>
 
