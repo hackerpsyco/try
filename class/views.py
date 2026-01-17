@@ -607,7 +607,7 @@ def heartbeat(request):
     
     Accepts GET, POST, and HEAD requests.
     Usage: Ping this endpoint every 5 minutes using UptimeRobot or a cron job.
-    URL: https://your-app.onrender.com/heartbeat/
+    URL: https://clas-bqai.onrender.com/heartbeat/
     """
     return JsonResponse({
         'status': 'ok',

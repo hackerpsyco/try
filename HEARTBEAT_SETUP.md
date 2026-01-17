@@ -31,7 +31,7 @@ crontab -e
 
 Add this line to ping every 5 minutes:
 ```bash
-*/5 * * * * curl -s https://your-app.onrender.com/heartbeat/ > /dev/null 2>&1
+*/5 * * * * curl -s https://clas-bqai.onrender.com/heartbeat/ > /dev/null 2>&1
 ```
 
 ### Option 3: GitHub Actions (Free)
