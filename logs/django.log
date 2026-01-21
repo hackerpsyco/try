@@ -22818,3 +22818,600 @@ INFO 2026-01-22 01:46:39,177 views 40712 19400   Grouped item: ['1A', '2A', '3A'
 INFO 2026-01-22 01:46:39,177 views 40712 19400 Facilitator Amna Fatima: Returning 6 class items to template
 INFO 2026-01-22 01:46:39,178 views 40712 19400   Item with 3 grouped classes: ['1A', '2A', '3A']
 INFO 2026-01-22 01:46:39,205 basehttp 40712 19400 "GET /facilitator/classes/ HTTP/1.1" 200 4533
+INFO 2026-01-22 02:14:34,057 autoreload 37300 23756 Watching for file changes with StatReloader
+WARNING 2026-01-22 02:14:42,256 session_auth_fix 37300 38728 Unauthorized access attempt by amna.wes@gmail.com to /Facilitator/classes/
+INFO 2026-01-22 02:14:42,323 basehttp 37300 38728 "GET /Facilitator/classes/ HTTP/1.1" 302 0
+ERROR 2026-01-22 02:15:25,215 log 37300 21212 Internal Server Error: /facilitator/my-schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'extra_css' appears more than once
+ERROR 2026-01-22 02:15:25,215 log 37300 41440 Internal Server Error: /facilitator/my-schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'extra_css' appears more than once
+INFO 2026-01-22 02:15:25,239 basehttp 37300 21212 - Broken pipe from ('127.0.0.1', 62805)
+INFO 2026-01-22 02:15:25,245 basehttp 37300 41440 - Broken pipe from ('127.0.0.1', 62713)
+ERROR 2026-01-22 02:15:25,477 log 37300 25892 Internal Server Error: /facilitator/my-schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'extra_css' appears more than once
+ERROR 2026-01-22 02:15:25,494 basehttp 37300 25892 "GET /facilitator/my-schools/ HTTP/1.1" 500 20739
+WARNING 2026-01-22 02:15:28,736 session_auth_fix 37300 25892 Unauthorized access attempt by amna.wes@gmail.com to /favicon.ico
+INFO 2026-01-22 02:15:28,738 basehttp 37300 25892 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-22 02:16:00,163 basehttp 37300 41120 "GET /facilitator/my-schools/ HTTP/1.1" 200 4399
+ERROR 2026-01-22 02:16:04,939 log 37300 38728 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 685, in facilitator_dashboard
+    return render(request, 'facilitator/dashboard.html', context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'extra_css' appears more than once
+INFO 2026-01-22 02:16:04,963 basehttp 37300 38728 - Broken pipe from ('127.0.0.1', 62804)
+ERROR 2026-01-22 02:16:08,970 log 37300 11820 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 685, in facilitator_dashboard
+    return render(request, 'facilitator/dashboard.html', context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'extra_css' appears more than once
+INFO 2026-01-22 02:16:08,993 basehttp 37300 11820 - Broken pipe from ('127.0.0.1', 64276)
+INFO 2026-01-22 02:16:09,769 basehttp 37300 41120 "GET /facilitator/settings/ HTTP/1.1" 200 4709
+ERROR 2026-01-22 02:16:10,848 log 37300 38328 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 685, in facilitator_dashboard
+    return render(request, 'facilitator/dashboard.html', context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'extra_css' appears more than once
+INFO 2026-01-22 02:16:10,872 basehttp 37300 38328 - Broken pipe from ('127.0.0.1', 64293)
+ERROR 2026-01-22 02:16:55,686 log 37300 25892 Internal Server Error: /facilitator/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\decorators.py", line 20, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\facilitator_views.py", line 685, in facilitator_dashboard
+    return render(request, 'facilitator/dashboard.html', context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'extra_css' appears more than once
+INFO 2026-01-22 02:16:55,703 basehttp 37300 25892 - Broken pipe from ('127.0.0.1', 49943)
+INFO 2026-01-22 02:17:22,188 basehttp 37300 41120 "GET /facilitator/settings/ HTTP/1.1" 200 5114
+INFO 2026-01-22 02:17:40,913 basehttp 37300 41120 "GET /facilitator/dashboard/ HTTP/1.1" 200 6753
+INFO 2026-01-22 02:18:45,973 basehttp 37300 41120 "GET /facilitator/dashboard/ HTTP/1.1" 200 6690
+INFO 2026-01-22 02:20:04,728 basehttp 37300 41120 "GET /facilitator/dashboard/ HTTP/1.1" 200 6689
+INFO 2026-01-22 02:20:12,312 basehttp 37300 41120 "GET /facilitator/my-schools/ HTTP/1.1" 200 4768
+INFO 2026-01-22 02:20:35,048 basehttp 37300 4140 "GET /facilitator/my-schools/ HTTP/1.1" 200 4768
+INFO 2026-01-22 02:20:42,318 basehttp 37300 41120 - Broken pipe from ('127.0.0.1', 57099)
+INFO 2026-01-22 02:20:42,467 basehttp 37300 41612 - Broken pipe from ('127.0.0.1', 50602)
+INFO 2026-01-22 02:22:02,532 basehttp 37300 4140 "GET /facilitator/my-schools/ HTTP/1.1" 200 4768
+INFO 2026-01-22 02:23:39,187 basehttp 37300 4140 "GET /facilitator/my-schools/ HTTP/1.1" 200 4794
+INFO 2026-01-22 02:24:06,330 basehttp 37300 4140 "GET /facilitator/my-schools/ HTTP/1.1" 200 4794
+INFO 2026-01-22 02:25:06,193 basehttp 37300 4140 "GET /facilitator/my-schools/ HTTP/1.1" 200 4805
+WARNING 2026-01-22 02:25:28,431 session_auth_fix 37300 4140 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:25:28,432 basehttp 37300 4140 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 02:25:41,170 basehttp 37300 4140 - Broken pipe from ('127.0.0.1', 62551)
+WARNING 2026-01-22 02:25:42,740 session_auth_fix 37300 26288 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:25:42,743 basehttp 37300 26288 - Broken pipe from ('127.0.0.1', 62706)
+INFO 2026-01-22 02:26:27,692 basehttp 37300 16132 "GET /facilitator/my-schools/ HTTP/1.1" 200 4768
+WARNING 2026-01-22 02:26:35,438 session_auth_fix 37300 16132 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:26:35,440 basehttp 37300 16132 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 02:26:47,679 basehttp 37300 16132 "GET /facilitator/dashboard/ HTTP/1.1" 200 6708
+INFO 2026-01-22 02:29:16,239 autoreload 23008 39680 Watching for file changes with StatReloader
+INFO 2026-01-22 02:29:24,649 basehttp 23008 26564 "GET /facilitator/my-schools/ HTTP/1.1" 200 4763
+WARNING 2026-01-22 02:29:27,098 session_auth_fix 23008 26564 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:29:27,100 basehttp 23008 26564 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 02:29:39,571 basehttp 23008 26564 "GET /facilitator/dashboard/ HTTP/1.1" 200 6780
+INFO 2026-01-22 02:30:18,375 basehttp 23008 26564 "GET /facilitator/dashboard/ HTTP/1.1" 200 6780
+WARNING 2026-01-22 02:30:20,936 session_auth_fix 23008 26564 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:30:20,937 basehttp 23008 26564 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 02:30:33,039 basehttp 23008 26564 "GET /facilitator/dashboard/ HTTP/1.1" 200 7000
+INFO 2026-01-22 02:32:18,201 basehttp 23008 26564 "GET /facilitator/dashboard/ HTTP/1.1" 200 7021
+WARNING 2026-01-22 02:32:20,659 session_auth_fix 23008 26564 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:32:20,661 basehttp 23008 26564 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-22 02:32:32,916 session_auth_fix 23008 30836 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:32:32,918 basehttp 23008 30836 - Broken pipe from ('127.0.0.1', 62955)
+INFO 2026-01-22 02:32:32,935 basehttp 23008 26564 - Broken pipe from ('127.0.0.1', 57025)
+WARNING 2026-01-22 02:34:07,176 session_auth_fix 23008 39480 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:34:07,178 basehttp 23008 39480 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 02:34:10,555 basehttp 23008 38108 - Broken pipe from ('127.0.0.1', 52243)
+INFO 2026-01-22 02:34:19,143 basehttp 23008 39480 "GET /facilitator/dashboard/ HTTP/1.1" 200 6835
+INFO 2026-01-22 02:35:43,364 basehttp 23008 39480 "GET /facilitator/dashboard/ HTTP/1.1" 200 6235
+WARNING 2026-01-22 02:35:45,856 session_auth_fix 23008 39480 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:35:45,858 basehttp 23008 39480 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 02:35:58,170 basehttp 23008 39480 "GET /facilitator/dashboard/ HTTP/1.1" 200 6235
+INFO 2026-01-22 02:37:09,215 basehttp 23008 39480 "GET /facilitator/dashboard/ HTTP/1.1" 200 6260
+WARNING 2026-01-22 02:37:11,528 session_auth_fix 23008 39480 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:37:11,529 basehttp 23008 39480 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-22 02:37:18,514 session_auth_fix 23008 36168 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:37:18,516 basehttp 23008 36168 - Broken pipe from ('127.0.0.1', 65440)
+INFO 2026-01-22 02:37:23,441 basehttp 23008 39480 - Broken pipe from ('127.0.0.1', 50607)
+INFO 2026-01-22 02:37:35,485 basehttp 23008 4028 "GET /facilitator/dashboard/ HTTP/1.1" 200 6260
+WARNING 2026-01-22 02:37:42,479 session_auth_fix 23008 4028 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:37:42,481 basehttp 23008 4028 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 02:37:54,536 basehttp 23008 4028 "GET /facilitator/dashboard/ HTTP/1.1" 200 6260
+INFO 2026-01-22 02:39:29,237 basehttp 23008 4028 "GET /facilitator/dashboard/ HTTP/1.1" 200 6273
+WARNING 2026-01-22 02:39:31,639 session_auth_fix 23008 4028 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:39:31,640 basehttp 23008 4028 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 02:39:40,737 autoreload 2012 28396 Watching for file changes with StatReloader
+INFO 2026-01-22 02:40:06,382 basehttp 2012 41316 "GET /facilitator/dashboard/ HTTP/1.1" 200 6273
+WARNING 2026-01-22 02:40:10,034 session_auth_fix 2012 41316 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:40:10,036 basehttp 2012 41316 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 02:40:21,967 basehttp 2012 41316 "GET /facilitator/dashboard/ HTTP/1.1" 200 6273
+INFO 2026-01-22 02:41:16,465 basehttp 2012 41316 "GET /facilitator/dashboard/ HTTP/1.1" 200 6261
+WARNING 2026-01-22 02:41:19,096 session_auth_fix 2012 41316 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:41:19,098 basehttp 2012 41316 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-22 02:41:27,697 session_auth_fix 2012 5628 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:41:27,699 basehttp 2012 5628 - Broken pipe from ('127.0.0.1', 61040)
+INFO 2026-01-22 02:41:30,920 basehttp 2012 41316 - Broken pipe from ('127.0.0.1', 51909)
+INFO 2026-01-22 02:43:06,276 basehttp 2012 9620 "GET /facilitator/dashboard/ HTTP/1.1" 200 6267
+INFO 2026-01-22 02:43:41,155 basehttp 2012 9620 "GET /facilitator/dashboard/ HTTP/1.1" 200 6270
+INFO 2026-01-22 02:45:43,689 basehttp 2012 9620 "GET /facilitator/dashboard/ HTTP/1.1" 200 6033
+INFO 2026-01-22 02:46:59,827 basehttp 2012 9620 "GET /facilitator/dashboard/ HTTP/1.1" 200 6033
+WARNING 2026-01-22 02:47:02,410 session_auth_fix 2012 9620 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:47:02,411 basehttp 2012 9620 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-22 02:47:10,633 session_auth_fix 2012 5904 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:47:10,635 basehttp 2012 5904 - Broken pipe from ('127.0.0.1', 65240)
+INFO 2026-01-22 02:47:14,281 basehttp 2012 9620 - Broken pipe from ('127.0.0.1', 62426)
+INFO 2026-01-22 02:47:33,182 basehttp 2012 21024 "GET /facilitator/dashboard/ HTTP/1.1" 200 5965
+INFO 2026-01-22 02:47:45,314 autoreload 32464 21672 Watching for file changes with StatReloader
+INFO 2026-01-22 02:48:02,779 basehttp 32464 11676 "GET /facilitator/dashboard/ HTTP/1.1" 200 5965
+INFO 2026-01-22 02:49:40,558 autoreload 27836 41088 Watching for file changes with StatReloader
+INFO 2026-01-22 02:50:02,345 basehttp 27836 17860 "GET /facilitator/my-schools/ HTTP/1.1" 200 4004
+INFO 2026-01-22 02:50:17,683 basehttp 27836 17860 "GET /facilitator/dashboard/ HTTP/1.1" 200 5973
+INFO 2026-01-22 02:50:42,676 basehttp 27836 17860 "GET /facilitator/students/ HTTP/1.1" 200 10661
+INFO 2026-01-22 02:53:05,426 basehttp 27836 17860 "GET /facilitator/students/ HTTP/1.1" 200 10355
+WARNING 2026-01-22 02:53:09,403 session_auth_fix 27836 17860 Unauthorized access attempt by amna.wes@gmail.com to /favicon.ico
+INFO 2026-01-22 02:53:09,405 basehttp 27836 17860 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-22 02:53:21,581 basehttp 27836 17860 "GET /facilitator/dashboard/ HTTP/1.1" 200 5057
+INFO 2026-01-22 02:53:21,858 basehttp 27836 29112 - Broken pipe from ('127.0.0.1', 55795)
+WARNING 2026-01-22 02:53:24,248 session_auth_fix 27836 16592 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:53:24,249 basehttp 27836 16592 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 02:53:33,656 basehttp 27836 17860 "GET /facilitator/dashboard/ HTTP/1.1" 200 5057
+WARNING 2026-01-22 02:53:38,747 session_auth_fix 27836 16592 Unauthorized access attempt by amna.wes@gmail.com to /favicon.ico
+INFO 2026-01-22 02:53:38,749 basehttp 27836 16592 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2026-01-22 02:53:40,975 session_auth_fix 27836 19660 Unauthorized access attempt by amna.wes@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 02:53:40,977 basehttp 27836 19660 - Broken pipe from ('127.0.0.1', 51803)
+INFO 2026-01-22 02:53:45,785 basehttp 27836 17860 - Broken pipe from ('127.0.0.1', 61166)
+INFO 2026-01-22 02:53:46,445 session_auth_fix 27836 30556 User amna.wes@gmail.com logged out successfully
+INFO 2026-01-22 02:53:46,446 views_auth 27836 30556 User amna.wes@gmail.com logged out successfully
+INFO 2026-01-22 02:53:46,447 session_auth_fix 27836 30556 Logout detected for anonymous
+INFO 2026-01-22 02:53:47,486 basehttp 27836 30556 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-22 02:53:49,586 basehttp 27836 30556 "GET /login/ HTTP/1.1" 200 1195
+INFO 2026-01-22 02:53:50,703 basehttp 27836 16592 "GET /facilitator/dashboard/ HTTP/1.1" 200 5057
+WARNING 2026-01-22 02:54:02,111 views_auth 27836 16592 Failed login attempt for piyush81@gmail.com
+INFO 2026-01-22 02:54:02,114 basehttp 27836 16592 "POST /login/ HTTP/1.1" 200 1208
+INFO 2026-01-22 02:54:31,641 views_auth 27836 16592 User demo@gmail.com logged in successfully
+INFO 2026-01-22 02:54:32,703 basehttp 27836 16592 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-22 02:54:36,415 basehttp 27836 16592 "GET /supervisor/dashboard/ HTTP/1.1" 200 4749

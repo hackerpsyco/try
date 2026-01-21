@@ -1,81 +1,76 @@
-<aside class="sidebar d-flex flex-column" style="height: 100vh; overflow: hidden;">
+<aside class="sidebar">
     <!-- User Profile -->
-    <div class="user-profile mb-4">
-        <div class="avatar"
-             style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBv1qbMwANXehUvUuj7jLYDFVVfq_SWUg2g49l3SmLWskDtYHpHJ_8WvJwsx9a2FRubRslmWVa_i5P7tT8w3--UoztcwCpbKLOazTabnBD2N_fY6OQ7FRlKs_zlUcTkD7KY9w-hiqblxryxB10EyToaRWquh2M4i_rDvKfif1kGdDqLVYibrW5HsihGpGcxNNJEB8c7BL9lRSrGdRbSOnvY4eHzXRrkhgnIo7Q7R9Ra_WPzsy-VPqL4V_-_ekNly4XBYSN8gI28pPAs');">
-        </div>
+    <div class="user-profile">
+        <div class="avatar" style="background-image: url('https://via.placeholder.com/48');"></div>
         <div class="user-info">
-            <h1>Facilitator Platform</h1>
-            <p>{{ request.user.email }}</p>
+            <h5>Facilitator</h5>
+            <small>{{ request.user.email }}</small>
         </div>
     </div>
 
-    <!-- Navigation - Scrollable -->
-    <nav class="nav flex-column flex-grow-1" style="overflow-y: auto; overflow-x: hidden;">
-
-        <!-- Dashboard -->
-        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_dashboard' %}active{% endif %}"
-           href="{% url 'facilitator_dashboard' %}">
-            <span class="material-symbols-outlined">dashboard</span>
-            Dashboard
+    <!-- Navigation -->
+    <nav class="nav">
+        <!-- MAIN Section -->
+        <div class="nav-section-title">MAIN</div>
+        
+        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_dashboard' %}active{% endif %}" href="{% url 'facilitator_dashboard' %}">
+            <i class="bi bi-speedometer2"></i>
+            <span class="nav-text">Dashboard</span>
+        </a>
+        
+        <a class="nav-link {% if 'facilitator_schools_list' in request.resolver_match.url_name or 'facilitator_school_detail' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'facilitator_schools_list' %}">
+            <i class="bi bi-book"></i>
+            <span class="nav-text">My Classes</span>
+        </a>
+        
+        <a class="nav-link {% if 'facilitator_schools' in request.resolver_match.url_name and 'facilitator_schools_list' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'facilitator_schools_list' %}">
+            <i class="bi bi-building"></i>
+            <span class="nav-text">My Schools</span>
         </a>
 
-        <!-- My Classes -->
-        <a class="nav-link {% if 'facilitator_schools_list' in request.resolver_match.url_name or 'facilitator_school_detail' in request.resolver_match.url_name %}active{% endif %}"
-           href="{% url 'facilitator_schools_list' %}">
-            <span class="material-symbols-outlined">school</span>
-            My Classes
+        <div class="nav-divider"></div>
+
+        <!-- MANAGEMENT Section -->
+        <div class="nav-section-title">MANAGEMENT</div>
+        
+        <a class="nav-link {% if 'facilitator_students' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'facilitator_students_list' %}">
+            <i class="bi bi-people"></i>
+            <span class="nav-text">Students</span>
+        </a>
+        
+        <a class="nav-link {% if 'student_performance' in request.resolver_match.url_name or 'facilitator_performance' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'facilitator_performance_class_select' %}">
+            <i class="bi bi-graph-up"></i>
+            <span class="nav-text">Performance</span>
         </a>
 
-        <!-- My Schools -->
-        <a class="nav-link {% if 'facilitator_schools' in request.resolver_match.url_name and 'facilitator_schools_list' not in request.resolver_match.url_name %}active{% endif %}"
-           href="{% url 'facilitator_schools_list' %}">
-            <span class="material-symbols-outlined">domain</span>
-            My Schools
-        </a>
+        <div class="nav-divider"></div>
 
-        <!-- Student Management -->
-        <a class="nav-link {% if 'facilitator_students' in request.resolver_match.url_name %}active{% endif %}"
-           href="{% url 'facilitator_students_list' %}">
-            <span class="material-symbols-outlined">groups</span>
-            Students
+        <!-- SESSIONS Section -->
+        <div class="nav-section-title">SESSIONS</div>
+        
+        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_today_session' %}active{% endif %}" href="{% url 'facilitator_today_session' %}">
+            <i class="bi bi-calendar-check"></i>
+            <span class="nav-text">Today's Session</span>
         </a>
-
-        <!-- Student Performance -->
-        <a class="nav-link {% if 'student_performance' in request.resolver_match.url_name or 'facilitator_performance' in request.resolver_match.url_name %}active{% endif %}"
-           href="{% url 'facilitator_performance_class_select' %}">
-            <span class="material-symbols-outlined">trending_up</span>
-            Performance
+        
+        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_attendance' %}active{% endif %}" href="{% url 'facilitator_attendance' %}">
+            <i class="bi bi-clipboard-check"></i>
+            <span class="nav-text">Attendance</span>
         </a>
-
-        <!-- Today's Session (Calendar-based) -->
-        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_today_session' %}active{% endif %}"
-           href="{% url 'facilitator_today_session' %}">
-            <span class="material-symbols-outlined">today</span>
-            Today's Session
-        </a>
-
-        <!-- Attendance Management -->
-        <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_attendance' %}active{% endif %}"
-           href="{% url 'facilitator_attendance' %}">
-            <span class="material-symbols-outlined">how_to_reg</span>
-            Attendance
-        </a>
-
     </nav>
 
-    <!-- Bottom Navigation - Fixed at bottom -->
-    <div class="nav-section mt-auto" style="flex-shrink: 0; border-top: 1px solid #e0e0e0; padding-top: 1rem;">
-
+    <!-- Bottom Navigation -->
+    <div class="nav-section-bottom">
+        <div class="nav-divider"></div>
+        
         <a class="nav-link {% if request.resolver_match.url_name == 'facilitator_settings' %}active{% endif %}" href="{% url 'facilitator_settings' %}">
-            <span class="material-symbols-outlined">settings</span>
-            Settings
+            <i class="bi bi-gear"></i>
+            <span class="nav-text">Settings</span>
         </a>
-
-        <a class="nav-link" href="{% url 'logout' %}">
-            <span class="material-symbols-outlined">logout</span>
-            Logout
+        
+        <a class="nav-link logout-link" href="{% url 'logout' %}">
+            <i class="bi bi-box-arrow-right"></i>
+            <span class="nav-text">Logout</span>
         </a>
-
     </div>
 </aside>

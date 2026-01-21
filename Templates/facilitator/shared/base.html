@@ -6,281 +6,417 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Facilitator Dashboard{% endblock %}</title>
     
-    <!-- SMOOTH SCROLLING BASE STYLES -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    
     <style>
-        /* GLOBAL SMOOTH SCROLLING FOR ALL DEVICES */
-        html {
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            overflow-x: hidden;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-            max-width: 100vw;
+            font-family: 'Lexend', sans-serif;
+            background-color: #f5f7f8;
         }
         
-        /* Smooth scrolling for all elements */
-        * {
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
+        .layout-wrapper {
+            display: flex;
+            min-height: 100vh;
         }
         
-        /* Prevent horizontal scroll issues */
-        .wrapper, .main-content, .content-area {
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        /* Sidebar smooth scrolling */
+        /* SIDEBAR */
         .sidebar {
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
-            /* Hardware acceleration */
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-            will-change: transform;
-            /* Smooth scrollbar */
-            scrollbar-width: thin;
-            scrollbar-color: #d1d5db #f3f4f6;
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
         }
         
-        /* Webkit scrollbar styling */
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
+        .sidebar-user {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            flex-shrink: 0;
         }
         
-        .sidebar::-webkit-scrollbar-track {
-            background: #f3f4f6;
-            border-radius: 10px;
+        .sidebar-user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #e5e7eb;
+            flex-shrink: 0;
         }
         
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 10px;
+        .sidebar-user-info h6 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+            color: #1f2937;
         }
         
-        .sidebar::-webkit-scrollbar-thumb:hover {
-            background: #9ca3af;
+        .sidebar-user-info small {
+            font-size: 0.75rem;
+            color: #6b7280;
+            display: block;
         }
         
-        /* Mobile smooth scrolling fixes */
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-section-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #9ca3af;
+            padding: 0.5rem 1rem;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 0.8rem;
+            margin: 0.1rem 0.4rem;
+            color: #1f2937;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item i {
+            font-size: 1rem;
+            width: 18px;
+            text-align: center;
+            flex-shrink: 0;
+            color: #1f2937;
+        }
+        
+        .nav-item:hover {
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        
+        .nav-item.active {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            font-weight: 600;
+            border-left: 3px solid #1f2937;
+            padding-left: calc(0.8rem - 3px);
+        }
+        
+        .nav-item.logout {
+            color: #dc2626;
+        }
+        
+        .nav-item.logout i {
+            color: #dc2626;
+        }
+        
+        .nav-item.logout:hover {
+            background-color: #fee2e2;
+        }
+        
+        .sidebar-divider {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 0.25rem 0;
+        }
+        
+        .sidebar-bottom {
+            padding: 0.5rem 0;
+            border-top: 1px solid #e5e7eb;
+            flex-shrink: 0;
+        }
+        
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        
+        .topbar {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+            gap: 1rem;
+        }
+        
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+        
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .menu-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.4rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: #1f2937;
+            font-size: 1.3rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease;
+        }
+        
+        .menu-toggle:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            position: relative;
+            flex: 1;
+            max-width: 300px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            padding: 0.4rem 0.6rem 0.4rem 2rem;
+            font-size: 0.85rem;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #1f2937;
+            box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 0.5rem;
+            color: #9ca3af;
+            font-size: 1rem;
+        }
+        
+        .profile-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #e5e7eb;
+            cursor: pointer;
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background-color: #f5f7f8;
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .overlay.show {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* MOBILE */
         @media (max-width: 991px) {
-            body {
-                position: relative;
-                overflow-x: hidden;
+            .menu-toggle {
+                display: flex;
             }
             
             .sidebar {
-                -webkit-transform: translateZ(0);
-                transform: translateZ(0);
-                will-change: transform;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 280px;
+                transform: translateX(-100%);
+                z-index: 1000;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
             }
             
             .sidebar.show {
-                -webkit-transform: translateZ(0) translateX(0);
-                transform: translateZ(0) translateX(0);
+                transform: translateX(0);
+            }
+            
+            .search-box {
+                display: none;
+            }
+            
+            .content {
+                padding: 1rem;
             }
         }
-        
-        /* Smooth transitions for all interactive elements */
-        .nav-link, .btn, .card {
-            transition: all 0.3s ease;
-        }
-        
-        /* Prevent scroll bounce on iOS */
-        .main-content {
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-y: contain;
-        }
     </style>
-  
-
-    <!-- Favicon via CDN -->
-    <link rel="icon" type="image/jpg" href="https://clas.wazireducationsociety.org/static/images/wes-logo.jpg">
     
-    <!-- Bootstrap 5 - Primary CDN (jsDelivr) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    
-    <!-- FontAwesome for icons - Fallback CDN -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" integrity="sha512-iecdLmaskl7CVJkEZSMUkrQ6usKu8zIvxUivvrQolCXAQHD9/RC5YqPleTk+Z3daV1UWP3V3zNqiiGPUUEpLFQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
-    
-    <!-- Custom CSS via CDN (using jsDelivr) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wazireducationsociety/clas@main/static/css/admin_dashboard.css"/>
-    
-    <!-- Extra CSS Block for page-specific styles -->
     {% block extra_css %}{% endblock %}
 </head>
 <body>
 
-<!-- Sidebar overlay for mobile -->
-<div id="sidebarOverlay" class="sidebar-overlay"></div>
+<div class="overlay" id="overlay"></div>
 
-<div class="wrapper">
-    {% include 'facilitator/shared/sidebar.html' %}
+<div class="layout-wrapper">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-user">
+            <div class="sidebar-user-avatar" style="background-image: url('https://via.placeholder.com/48');"></div>
+            <div class="sidebar-user-info">
+                <h6>Facilitator</h6>
+                <small>{{ request.user.email }}</small>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">MAIN</div>
+            <a class="nav-item {% if request.resolver_match.url_name == 'facilitator_dashboard' %}active{% endif %}" href="{% url 'facilitator_dashboard' %}">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-item {% if 'facilitator_schools_list' in request.resolver_match.url_name or 'facilitator_school_detail' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'facilitator_schools_list' %}">
+                <i class="bi bi-book"></i>
+                <span>My Classes</span>
+            </a>
+            <a class="nav-item {% if 'facilitator_schools' in request.resolver_match.url_name and 'facilitator_schools_list' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'facilitator_schools_list' %}">
+                <i class="bi bi-building"></i>
+                <span>My Schools</span>
+            </a>
+            
+            <div class="nav-section-label">MANAGEMENT</div>
+            <a class="nav-item {% if 'facilitator_students' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'facilitator_students_list' %}">
+                <i class="bi bi-people"></i>
+                <span>Students</span>
+            </a>
+            <a class="nav-item {% if 'student_performance' in request.resolver_match.url_name or 'facilitator_performance' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'facilitator_performance_class_select' %}">
+                <i class="bi bi-graph-up"></i>
+                <span>Performance</span>
+            </a>
+            
+            <div class="nav-section-label">SESSIONS</div>
+            <a class="nav-item {% if request.resolver_match.url_name == 'facilitator_today_session' %}active{% endif %}" href="{% url 'facilitator_today_session' %}">
+                <i class="bi bi-calendar-check"></i>
+                <span>Today's Session</span>
+            </a>
+            <a class="nav-item {% if request.resolver_match.url_name == 'facilitator_attendance' %}active{% endif %}" href="{% url 'facilitator_attendance' %}">
+                <i class="bi bi-clipboard-check"></i>
+                <span>Attendance</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-bottom">
+            <div class="nav-section-label">ACCOUNT</div>
+            <a class="nav-item {% if request.resolver_match.url_name == 'facilitator_settings' %}active{% endif %}" href="{% url 'facilitator_settings' %}">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+            <a class="nav-item logout" href="{% url 'logout' %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
     
+    <!-- MAIN CONTENT -->
     <main class="main-content">
-        {% include 'facilitator/shared/topbar.html' %}
-
-        <div class="content-area">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search schools, students, sessions...">
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="profile-avatar" style="background-image: url('https://via.placeholder.com/48');"></div>
+            </div>
+        </header>
+        
+        <div class="content">
             {% block content %}{% endblock %}
         </div>
     </main>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9uj1KfSVFFLlHWYDu94PA7IloocVe23KE+0KqLjriPlSiLsbErvC/mQ6" crossorigin="anonymous"></script>
-
-<!-- Sidebar Toggle Script with Smooth Scrolling -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-(function() {
-  'use strict';
-  
-  const toggleBtn = document.getElementById("sidebarToggle");
-  const sidebar = document.querySelector(".sidebar");
-  const overlay = document.getElementById("sidebarOverlay");
-  const body = document.body;
-
-  // Smooth scrolling function
-  function enableSmoothScrolling() {
-    // Add smooth scrolling to all scrollable elements
-    const scrollableElements = document.querySelectorAll('.sidebar, .main-content, .content-area, body, html');
-    scrollableElements.forEach(element => {
-      element.style.scrollBehavior = 'smooth';
-      element.style.webkitOverflowScrolling = 'touch';
-    });
-  }
-
-  // Initialize smooth scrolling
-  enableSmoothScrolling();
-
-  // Sidebar toggle with smooth animations
-  function toggleSidebar() {
-    if (!sidebar || !overlay) return;
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
     
-    const isOpen = sidebar.classList.contains("show");
+    menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('show');
+        overlay.classList.toggle('show');
+    });
     
-    if (isOpen) {
-      // Close sidebar
-      sidebar.classList.remove("show");
-      overlay.classList.remove("show");
-      body.style.overflow = '';
-      body.style.position = '';
-    } else {
-      // Open sidebar
-      sidebar.classList.add("show");
-      overlay.classList.add("show");
-      // Prevent background scrolling on mobile
-      body.style.overflow = 'hidden';
-      body.style.position = 'fixed';
-      body.style.width = '100%';
-    }
-  }
-
-  // Event listeners
-  if (toggleBtn) {
-    toggleBtn.addEventListener("click", toggleSidebar);
-  }
-
-  if (overlay) {
-    overlay.addEventListener("click", function() {
-      sidebar.classList.remove("show");
-      overlay.classList.remove("show");
-      body.style.overflow = '';
-      body.style.position = '';
+    overlay.addEventListener('click', function() {
+        sidebar.classList.remove('show');
+        overlay.classList.remove('show');
     });
-  }
-
-  // Handle window resize with smooth transitions
-  let resizeTimeout;
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(function() {
-      if (window.innerWidth >= 992) {
-        // Desktop - ensure sidebar is visible and overlay is hidden
-        sidebar.classList.remove("show");
-        overlay.classList.remove("show");
-        body.style.overflow = '';
-        body.style.position = '';
-      }
-      // Re-enable smooth scrolling after resize
-      enableSmoothScrolling();
-    }, 150);
-  });
-
-  // Smooth scroll to top function
-  window.scrollToTop = function() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
-  // Add smooth scroll to all internal links
-  document.addEventListener('click', function(e) {
-    const link = e.target.closest('a[href^="#"]');
-    if (link) {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+    
+    document.querySelectorAll('.nav-item').forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth < 992) {
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+            }
         });
-      }
-    }
-  });
-
-  // Prevent scroll issues on mobile
-  let touchStartY = 0;
-  document.addEventListener('touchstart', function(e) {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-
-  document.addEventListener('touchmove', function(e) {
-    const touchY = e.touches[0].clientY;
-    const touchDelta = touchY - touchStartY;
+    });
     
-    // Prevent overscroll bounce
-    if (sidebar && sidebar.classList.contains('show')) {
-      const sidebarScrollTop = sidebar.scrollTop;
-      const sidebarScrollHeight = sidebar.scrollHeight;
-      const sidebarClientHeight = sidebar.clientHeight;
-      
-      if ((sidebarScrollTop === 0 && touchDelta > 0) || 
-          (sidebarScrollTop >= sidebarScrollHeight - sidebarClientHeight && touchDelta < 0)) {
-        e.preventDefault();
-      }
-    }
-  }, { passive: false });
-
-  // Initialize on load
-  document.addEventListener('DOMContentLoaded', function() {
-    enableSmoothScrolling();
-    
-    // Ensure proper mobile layout
-    if (window.innerWidth < 992) {
-      sidebar.classList.remove("show");
-      overlay.classList.remove("show");
-      body.style.overflow = '';
-      body.style.position = '';
-    }
-  });
-
-})();
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 992) {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+        }
+    });
+});
 </script>
 
+{% block extra_js %}{% endblock %}
 </body>
 </html>
