@@ -22606,3 +22606,215 @@ ERROR 2026-01-21 22:52:19,765 db_connection_middleware 35912 4804 Database conne
 
 INFO 2026-01-21 22:52:23,708 db_connection_middleware 35912 4804 Database connection re-established
 INFO 2026-01-21 22:52:29,608 basehttp 35912 4804 "GET /supervisor/calendar/ HTTP/1.1" 200 6832
+WARNING 2026-01-21 23:15:26,521 session_auth_fix 35912 1244 Unauthorized access attempt by piyush81@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-21 23:15:26,523 basehttp 35912 1244 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-21 23:15:32,925 basehttp 35912 1244 - Broken pipe from ('127.0.0.1', 64057)
+WARNING 2026-01-21 23:15:34,507 session_auth_fix 35912 38780 Unauthorized access attempt by piyush81@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-21 23:15:34,509 basehttp 35912 38780 - Broken pipe from ('127.0.0.1', 63131)
+INFO 2026-01-21 23:15:35,079 session_auth_fix 35912 38436 User piyush81@gmail.com logged out successfully
+INFO 2026-01-21 23:15:35,080 views_auth 35912 38436 User piyush81@gmail.com logged out successfully
+INFO 2026-01-21 23:15:35,081 session_auth_fix 35912 38436 Logout detected for anonymous
+INFO 2026-01-21 23:15:36,718 basehttp 35912 38436 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-21 23:15:40,298 basehttp 35912 38436 "GET /login/ HTTP/1.1" 200 1086
+INFO 2026-01-21 23:16:06,101 views_auth 35912 38436 User piyush8123@gmail.com logged in successfully
+INFO 2026-01-21 23:16:08,255 basehttp 35912 38436 "POST /login/ HTTP/1.1" 302 0
+WARNING 2026-01-21 23:16:46,962 log 35912 38156 Forbidden (CSRF token from POST incorrect.): /login/
+WARNING 2026-01-21 23:16:47,374 basehttp 35912 38156 "POST /login/ HTTP/1.1" 403 1246
+INFO 2026-01-21 23:16:51,893 basehttp 35912 38436 - Broken pipe from ('127.0.0.1', 51191)
+WARNING 2026-01-21 23:16:56,174 session_auth_fix 35912 38156 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-21 23:16:56,175 basehttp 35912 38156 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-21 23:17:14,147 basehttp 35912 30820 "GET /login/ HTTP/1.1" 302 0
+INFO 2026-01-21 23:17:58,037 basehttp 35912 38156 "GET /facilitator/dashboard/ HTTP/1.1" 200 6359
+WARNING 2026-01-21 23:18:05,005 session_auth_fix 35912 15948 Unauthorized access attempt by piyush8123@gmail.com to /supervisor/calendar/
+INFO 2026-01-21 23:18:05,007 basehttp 35912 38156 - Broken pipe from ('127.0.0.1', 62907)
+INFO 2026-01-21 23:18:05,008 basehttp 35912 15948 "GET /supervisor/calendar/ HTTP/1.1" 302 0
+INFO 2026-01-21 23:18:14,286 autoreload 30936 9124 Watching for file changes with StatReloader
+INFO 2026-01-21 23:19:40,176 basehttp 30936 34252 "GET /facilitator/dashboard/ HTTP/1.1" 200 6359
+INFO 2026-01-21 23:20:54,005 basehttp 30936 34252 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-21 23:21:01,326 views 30936 34252 Facilitator PIYUSH TAMOLI: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-21 23:22:30,622 basehttp 30936 11312 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-21 23:22:39,888 views 30936 11312 Facilitator PIYUSH TAMOLI: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-21 23:23:29,503 basehttp 30936 36420 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-21 23:23:38,769 views 30936 36420 Facilitator PIYUSH TAMOLI: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-21 23:23:41,585 views 30936 34252 Facilitator PIYUSH TAMOLI: Found 11 permanent groups with 33 total classes
+INFO 2026-01-21 23:23:41,585 views 30936 34252   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-21 23:23:41,585 views 30936 34252   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-21 23:23:41,586 views 30936 34252   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-21 23:23:41,586 views 30936 34252   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-21 23:23:41,587 views 30936 34252   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-21 23:23:41,587 views 30936 34252   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-21 23:23:41,588 views 30936 34252   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-21 23:23:41,588 views 30936 34252   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-21 23:23:41,588 views 30936 34252   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-21 23:23:41,588 views 30936 34252   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-21 23:23:41,589 views 30936 34252   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-21 23:23:41,995 views 30936 34252   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-21 23:23:41,996 views 30936 34252   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-21 23:23:41,996 views 30936 34252   Facilitator has access to class 5A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-21 23:23:41,997 views 30936 34252   Facilitator has access to class 4A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-21 23:23:42,404 views 30936 34252   Single class (no grouping): 1A
+INFO 2026-01-21 23:23:42,814 views 30936 34252   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-21 23:23:43,633 views 30936 34252   Adding calendar-based group 73ae7c7a-8cb0-4015-9064-fae354f8cdf2 with classes: ['4A', '5A']
+INFO 2026-01-21 23:23:44,350 views 30936 34252   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-21 23:23:44,759 views 30936 34252   Grouped item: ['4A', '5A'] (key: 73ae7c7a-8cb0-4015-9064-fae354f8cdf2)
+INFO 2026-01-21 23:23:44,759 views 30936 34252 Facilitator PIYUSH TAMOLI: Returning 3 class items to template
+INFO 2026-01-21 23:23:44,760 views 30936 34252   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-21 23:23:44,760 views 30936 34252   Item with 2 grouped classes: ['4A', '5A']
+INFO 2026-01-21 23:23:44,778 basehttp 30936 34252 - Broken pipe from ('127.0.0.1', 62774)
+INFO 2026-01-21 23:26:14,338 views 30936 11312 Facilitator PIYUSH TAMOLI: Found 11 permanent groups with 33 total classes
+INFO 2026-01-21 23:26:14,339 views 30936 11312   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-21 23:26:14,340 views 30936 11312   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-21 23:26:14,340 views 30936 11312   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-21 23:26:14,340 views 30936 11312   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-21 23:26:14,340 views 30936 11312   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-21 23:26:14,341 views 30936 11312   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-21 23:26:14,341 views 30936 11312   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-21 23:26:14,341 views 30936 11312   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-21 23:26:14,342 views 30936 11312   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-21 23:26:14,342 views 30936 11312   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-21 23:26:14,342 views 30936 11312   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-21 23:26:14,678 views 30936 11312   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-21 23:26:14,679 views 30936 11312   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-21 23:26:14,679 views 30936 11312   Facilitator has access to class 5A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-21 23:26:14,679 views 30936 11312   Facilitator has access to class 4A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-21 23:26:14,985 views 30936 11312   Single class (no grouping): 1A
+INFO 2026-01-21 23:26:15,342 views 30936 11312   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-21 23:26:16,009 views 30936 11312   Adding calendar-based group 73ae7c7a-8cb0-4015-9064-fae354f8cdf2 with classes: ['4A', '5A']
+INFO 2026-01-21 23:26:16,777 views 30936 11312   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-21 23:26:17,135 views 30936 11312   Grouped item: ['4A', '5A'] (key: 73ae7c7a-8cb0-4015-9064-fae354f8cdf2)
+INFO 2026-01-21 23:26:17,135 views 30936 11312 Facilitator PIYUSH TAMOLI: Returning 3 class items to template
+INFO 2026-01-21 23:26:17,136 views 30936 11312   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-21 23:26:17,136 views 30936 11312   Item with 2 grouped classes: ['4A', '5A']
+INFO 2026-01-21 23:26:17,149 basehttp 30936 11312 - Broken pipe from ('127.0.0.1', 54460)
+INFO 2026-01-21 23:26:25,662 views 30936 36420 Facilitator PIYUSH TAMOLI: Found 11 permanent groups with 33 total classes
+INFO 2026-01-21 23:26:25,662 views 30936 36420   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-21 23:26:25,663 views 30936 36420   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-21 23:26:25,663 views 30936 36420   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-21 23:26:25,664 views 30936 36420   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-21 23:26:25,664 views 30936 36420   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-21 23:26:25,665 views 30936 36420   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-21 23:26:25,665 views 30936 36420   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-21 23:26:25,665 views 30936 36420   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-21 23:26:25,666 views 30936 36420   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-21 23:26:25,666 views 30936 36420   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-21 23:26:25,666 views 30936 36420   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-21 23:26:26,096 views 30936 36420   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-21 23:26:26,096 views 30936 36420   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-21 23:26:26,097 views 30936 36420   Facilitator has access to class 5A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-21 23:26:26,097 views 30936 36420   Facilitator has access to class 4A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-21 23:26:26,504 views 30936 36420   Single class (no grouping): 1A
+INFO 2026-01-21 23:26:26,863 views 30936 36420   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-21 23:26:27,631 views 30936 36420   Adding calendar-based group 73ae7c7a-8cb0-4015-9064-fae354f8cdf2 with classes: ['4A', '5A']
+INFO 2026-01-21 23:26:28,350 views 30936 36420   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-21 23:26:28,817 views 30936 36420   Grouped item: ['4A', '5A'] (key: 73ae7c7a-8cb0-4015-9064-fae354f8cdf2)
+INFO 2026-01-21 23:26:28,818 views 30936 36420 Facilitator PIYUSH TAMOLI: Returning 3 class items to template
+INFO 2026-01-21 23:26:28,818 views 30936 36420   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-21 23:26:28,818 views 30936 36420   Item with 2 grouped classes: ['4A', '5A']
+INFO 2026-01-21 23:26:28,829 basehttp 30936 36420 - Broken pipe from ('127.0.0.1', 58387)
+INFO 2026-01-21 23:26:29,834 basehttp 30936 38012 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-21 23:26:47,906 views 30936 38012 Facilitator PIYUSH TAMOLI: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-21 23:27:52,728 session_auth_fix 30936 12448 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-21 23:27:52,729 views_auth 30936 12448 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-21 23:27:52,729 session_auth_fix 30936 12448 Logout detected for anonymous
+INFO 2026-01-21 23:27:54,418 basehttp 30936 12448 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-21 23:27:57,183 basehttp 30936 12448 "GET /login/ HTTP/1.1" 200 1086
+INFO 2026-01-21 23:29:12,550 views 30936 38012 Facilitator PIYUSH TAMOLI: Found 11 permanent groups with 33 total classes
+INFO 2026-01-21 23:29:12,551 views 30936 38012   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-21 23:29:12,551 views 30936 38012   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-21 23:29:12,551 views 30936 38012   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-21 23:29:12,551 views 30936 38012   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-21 23:29:12,552 views 30936 38012   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-21 23:29:12,552 views 30936 38012   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-21 23:29:12,552 views 30936 38012   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-21 23:29:12,553 views 30936 38012   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-21 23:29:12,553 views 30936 38012   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-21 23:29:12,553 views 30936 38012   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-21 23:29:12,553 views 30936 38012   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-21 23:29:12,910 views 30936 38012   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-21 23:29:12,911 views 30936 38012   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-21 23:29:12,911 views 30936 38012   Facilitator has access to class 5A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-21 23:29:12,912 views 30936 38012   Facilitator has access to class 4A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-21 23:29:13,268 views 30936 38012   Single class (no grouping): 1A
+INFO 2026-01-21 23:29:13,575 views 30936 38012   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-21 23:29:14,300 views 30936 38012   Adding calendar-based group 73ae7c7a-8cb0-4015-9064-fae354f8cdf2 with classes: ['4A', '5A']
+INFO 2026-01-21 23:29:14,957 views 30936 38012   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-21 23:29:15,324 views 30936 38012   Grouped item: ['4A', '5A'] (key: 73ae7c7a-8cb0-4015-9064-fae354f8cdf2)
+INFO 2026-01-21 23:29:15,324 views 30936 38012 Facilitator PIYUSH TAMOLI: Returning 3 class items to template
+INFO 2026-01-21 23:29:15,324 views 30936 38012   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-21 23:29:15,325 views 30936 38012   Item with 2 grouped classes: ['4A', '5A']
+INFO 2026-01-21 23:29:15,338 basehttp 30936 38012 - Broken pipe from ('127.0.0.1', 63456)
+INFO 2026-01-21 23:30:23,625 views_auth 30936 32532 User amna.wes@gmail.com logged in successfully
+INFO 2026-01-21 23:30:30,329 basehttp 30936 32532 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-21 23:31:13,033 basehttp 30936 8832 "GET /facilitator/dashboard/ HTTP/1.1" 200 6408
+INFO 2026-01-21 23:31:52,249 basehttp 30936 8832 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-21 23:32:19,393 views 30936 8832 Facilitator Amna Fatima: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-21 23:38:26,221 views 30936 8832 Facilitator Amna Fatima: Found 11 permanent groups with 33 total classes
+INFO 2026-01-21 23:38:26,222 views 30936 8832   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-21 23:38:26,222 views 30936 8832   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-21 23:38:26,222 views 30936 8832   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-21 23:38:26,222 views 30936 8832   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-21 23:38:26,223 views 30936 8832   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-21 23:38:26,223 views 30936 8832   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-21 23:38:26,223 views 30936 8832   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-21 23:38:26,223 views 30936 8832   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-21 23:38:26,223 views 30936 8832   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-21 23:38:26,224 views 30936 8832   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-21 23:38:26,224 views 30936 8832   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-21 23:38:26,914 views 30936 8832   Facilitator has access to class 1A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-21 23:38:26,915 views 30936 8832   Facilitator has access to class 2A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-21 23:38:26,915 views 30936 8832   Facilitator has access to class 3A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-21 23:38:27,490 views 30936 8832   Adding calendar-based group 4cc12963-7f5e-4cf8-b037-20fadacc2b79 with classes: ['1A', '2A', '3A']
+INFO 2026-01-21 23:38:33,311 views 30936 8832   Single class (no grouping): 4A
+INFO 2026-01-21 23:38:33,871 views 30936 8832   Single class (no grouping): 5A
+INFO 2026-01-21 23:38:36,806 views 30936 8832   Single class (no grouping): 6A
+INFO 2026-01-21 23:38:37,515 views 30936 8832   Single class (no grouping): 7A
+INFO 2026-01-21 23:38:38,326 views 30936 8832   Single class (no grouping): 8A
+INFO 2026-01-21 23:38:39,255 views 30936 8832   Grouped item: ['1A', '2A', '3A'] (key: 4cc12963-7f5e-4cf8-b037-20fadacc2b79)
+INFO 2026-01-21 23:38:39,255 views 30936 8832 Facilitator Amna Fatima: Returning 6 class items to template
+INFO 2026-01-21 23:38:39,256 views 30936 8832   Item with 3 grouped classes: ['1A', '2A', '3A']
+INFO 2026-01-21 23:38:39,268 basehttp 30936 8832 "GET /facilitator/classes/ HTTP/1.1" 200 4533
+INFO 2026-01-22 01:40:08,108 autoreload 40712 35476 Watching for file changes with StatReloader
+WARNING 2026-01-22 01:40:27,761 session_auth_fix 40712 21676 Unauthorized access attempt by amna.wes@gmail.com to /
+INFO 2026-01-22 01:40:27,808 basehttp 40712 21676 "GET / HTTP/1.1" 302 0
+INFO 2026-01-22 01:40:40,222 basehttp 40712 21676 "GET /facilitator/dashboard/ HTTP/1.1" 200 6408
+WARNING 2026-01-22 01:40:41,479 basehttp 40712 21676 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-22 01:42:05,033 basehttp 40712 33180 - Broken pipe from ('127.0.0.1', 52526)
+INFO 2026-01-22 01:42:05,185 basehttp 40712 21868 "GET /facilitator/my-schools/ HTTP/1.1" 200 4409
+INFO 2026-01-22 01:42:09,496 session_auth_fix 40712 21868 User amna.wes@gmail.com logged out successfully
+INFO 2026-01-22 01:42:09,497 views_auth 40712 21868 User amna.wes@gmail.com logged out successfully
+INFO 2026-01-22 01:42:09,497 session_auth_fix 40712 21868 Logout detected for anonymous
+INFO 2026-01-22 01:42:10,635 basehttp 40712 21868 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-22 01:42:12,704 basehttp 40712 21868 "GET /login/ HTTP/1.1" 200 1085
+WARNING 2026-01-22 01:44:51,391 views_auth 40712 21868 Failed login attempt for piyush123@gmail.com
+INFO 2026-01-22 01:44:51,393 basehttp 40712 21868 "POST /login/ HTTP/1.1" 200 1096
+INFO 2026-01-22 01:46:09,960 views_auth 40712 21868 User amna.wes@gmail.com logged in successfully
+INFO 2026-01-22 01:46:11,007 basehttp 40712 21868 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-22 01:46:23,165 basehttp 40712 21868 "GET /facilitator/dashboard/ HTTP/1.1" 200 6408
+INFO 2026-01-22 01:46:28,570 basehttp 40712 21868 - Broken pipe from ('127.0.0.1', 57824)
+INFO 2026-01-22 01:46:28,836 basehttp 40712 19400 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-22 01:46:33,184 views 40712 19400 Facilitator Amna Fatima: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-22 01:46:36,452 views 40712 19400 Facilitator Amna Fatima: Found 11 permanent groups with 33 total classes
+INFO 2026-01-22 01:46:36,453 views 40712 19400   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-22 01:46:36,453 views 40712 19400   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-22 01:46:36,453 views 40712 19400   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-22 01:46:36,453 views 40712 19400   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-22 01:46:36,454 views 40712 19400   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-22 01:46:36,454 views 40712 19400   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-22 01:46:36,454 views 40712 19400   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-22 01:46:36,455 views 40712 19400   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-22 01:46:36,455 views 40712 19400   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-22 01:46:36,455 views 40712 19400   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-22 01:46:36,456 views 40712 19400   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-22 01:46:36,725 views 40712 19400   Facilitator has access to class 1A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-22 01:46:36,726 views 40712 19400   Facilitator has access to class 2A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-22 01:46:36,726 views 40712 19400   Facilitator has access to class 3A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-22 01:46:36,994 views 40712 19400   Adding calendar-based group 4cc12963-7f5e-4cf8-b037-20fadacc2b79 with classes: ['1A', '2A', '3A']
+INFO 2026-01-22 01:46:37,799 views 40712 19400   Single class (no grouping): 4A
+INFO 2026-01-22 01:46:38,073 views 40712 19400   Single class (no grouping): 5A
+INFO 2026-01-22 01:46:38,341 views 40712 19400   Single class (no grouping): 6A
+INFO 2026-01-22 01:46:38,616 views 40712 19400   Single class (no grouping): 7A
+INFO 2026-01-22 01:46:38,901 views 40712 19400   Single class (no grouping): 8A
+INFO 2026-01-22 01:46:39,177 views 40712 19400   Grouped item: ['1A', '2A', '3A'] (key: 4cc12963-7f5e-4cf8-b037-20fadacc2b79)
+INFO 2026-01-22 01:46:39,177 views 40712 19400 Facilitator Amna Fatima: Returning 6 class items to template
+INFO 2026-01-22 01:46:39,178 views 40712 19400   Item with 3 grouped classes: ['1A', '2A', '3A']
+INFO 2026-01-22 01:46:39,205 basehttp 40712 19400 "GET /facilitator/classes/ HTTP/1.1" 200 4533
