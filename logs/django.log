@@ -22363,3 +22363,246 @@ INFO 2026-01-17 21:40:06,792 basehttp 1124 2352 "GET /admin/feedback/teacher/ HT
 WARNING 2026-01-17 21:40:09,847 session_auth_fix 1124 2352 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
 INFO 2026-01-17 21:40:09,849 basehttp 1124 2352 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
 INFO 2026-01-17 21:40:15,614 basehttp 1124 2352 "GET /admin/dashboard/ HTTP/1.1" 200 8347
+INFO 2026-01-21 21:55:48,088 autoreload 31924 3296 Watching for file changes with StatReloader
+INFO 2026-01-21 22:00:08,719 autoreload 31924 3296 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-21 22:00:10,205 autoreload 22452 3392 Watching for file changes with StatReloader
+INFO 2026-01-21 22:00:44,204 autoreload 22452 3392 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-21 22:00:45,309 autoreload 19812 20780 Watching for file changes with StatReloader
+INFO 2026-01-21 22:00:59,793 autoreload 19812 20780 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-21 22:01:01,091 autoreload 16828 14768 Watching for file changes with StatReloader
+INFO 2026-01-21 22:01:13,293 autoreload 16828 14768 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-21 22:01:14,501 autoreload 26224 35804 Watching for file changes with StatReloader
+INFO 2026-01-21 22:01:18,678 autoreload 26224 35804 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-21 22:01:19,748 autoreload 37136 34856 Watching for file changes with StatReloader
+INFO 2026-01-21 22:01:25,265 autoreload 37136 34856 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-21 22:01:26,316 autoreload 28776 28620 Watching for file changes with StatReloader
+INFO 2026-01-21 22:01:38,205 autoreload 28776 28620 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-21 22:01:39,319 autoreload 15440 12060 Watching for file changes with StatReloader
+WARNING 2026-01-21 22:05:42,054 session_auth_fix 15440 18352 Unauthorized access attempt by piyush812@gmail.com to /
+INFO 2026-01-21 22:05:42,101 basehttp 15440 18352 "GET / HTTP/1.1" 302 0
+INFO 2026-01-21 22:05:48,836 basehttp 15440 18352 "GET /admin/dashboard/ HTTP/1.1" 200 8321
+WARNING 2026-01-21 22:06:20,862 session_auth_fix 15440 18352 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-21 22:06:20,864 basehttp 15440 18352 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-21 22:06:25,198 session_auth_fix 15440 8988 User piyush812@gmail.com logged out successfully
+INFO 2026-01-21 22:06:25,198 views_auth 15440 8988 User piyush812@gmail.com logged out successfully
+INFO 2026-01-21 22:06:25,199 session_auth_fix 15440 8988 Logout detected for anonymous
+INFO 2026-01-21 22:06:26,657 basehttp 15440 8988 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-21 22:06:27,641 basehttp 15440 18352 "GET /admin/dashboard/ HTTP/1.1" 200 8324
+INFO 2026-01-21 22:06:29,095 basehttp 15440 8988 "GET /login/ HTTP/1.1" 200 1087
+INFO 2026-01-21 22:06:29,181 basehttp 15440 18352 "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+INFO 2026-01-21 22:06:29,188 basehttp 15440 18352 "GET /static/images/wes-logo.jpg HTTP/1.1" 304 0
+INFO 2026-01-21 22:06:32,292 basehttp 15440 8988 - Broken pipe from ('127.0.0.1', 50671)
+INFO 2026-01-21 22:06:34,933 basehttp 15440 18352 - Broken pipe from ('127.0.0.1', 58672)
+INFO 2026-01-21 22:09:12,048 autoreload 15440 12060 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-21 22:09:13,576 autoreload 19172 14560 Watching for file changes with StatReloader
+INFO 2026-01-21 22:10:11,814 basehttp 19172 21312 "GET /login/ HTTP/1.1" 200 871
+INFO 2026-01-21 22:10:56,463 views_auth 19172 21312 User amna.wes@gmail.com logged in successfully
+INFO 2026-01-21 22:10:58,153 basehttp 19172 21312 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-21 22:12:11,969 basehttp 19172 21312 "GET /facilitator/dashboard/ HTTP/1.1" 200 6439
+INFO 2026-01-21 22:12:12,037 basehttp 19172 21312 "GET /static/css/admin_dashboard.css HTTP/1.1" 304 0
+WARNING 2026-01-21 22:12:15,049 basehttp 19172 21312 "GET /static/images/wes-logo HTTP/1.1" 404 1859
+INFO 2026-01-21 22:12:30,088 basehttp 19172 444 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-21 22:12:36,141 views 19172 444 Facilitator Amna Fatima: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-21 22:13:09,785 basehttp 19172 30944 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-21 22:13:14,530 views 19172 30944 Facilitator Amna Fatima: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-21 22:13:18,763 views 19172 30944 Facilitator Amna Fatima: Found 11 permanent groups with 33 total classes
+INFO 2026-01-21 22:13:18,764 views 19172 30944   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-21 22:13:18,765 views 19172 30944   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-21 22:13:18,765 views 19172 30944   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-21 22:13:18,765 views 19172 30944   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-21 22:13:18,766 views 19172 30944   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-21 22:13:18,766 views 19172 30944   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-21 22:13:18,766 views 19172 30944   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-21 22:13:18,767 views 19172 30944   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-21 22:13:18,767 views 19172 30944   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-21 22:13:18,767 views 19172 30944   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-21 22:13:18,768 views 19172 30944   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-21 22:13:19,048 views 19172 30944   Facilitator has access to class 1A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-21 22:13:19,049 views 19172 30944   Facilitator has access to class 2A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-21 22:13:19,049 views 19172 30944   Facilitator has access to class 3A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-21 22:13:19,332 views 19172 30944   Adding calendar-based group 4cc12963-7f5e-4cf8-b037-20fadacc2b79 with classes: ['1A', '2A', '3A']
+INFO 2026-01-21 22:13:20,486 views 19172 30944   Single class (no grouping): 4A
+INFO 2026-01-21 22:13:20,795 views 19172 30944   Single class (no grouping): 5A
+INFO 2026-01-21 22:13:21,093 views 19172 30944   Single class (no grouping): 6A
+INFO 2026-01-21 22:13:22,122 views 19172 30944   Single class (no grouping): 7A
+INFO 2026-01-21 22:13:22,416 views 19172 30944   Single class (no grouping): 8A
+INFO 2026-01-21 22:13:22,720 views 19172 30944   Grouped item: ['1A', '2A', '3A'] (key: 4cc12963-7f5e-4cf8-b037-20fadacc2b79)
+INFO 2026-01-21 22:13:22,737 views 19172 30944 Facilitator Amna Fatima: Returning 6 class items to template
+INFO 2026-01-21 22:13:22,738 views 19172 30944   Item with 3 grouped classes: ['1A', '2A', '3A']
+INFO 2026-01-21 22:13:22,757 basehttp 19172 30944 "GET /facilitator/classes/ HTTP/1.1" 200 4533
+INFO 2026-01-21 22:13:23,444 views 19172 444 Facilitator Amna Fatima: Found 11 permanent groups with 33 total classes
+INFO 2026-01-21 22:13:23,445 views 19172 444   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-21 22:13:23,445 views 19172 444   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-21 22:13:23,446 views 19172 444   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-21 22:13:23,446 views 19172 444   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-21 22:13:23,446 views 19172 444   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-21 22:13:23,447 views 19172 444   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-21 22:13:23,447 views 19172 444   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-21 22:13:23,447 views 19172 444   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-21 22:13:23,447 views 19172 444   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-21 22:13:23,448 views 19172 444   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-21 22:13:23,448 views 19172 444   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-21 22:13:24,151 views 19172 444   Facilitator has access to class 1A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-21 22:13:24,151 views 19172 444   Facilitator has access to class 2A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-21 22:13:24,152 views 19172 444   Facilitator has access to class 3A in permanent group c4baf421-aa7b-4cd6-bb9b-196434471978
+INFO 2026-01-21 22:13:24,528 views 19172 444   Adding calendar-based group 4cc12963-7f5e-4cf8-b037-20fadacc2b79 with classes: ['1A', '2A', '3A']
+INFO 2026-01-21 22:13:25,665 views 19172 444   Single class (no grouping): 4A
+INFO 2026-01-21 22:13:26,204 views 19172 444   Single class (no grouping): 5A
+INFO 2026-01-21 22:13:27,180 views 19172 444   Single class (no grouping): 6A
+INFO 2026-01-21 22:13:27,570 views 19172 444   Single class (no grouping): 7A
+INFO 2026-01-21 22:13:27,929 views 19172 444   Single class (no grouping): 8A
+INFO 2026-01-21 22:13:28,336 views 19172 444   Grouped item: ['1A', '2A', '3A'] (key: 4cc12963-7f5e-4cf8-b037-20fadacc2b79)
+INFO 2026-01-21 22:13:28,337 views 19172 444 Facilitator Amna Fatima: Returning 6 class items to template
+INFO 2026-01-21 22:13:28,338 views 19172 444   Item with 3 grouped classes: ['1A', '2A', '3A']
+INFO 2026-01-21 22:13:28,359 basehttp 19172 444 - Broken pipe from ('127.0.0.1', 53009)
+INFO 2026-01-21 22:20:13,234 basehttp 19172 33120 "GET /facilitator/class/89416964-9b9d-4d2e-a190-7c99b2bc3354/today/ HTTP/1.1" 302 0
+INFO 2026-01-21 22:20:20,109 session_management 19172 33120 Found today's session for Gov. Amlai School - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-21 22:20:20,864 views 19172 33120 Grouped session detected via grouped_session_id for class f84496a5-ea66-4aac-be6b-15407fb50995: grouped_session_id=c4baf421-aa7b-4cd6-bb9b-196434471978, classes_in_group=3
+INFO 2026-01-21 22:20:23,409 session_management 19172 33120 Found today's session for Gov. Amlai School - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-21 22:20:23,409 session_management 19172 33120 Progress metrics for Gov. Amlai School - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-21 22:20:27,696 basehttp 19172 33120 "GET /facilitator/class/f84496a5-ea66-4aac-be6b-15407fb50995/today/ HTTP/1.1" 200 22832
+INFO 2026-01-21 22:20:31,407 basehttp 19172 16944 "GET /api/get-feedback-status/?session_id=26c9fa52-5001-47b6-bfd0-9e90a4b05beb HTTP/1.1" 200 110
+INFO 2026-01-21 22:20:31,595 curriculum_content_resolver 19172 33120 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-21 22:20:33,225 curriculum_content_resolver 19172 33120 Found 5251 rows in curriculum table
+INFO 2026-01-21 22:20:33,229 curriculum_content_resolver 19172 33120 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-21 22:20:33,231 curriculum_content_resolver 19172 33120 Found next day boundary at row 71, day 3
+INFO 2026-01-21 22:20:33,231 curriculum_content_resolver 19172 33120 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-21 22:20:33,235 curriculum_content_resolver 19172 33120 Fixed image and resource paths in curriculum content
+INFO 2026-01-21 22:20:33,237 curriculum_content_resolver 19172 33120 Loaded static fallback content for Day 2 english
+INFO 2026-01-21 22:20:33,580 basehttp 19172 33120 "GET /api/curriculum/content/?day=2&language=english&class_section_id=f84496a5-ea66-4aac-be6b-15407fb50995 HTTP/1.1" 200 3185
+INFO 2026-01-21 22:20:34,787 basehttp 19172 16944 - Broken pipe from ('127.0.0.1', 56238)
+INFO 2026-01-21 22:20:51,701 basehttp 19172 13120 "GET /facilitator/session/26c9fa52-5001-47b6-bfd0-9e90a4b05beb/attendance/ HTTP/1.1" 200 9064
+INFO 2026-01-21 22:22:40,825 basehttp 19172 13120 "POST /facilitator/session/26c9fa52-5001-47b6-bfd0-9e90a4b05beb/attendance/ HTTP/1.1" 200 219
+INFO 2026-01-21 22:22:51,663 session_management 19172 13120 Found today's session for Gov. Amlai School - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-21 22:22:52,386 views 19172 13120 Grouped session detected via grouped_session_id for class f84496a5-ea66-4aac-be6b-15407fb50995: grouped_session_id=c4baf421-aa7b-4cd6-bb9b-196434471978, classes_in_group=3
+INFO 2026-01-21 22:22:54,990 session_management 19172 13120 Found today's session for Gov. Amlai School - 2A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-21 22:22:54,991 session_management 19172 13120 Progress metrics for Gov. Amlai School - 2A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-21 22:22:59,001 basehttp 19172 13120 "GET /facilitator/class/f84496a5-ea66-4aac-be6b-15407fb50995/today/?refresh=1 HTTP/1.1" 200 22829
+INFO 2026-01-21 22:23:02,657 basehttp 19172 33120 "GET /api/get-feedback-status/?session_id=26c9fa52-5001-47b6-bfd0-9e90a4b05beb HTTP/1.1" 200 110
+INFO 2026-01-21 22:23:03,154 basehttp 19172 13120 "GET /api/curriculum/content/?day=2&language=english&class_section_id=f84496a5-ea66-4aac-be6b-15407fb50995 HTTP/1.1" 200 3185
+INFO 2026-01-21 22:23:07,397 basehttp 19172 33120 - Broken pipe from ('127.0.0.1', 57015)
+INFO 2026-01-21 22:23:45,050 basehttp 19172 13120 "GET /facilitator/attendance/ HTTP/1.1" 200 7562
+INFO 2026-01-21 22:23:53,428 basehttp 19172 13120 "GET /api/facilitator/classes/?school_id=8f732a8b-b02b-4e1c-8f34-17303b8e6e6d HTTP/1.1" 200 925
+INFO 2026-01-21 22:24:20,069 basehttp 19172 13120 - Broken pipe from ('127.0.0.1', 57937)
+INFO 2026-01-21 22:24:23,740 basehttp 19172 26644 "GET /facilitator/attendance/?school=8f732a8b-b02b-4e1c-8f34-17303b8e6e6d&class_section=89416964-9b9d-4d2e-a190-7c99b2bc3354&period=all&start_date=2025-12-20&end_date=2026-01-21 HTTP/1.1" 200 9425
+INFO 2026-01-21 22:24:53,463 basehttp 19172 26644 "GET /facilitator/dashboard/ HTTP/1.1" 200 6408
+INFO 2026-01-21 22:25:13,184 session_auth_fix 19172 26644 User amna.wes@gmail.com logged out successfully
+INFO 2026-01-21 22:25:13,185 views_auth 19172 26644 User amna.wes@gmail.com logged out successfully
+INFO 2026-01-21 22:25:13,185 session_auth_fix 19172 26644 Logout detected for anonymous
+INFO 2026-01-21 22:25:14,588 basehttp 19172 26644 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-21 22:25:17,061 basehttp 19172 26644 "GET /login/ HTTP/1.1" 200 1084
+INFO 2026-01-21 22:25:31,316 views_auth 19172 26644 User piyush81@gmail.com logged in successfully
+INFO 2026-01-21 22:25:32,597 basehttp 19172 26644 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-21 22:25:37,673 basehttp 19172 26644 "GET /supervisor/dashboard/ HTTP/1.1" 200 4752
+INFO 2026-01-21 22:25:52,303 basehttp 19172 26644 "GET /supervisor/calendar/ HTTP/1.1" 200 6832
+INFO 2026-01-21 22:46:06,543 basehttp 19172 18396 - Broken pipe from ('127.0.0.1', 61631)
+INFO 2026-01-21 22:46:11,904 basehttp 19172 12092 - Broken pipe from ('127.0.0.1', 63294)
+INFO 2026-01-21 22:46:14,514 basehttp 19172 4588 "GET /supervisor/dashboard/ HTTP/1.1" 200 4546
+ERROR 2026-01-21 22:48:12,442 db_connection_middleware 19172 4588 Database connection error: could not translate host name "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" to address: Name or service not known
+
+ERROR 2026-01-21 22:48:12,547 db_connection_middleware 19172 4588 Failed to reconnect to database: could not translate host name "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" to address: Name or service not known
+
+ERROR 2026-01-21 22:48:26,876 log 19172 4588 Internal Server Error: /supervisor/calendar/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 128, in __call__
+    response = self.process_request(request)
+  File "C:\Users\piyus\CLAS\CLAS\class\services\session_auth_fix.py", line 124, in process_request
+    if not request.user.is_authenticated:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 37, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 17, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 216, in get_user
+    user = backend.get_user(user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\backends.py", line 157, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 295, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 277, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 278, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 255, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 332, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: could not translate host name "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" to address: Name or service not known
+
+ERROR 2026-01-21 22:48:26,897 basehttp 19172 4588 "GET /supervisor/calendar/ HTTP/1.1" 500 207344
+WARNING 2026-01-21 22:48:30,976 session_auth_fix 19172 4588 Unauthorized access attempt by piyush81@gmail.com to /favicon.ico
+INFO 2026-01-21 22:48:30,978 basehttp 19172 4588 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-21 22:48:37,689 basehttp 19172 4588 "GET /supervisor/dashboard/ HTTP/1.1" 200 4805
+INFO 2026-01-21 22:48:50,995 autoreload 35912 36736 Watching for file changes with StatReloader
+INFO 2026-01-21 22:49:16,044 basehttp 35912 4804 "GET /supervisor/calendar/ HTTP/1.1" 200 6832
+INFO 2026-01-21 22:50:41,968 basehttp 35912 4804 "GET /supervisor/calendar/add-date/ HTTP/1.1" 200 9179
+ERROR 2026-01-21 22:52:19,765 db_connection_middleware 35912 4804 Database connection error: could not translate host name "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" to address: Name or service not known
+
+INFO 2026-01-21 22:52:23,708 db_connection_middleware 35912 4804 Database connection re-established
+INFO 2026-01-21 22:52:29,608 basehttp 35912 4804 "GET /supervisor/calendar/ HTTP/1.1" 200 6832

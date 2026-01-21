@@ -2267,7 +2267,7 @@ def facilitator_attendance(request):
             # Calculate attendance statistics for each student with date filtering
             enrollment_stats = []
             for enrollment in enrollments:
-                # Base query for sessions
+                # Base query for sessions - include grouped sessions
                 sessions_query = ActualSession.objects.filter(
                     planned_session__class_section=class_section,
                     status=SessionStatus.CONDUCTED
@@ -2279,10 +2279,17 @@ def facilitator_attendance(request):
                 
                 total_sessions = sessions_query.count()
                 
-                # Base query for attendance
+                # Base query for attendance - include grouped sessions
+                # For grouped sessions, we need to check if the enrollment's class is part of a grouped session
+                from django.db.models import Q
                 attendance_query = Attendance.objects.filter(
-                    enrollment=enrollment,
-                    actual_session__planned_session__class_section=class_section
+                    enrollment=enrollment
+                ).filter(
+                    Q(actual_session__planned_session__class_section=class_section) |
+                    Q(actual_session__planned_session__grouped_session_id__isnull=False,
+                      actual_session__planned_session__day_number__in=PlannedSession.objects.filter(
+                          class_section=class_section
+                      ).values_list('day_number', flat=True))
                 )
                 
                 # Apply date filter to attendance if specified
@@ -2319,9 +2326,33 @@ def facilitator_attendance(request):
             recent_sessions = recent_sessions_query.order_by("-date")[:20]
             
             for session in recent_sessions:
-                present_count = session.attendances.filter(status=AttendanceStatus.PRESENT).count()
-                absent_count = session.attendances.filter(status=AttendanceStatus.ABSENT).count()
-                total_count = session.attendances.count()
+                # For grouped sessions, count attendance from all students in the group
+                if session.planned_session.grouped_session_id:
+                    # Get all classes in the grouped session
+                    grouped_planned_sessions = PlannedSession.objects.filter(
+                        grouped_session_id=session.planned_session.grouped_session_id,
+                        day_number=session.planned_session.day_number
+                    )
+                    # Get all actual sessions for these planned sessions on the same date
+                    grouped_actual_sessions = ActualSession.objects.filter(
+                        planned_session__in=grouped_planned_sessions,
+                        date=session.date
+                    )
+                    present_count = Attendance.objects.filter(
+                        actual_session__in=grouped_actual_sessions,
+                        status=AttendanceStatus.PRESENT
+                    ).count()
+                    absent_count = Attendance.objects.filter(
+                        actual_session__in=grouped_actual_sessions,
+                        status=AttendanceStatus.ABSENT
+                    ).count()
+                    total_count = Attendance.objects.filter(
+                        actual_session__in=grouped_actual_sessions
+                    ).count()
+                else:
+                    present_count = session.attendances.filter(status=AttendanceStatus.PRESENT).count()
+                    absent_count = session.attendances.filter(status=AttendanceStatus.ABSENT).count()
+                    total_count = session.attendances.count()
                 
                 recent_sessions_data.append({
                     'session': session,
@@ -4974,7 +5005,7 @@ def save_session_reward(request):
             date=timezone.now().date(),
             defaults={
                 'facilitator': request.user,
-                'status': 'conducted',  # Assume session is being conducted when rewards are given
+                'status': SessionStatus.CONDUCTED,
                 'remarks': 'Session in progress - rewards recorded'
             }
         )
