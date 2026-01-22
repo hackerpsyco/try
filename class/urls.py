@@ -36,6 +36,9 @@ from .supervisor_views import (
     supervisor_school_edit,
     supervisor_school_detail,
     supervisor_school_delete,
+    get_blocks_by_district,
+    get_schools_by_block,
+    get_all_schools,
     
     # Supervisor - Classes
     supervisor_classes_list,
@@ -198,6 +201,8 @@ urlpatterns = [
     path("supervisor/schools/<uuid:school_id>/edit/", supervisor_school_edit, name="supervisor_school_edit"),
     path("supervisor/schools/<uuid:school_id>/", supervisor_school_detail, name="supervisor_school_detail"),
     path("supervisor/schools/<uuid:school_id>/delete/", supervisor_school_delete, name="supervisor_school_delete"),
+    path("supervisor/schools/api/blocks/", get_blocks_by_district, name="get_blocks_by_district"),
+    path("supervisor/schools/api/schools/", get_schools_by_block, name="get_schools_by_block"),
     
     # Classes
     path("supervisor/classes/", supervisor_classes_list, name="supervisor_classes_list"),
@@ -538,6 +543,7 @@ path(
     # AJAX endpoints
     # ======================
     path("api/school-classes/", ajax_school_classes_admin, name="ajax_school_classes_admin"),
+    path("api/all-schools/", get_all_schools, name="get_all_schools"),
     
     # ======================
     # Admin Sessions Overview

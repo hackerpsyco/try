@@ -347,11 +347,47 @@ def school_detail(request, school_id):
     facilitator_assignments = FacilitatorSchool.objects.filter(
         school=school
     ).select_related("facilitator").order_by("-created_at")
+    
+    # Calculate student count
+    from django.db.models import Count, Q, Avg
+    from .models import Enrollment, ActualSession, Attendance
+    
+    total_students = Enrollment.objects.filter(
+        class_section__school=school,
+        is_active=True
+    ).values('student').distinct().count()
+    
+    total_facilitators = facilitator_assignments.filter(is_active=True).count()
+    total_classes = classes.count()
+    
+    # Calculate sessions count
+    total_sessions = ActualSession.objects.filter(
+        planned_session__class_section__school=school
+    ).count()
+    
+    # Calculate attendance percentage
+    total_attendance_records = Attendance.objects.filter(
+        actual_session__planned_session__class_section__school=school
+    ).count()
+    
+    present_count = Attendance.objects.filter(
+        actual_session__planned_session__class_section__school=school,
+        status=AttendanceStatus.PRESENT
+    ).count()
+    
+    attendance_percentage = 0
+    if total_attendance_records > 0:
+        attendance_percentage = round((present_count / total_attendance_records) * 100, 2)
 
     return render(request, "admin/schools/detail.html", {
         "school": school,
         "class_sections": classes,
-        "facilitator_assignments": facilitator_assignments
+        "facilitator_assignments": facilitator_assignments,
+        "total_students": total_students,
+        "total_facilitators": total_facilitators,
+        "total_classes": total_classes,
+        "sessions_count": total_sessions,
+        "attendance_percentage": attendance_percentage
     })
 
 

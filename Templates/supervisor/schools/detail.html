@@ -29,6 +29,13 @@
           <span class="material-symbols-outlined text-[18px]">edit</span>
           Edit
         </a>
+        {% if school.address %}
+        <a href="https://www.google.com/maps/search/{{ school.address|urlencode }}" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center justify-center gap-2 px-4 py-2 border border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 text-sm font-medium">
+          <span class="material-symbols-outlined text-[18px]">location_on</span>
+          View on Map
+        </a>
+        {% endif %}
         <button onclick="openDeleteModal('{{ school.id }}','{{ school.name|escapejs }}')"
                 class="inline-flex items-center justify-center gap-2 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 text-sm font-medium">
           <span class="material-symbols-outlined text-[18px]">delete</span>

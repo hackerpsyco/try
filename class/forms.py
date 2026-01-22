@@ -2,6 +2,38 @@ from django import forms
 from django.contrib.auth.hashers import make_password
 from .models import User, Role, School, ClassSection,FacilitatorSchool
 
+# Indian States
+INDIAN_STATES = [
+    ('Andhra Pradesh', 'Andhra Pradesh'),
+    ('Arunachal Pradesh', 'Arunachal Pradesh'),
+    ('Assam', 'Assam'),
+    ('Bihar', 'Bihar'),
+    ('Chhattisgarh', 'Chhattisgarh'),
+    ('Goa', 'Goa'),
+    ('Gujarat', 'Gujarat'),
+    ('Haryana', 'Haryana'),
+    ('Himachal Pradesh', 'Himachal Pradesh'),
+    ('Jharkhand', 'Jharkhand'),
+    ('Karnataka', 'Karnataka'),
+    ('Kerala', 'Kerala'),
+    ('Madhya Pradesh', 'Madhya Pradesh'),
+    ('Maharashtra', 'Maharashtra'),
+    ('Manipur', 'Manipur'),
+    ('Meghalaya', 'Meghalaya'),
+    ('Mizoram', 'Mizoram'),
+    ('Nagaland', 'Nagaland'),
+    ('Odisha', 'Odisha'),
+    ('Punjab', 'Punjab'),
+    ('Rajasthan', 'Rajasthan'),
+    ('Sikkim', 'Sikkim'),
+    ('Tamil Nadu', 'Tamil Nadu'),
+    ('Telangana', 'Telangana'),
+    ('Tripura', 'Tripura'),
+    ('Uttar Pradesh', 'Uttar Pradesh'),
+    ('Uttarakhand', 'Uttarakhand'),
+    ('West Bengal', 'West Bengal'),
+]
+
 # ---------------- Add User Form ----------------
 class AddUserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
@@ -56,17 +88,21 @@ class EditUserForm(forms.ModelForm):
 class AddSchoolForm(forms.ModelForm):
     class Meta:
         model = School
-        fields = ["name", "udise", "block", "district", "area", "address", "contact_person", "contact_number", "email", "logo", "status"]
+        fields = ["name", "udise", "block", "district", "state", "cluster", "area", "address", "contact_person", "contact_number", "email", "latitude", "longitude", "logo", "status"]
         widgets = {
             "name": forms.TextInput(attrs={"class": "form-control", "placeholder": "School Name"}),
             "udise": forms.TextInput(attrs={"class": "form-control", "placeholder": "UDISE Code"}),
             "block": forms.TextInput(attrs={"class": "form-control", "placeholder": "Block"}),
             "district": forms.TextInput(attrs={"class": "form-control", "placeholder": "District"}),
+            "state": forms.Select(attrs={"class": "form-control"}, choices=INDIAN_STATES),
+            "cluster": forms.Select(attrs={"class": "form-control"}),
             "area": forms.TextInput(attrs={"class": "form-control", "placeholder": "Area"}),
             "address": forms.Textarea(attrs={"class": "form-control", "placeholder": "Address", "rows": 3}),
             "contact_person": forms.TextInput(attrs={"class": "form-control", "placeholder": "Contact Person"}),
             "contact_number": forms.TextInput(attrs={"class": "form-control", "placeholder": "Contact Number"}),
             "email": forms.EmailInput(attrs={"class": "form-control", "placeholder": "Email"}),
+            "latitude": forms.NumberInput(attrs={"class": "form-control", "placeholder": "Latitude", "step": "0.000001"}),
+            "longitude": forms.NumberInput(attrs={"class": "form-control", "placeholder": "Longitude", "step": "0.000001"}),
             "logo": forms.FileInput(attrs={"class": "form-control"}),
             "status": forms.Select(attrs={"class": "form-control"}),
         }
@@ -77,8 +113,8 @@ class EditSchoolForm(forms.ModelForm):
     class Meta:
         model = School
         fields = [
-            "name", "udise", "block", "district", "area", "address", "contact_person", 
-            "contact_number", "email", "status", "enrolled_students", "avg_attendance_pct", 
+            "name", "udise", "block", "district", "state", "cluster", "area", "address", "contact_person", 
+            "contact_number", "email", "latitude", "longitude", "status", "enrolled_students", "avg_attendance_pct", 
             "validation_score", "profile_image", "logo"
         ]
         widgets = {
@@ -86,11 +122,15 @@ class EditSchoolForm(forms.ModelForm):
             "udise": forms.TextInput(attrs={"class": "form-control"}),
             "block": forms.TextInput(attrs={"class": "form-control"}),
             "district": forms.TextInput(attrs={"class": "form-control"}),
+            "state": forms.Select(attrs={"class": "form-control"}, choices=INDIAN_STATES),
+            "cluster": forms.Select(attrs={"class": "form-control"}),
             "area": forms.TextInput(attrs={"class": "form-control"}),
             "address": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
             "contact_person": forms.TextInput(attrs={"class": "form-control"}),
             "contact_number": forms.TextInput(attrs={"class": "form-control"}),
             "email": forms.EmailInput(attrs={"class": "form-control"}),
+            "latitude": forms.NumberInput(attrs={"class": "form-control", "step": "0.000001"}),
+            "longitude": forms.NumberInput(attrs={"class": "form-control", "step": "0.000001"}),
             "status": forms.Select(attrs={"class": "form-control"}),
             "enrolled_students": forms.NumberInput(attrs={"class": "form-control"}),
             "avg_attendance_pct": forms.NumberInput(attrs={"class": "form-control"}),

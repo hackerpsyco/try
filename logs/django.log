@@ -23415,3 +23415,555 @@ INFO 2026-01-22 02:54:02,114 basehttp 27836 16592 "POST /login/ HTTP/1.1" 200 12
 INFO 2026-01-22 02:54:31,641 views_auth 27836 16592 User demo@gmail.com logged in successfully
 INFO 2026-01-22 02:54:32,703 basehttp 27836 16592 "POST /login/ HTTP/1.1" 302 0
 INFO 2026-01-22 02:54:36,415 basehttp 27836 16592 "GET /supervisor/dashboard/ HTTP/1.1" 200 4749
+INFO 2026-01-22 19:18:45,051 autoreload 16432 16480 Watching for file changes with StatReloader
+WARNING 2026-01-22 19:19:11,854 session_auth_fix 16432 38664 Unauthorized access attempt by demo@gmail.com to /
+INFO 2026-01-22 19:19:11,901 basehttp 16432 38664 "GET / HTTP/1.1" 302 0
+INFO 2026-01-22 19:19:16,076 basehttp 16432 38664 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:20:12,240 basehttp 16432 38664 "GET /supervisor/schools/ HTTP/1.1" 200 7094
+WARNING 2026-01-22 19:20:30,589 session_auth_fix 16432 38664 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:20:30,590 basehttp 16432 38664 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:20:35,324 basehttp 16432 38664 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:22:36,858 autoreload 33580 12140 Watching for file changes with StatReloader
+INFO 2026-01-22 19:24:27,904 basehttp 33580 19276 "GET /supervisor/schools/ HTTP/1.1" 200 7092
+WARNING 2026-01-22 19:24:30,555 session_auth_fix 33580 19276 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:24:30,557 basehttp 33580 19276 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:24:34,391 basehttp 33580 19276 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:25:02,007 basehttp 33580 19276 "GET /supervisor/schools/ HTTP/1.1" 200 7090
+WARNING 2026-01-22 19:25:04,449 session_auth_fix 33580 19276 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:25:04,450 basehttp 33580 19276 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:25:08,202 basehttp 33580 19276 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:28:38,667 basehttp 33580 19276 "GET /supervisor/schools/ HTTP/1.1" 200 7091
+WARNING 2026-01-22 19:28:41,902 session_auth_fix 33580 19276 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:28:41,904 basehttp 33580 19276 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:28:46,542 basehttp 33580 19276 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:28:50,334 basehttp 33580 17776 "GET /supervisor/schools/ HTTP/1.1" 200 7094
+INFO 2026-01-22 19:28:50,643 basehttp 33580 19276 - Broken pipe from ('127.0.0.1', 51991)
+WARNING 2026-01-22 19:28:52,846 session_auth_fix 33580 17776 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:28:52,848 basehttp 33580 17776 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:28:56,696 basehttp 33580 17776 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:29:09,413 basehttp 33580 17776 - Broken pipe from ('127.0.0.1', 57314)
+INFO 2026-01-22 19:29:11,015 basehttp 33580 40292 - Broken pipe from ('127.0.0.1', 54166)
+INFO 2026-01-22 19:29:11,270 basehttp 33580 14740 "GET /supervisor/schools/ HTTP/1.1" 200 7091
+WARNING 2026-01-22 19:29:14,384 session_auth_fix 33580 14740 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:29:14,386 basehttp 33580 14740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:29:19,385 basehttp 33580 14740 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:29:20,029 basehttp 33580 22072 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/ HTTP/1.1" 200 5362
+WARNING 2026-01-22 19:29:23,251 session_auth_fix 33580 22072 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:29:23,253 basehttp 33580 22072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:29:28,036 basehttp 33580 22072 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:29:34,519 basehttp 33580 22072 "GET /supervisor/schools/ HTTP/1.1" 200 7094
+WARNING 2026-01-22 19:29:37,098 session_auth_fix 33580 22072 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:29:37,100 basehttp 33580 22072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:29:41,507 basehttp 33580 22072 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:32:33,627 basehttp 33580 22072 "GET /supervisor/schools/ HTTP/1.1" 200 6717
+WARNING 2026-01-22 19:32:36,233 session_auth_fix 33580 22072 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:32:36,235 basehttp 33580 22072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:32:40,287 basehttp 33580 22072 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:35:09,698 basehttp 33580 22072 "GET /supervisor/schools/ HTTP/1.1" 200 6694
+WARNING 2026-01-22 19:35:12,585 session_auth_fix 33580 22072 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:35:12,586 basehttp 33580 22072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:35:17,632 basehttp 33580 22072 - Broken pipe from ('127.0.0.1', 60748)
+WARNING 2026-01-22 19:35:19,742 session_auth_fix 33580 31192 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:35:19,745 basehttp 33580 31192 - Broken pipe from ('127.0.0.1', 53281)
+INFO 2026-01-22 19:36:03,350 basehttp 33580 38140 "GET /supervisor/facilitators/ HTTP/1.1" 200 5355
+INFO 2026-01-22 19:36:22,809 basehttp 33580 38140 "GET /supervisor/schools/ HTTP/1.1" 200 6694
+WARNING 2026-01-22 19:36:32,621 session_auth_fix 33580 38140 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:36:32,622 basehttp 33580 38140 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:36:36,477 basehttp 33580 38140 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:37:25,692 basehttp 33580 38140 "GET /supervisor/schools/ HTTP/1.1" 200 6814
+WARNING 2026-01-22 19:37:28,232 session_auth_fix 33580 38140 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:37:28,233 basehttp 33580 38140 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:37:32,492 basehttp 33580 38140 - Broken pipe from ('127.0.0.1', 60887)
+WARNING 2026-01-22 19:37:34,220 session_auth_fix 33580 5376 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:37:34,223 basehttp 33580 5376 - Broken pipe from ('127.0.0.1', 57435)
+INFO 2026-01-22 19:38:10,874 autoreload 33580 12140 C:\Users\piyus\CLAS\CLAS\class\models\school.py changed, reloading.
+INFO 2026-01-22 19:38:12,304 autoreload 22612 13700 Watching for file changes with StatReloader
+INFO 2026-01-22 19:41:09,061 autoreload 35068 40576 Watching for file changes with StatReloader
+INFO 2026-01-22 19:41:21,678 basehttp 35068 4384 "GET /supervisor/schools/ HTTP/1.1" 200 7050
+INFO 2026-01-22 19:42:34,155 basehttp 35068 4384 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 4641
+INFO 2026-01-22 19:45:20,840 autoreload 35068 40576 C:\Users\piyus\CLAS\CLAS\class\forms.py changed, reloading.
+INFO 2026-01-22 19:45:22,354 autoreload 11336 4364 Watching for file changes with StatReloader
+INFO 2026-01-22 19:45:32,716 basehttp 11336 26124 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5891
+INFO 2026-01-22 19:45:36,241 autoreload 11336 4364 C:\Users\piyus\CLAS\CLAS\class\forms.py changed, reloading.
+INFO 2026-01-22 19:45:37,624 autoreload 7220 31888 Watching for file changes with StatReloader
+WARNING 2026-01-22 19:46:08,916 session_auth_fix 7220 22436 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:46:08,961 basehttp 7220 22436 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:46:13,412 basehttp 7220 22436 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:46:17,921 basehttp 7220 22436 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5889
+WARNING 2026-01-22 19:46:21,069 session_auth_fix 7220 22436 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:46:21,071 basehttp 7220 22436 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:46:25,314 basehttp 7220 22436 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:49:07,365 basehttp 7220 22436 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5684
+INFO 2026-01-22 19:50:47,865 basehttp 7220 22436 "POST /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5692
+WARNING 2026-01-22 19:50:57,907 session_auth_fix 7220 22436 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 19:50:57,908 basehttp 7220 22436 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 19:51:02,195 basehttp 7220 22436 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 19:51:13,575 basehttp 7220 22436 "GET /supervisor/schools/ HTTP/1.1" 200 6820
+INFO 2026-01-22 19:51:33,444 basehttp 7220 22436 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5684
+INFO 2026-01-22 19:52:02,601 basehttp 7220 22436 "POST /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5693
+INFO 2026-01-22 19:53:15,381 basehttp 7220 22436 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5685
+INFO 2026-01-22 19:54:43,563 autoreload 7220 31888 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 19:54:45,223 autoreload 38684 21740 Watching for file changes with StatReloader
+INFO 2026-01-22 19:54:55,699 autoreload 38684 21740 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 19:54:57,296 autoreload 28368 32324 Watching for file changes with StatReloader
+INFO 2026-01-22 19:55:48,648 basehttp 28368 32948 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5680
+INFO 2026-01-22 19:56:16,994 basehttp 28368 32948 "POST /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5690
+INFO 2026-01-22 19:56:43,243 basehttp 28368 32948 "POST /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5690
+INFO 2026-01-22 19:57:01,623 basehttp 28368 32948 "GET /supervisor/schools/ HTTP/1.1" 200 6820
+INFO 2026-01-22 19:59:20,203 basehttp 28368 32948 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/ HTTP/1.1" 200 5160
+INFO 2026-01-22 19:59:26,292 basehttp 28368 32948 "GET /supervisor/schools/ HTTP/1.1" 200 6820
+INFO 2026-01-22 19:59:33,315 basehttp 28368 32948 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 5981
+INFO 2026-01-22 20:00:08,497 basehttp 28368 32948 "POST /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 302 0
+INFO 2026-01-22 20:00:12,141 basehttp 28368 32948 "GET /supervisor/schools/ HTTP/1.1" 200 7066
+INFO 2026-01-22 20:00:36,817 basehttp 28368 32948 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 6036
+INFO 2026-01-22 20:04:15,745 basehttp 28368 32948 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 6611
+INFO 2026-01-22 20:05:41,444 autoreload 28368 32324 C:\Users\piyus\CLAS\CLAS\class\models\school.py changed, reloading.
+INFO 2026-01-22 20:05:43,248 autoreload 26080 15412 Watching for file changes with StatReloader
+INFO 2026-01-22 20:05:50,954 autoreload 26080 15412 C:\Users\piyus\CLAS\CLAS\class\forms.py changed, reloading.
+INFO 2026-01-22 20:05:52,584 autoreload 19088 7152 Watching for file changes with StatReloader
+INFO 2026-01-22 20:05:59,931 autoreload 19088 7152 C:\Users\piyus\CLAS\CLAS\class\forms.py changed, reloading.
+INFO 2026-01-22 20:06:01,873 autoreload 32296 37644 Watching for file changes with StatReloader
+ERROR 2026-01-22 20:06:37,293 log 32296 33404 Internal Server Error: /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column class_school.state does not exist
+LINE 1: ...class_school"."block", "class_school"."district", "class_sch...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "class_school.status".
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py", line 88, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py", line 282, in supervisor_school_edit
+    school = get_object_or_404(School, id=school_id)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 647, in get
+    num = len(clone)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1933, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column class_school.state does not exist
+LINE 1: ...class_school"."block", "class_school"."district", "class_sch...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "class_school.status".
+
+ERROR 2026-01-22 20:06:37,312 basehttp 32296 33404 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 500 18292
+WARNING 2026-01-22 20:06:40,454 session_auth_fix 32296 33404 Unauthorized access attempt by demo@gmail.com to /favicon.ico
+INFO 2026-01-22 20:06:40,496 basehttp 32296 33404 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-22 20:08:00,510 autoreload 21428 33884 Watching for file changes with StatReloader
+INFO 2026-01-22 20:08:13,372 basehttp 21428 25092 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 6897
+INFO 2026-01-22 20:10:36,034 autoreload 21428 33884 C:\Users\piyus\CLAS\CLAS\class\forms.py changed, reloading.
+INFO 2026-01-22 20:10:37,438 autoreload 20416 14828 Watching for file changes with StatReloader
+INFO 2026-01-22 20:10:43,502 autoreload 20416 14828 C:\Users\piyus\CLAS\CLAS\class\forms.py changed, reloading.
+INFO 2026-01-22 20:10:45,093 autoreload 24572 17020 Watching for file changes with StatReloader
+INFO 2026-01-22 20:10:51,686 autoreload 24572 17020 C:\Users\piyus\CLAS\CLAS\class\forms.py changed, reloading.
+INFO 2026-01-22 20:10:53,126 autoreload 12652 22512 Watching for file changes with StatReloader
+INFO 2026-01-22 20:11:01,808 basehttp 12652 28796 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 6984
+INFO 2026-01-22 20:12:51,654 basehttp 12652 17092 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 7060
+INFO 2026-01-22 20:12:53,355 basehttp 12652 28796 - Broken pipe from ('127.0.0.1', 53861)
+INFO 2026-01-22 20:13:09,657 basehttp 12652 17092 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 7059
+INFO 2026-01-22 20:14:46,306 basehttp 12652 17092 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 6943
+INFO 2026-01-22 20:16:41,851 autoreload 12652 22512 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 20:16:43,210 autoreload 36168 16144 Watching for file changes with StatReloader
+INFO 2026-01-22 20:17:10,543 autoreload 36168 16144 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-22 20:17:11,976 autoreload 27036 32780 Watching for file changes with StatReloader
+INFO 2026-01-22 20:17:27,157 autoreload 27036 32780 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-22 20:17:28,546 autoreload 17176 8388 Watching for file changes with StatReloader
+INFO 2026-01-22 20:20:03,203 autoreload 17176 8388 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 20:20:04,748 autoreload 8428 21116 Watching for file changes with StatReloader
+INFO 2026-01-22 20:21:06,885 autoreload 8428 21116 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 20:21:08,669 autoreload 14468 23300 Watching for file changes with StatReloader
+INFO 2026-01-22 20:21:18,808 basehttp 14468 18344 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 7178
+WARNING 2026-01-22 20:21:56,433 session_auth_fix 14468 18344 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 20:21:56,435 basehttp 14468 18344 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 20:22:00,261 basehttp 14468 18344 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 20:22:11,880 basehttp 14468 18344 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 7176
+WARNING 2026-01-22 20:22:15,805 session_auth_fix 14468 18344 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 20:22:15,806 basehttp 14468 18344 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 20:22:20,706 basehttp 14468 18344 - Broken pipe from ('127.0.0.1', 64793)
+WARNING 2026-01-22 20:22:21,670 session_auth_fix 14468 14340 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 20:22:21,671 basehttp 14468 14340 - Broken pipe from ('127.0.0.1', 53508)
+INFO 2026-01-22 20:24:00,642 autoreload 13060 3240 Watching for file changes with StatReloader
+INFO 2026-01-22 20:24:12,212 basehttp 13060 35068 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 7686
+INFO 2026-01-22 20:24:46,537 basehttp 13060 35068 "GET /supervisor/schools/api/schools/?district=Shahdol&block=Burhar HTTP/1.1" 200 135
+INFO 2026-01-22 20:24:48,306 basehttp 13060 12652 "GET /supervisor/schools/api/schools/?district=Shahdol&block=Sohagpur HTTP/1.1" 200 265
+INFO 2026-01-22 20:28:46,211 autoreload 13060 3240 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 20:28:47,683 autoreload 24196 19840 Watching for file changes with StatReloader
+INFO 2026-01-22 20:29:11,831 basehttp 24196 34096 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 7714
+ERROR 2026-01-22 20:29:14,771 log 24196 31240 Internal Server Error: /supervisor/schools/api/schools/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py", line 88, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py", line 439, in get_schools_by_block
+    import requests
+ModuleNotFoundError: No module named 'requests'
+ERROR 2026-01-22 20:29:14,784 basehttp 24196 31240 "GET /supervisor/schools/api/schools/?district=Shahdol&block=Sohagpur HTTP/1.1" 500 12767
+INFO 2026-01-22 20:29:15,062 basehttp 24196 34096 "GET /supervisor/schools/api/blocks/?district=Shahdol HTTP/1.1" 200 34
+INFO 2026-01-22 20:29:17,757 autoreload 24196 19840 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 20:29:19,222 autoreload 31816 32780 Watching for file changes with StatReloader
+INFO 2026-01-22 20:33:21,798 autoreload 31816 32780 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 20:33:23,336 autoreload 29692 15140 Watching for file changes with StatReloader
+INFO 2026-01-22 20:33:32,045 basehttp 29692 5724 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 6878
+INFO 2026-01-22 20:33:38,060 autoreload 29692 15140 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 20:33:39,460 autoreload 40796 40916 Watching for file changes with StatReloader
+INFO 2026-01-22 20:33:59,412 basehttp 40796 38064 "POST /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 302 0
+INFO 2026-01-22 20:34:03,097 basehttp 40796 38064 "GET /supervisor/schools/ HTTP/1.1" 200 7083
+INFO 2026-01-22 21:19:00,680 autoreload 3108 31296 Watching for file changes with StatReloader
+WARNING 2026-01-22 21:19:27,837 session_auth_fix 3108 6088 Unauthorized access attempt by demo@gmail.com to /
+INFO 2026-01-22 21:19:27,889 basehttp 3108 6088 "GET / HTTP/1.1" 302 0
+INFO 2026-01-22 21:19:35,667 basehttp 3108 6088 "GET /supervisor/dashboard/ HTTP/1.1" 200 4801
+INFO 2026-01-22 21:22:34,558 autoreload 3108 31296 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 21:22:35,989 autoreload 26208 7156 Watching for file changes with StatReloader
+INFO 2026-01-22 21:22:45,910 autoreload 26208 7156 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-22 21:22:47,330 autoreload 11160 19832 Watching for file changes with StatReloader
+INFO 2026-01-22 21:23:01,578 basehttp 11160 18932 "GET /supervisor/schools/ HTTP/1.1" 200 6853
+INFO 2026-01-22 21:23:09,962 autoreload 11160 19832 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-22 21:23:11,255 autoreload 31596 38180 Watching for file changes with StatReloader
+INFO 2026-01-22 21:25:11,309 autoreload 19488 30756 Watching for file changes with StatReloader
+INFO 2026-01-22 21:26:26,448 autoreload 19488 30756 C:\Users\piyus\CLAS\CLAS\class\urls.py changed, reloading.
+INFO 2026-01-22 21:26:27,888 autoreload 39400 31320 Watching for file changes with StatReloader
+INFO 2026-01-22 21:26:54,584 autoreload 39400 31320 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-22 21:26:55,852 autoreload 35096 9956 Watching for file changes with StatReloader
+INFO 2026-01-22 21:28:50,744 basehttp 35096 31800 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 7339
+INFO 2026-01-22 21:29:16,336 basehttp 35096 31800 "GET /api/all-schools/ HTTP/1.1" 200 352
+INFO 2026-01-22 21:32:24,719 basehttp 35096 31800 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 7381
+INFO 2026-01-22 21:32:30,798 basehttp 35096 31800 "GET /api/all-schools/ HTTP/1.1" 200 352
+INFO 2026-01-22 21:35:14,278 basehttp 35096 31800 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 7416
+INFO 2026-01-22 21:35:18,633 basehttp 35096 31800 "GET /api/all-schools/ HTTP/1.1" 200 352
+WARNING 2026-01-22 21:35:58,290 session_auth_fix 35096 31800 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 21:35:58,292 basehttp 35096 31800 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-22 21:36:05,997 basehttp 35096 31800 - Broken pipe from ('127.0.0.1', 54725)
+INFO 2026-01-22 21:37:12,088 basehttp 35096 36524 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 7570
+INFO 2026-01-22 21:37:17,076 basehttp 35096 36524 "GET /api/all-schools/ HTTP/1.1" 200 352
+INFO 2026-01-22 21:38:35,899 basehttp 35096 36524 "GET /supervisor/schools/ HTTP/1.1" 200 6853
+INFO 2026-01-22 21:41:22,927 basehttp 35096 36524 - Broken pipe from ('127.0.0.1', 57395)
+INFO 2026-01-22 21:41:23,215 basehttp 35096 20916 "GET /supervisor/schools/ HTTP/1.1" 200 6853
+INFO 2026-01-22 21:41:35,135 basehttp 35096 20916 "GET /supervisor/schools/3d72b365-d424-480d-b6da-61a96bbcd5c5/edit/ HTTP/1.1" 200 7109
+INFO 2026-01-22 21:45:58,887 basehttp 35096 20916 "POST /supervisor/schools/3d72b365-d424-480d-b6da-61a96bbcd5c5/edit/ HTTP/1.1" 302 0
+INFO 2026-01-22 21:46:04,343 basehttp 35096 20916 "GET /supervisor/schools/ HTTP/1.1" 200 7106
+INFO 2026-01-22 21:50:13,423 basehttp 35096 20916 "GET /supervisor/schools/ HTTP/1.1" 200 7016
+ERROR 2026-01-22 21:51:47,653 db_connection_middleware 35096 20916 Database connection error: connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.147.243.31), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.132.12.55), port 5432 failed: timeout expired
+connection to server at "ep-flat-water-aeh2db45.c-2.us-east-2.aws.neon.tech" (3.137.42.68), port 5432 failed: timeout expired
+
+INFO 2026-01-22 21:52:04,652 autoreload 30572 24816 Watching for file changes with StatReloader
+INFO 2026-01-22 21:52:23,075 basehttp 30572 20284 "GET /supervisor/schools/8f732a8b-b02b-4e1c-8f34-17303b8e6e6d/edit/ HTTP/1.1" 200 7403
+INFO 2026-01-22 21:52:27,897 basehttp 30572 20284 "GET /api/all-schools/ HTTP/1.1" 200 517
+INFO 2026-01-22 22:00:45,449 basehttp 30572 19024 "GET /supervisor/schools/8f732a8b-b02b-4e1c-8f34-17303b8e6e6d/edit/ HTTP/1.1" 200 7597
+INFO 2026-01-22 22:00:50,185 basehttp 30572 19024 "GET /api/all-schools/ HTTP/1.1" 200 517
+WARNING 2026-01-22 22:01:31,567 session_auth_fix 30572 19024 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 22:01:31,569 basehttp 30572 19024 - Broken pipe from ('127.0.0.1', 60786)
+WARNING 2026-01-22 22:01:33,525 session_auth_fix 30572 23432 Unauthorized access attempt by demo@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-22 22:01:33,527 basehttp 30572 23432 - Broken pipe from ('127.0.0.1', 65477)
+INFO 2026-01-22 22:02:03,448 basehttp 30572 26260 "POST /supervisor/schools/8f732a8b-b02b-4e1c-8f34-17303b8e6e6d/edit/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:02:07,827 basehttp 30572 26260 "GET /supervisor/schools/ HTTP/1.1" 200 7268
+INFO 2026-01-22 22:02:29,925 basehttp 30572 26260 "GET /supervisor/schools/d0448916-3bb8-4d18-8abb-85a77878c9db/edit/ HTTP/1.1" 200 7540
+INFO 2026-01-22 22:02:33,952 basehttp 30572 26260 "GET /api/all-schools/ HTTP/1.1" 200 687
+INFO 2026-01-22 22:04:44,446 basehttp 30572 26260 "POST /supervisor/schools/d0448916-3bb8-4d18-8abb-85a77878c9db/edit/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:04:49,484 basehttp 30572 26260 "GET /supervisor/schools/ HTTP/1.1" 200 7268
+INFO 2026-01-22 22:05:02,867 basehttp 30572 26260 "GET /supervisor/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/edit/ HTTP/1.1" 200 7639
+INFO 2026-01-22 22:05:07,223 basehttp 30572 26260 "GET /api/all-schools/ HTTP/1.1" 200 852
+INFO 2026-01-22 22:05:58,888 basehttp 30572 26260 "POST /supervisor/schools/ec46841e-4e06-497f-ac4a-893c9561ab2b/edit/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:06:02,963 basehttp 30572 26260 "GET /supervisor/schools/ HTTP/1.1" 200 7281
+INFO 2026-01-22 22:06:15,758 basehttp 30572 26260 "GET /supervisor/schools/853366c9-1160-4319-bea5-95e743e6c584/edit/ HTTP/1.1" 200 7610
+INFO 2026-01-22 22:06:19,856 basehttp 30572 26260 "GET /api/all-schools/ HTTP/1.1" 200 467
+INFO 2026-01-22 22:07:29,833 basehttp 30572 26260 "POST /supervisor/schools/853366c9-1160-4319-bea5-95e743e6c584/edit/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:07:36,207 basehttp 30572 26260 "GET /supervisor/schools/ HTTP/1.1" 200 7289
+INFO 2026-01-22 22:07:45,794 basehttp 30572 26260 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 7627
+INFO 2026-01-22 22:07:50,061 basehttp 30572 26260 "GET /api/all-schools/ HTTP/1.1" 200 509
+INFO 2026-01-22 22:10:30,967 basehttp 30572 26260 "POST /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:10:35,449 basehttp 30572 26260 "GET /supervisor/schools/ HTTP/1.1" 200 7284
+INFO 2026-01-22 22:14:35,982 autoreload 30572 24816 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-22 22:14:37,536 autoreload 37012 22924 Watching for file changes with StatReloader
+INFO 2026-01-22 22:15:18,164 basehttp 37012 8952 "GET /supervisor/schools/ HTTP/1.1" 200 7634
+INFO 2026-01-22 22:19:28,255 basehttp 37012 8952 "GET /supervisor/schools/ HTTP/1.1" 200 7565
+INFO 2026-01-22 22:20:09,423 basehttp 37012 8952 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 7573
+INFO 2026-01-22 22:20:14,363 basehttp 37012 8952 "GET /api/all-schools/ HTTP/1.1" 200 508
+INFO 2026-01-22 22:21:45,403 basehttp 37012 8952 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/edit/ HTTP/1.1" 200 7573
+INFO 2026-01-22 22:21:49,469 basehttp 37012 8952 "GET /api/all-schools/ HTTP/1.1" 200 508
+INFO 2026-01-22 22:21:56,697 basehttp 37012 8952 - Broken pipe from ('127.0.0.1', 65380)
+INFO 2026-01-22 22:21:58,543 basehttp 37012 19776 "GET /supervisor/schools/ HTTP/1.1" 200 7464
+INFO 2026-01-22 22:22:16,284 basehttp 37012 19776 "GET /supervisor/schools/d0ceece1-736f-42e0-a6d9-069497588728/ HTTP/1.1" 200 5158
+INFO 2026-01-22 22:22:28,473 basehttp 37012 19776 - Broken pipe from ('127.0.0.1', 56171)
+INFO 2026-01-22 22:22:28,649 basehttp 37012 26564 "GET /supervisor/schools/ HTTP/1.1" 200 7464
+INFO 2026-01-22 22:23:03,688 basehttp 37012 26564 "GET /supervisor/settings/ HTTP/1.1" 200 4582
+INFO 2026-01-22 22:23:12,348 session_auth_fix 37012 26564 User demo@gmail.com logged out successfully
+INFO 2026-01-22 22:23:12,349 views_auth 37012 26564 User demo@gmail.com logged out successfully
+INFO 2026-01-22 22:23:12,349 session_auth_fix 37012 26564 Logout detected for anonymous
+INFO 2026-01-22 22:23:13,502 basehttp 37012 26564 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:23:15,918 basehttp 37012 26564 "GET /login/ HTTP/1.1" 200 1196
+INFO 2026-01-22 22:26:24,658 autoreload 37012 22924 C:\Users\piyus\CLAS\CLAS\class\models\__init__.py changed, reloading.
+INFO 2026-01-22 22:26:26,408 autoreload 21152 20444 Watching for file changes with StatReloader
+INFO 2026-01-22 22:26:34,711 autoreload 21152 20444 C:\Users\piyus\CLAS\CLAS\class\models\school.py changed, reloading.
+INFO 2026-01-22 22:26:36,224 autoreload 25580 4108 Watching for file changes with StatReloader
+INFO 2026-01-22 22:26:48,464 autoreload 25580 4108 C:\Users\piyus\CLAS\CLAS\class\forms.py changed, reloading.
+INFO 2026-01-22 22:26:49,885 autoreload 4396 32776 Watching for file changes with StatReloader
+INFO 2026-01-22 22:27:01,599 autoreload 4396 32776 C:\Users\piyus\CLAS\CLAS\class\forms.py changed, reloading.
+INFO 2026-01-22 22:27:03,038 autoreload 1812 6772 Watching for file changes with StatReloader
+INFO 2026-01-22 22:34:43,711 autoreload 27220 37860 Watching for file changes with StatReloader
+INFO 2026-01-22 22:35:23,118 views_auth 27220 31764 User amna.wes@gmail.com logged in successfully
+INFO 2026-01-22 22:35:24,377 basehttp 27220 31764 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:35:38,658 basehttp 27220 31764 "GET /facilitator/dashboard/ HTTP/1.1" 200 5062
+WARNING 2026-01-22 22:35:43,819 session_auth_fix 27220 31764 Unauthorized access attempt by amna.wes@gmail.com to /favicon.ico
+INFO 2026-01-22 22:35:43,820 basehttp 27220 31764 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-22 22:35:48,148 basehttp 27220 39024 "GET /facilitator/my-schools/ HTTP/1.1" 200 4121
+INFO 2026-01-22 22:35:54,154 basehttp 27220 39024 "GET /facilitator/my-schools/ HTTP/1.1" 200 4121
+WARNING 2026-01-22 22:35:59,185 session_auth_fix 27220 39024 Unauthorized access attempt by amna.wes@gmail.com to /favicon.ico
+INFO 2026-01-22 22:35:59,186 basehttp 27220 39024 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-22 22:36:01,802 basehttp 27220 31764 "GET /facilitator/dashboard/ HTTP/1.1" 200 5062
+INFO 2026-01-22 22:36:17,606 basehttp 27220 39024 "GET /facilitator/dashboard/ HTTP/1.1" 200 5062
+INFO 2026-01-22 22:36:25,000 basehttp 27220 31764 "GET /facilitator/performance/ HTTP/1.1" 200 3593
+WARNING 2026-01-22 22:36:32,774 session_auth_fix 27220 31764 Unauthorized access attempt by amna.wes@gmail.com to /favicon.ico
+INFO 2026-01-22 22:36:32,775 basehttp 27220 31764 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-22 22:36:33,169 session_auth_fix 27220 39024 User amna.wes@gmail.com logged out successfully
+INFO 2026-01-22 22:36:33,169 views_auth 27220 39024 User amna.wes@gmail.com logged out successfully
+INFO 2026-01-22 22:36:33,170 session_auth_fix 27220 39024 Logout detected for anonymous
+INFO 2026-01-22 22:36:34,626 basehttp 27220 39024 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:36:37,073 basehttp 27220 39024 "GET /login/ HTTP/1.1" 200 1196
+INFO 2026-01-22 22:36:37,256 basehttp 27220 31764 "GET /facilitator/dashboard/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:37:07,933 views_auth 27220 29888 User piyush812@gmail.com logged in successfully
+INFO 2026-01-22 22:37:09,097 basehttp 27220 29888 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:37:15,867 basehttp 27220 29888 "GET /admin/dashboard/ HTTP/1.1" 200 8347
+INFO 2026-01-22 22:38:03,124 basehttp 27220 29888 "GET /admin/users/ HTTP/1.1" 200 6052
+WARNING 2026-01-22 22:38:48,921 mixins 27220 29888 Slow function: schools took 7.92s
+INFO 2026-01-22 22:38:48,926 basehttp 27220 29888 "GET /admin/schools/ HTTP/1.1" 200 7911
+INFO 2026-01-22 22:39:26,281 basehttp 27220 29888 "GET /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/ HTTP/1.1" 200 6131
+INFO 2026-01-22 22:41:16,885 basehttp 27220 41400 "GET /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/ HTTP/1.1" 200 6107
+INFO 2026-01-22 22:43:34,762 autoreload 27220 37860 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-22 22:43:35,997 autoreload 39940 36664 Watching for file changes with StatReloader
+INFO 2026-01-22 22:45:18,554 autoreload 19552 19100 Watching for file changes with StatReloader
+INFO 2026-01-22 22:48:45,460 basehttp 19552 35220 "GET /admin/dashboard/ HTTP/1.1" 200 8168
+WARNING 2026-01-22 22:48:48,118 mixins 19552 21348 Slow function: schools took 7.32s
+INFO 2026-01-22 22:48:48,125 basehttp 19552 21348 - Broken pipe from ('127.0.0.1', 51966)
+WARNING 2026-01-22 22:48:57,165 mixins 19552 35220 Slow function: schools took 5.09s
+INFO 2026-01-22 22:48:57,170 basehttp 19552 35220 "GET /admin/schools/ HTTP/1.1" 200 7910
+INFO 2026-01-22 22:48:57,327 basehttp 19552 27204 - Broken pipe from ('127.0.0.1', 64887)
+ERROR 2026-01-22 22:49:24,635 log 19552 14008 Internal Server Error: /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 369, in school_detail
+    total_attendance_records = Attendance.objects.filter(
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        planned_session__class_section__school=school
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'planned_session' into field. Choices are: actual_session, actual_session_id, class_section_id, enrollment, enrollment_id, id, marked_at, school_id, status, student_id
+INFO 2026-01-22 22:49:24,660 basehttp 19552 14008 - Broken pipe from ('127.0.0.1', 56284)
+INFO 2026-01-22 22:50:06,742 autoreload 19552 19100 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-22 22:50:08,168 autoreload 15692 25232 Watching for file changes with StatReloader
+ERROR 2026-01-22 22:53:31,907 log 15692 34260 Internal Server Error: /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 364, in school_detail
+    total_sessions = ActualSession.objects.filter(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        class_section__school=school
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'class_section' into field. Choices are: attendance_marked, attendances, can_be_rescheduled, cancellation, cancellation_category, cancellation_reason, conducted_at, created_at, date, duration_minutes, facilitator, facilitator_id, facilitator_tasks, feedback, feedback_analytics, id, is_permanent_cancellation, planned_session, planned_session_id, remarks, rewards, status, status_change_reason, status_changed_by, status_changed_by_id, student_feedback, teacher_feedback
+INFO 2026-01-22 22:53:31,928 basehttp 15692 34260 - Broken pipe from ('127.0.0.1', 53043)
+ERROR 2026-01-22 22:53:52,061 log 15692 37280 Internal Server Error: /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 364, in school_detail
+    total_sessions = ActualSession.objects.filter(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        class_section__school=school
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).count()
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 1769, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'class_section' into field. Choices are: attendance_marked, attendances, can_be_rescheduled, cancellation, cancellation_category, cancellation_reason, conducted_at, created_at, date, duration_minutes, facilitator, facilitator_id, facilitator_tasks, feedback, feedback_analytics, id, is_permanent_cancellation, planned_session, planned_session_id, remarks, rewards, status, status_change_reason, status_changed_by, status_changed_by_id, student_feedback, teacher_feedback
+ERROR 2026-01-22 22:53:52,075 basehttp 15692 37280 "GET /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/ HTTP/1.1" 500 17124
+WARNING 2026-01-22 22:53:56,682 session_auth_fix 15692 37280 Unauthorized access attempt by piyush812@gmail.com to /favicon.ico
+INFO 2026-01-22 22:53:56,722 basehttp 15692 37280 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-22 22:54:02,937 basehttp 15692 37280 "GET /admin/dashboard/ HTTP/1.1" 200 8363
+INFO 2026-01-22 22:54:42,210 autoreload 15692 25232 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-22 22:54:43,795 autoreload 6080 3084 Watching for file changes with StatReloader
+INFO 2026-01-22 22:55:25,687 basehttp 6080 36036 "GET /admin/schools/59102664-e22e-453b-addb-45a0afe9659e/ HTTP/1.1" 200 6115
+INFO 2026-01-22 22:55:50,888 autoreload 29272 36272 Watching for file changes with StatReloader
+INFO 2026-01-22 22:56:00,211 session_auth_fix 29272 20636 User piyush812@gmail.com logged out successfully
+INFO 2026-01-22 22:56:00,212 views_auth 29272 20636 User piyush812@gmail.com logged out successfully
+INFO 2026-01-22 22:56:00,259 session_auth_fix 29272 20636 Logout detected for anonymous
+INFO 2026-01-22 22:56:01,646 basehttp 29272 20636 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:56:03,889 basehttp 29272 20636 "GET /login/ HTTP/1.1" 200 1199
+INFO 2026-01-22 22:56:26,684 views_auth 29272 20636 User demo@gmail.com logged in successfully
+INFO 2026-01-22 22:56:28,115 basehttp 29272 20636 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-22 22:56:33,635 basehttp 29272 20636 "GET /supervisor/dashboard/ HTTP/1.1" 200 4784
+INFO 2026-01-22 22:56:48,915 basehttp 29272 20636 "GET /supervisor/schools/ HTTP/1.1" 200 7464
+INFO 2026-01-22 22:58:28,635 basehttp 29272 20636 "GET /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 200 7674
+INFO 2026-01-22 22:58:33,046 basehttp 29272 20636 "GET /api/all-schools/ HTTP/1.1" 200 508
+INFO 2026-01-22 23:02:08,672 basehttp 29272 20636 "POST /supervisor/schools/59102664-e22e-453b-addb-45a0afe9659e/edit/ HTTP/1.1" 302 0
+INFO 2026-01-22 23:02:12,612 basehttp 29272 20636 "GET /supervisor/schools/ HTTP/1.1" 200 7707

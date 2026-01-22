@@ -15,6 +15,17 @@ class School(models.Model):
 
     block = models.CharField(max_length=100)
     district = models.CharField(max_length=100)
+    state = models.CharField(max_length=100, default="Madhya Pradesh", help_text="State/Province")
+    
+    # Cluster/Area relationship
+    cluster = models.ForeignKey(
+        'Cluster',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='schools',
+        help_text="Cluster/Area this school belongs to"
+    )
     
     # New fields for school details
     area = models.CharField(max_length=200, blank=True, null=True)
@@ -22,6 +33,20 @@ class School(models.Model):
     contact_person = models.CharField(max_length=200, blank=True, null=True)
     contact_number = models.CharField(max_length=20, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
+    
+    # Location coordinates for map display
+    latitude = models.DecimalField(
+        max_digits=9, 
+        decimal_places=6, 
+        default=28.7041,
+        help_text="School latitude coordinate"
+    )
+    longitude = models.DecimalField(
+        max_digits=9, 
+        decimal_places=6, 
+        default=77.1025,
+        help_text="School longitude coordinate"
+    )
 
     status = models.SmallIntegerField(
         choices=STATUS_CHOICES,

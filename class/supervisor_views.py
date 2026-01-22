@@ -11,7 +11,7 @@ from django.db.models import Count, Q, Prefetch
 from django.core.cache import cache
 from django.db import transaction
 from .models import User, Role, School, ClassSection, FacilitatorSchool, PlannedSession, DateType
-from .forms import AddUserForm, EditUserForm, AddSchoolForm, ClassSectionForm, AssignFacilitatorForm
+from .forms import AddUserForm, EditUserForm, AddSchoolForm, EditSchoolForm, ClassSectionForm, AssignFacilitatorForm
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
@@ -282,7 +282,7 @@ def supervisor_school_edit(request, school_id):
     school = get_object_or_404(School, id=school_id)
     
     if request.method == "POST":
-        form = AddSchoolForm(request.POST, request.FILES, instance=school)
+        form = EditSchoolForm(request.POST, request.FILES, instance=school)
         if form.is_valid():
             school = form.save()
             cache_key = f"supervisor_schools_list_{request.user.id}"
@@ -290,11 +290,19 @@ def supervisor_school_edit(request, school_id):
             messages.success(request, f"School '{school.name}' updated successfully!")
             return redirect("supervisor_schools_list")
     else:
-        form = AddSchoolForm(instance=school)
+        form = EditSchoolForm(instance=school)
+    
+    # Get existing blocks for the district
+    existing_blocks = []
+    if school.district:
+        existing_blocks = list(School.objects.filter(
+            district__iexact=school.district
+        ).values_list('block', flat=True).distinct().order_by('block'))
     
     return render(request, "supervisor/schools/edit.html", {
         "form": form,
-        "school": school
+        "school": school,
+        "existing_blocks": existing_blocks
     })
 
 @login_required
@@ -409,7 +417,93 @@ def supervisor_settings(request):
 @csrf_exempt
 @login_required
 @supervisor_required
+def get_blocks_by_district(request):
+    """Get blocks for a district"""
+    district = request.GET.get('district', '')
+    
+    if not district:
+        return JsonResponse({'blocks': []})
+    
+    # Get unique blocks from schools in this district
+    blocks = School.objects.filter(
+        district__iexact=district
+    ).values_list('block', flat=True).distinct().order_by('block')
+    
+    return JsonResponse({'blocks': list(blocks)})
+
+@csrf_exempt
+@login_required
+@supervisor_required
+def get_schools_by_block(request):
+    """Get schools for a block"""
+    district = request.GET.get('district', '')
+    block = request.GET.get('block', '')
+    
+    if not district or not block:
+        return JsonResponse({'schools': []})
+    
+    # Get schools in this district and block
+    schools = School.objects.filter(
+        district__iexact=district,
+        block__iexact=block
+    ).values('id', 'name', 'latitude', 'longitude').order_by('name')
+    
+    return JsonResponse({'schools': list(schools)})
+
+@csrf_exempt
+@login_required
+@supervisor_required
+def get_all_schools(request):
+    """Get all schools with coordinates for map display"""
+    schools = School.objects.exclude(
+        latitude=28.7041,
+        longitude=77.1025
+    ).values('id', 'name', 'district', 'block', 'latitude', 'longitude').order_by('name')
+    
+    return JsonResponse({'schools': list(schools)})
+
+@csrf_exempt
+@login_required
+@supervisor_required
 def supervisor_create_user_ajax(request):
+    """AJAX endpoint for creating users"""
+    
+    if request.method == "POST":
+        full_name = request.POST.get("full_name")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        role_id = request.POST.get("role")
+        
+        if not all([full_name, email, password, role_id]):
+            return JsonResponse({"success": False, "error": "All fields are required."})
+        
+        if User.objects.filter(email=email).exists():
+            return JsonResponse({"success": False, "error": "User already exists."})
+        
+        try:
+            role = Role.objects.get(id=role_id)
+            user = User.objects.create_user(
+                email=email,
+                password=password,
+                full_name=full_name,
+                role=role
+            )
+            
+            return JsonResponse({
+                "success": True,
+                "user": {
+                    "id": str(user.id),
+                    "full_name": user.full_name,
+                    "email": user.email,
+                    "role_name": role.name
+                }
+            })
+        
+        except Role.DoesNotExist:
+            return JsonResponse({"success": False, "error": "Invalid role selected."})
+    
+    return JsonResponse({"success": False, "error": "Invalid request method."})
+    return JsonResponse({'schools': list(schools)})
     """AJAX endpoint for creating users"""
     
     if request.method == "POST":
