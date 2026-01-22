@@ -554,12 +554,11 @@ input[type="file"] {
 
 /* FIX: Modal freezing issues */
 .modal {
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: auto;
 }
 
 .modal-dialog {
     max-height: 90vh;
-    overflow-y: auto;
 }
 
 .modal-content {
@@ -571,8 +570,12 @@ input[type="file"] {
 /* Prevent body scrolling when modal is open */
 body.modal-open {
     overflow: hidden;
-    position: fixed;
-    width: 100%;
+}
+
+/* Fix modal body scrolling */
+.modal-body {
+    overflow-y: auto;
+    max-height: calc(90vh - 200px);
 }
 
 /* Fix button loading states */
@@ -1567,14 +1570,14 @@ body.modal-open {
             <!-- Feedback Collection Status -->
             <div class="row mb-4">
               <div class="col-md-6">
-                <div class="card border-info">
+                <div class="card border-primary">
                   <div class="card-body text-center py-3">
-                    <h6 class="text-info mb-2">👤 Student Feedback</h6>
-                    <div class="feedback-status" id="facilitatorStudentFeedbackStatus">
+                    <h6 class="text-primary mb-2">🧑‍🎓 Student Feedback Collection</h6>
+                    <div class="feedback-status" id="studentFeedbackStatus">
                       <span class="badge bg-secondary">Not started</span>
                     </div>
-                    <button class="btn btn-outline-info btn-sm mt-2" onclick="showFacilitatorStudentFeedbackForm()">
-                      <i class="fas fa-user-check me-1"></i>Add Feedback
+                    <button class="btn btn-outline-primary btn-sm mt-2" onclick="toggleStudentFeedbackForm()">
+                      <i class="fas fa-comments me-1"></i>Collect Student Feedback
                     </button>
                   </div>
                 </div>
@@ -1789,104 +1792,102 @@ body.modal-open {
             </div>
           </div>
 
-          <!-- Student Feedback Modal -->
-          <div class="modal fade" id="studentFeedbackModal" tabindex="-1">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                  <h5 class="modal-title">🧑‍🎓 Student Feedback Collection</h5>
-                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                  <div class="alert alert-info">
-                    <i class="fas fa-info-circle me-2"></i>
-                    <strong>Instructions:</strong> Have each student complete this feedback form. Their responses are anonymous.
-                  </div>
-                  
-                  <form id="studentFeedbackForm">
-                    {% csrf_token %}
-                    <input type="hidden" name="actual_session_id" value="{{ actual_session.id|default:'' }}">
-                    <input type="hidden" name="anonymous_student_id" id="anonymousStudentId">
-                    
-                    <div class="mb-3">
-                      <label class="form-label">1️⃣ Rate the session (1–5) <span class="text-danger">*</span></label>
-                      <div class="rating-buttons">
-                        <div class="btn-group w-100" role="group">
-                          <input type="radio" class="btn-check" name="session_rating" id="rating1" value="1" required>
-                          <label class="btn btn-outline-danger" for="rating1">1 - Poor</label>
-                          
-                          <input type="radio" class="btn-check" name="session_rating" id="rating2" value="2" required>
-                          <label class="btn btn-outline-warning" for="rating2">2 - Fair</label>
-                          
-                          <input type="radio" class="btn-check" name="session_rating" id="rating3" value="3" required>
-                          <label class="btn btn-outline-info" for="rating3">3 - Good</label>
-                          
-                          <input type="radio" class="btn-check" name="session_rating" id="rating4" value="4" required>
-                          <label class="btn btn-outline-primary" for="rating4">4 - Very Good</label>
-                          
-                          <input type="radio" class="btn-check" name="session_rating" id="rating5" value="5" required>
-                          <label class="btn btn-outline-success" for="rating5">5 - Excellent</label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label">2️⃣ Was the topic easy to understand? <span class="text-danger">*</span></label>
-                      <div class="btn-group w-100" role="group">
-                        <input type="radio" class="btn-check" name="topic_understanding" id="understand1" value="yes" required>
-                        <label class="btn btn-outline-success" for="understand1">Yes</label>
-                        
-                        <input type="radio" class="btn-check" name="topic_understanding" id="understand2" value="somewhat" required>
-                        <label class="btn btn-outline-warning" for="understand2">Somewhat</label>
-                        
-                        <input type="radio" class="btn-check" name="topic_understanding" id="understand3" value="no" required>
-                        <label class="btn btn-outline-danger" for="understand3">No</label>
-                      </div>
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label">3️⃣ Did the teacher explain clearly? <span class="text-danger">*</span></label>
-                      <div class="btn-group w-100" role="group">
-                        <input type="radio" class="btn-check" name="teacher_clarity" id="clarity1" value="yes" required>
-                        <label class="btn btn-outline-success" for="clarity1">Yes</label>
-                        
-                        <input type="radio" class="btn-check" name="teacher_clarity" id="clarity2" value="sometimes" required>
-                        <label class="btn btn-outline-warning" for="clarity2">Sometimes</label>
-                        
-                        <input type="radio" class="btn-check" name="teacher_clarity" id="clarity3" value="no" required>
-                        <label class="btn btn-outline-danger" for="clarity3">No</label>
-                      </div>
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label">4️⃣ What did you like most in this session? <span class="text-danger">*</span></label>
-                      <textarea name="session_highlights" class="form-control" rows="3" required
-                                placeholder="Tell us what you enjoyed most about today's session..."></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label">5️⃣ What can be improved in the next session? <span class="text-danger">*</span></label>
-                      <textarea name="improvement_suggestions" class="form-control" rows="3" required
-                                placeholder="How can we make the next session better?"></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label">6️⃣ Do you have any suggestions? (optional)</label>
-                      <textarea name="additional_suggestions" class="form-control" rows="2"
-                                placeholder="Any other suggestions or comments..."></textarea>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">
-                        Cancel
-                      </button>
-                      <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane me-1"></i>Submit Feedback
-                      </button>
-                    </div>
-                  </form>
-                </div>
+          <!-- Student Feedback Inline Form (NOT A MODAL) -->
+          <div id="studentFeedbackFormContainer" style="display: none;" class="card border-primary mt-4">
+            <div class="card-header bg-primary text-white">
+              <div class="d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">🧑‍🎓 Student Feedback Collection</h6>
+                <button type="button" class="btn-close btn-close-white" onclick="toggleStudentFeedbackForm()"></button>
               </div>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Instructions:</strong> Have each student complete this feedback form. Their responses are anonymous.
+              </div>
+              
+              <form id="studentFeedbackForm" method="POST" action="javascript:void(0);" novalidate>
+                {% csrf_token %}
+                <input type="hidden" name="actual_session_id" value="{{ actual_session.id|default:'' }}">
+                <input type="hidden" name="anonymous_student_id" id="anonymousStudentId">
+                
+                <div class="mb-3">
+                  <label class="form-label">1️⃣ Rate the session (1–5) <span class="text-danger">*</span></label>
+                  <div class="rating-buttons">
+                    <div class="btn-group w-100" role="group">
+                      <input type="radio" class="btn-check" name="session_rating" id="rating1" value="1" required>
+                      <label class="btn btn-outline-danger" for="rating1">1 - Poor</label>
+                      
+                      <input type="radio" class="btn-check" name="session_rating" id="rating2" value="2" required>
+                      <label class="btn btn-outline-warning" for="rating2">2 - Fair</label>
+                      
+                      <input type="radio" class="btn-check" name="session_rating" id="rating3" value="3" required>
+                      <label class="btn btn-outline-info" for="rating3">3 - Good</label>
+                      
+                      <input type="radio" class="btn-check" name="session_rating" id="rating4" value="4" required>
+                      <label class="btn btn-outline-primary" for="rating4">4 - Very Good</label>
+                      
+                      <input type="radio" class="btn-check" name="session_rating" id="rating5" value="5" required>
+                      <label class="btn btn-outline-success" for="rating5">5 - Excellent</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">2️⃣ Was the topic easy to understand? <span class="text-danger">*</span></label>
+                  <div class="btn-group w-100" role="group">
+                    <input type="radio" class="btn-check" name="topic_understanding" id="understand1" value="yes" required>
+                    <label class="btn btn-outline-success" for="understand1">Yes</label>
+                    
+                    <input type="radio" class="btn-check" name="topic_understanding" id="understand2" value="somewhat" required>
+                    <label class="btn btn-outline-warning" for="understand2">Somewhat</label>
+                    
+                    <input type="radio" class="btn-check" name="topic_understanding" id="understand3" value="no" required>
+                    <label class="btn btn-outline-danger" for="understand3">No</label>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">3️⃣ Did the teacher explain clearly? <span class="text-danger">*</span></label>
+                  <div class="btn-group w-100" role="group">
+                    <input type="radio" class="btn-check" name="teacher_clarity" id="clarity1" value="yes" required>
+                    <label class="btn btn-outline-success" for="clarity1">Yes</label>
+                    
+                    <input type="radio" class="btn-check" name="teacher_clarity" id="clarity2" value="sometimes" required>
+                    <label class="btn btn-outline-warning" for="clarity2">Sometimes</label>
+                    
+                    <input type="radio" class="btn-check" name="teacher_clarity" id="clarity3" value="no" required>
+                    <label class="btn btn-outline-danger" for="clarity3">No</label>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">4️⃣ What did you like most in this session? <span class="text-danger">*</span></label>
+                  <textarea name="session_highlights" class="form-control" rows="3" required
+                            placeholder="Tell us what you enjoyed most about today's session..."></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">5️⃣ What can be improved in the next session? <span class="text-danger">*</span></label>
+                  <textarea name="improvement_suggestions" class="form-control" rows="3" required
+                            placeholder="How can we make the next session better?"></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">6️⃣ Do you have any suggestions? (optional)</label>
+                  <textarea name="additional_suggestions" class="form-control" rows="2"
+                            placeholder="Any other suggestions or comments..."></textarea>
+                </div>
+
+                <div class="text-center">
+                  <button type="button" class="btn btn-secondary me-2" onclick="toggleStudentFeedbackForm()">
+                    Cancel
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane me-1"></i>Submit Feedback
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -1959,6 +1960,227 @@ function showMobileNotification(message, type = 'success') {
             notification.remove();
         }
     }, 3000);
+}
+
+// SIMPLE TOGGLE FOR STUDENT FEEDBACK FORM (NO MODAL)
+function toggleStudentFeedbackForm() {
+    const container = document.getElementById('studentFeedbackFormContainer');
+    if (container) {
+        if (container.style.display === 'none') {
+            container.style.display = 'block';
+            // Generate anonymous ID when form opens
+            const anonIdInput = document.getElementById('anonymousStudentId');
+            if (anonIdInput && !anonIdInput.value) {
+                const anonymousId = 'student_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                anonIdInput.value = anonymousId;
+            }
+            // Scroll to form
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            container.style.display = 'none';
+        }
+    }
+}
+
+// TEACHER FEEDBACK FORM FUNCTIONS
+function showTeacherFeedbackForm() {
+    const form = document.getElementById('teacherFeedbackForm');
+    if (form) {
+        form.style.display = 'block';
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function hideTeacherFeedbackForm() {
+    const form = document.getElementById('teacherFeedbackForm');
+    if (form) {
+        form.style.display = 'none';
+    }
+}
+
+// FACILITATOR STUDENT FEEDBACK FORM FUNCTIONS
+function showFacilitatorStudentFeedbackForm() {
+    const form = document.getElementById('facilitatorStudentFeedbackForm');
+    if (form) {
+        form.style.display = 'block';
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function hideFacilitatorStudentFeedbackForm() {
+    const form = document.getElementById('facilitatorStudentFeedbackForm');
+    if (form) {
+        form.style.display = 'none';
+    }
+}
+
+// CONTENT EXPANSION TOGGLE
+function toggleContentExpansion() {
+    const content = document.querySelector('.curriculum-content-mobile');
+    const btn = document.getElementById('expandToggleBtn');
+    const text = document.getElementById('expandToggleText');
+    
+    if (content) {
+        content.classList.toggle('curriculum-expanded');
+        if (content.classList.contains('curriculum-expanded')) {
+            text.textContent = 'Collapse';
+            if (btn) btn.classList.add('active');
+        } else {
+            text.textContent = 'Expand';
+            if (btn) btn.classList.remove('active');
+        }
+    }
+}
+
+// REFRESH CONTENT
+function refreshContent() {
+    location.reload();
+}
+
+// COMPLETE SESSION
+function completeSession() {
+    if (confirm('Are you sure you want to complete this session?')) {
+        // This will be handled by the form submission
+        const btn = document.getElementById('completeSessionBtn');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Processing...';
+        }
+    }
+}
+
+// STUDENT FEEDBACK FORM SUBMISSION HANDLER
+function setupStudentFeedbackFormHandler() {
+    const studentFeedbackForm = document.getElementById('studentFeedbackForm');
+    if (!studentFeedbackForm) {
+        console.log('Student feedback form NOT found');
+        return;
+    }
+    
+    console.log('Setting up student feedback form handler');
+    
+    // Remove any existing listeners first
+    const newForm = studentFeedbackForm.cloneNode(true);
+    studentFeedbackForm.parentNode.replaceChild(newForm, studentFeedbackForm);
+    
+    // Now attach to the new form
+    const form = document.getElementById('studentFeedbackForm');
+    
+    form.addEventListener('submit', async function(e) {
+        console.log('Student feedback form submit event triggered');
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }, false);
+    
+    form.onsubmit = async function(e) {
+        console.log('Student feedback form onsubmit triggered');
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Form submission prevented, proceeding with fetch');
+        
+        // Ensure anonymous ID is set
+        const anonIdInput = document.getElementById('anonymousStudentId');
+        if (!anonIdInput.value) {
+            const anonymousId = 'student_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            anonIdInput.value = anonymousId;
+        }
+        
+        // Manual validation
+        const sessionRating = document.querySelector('input[name="session_rating"]:checked');
+        const topicUnderstanding = document.querySelector('input[name="topic_understanding"]:checked');
+        const teacherClarity = document.querySelector('input[name="teacher_clarity"]:checked');
+        const sessionHighlights = document.querySelector('textarea[name="session_highlights"]').value.trim();
+        const improvementSuggestions = document.querySelector('textarea[name="improvement_suggestions"]').value.trim();
+        
+        if (!sessionRating) {
+            alert('Please select a session rating');
+            return false;
+        }
+        if (!topicUnderstanding) {
+            alert('Please select topic understanding');
+            return false;
+        }
+        if (!teacherClarity) {
+            alert('Please select teacher clarity');
+            return false;
+        }
+        if (!sessionHighlights) {
+            alert('Please tell us what you liked most');
+            return false;
+        }
+        if (!improvementSuggestions) {
+            alert('Please tell us what can be improved');
+            return false;
+        }
+        
+        // Disable submit button
+        const submitBtn = this.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Submitting...';
+        }
+        
+        // Use FormData from the form itself
+        const formData = new FormData(this);
+        
+        // Log what's being sent
+        console.log('Submitting form data:');
+        for (let [key, value] of formData.entries()) {
+            console.log(key + ':', value);
+        }
+        
+        try {
+            console.log('Sending fetch request to /api/save-student-feedback/');
+            const response = await fetch('/api/save-student-feedback/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            });
+            
+            console.log('Response received:', response.status);
+            const result = await response.json();
+            console.log('Response:', result);
+            
+            if (result.success) {
+                alert('Student feedback submitted successfully!');
+                
+                // Hide form
+                toggleStudentFeedbackForm();
+                
+                // Reset form
+                this.reset();
+                
+                // Update feedback status
+                if (typeof updateStudentFeedbackStatus === 'function') {
+                    updateStudentFeedbackStatus();
+                }
+            } else {
+                alert('Error submitting feedback: ' + (result.error || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error submitting feedback. Please try again.');
+        } finally {
+            // Re-enable submit button
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane me-1"></i>Submit Feedback';
+            }
+        }
+        
+        return false;
+    };
+}
+
+// Call setup function immediately when script loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupStudentFeedbackFormHandler);
+} else {
+    setupStudentFeedbackFormHandler();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -2145,7 +2367,7 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 resultDiv.innerHTML = '<div class="alert alert-info">Uploading lesson plan...</div>';
                 
-                const response = await fetch('{% url "upload_lesson_plan" %}', {
+                const response = await fetch('/api/upload-lesson-plan/', {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -2202,7 +2424,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(document.getElementById('preparationForm'));
         
         try {
-            await fetch('{% url "save_preparation_checklist" %}', {
+            await fetch('/api/save-preparation-checklist/', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -2236,7 +2458,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(this);
             
             try {
-                const response = await fetch('{% url "save_session_reward" %}', {
+                const response = await fetch('/api/save-session-reward/', {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -2274,7 +2496,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(sessionTrackingForm);
         
         try {
-            await fetch('{% url "save_session_tracking" %}', {
+            await fetch('/api/save-session-tracking/', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -2295,7 +2517,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(this);
             
             try {
-                const response = await fetch('{% url "save_session_feedback" %}', {
+                const response = await fetch('/api/save-session-feedback/', {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -2479,44 +2701,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Student Feedback Form Handler
-    const studentFeedbackForm = document.getElementById('studentFeedbackForm');
-    if (studentFeedbackForm) {
-        studentFeedbackForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            
-            try {
-                const response = await fetch('{% url "save_student_feedback" %}', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                    }
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showNotification('Student feedback submitted successfully!', 'success');
-                    
-                    // Close modal
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('studentFeedbackModal'));
-                    modal.hide();
-                    
-                    // Reset form
-                    this.reset();
-                    
-                    // Update feedback status
-                    updateStudentFeedbackStatus();
-                } else {
-                    showNotification('Error submitting feedback: ' + result.error, 'danger');
-                }
-            } catch (error) {
-                showNotification('Error submitting feedback. Please try again.', 'danger');
-            }
-        });
-    }
     
     // Teacher Feedback Form Handler
     const teacherReflectionForm = document.getElementById('teacherReflectionForm');
@@ -2527,7 +2711,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(this);
             
             try {
-                const response = await fetch('{% url "save_teacher_feedback" %}', {
+                const response = await fetch('/api/save-teacher-feedback/', {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -2570,7 +2754,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
             
-            const response = await fetch('{% url "get_feedback_status" %}?session_id=' + sessionId, {
+            const response = await fetch('/api/get-feedback-status/?session_id=' + sessionId, {
                 signal: controller.signal
             });
             clearTimeout(timeoutId);
@@ -2613,7 +2797,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
             
-            const response = await fetch('{% url "get_feedback_status" %}?session_id=' + sessionId, {
+            const response = await fetch('/api/get-feedback-status/?session_id=' + sessionId, {
                 signal: controller.signal
             });
             clearTimeout(timeoutId);
@@ -3012,14 +3196,7 @@ function deleteTask(taskId) {
 }
 
 // Complete session and redirect to mark attendance
-function completeSession() {
-    {% if actual_session %}
-    const attendanceUrl = '{% url 'mark_attendance' actual_session.id %}';
-    window.location.href = attendanceUrl;
-    {% else %}
-    alert('Session not initialized. Please refresh the page.');
-    {% endif %}
-}
+
 </script>
 
 <style>
@@ -3432,6 +3609,18 @@ img.rounded {
 document.addEventListener('DOMContentLoaded', function() {
     // Handle all session action buttons
     document.querySelectorAll('form[action*="start_session"]').forEach(form => {
+        form.addEventListener('submit', function() {
+            const btn = this.querySelector('button[type="submit"]');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Processing...';
+            }
+        });
+    });
+    
+    // STUDENT FEEDBACK FORM SUBMISSION
+    setupStudentFeedbackFormHandler();
+});
         form.addEventListener('submit', function(e) {
             const submitBtn = this.querySelector('button[type="submit"]');
             if (submitBtn && !submitBtn.disabled) {
@@ -3443,118 +3632,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Conduct button fix applied');
 });
-
-// FIX 2: Student feedback form - prevent freezing
-document.addEventListener('DOMContentLoaded', function() {
-    const studentFeedbackForm = document.getElementById('studentFeedbackForm');
-    if (studentFeedbackForm) {
-        studentFeedbackForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Disable submit button
-            const submitBtn = this.querySelector('button[type="submit"]');
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Submitting...';
-            }
-            
-            // Validate required fields
-            if (!document.getElementById('sessionRatingInput') || !document.getElementById('sessionRatingInput').value) {
-                alert('Please select a rating');
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane me-1"></i>Submit Feedback';
-                }
-                return;
-            }
-            
-            const formData = new FormData(this);
-            
-            try {
-                const response = await fetch('{% url "save_student_feedback" %}', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                    }
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert('Student feedback submitted successfully!');
-                    
-                    // Close modal PROPERLY
-                    const modalElement = document.getElementById('studentFeedbackModal');
-                    const modal = bootstrap.Modal.getInstance(modalElement);
-                    if (modal) modal.hide();
-                    
-                    // Reset form
-                    this.reset();
-                    
-                    // Update feedback status
-                    if (typeof updateStudentFeedbackStatus === 'function') {
-                        updateStudentFeedbackStatus();
-                    }
-                } else {
-                    alert('Error submitting feedback: ' + (result.error || 'Unknown error'));
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error submitting feedback. Please try again.');
-            } finally {
-                // Re-enable button
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane me-1"></i>Submit Feedback';
-                }
-            }
-        });
-    }
-    
-    console.log('Student feedback form fix applied');
-});
-
-// FIX 3: Show student feedback modal - prevent freezing
-window.showStudentFeedbackModal = function() {
-    try {
-        // Generate anonymous student ID
-        const anonymousId = 'student_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        const idInput = document.getElementById('anonymousStudentId');
-        if (idInput) {
-            idInput.value = anonymousId;
-        }
-        
-        // Show modal using Bootstrap 5
-        const modalElement = document.getElementById('studentFeedbackModal');
-        if (modalElement) {
-            const modal = new bootstrap.Modal(modalElement);
-            modal.show();
-            
-            // Reset form when modal is shown
-            const form = document.getElementById('studentFeedbackForm');
-            if (form) {
-                form.reset();
-            }
-        }
-    } catch (error) {
-        console.error('Error showing feedback modal:', error);
-        alert('Error opening feedback form. Please try again.');
-    }
-};
-
-// FIX 4: Debug logging for troubleshooting
-console.log('Page loaded - checking for issues');
-if (typeof bootstrap === 'undefined') {
-    console.error('Bootstrap not loaded!');
-} else {
-    console.log('Bootstrap loaded successfully');
-}
-
-// Monitor form submissions
-document.addEventListener('submit', function(e) {
-    console.log('Form submitted:', e.target.id || e.target.className);
-}, true);
 
 console.log('All fixes applied successfully');
 </script>

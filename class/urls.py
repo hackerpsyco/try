@@ -40,6 +40,13 @@ from .supervisor_views import (
     get_schools_by_block,
     get_all_schools,
     
+    # Supervisor - Clusters
+    clusters_list,
+    cluster_create,
+    cluster_edit,
+    cluster_detail,
+    cluster_delete,
+    
     # Supervisor - Classes
     supervisor_classes_list,
     supervisor_class_create,
@@ -70,6 +77,12 @@ from .supervisor_views import (
     # Supervisor - Student Import
     supervisor_student_import,
     supervisor_download_sample_csv,
+    
+    # Supervisor - Sessions
+    supervisor_sessions_list,
+    supervisor_session_detail,
+    supervisor_class_sessions,
+    supervisor_school_sessions_analytics,
 )
 from .views import (
 
@@ -204,6 +217,13 @@ urlpatterns = [
     path("supervisor/schools/api/blocks/", get_blocks_by_district, name="get_blocks_by_district"),
     path("supervisor/schools/api/schools/", get_schools_by_block, name="get_schools_by_block"),
     
+    # Clusters
+    path("supervisor/clusters/", clusters_list, name="clusters_list"),
+    path("supervisor/clusters/create/", cluster_create, name="cluster_create"),
+    path("supervisor/clusters/<uuid:cluster_id>/edit/", cluster_edit, name="cluster_edit"),
+    path("supervisor/clusters/<uuid:cluster_id>/", cluster_detail, name="cluster_detail"),
+    path("supervisor/clusters/<uuid:cluster_id>/delete/", cluster_delete, name="cluster_delete"),
+    
     # Classes
     path("supervisor/classes/", supervisor_classes_list, name="supervisor_classes_list"),
     path("supervisor/classes/bulk-add/", supervisor_bulk_add_classes, name="supervisor_bulk_add_classes"),
@@ -230,6 +250,12 @@ urlpatterns = [
     path("supervisor/calendar/add-date/", supervisor_calendar_add_date, name="supervisor_calendar_add_date"),
     path("supervisor/calendar/edit-date/<uuid:date_id>/", supervisor_calendar_edit_date, name="supervisor_calendar_edit_date"),
     path("supervisor/calendar/delete-date/<uuid:date_id>/", supervisor_calendar_delete_date, name="supervisor_calendar_delete_date"),
+    
+    # Sessions Management (NEW)
+    path("supervisor/sessions/", supervisor_sessions_list, name="supervisor_sessions_list"),
+    path("supervisor/sessions/<uuid:session_id>/", supervisor_session_detail, name="supervisor_session_detail"),
+    path("supervisor/class/<uuid:class_id>/sessions/", supervisor_class_sessions, name="supervisor_class_sessions"),
+    path("supervisor/school/<uuid:school_id>/sessions-analytics/", supervisor_school_sessions_analytics, name="supervisor_school_sessions_analytics"),
     
     # Feedback & Analytics
     # ======================

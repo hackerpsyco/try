@@ -10,8 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count, Q, Prefetch
 from django.core.cache import cache
 from django.db import transaction
-from .models import User, Role, School, ClassSection, FacilitatorSchool, PlannedSession, DateType
-from .forms import AddUserForm, EditUserForm, AddSchoolForm, EditSchoolForm, ClassSectionForm, AssignFacilitatorForm
+from .models import User, Role, School, ClassSection, FacilitatorSchool, PlannedSession, DateType, Cluster
+from .forms import AddUserForm, EditUserForm, AddSchoolForm, EditSchoolForm, ClassSectionForm, AssignFacilitatorForm, ClusterForm
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
@@ -1517,3 +1517,385 @@ def supervisor_download_sample_csv(request):
         writer.writerow(row)
     
     return response
+
+
+
+# =====================================================
+# CLUSTER MANAGEMENT VIEWS
+# =====================================================
+
+@login_required
+def clusters_list(request):
+    """List all clusters"""
+    if request.user.role.name.upper() != "SUPERVISOR":
+        messages.error(request, "You do not have permission to view clusters.")
+        return redirect("no_permission")
+    
+    clusters = Cluster.objects.all().annotate(
+        school_count=Count('schools')
+    ).order_by('district', 'name')
+    
+    return render(request, 'supervisor/clusters/list.html', {
+        'clusters': clusters
+    })
+
+
+@login_required
+def cluster_create(request):
+    """Create a new cluster"""
+    if request.user.role.name.upper() != "SUPERVISOR":
+        messages.error(request, "You do not have permission to create clusters.")
+        return redirect("no_permission")
+    
+    if request.method == 'POST':
+        form = ClusterForm(request.POST)
+        if form.is_valid():
+            cluster = form.save()
+            messages.success(request, f"Cluster '{cluster.name}' created successfully!")
+            return redirect('clusters_list')
+    else:
+        form = ClusterForm()
+    
+    return render(request, 'supervisor/clusters/form.html', {
+        'form': form,
+        'title': 'Create Cluster'
+    })
+
+
+@login_required
+def cluster_edit(request, cluster_id):
+    """Edit a cluster"""
+    if request.user.role.name.upper() != "SUPERVISOR":
+        messages.error(request, "You do not have permission to edit clusters.")
+        return redirect("no_permission")
+    
+    cluster = get_object_or_404(Cluster, id=cluster_id)
+    
+    if request.method == 'POST':
+        form = ClusterForm(request.POST, instance=cluster)
+        if form.is_valid():
+            cluster = form.save()
+            messages.success(request, f"Cluster '{cluster.name}' updated successfully!")
+            return redirect('clusters_list')
+    else:
+        form = ClusterForm(instance=cluster)
+    
+    return render(request, 'supervisor/clusters/form.html', {
+        'form': form,
+        'cluster': cluster,
+        'title': 'Edit Cluster'
+    })
+
+
+@login_required
+def cluster_detail(request, cluster_id):
+    """View cluster details and schools in it"""
+    if request.user.role.name.upper() != "SUPERVISOR":
+        messages.error(request, "You do not have permission to view cluster details.")
+        return redirect("no_permission")
+    
+    cluster = get_object_or_404(Cluster, id=cluster_id)
+    schools = cluster.schools.all().order_by('name')
+    
+    return render(request, 'supervisor/clusters/detail.html', {
+        'cluster': cluster,
+        'schools': schools
+    })
+
+
+@login_required
+def cluster_delete(request, cluster_id):
+    """Delete a cluster"""
+    if request.user.role.name.upper() != "SUPERVISOR":
+        messages.error(request, "You do not have permission to delete clusters.")
+        return redirect("no_permission")
+    
+    cluster = get_object_or_404(Cluster, id=cluster_id)
+    
+    if request.method == 'POST':
+        cluster_name = cluster.name
+        cluster.delete()
+        messages.success(request, f"Cluster '{cluster_name}' deleted successfully!")
+        return redirect('clusters_list')
+    
+    return render(request, 'supervisor/clusters/confirm_delete.html', {
+        'cluster': cluster
+    })
+
+
+# =====================================================
+# Supervisor Sessions Management
+# =====================================================
+@login_required
+@supervisor_required
+def supervisor_sessions_list(request):
+    """List all sessions for supervisor's schools with filters"""
+    from .models import ActualSession, Attendance, AttendanceStatus, SessionStatus
+    from django.db.models import Count, Q, Avg
+    import json
+    
+    # Get all schools managed by this supervisor
+    supervisor_schools = School.objects.all()
+    
+    # Get filter parameters
+    school_id = request.GET.get('school_id')
+    class_id = request.GET.get('class_id')
+    status_filter = request.GET.get('status')
+    
+    # Start with all actual sessions (not planned sessions)
+    actual_sessions = ActualSession.objects.select_related(
+        'planned_session__class_section__school'
+    ).prefetch_related(
+        'planned_session__class_section__enrollments'
+    )
+    
+    # Filter by school if specified
+    if school_id:
+        actual_sessions = actual_sessions.filter(planned_session__class_section__school_id=school_id)
+    
+    # Filter by class if specified
+    if class_id:
+        actual_sessions = actual_sessions.filter(planned_session__class_section_id=class_id)
+    
+    # Filter by status if specified
+    if status_filter:
+        # Convert status string to integer
+        status_map = {
+            'conducted': SessionStatus.CONDUCTED,
+            'holiday': SessionStatus.HOLIDAY,
+            'cancelled': SessionStatus.CANCELLED
+        }
+        if status_filter in status_map:
+            actual_sessions = actual_sessions.filter(status=status_map[status_filter])
+    
+    # Order by date
+    actual_sessions = actual_sessions.order_by('-date')[:100]
+    
+    # Get schools for filter dropdown
+    schools = supervisor_schools.order_by('name')
+    
+    # Get classes for filter dropdown - all classes
+    all_classes = ClassSection.objects.filter(school__in=supervisor_schools).select_related('school').order_by('school__name', 'class_level')
+    
+    # Get classes for selected school only (for cascading filter)
+    selected_school_classes = []
+    if school_id:
+        selected_school_classes = ClassSection.objects.filter(school_id=school_id).order_by('class_level', 'section')
+    
+    # Build class data with grouping info for JavaScript
+    class_data = {}
+    for cls in all_classes:
+        school_key = str(cls.school_id)
+        if school_key not in class_data:
+            class_data[school_key] = []
+        
+        # Check if class is part of a grouped session
+        grouped_sessions = PlannedSession.objects.filter(
+            class_section=cls,
+            grouped_session_id__isnull=False
+        ).values_list('grouped_session_id', flat=True).distinct()
+        
+        is_grouped = grouped_sessions.exists()
+        
+        class_data[school_key].append({
+            'id': str(cls.id),
+            'name': cls.display_name,
+            'is_grouped': is_grouped,
+            'grouped_count': PlannedSession.objects.filter(
+                grouped_session_id__in=grouped_sessions
+            ).values('class_section').distinct().count() if is_grouped else 0
+        })
+    
+    return render(request, 'supervisor/sessions/list.html', {
+        'sessions': actual_sessions,
+        'schools': schools,
+        'classes': all_classes,
+        'selected_school_classes': selected_school_classes,
+        'class_data_json': json.dumps(class_data),
+        'selected_school': school_id,
+        'selected_class': class_id,
+        'selected_status': status_filter
+    })
+
+
+@login_required
+@supervisor_required
+def supervisor_session_detail(request, session_id):
+    """View detailed session information including attendance and feedback"""
+    from .models import ActualSession, Attendance, StudentFeedback
+    
+    session = get_object_or_404(PlannedSession, id=session_id)
+    
+    # Get actual session if it exists
+    actual_session = ActualSession.objects.filter(
+        planned_session=session
+    ).first()
+    
+    # Get attendance records
+    attendance_records = []
+    if actual_session:
+        attendance_records = Attendance.objects.filter(
+            actual_session=actual_session
+        ).select_related('enrollment__student')
+    
+    # Get student feedback
+    feedback = []
+    if actual_session:
+        feedback = StudentFeedback.objects.filter(
+            actual_session=actual_session
+        )
+    
+    # Calculate statistics
+    from .models import AttendanceStatus
+    total_students = session.class_section.enrollments.filter(is_active=True).count()
+    present_count = attendance_records.filter(status=AttendanceStatus.PRESENT).count()
+    absent_count = attendance_records.filter(status=AttendanceStatus.ABSENT).count()
+    leave_count = attendance_records.filter(status=AttendanceStatus.LEAVE).count()
+    
+    attendance_percentage = 0
+    if total_students > 0:
+        attendance_percentage = round((present_count / total_students) * 100, 2)
+    
+    # Average feedback rating
+    avg_rating = 0
+    if feedback.exists():
+        avg_rating = feedback.aggregate(Avg('session_rating'))['session_rating__avg'] or 0
+    
+    return render(request, 'supervisor/sessions/detail.html', {
+        'session': session,
+        'actual_session': actual_session,
+        'attendance_records': attendance_records,
+        'feedback': feedback,
+        'total_students': total_students,
+        'present_count': present_count,
+        'absent_count': absent_count,
+        'leave_count': leave_count,
+        'attendance_percentage': attendance_percentage,
+        'avg_rating': avg_rating
+    })
+
+
+@login_required
+@supervisor_required
+def supervisor_class_sessions(request, class_id):
+    """View all sessions for a specific class"""
+    from .models import ActualSession
+    
+    class_section = get_object_or_404(ClassSection, id=class_id)
+    
+    # Get all sessions for this class
+    sessions = PlannedSession.objects.filter(
+        class_section=class_section
+    ).order_by('day_number')
+    
+    # Annotate with actual session status
+    sessions = sessions.prefetch_related(
+        Prefetch(
+            'actual_sessions',
+            queryset=ActualSession.objects.select_related('planned_session')
+        )
+    )
+    
+    # Get attendance summary for each session
+    session_data = []
+    for session in sessions:
+        actual_session = session.actual_sessions.first() if session.actual_sessions.exists() else None
+        
+        attendance_count = 0
+        if actual_session:
+            from .models import Attendance, AttendanceStatus
+            attendance_count = Attendance.objects.filter(
+                actual_session=actual_session,
+                status=AttendanceStatus.PRESENT
+            ).count()
+        
+        session_data.append({
+            'session': session,
+            'actual_session': actual_session,
+            'attendance_count': attendance_count
+        })
+    
+    return render(request, 'supervisor/sessions/class_sessions.html', {
+        'class_section': class_section,
+        'session_data': session_data
+    })
+
+
+@login_required
+@supervisor_required
+def supervisor_school_sessions_analytics(request, school_id):
+    """View session analytics for a school"""
+    from .models import ActualSession, Attendance
+    
+    school = get_object_or_404(School, id=school_id)
+    
+    # Get all classes in this school
+    classes = ClassSection.objects.filter(school=school)
+    
+    # Get all sessions for this school
+    sessions = PlannedSession.objects.filter(
+        class_section__school=school
+    )
+    
+    # Calculate statistics
+    from .models import SessionStatus, AttendanceStatus
+    total_sessions = sessions.count()
+    conducted_sessions = ActualSession.objects.filter(
+        planned_session__class_section__school=school,
+        status=SessionStatus.CONDUCTED
+    ).count()
+    
+    holiday_sessions = ActualSession.objects.filter(
+        planned_session__class_section__school=school,
+        status=SessionStatus.HOLIDAY
+    ).count()
+    
+    cancelled_sessions = ActualSession.objects.filter(
+        planned_session__class_section__school=school,
+        status=SessionStatus.CANCELLED
+    ).count()
+    
+    pending_sessions = total_sessions - conducted_sessions - holiday_sessions - cancelled_sessions
+    
+    # Calculate average attendance
+    total_attendance = Attendance.objects.filter(
+        actual_session__planned_session__class_section__school=school
+    ).count()
+    
+    present_count = Attendance.objects.filter(
+        actual_session__planned_session__class_section__school=school,
+        status=AttendanceStatus.PRESENT
+    ).count()
+    
+    avg_attendance = 0
+    if total_attendance > 0:
+        avg_attendance = round((present_count / total_attendance) * 100, 2)
+    
+    # Get class-wise breakdown
+    class_stats = []
+    for class_section in classes:
+        class_sessions = PlannedSession.objects.filter(class_section=class_section)
+        class_conducted = ActualSession.objects.filter(
+            planned_session__class_section=class_section,
+            status=SessionStatus.CONDUCTED
+        ).count()
+        
+        class_pending = class_sessions.count() - class_conducted
+        
+        class_stats.append({
+            'class': class_section,
+            'total_sessions': class_sessions.count(),
+            'conducted': class_conducted,
+            'pending': class_pending
+        })
+    
+    return render(request, 'supervisor/sessions/school_analytics.html', {
+        'school': school,
+        'total_sessions': total_sessions,
+        'conducted_sessions': conducted_sessions,
+        'holiday_sessions': holiday_sessions,
+        'cancelled_sessions': cancelled_sessions,
+        'pending_sessions': pending_sessions,
+        'avg_attendance': avg_attendance,
+        'class_stats': class_stats
+    })

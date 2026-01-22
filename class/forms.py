@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
-from .models import User, Role, School, ClassSection,FacilitatorSchool
+from .models import User, Role, School, Cluster, ClassSection,FacilitatorSchool
 
 # Indian States
 INDIAN_STATES = [
@@ -211,3 +211,18 @@ class AssignFacilitatorForm(forms.ModelForm):
         self.fields["facilitator"].queryset = User.objects.filter(
             role__name__iexact="FACILITATOR"
         )
+
+
+# ---------------- Cluster Form ----------------
+class ClusterForm(forms.ModelForm):
+    class Meta:
+        model = Cluster
+        fields = ["name", "district", "state", "description", "latitude", "longitude"]
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control", "placeholder": "Cluster Name"}),
+            "district": forms.TextInput(attrs={"class": "form-control", "placeholder": "District"}),
+            "state": forms.Select(attrs={"class": "form-control"}, choices=INDIAN_STATES),
+            "description": forms.Textarea(attrs={"class": "form-control", "placeholder": "Description", "rows": 3}),
+            "latitude": forms.NumberInput(attrs={"class": "form-control", "placeholder": "Latitude", "step": "0.000001"}),
+            "longitude": forms.NumberInput(attrs={"class": "form-control", "placeholder": "Longitude", "step": "0.000001"}),
+        }

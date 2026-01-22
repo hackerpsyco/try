@@ -5240,6 +5240,11 @@ def save_student_feedback(request):
         return JsonResponse({"success": False, "error": "Invalid request method"}, status=405)
     
     try:
+        # Log all POST data for debugging
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Student feedback POST data: {dict(request.POST)}")
+        
         actual_session_id = request.POST.get('actual_session_id')
         if not actual_session_id:
             return JsonResponse({"success": False, "error": "Missing actual_session_id"}, status=400)
@@ -5259,18 +5264,27 @@ def save_student_feedback(request):
             'session_highlights', 'improvement_suggestions', 'anonymous_student_id'
         ]
         
+        missing_fields = []
         for field in required_fields:
-            if not request.POST.get(field):
-                return JsonResponse({"success": False, "error": f"{field.replace('_', ' ').title()} is required"}, status=400)
+            value = request.POST.get(field, '').strip()
+            if not value:
+                missing_fields.append(field)
+        
+        if missing_fields:
+            logger.warning(f"Missing fields: {missing_fields}")
+            return JsonResponse({
+                "success": False, 
+                "error": f"Missing required fields: {', '.join(missing_fields)}"
+            }, status=400)
         
         # Clean anonymous student ID to prevent invalid characters
-        anonymous_student_id = request.POST.get('anonymous_student_id')
+        anonymous_student_id = request.POST.get('anonymous_student_id', '').strip()
         # Remove any non-ASCII characters that might cause issues
         import re
         anonymous_student_id = re.sub(r'[^\w\-_]', '', anonymous_student_id)
         
         if not anonymous_student_id:
-            return JsonResponse({"success": False, "error": "Invalid anonymous student ID"}, status=400)
+            return JsonResponse({"success": False, "error": "Invalid anonymous student ID after cleaning"}, status=400)
         
         from .models import StudentFeedback
         

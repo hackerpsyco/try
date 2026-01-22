@@ -1,0 +1,175 @@
+{% extends "supervisor/shared/base.html" %}
+
+{% block title %}Sessions - Supervisor{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Sessions Management</h1>
+        <p class="text-gray-600">View and manage all sessions across your schools</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- School Filter -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">🏫 School</label>
+                <select id="schoolFilter" name="school_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">All Schools</option>
+                    {% for school in schools %}
+                    <option value="{{ school.id }}" {% if school.id|stringformat:"s" == selected_school %}selected{% endif %}>
+                        {{ school.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Class Filter (Cascading) -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">📚 Class</label>
+                <select id="classFilter" name="class_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">All Classes</option>
+                    {% for class in selected_school_classes %}
+                    <option value="{{ class.id }}" {% if class.id|stringformat:"s" == selected_class %}selected{% endif %}>
+                        {{ class.display_name }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <small class="text-gray-500 mt-1 block" id="classInfo"></small>
+            </div>
+
+            <!-- Status Filter -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                <select name="status" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">All Status</option>
+                    <option value="conducted" {% if selected_status == "conducted" %}selected{% endif %}>✅ Conducted</option>
+                    <option value="holiday" {% if selected_status == "holiday" %}selected{% endif %}>🌤️ Holiday</option>
+                    <option value="cancelled" {% if selected_status == "cancelled" %}selected{% endif %}>❌ Cancelled</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex gap-2 items-end">
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex-1">
+                    🔍 Filter
+                </button>
+                <a href="{% url 'supervisor_sessions_list' %}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">
+                    Clear
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Sessions Table -->
+    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-gray-50 border-b border-gray-200">
+                <tr>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">School</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Class</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Day</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Title</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Status</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Date</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Action</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for session in sessions %}
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 text-sm text-gray-900">{{ session.planned_session.class_section.school.name }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-900">
+                        {{ session.planned_session.class_section.display_name }}
+                        {% if session.planned_session.grouped_session_id %}
+                        <span class="ml-2 px-2 py-1 bg-purple-100 text-purple-800 rounded text-xs">🔗 Grouped</span>
+                        {% else %}
+                        <span class="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">Single</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900">Day {{ session.planned_session.day_number }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-900">{{ session.planned_session.title }}</td>
+                    <td class="px-6 py-4 text-sm">
+                        {% if session.status == 1 %}
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">✅ Conducted</span>
+                        {% elif session.status == 2 %}
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">🌤️ Holiday</span>
+                        {% elif session.status == 3 %}
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">❌ Cancelled</span>
+                        {% else %}
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-xs font-medium">⏳ Pending</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900">{{ session.date|date:"M d, Y" }}</td>
+                    <td class="px-6 py-4 text-sm">
+                        <a href="{% url 'supervisor_session_detail' session.planned_session.id %}" class="text-blue-600 hover:text-blue-800 font-medium">
+                            View Details →
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="px-6 py-8 text-center text-gray-500">
+                        No sessions found
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// Cascading filter data
+const classData = {{ class_data_json|safe }};
+
+// School filter change - update class filter
+document.getElementById('schoolFilter').addEventListener('change', function() {
+    const schoolId = this.value;
+    const classFilter = document.getElementById('classFilter');
+    const classInfo = document.getElementById('classInfo');
+    
+    // Clear class filter
+    classFilter.innerHTML = '<option value="">All Classes</option>';
+    classInfo.textContent = '';
+    
+    if (schoolId && classData[schoolId]) {
+        // Add classes for selected school
+        classData[schoolId].forEach(cls => {
+            const option = document.createElement('option');
+            option.value = cls.id;
+            option.textContent = cls.name + (cls.is_grouped ? ' (🔗 Grouped - ' + cls.grouped_count + ' classes)' : ' (Single)');
+            classFilter.appendChild(option);
+        });
+    }
+});
+
+// Class filter change - show grouping info
+document.getElementById('classFilter').addEventListener('change', function() {
+    const schoolId = document.getElementById('schoolFilter').value;
+    const classId = this.value;
+    const classInfo = document.getElementById('classInfo');
+    
+    if (schoolId && classId && classData[schoolId]) {
+        const selectedClass = classData[schoolId].find(cls => cls.id === classId);
+        if (selectedClass) {
+            if (selectedClass.is_grouped) {
+                classInfo.textContent = `🔗 This is a grouped session with ${selectedClass.grouped_count} classes`;
+            } else {
+                classInfo.textContent = '📌 This is a single class session';
+            }
+        }
+    }
+});
+
+// Initialize class filter on page load if school is selected
+window.addEventListener('load', function() {
+    const schoolId = document.getElementById('schoolFilter').value;
+    if (schoolId) {
+        document.getElementById('schoolFilter').dispatchEvent(new Event('change'));
+    }
+});
+</script>
+{% endblock %}
