@@ -5342,7 +5342,15 @@ def save_teacher_feedback(request):
     
     try:
         actual_session_id = request.POST.get('actual_session_id')
+        if not actual_session_id:
+            return JsonResponse({"success": False, "error": "Missing actual_session_id"}, status=400)
+        
         actual_session = get_object_or_404(ActualSession, id=actual_session_id)
+        
+        # Set facilitator if not already set
+        if not actual_session.facilitator:
+            actual_session.facilitator = request.user
+            actual_session.save()
         
         # Verify facilitator has access to this session
         if actual_session.facilitator != request.user:
@@ -5354,9 +5362,13 @@ def save_teacher_feedback(request):
             'successful_elements', 'improvement_areas'
         ]
         
+        missing_fields = []
         for field in required_fields:
             if not request.POST.get(field):
-                return JsonResponse({"success": False, "error": f"{field.replace('_', ' ').title()} is required"}, status=400)
+                missing_fields.append(field)
+        
+        if missing_fields:
+            return JsonResponse({"success": False, "error": f"Missing required fields: {', '.join(missing_fields)}"}, status=400)
         
         from .models import TeacherFeedback
         

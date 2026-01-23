@@ -24763,3 +24763,472 @@ INFO 2026-01-23 01:37:57,180 basehttp 38836 24212 - Broken pipe from ('127.0.0.1
 WARNING 2026-01-23 01:37:58,785 session_auth_fix 38836 27512 Unauthorized access attempt by demo@gmail.com to /favicon.ico
 INFO 2026-01-23 01:37:58,786 basehttp 38836 27512 "GET /favicon.ico HTTP/1.1" 302 0
 INFO 2026-01-23 01:38:03,570 basehttp 38836 27512 "GET /supervisor/dashboard/ HTTP/1.1" 200 4824
+INFO 2026-01-23 17:08:17,047 autoreload 26336 23352 Watching for file changes with StatReloader
+WARNING 2026-01-23 18:51:55,397 session_auth_fix 26336 20740 Unauthorized access attempt by demo@gmail.com to /
+INFO 2026-01-23 18:51:55,460 basehttp 26336 20740 "GET / HTTP/1.1" 302 0
+INFO 2026-01-23 18:52:02,412 basehttp 26336 20740 "GET /supervisor/dashboard/ HTTP/1.1" 200 4824
+INFO 2026-01-23 18:56:39,378 session_auth_fix 26336 7796 User demo@gmail.com logged out successfully
+INFO 2026-01-23 18:56:39,379 views_auth 26336 7796 User demo@gmail.com logged out successfully
+INFO 2026-01-23 18:56:39,380 session_auth_fix 26336 7796 Logout detected for anonymous
+INFO 2026-01-23 18:56:40,712 basehttp 26336 7796 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-23 18:56:45,816 basehttp 26336 7740 "GET /login/ HTTP/1.1" 200 1197
+INFO 2026-01-23 18:57:19,688 views_auth 26336 30432 User piyush8123@gmail.com logged in successfully
+INFO 2026-01-23 18:57:22,296 basehttp 26336 30432 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-23 18:57:43,271 basehttp 26336 21564 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+WARNING 2026-01-23 18:57:56,485 session_auth_fix 26336 21564 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 18:57:56,486 basehttp 26336 21564 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 18:58:09,806 basehttp 26336 21564 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+INFO 2026-01-23 18:58:24,845 basehttp 26336 21564 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-23 18:58:32,121 views 26336 21564 Facilitator PIYUSH TAMOLI: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-23 18:58:35,573 basehttp 26336 25376 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-23 18:58:37,856 views 26336 21564 Facilitator PIYUSH TAMOLI: Found 11 permanent groups with 33 total classes
+INFO 2026-01-23 18:58:37,857 views 26336 21564   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-23 18:58:37,857 views 26336 21564   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-23 18:58:37,858 views 26336 21564   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-23 18:58:37,858 views 26336 21564   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-23 18:58:37,858 views 26336 21564   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-23 18:58:37,859 views 26336 21564   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-23 18:58:37,859 views 26336 21564   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-23 18:58:37,859 views 26336 21564   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-23 18:58:37,860 views 26336 21564   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-23 18:58:37,860 views 26336 21564   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-23 18:58:37,860 views 26336 21564   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-23 18:58:38,119 views 26336 21564   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 18:58:38,119 views 26336 21564   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 18:58:38,119 views 26336 21564   Facilitator has access to class 5A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 18:58:38,120 views 26336 21564   Facilitator has access to class 4A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 18:58:38,360 views 26336 21564   Single class (no grouping): 1A
+WARNING 2026-01-23 18:58:38,467 session_auth_fix 26336 21724 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 18:58:38,469 basehttp 26336 21724 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 18:58:38,600 views 26336 21564   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-23 18:58:39,097 views 26336 21564   Adding calendar-based group 73ae7c7a-8cb0-4015-9064-fae354f8cdf2 with classes: ['4A', '5A']
+INFO 2026-01-23 18:58:39,580 views 26336 21564   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-23 18:58:39,833 views 26336 21564   Grouped item: ['4A', '5A'] (key: 73ae7c7a-8cb0-4015-9064-fae354f8cdf2)
+INFO 2026-01-23 18:58:39,834 views 26336 21564 Facilitator PIYUSH TAMOLI: Returning 3 class items to template
+INFO 2026-01-23 18:58:39,834 views 26336 21564   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-23 18:58:39,834 views 26336 21564   Item with 2 grouped classes: ['4A', '5A']
+INFO 2026-01-23 18:58:39,857 basehttp 26336 21564 - Broken pipe from ('127.0.0.1', 62885)
+INFO 2026-01-23 18:58:39,877 views 26336 25376 Facilitator PIYUSH TAMOLI: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-23 18:58:43,269 views 26336 25376 Facilitator PIYUSH TAMOLI: Found 11 permanent groups with 33 total classes
+INFO 2026-01-23 18:58:43,269 views 26336 25376   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-23 18:58:43,270 views 26336 25376   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-23 18:58:43,270 views 26336 25376   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-23 18:58:43,271 views 26336 25376   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-23 18:58:43,272 views 26336 25376   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-23 18:58:43,272 views 26336 25376   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-23 18:58:43,272 views 26336 25376   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-23 18:58:43,272 views 26336 25376   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-23 18:58:43,273 views 26336 25376   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-23 18:58:43,273 views 26336 25376   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-23 18:58:43,274 views 26336 25376   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-23 18:58:43,550 views 26336 25376   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 18:58:43,552 views 26336 25376   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 18:58:43,552 views 26336 25376   Facilitator has access to class 5A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 18:58:43,553 views 26336 25376   Facilitator has access to class 4A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 18:58:43,857 views 26336 25376   Single class (no grouping): 1A
+INFO 2026-01-23 18:58:44,167 views 26336 25376   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-23 18:58:44,808 views 26336 25376   Adding calendar-based group 73ae7c7a-8cb0-4015-9064-fae354f8cdf2 with classes: ['4A', '5A']
+INFO 2026-01-23 18:58:45,447 views 26336 25376   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-23 18:58:45,772 views 26336 25376   Grouped item: ['4A', '5A'] (key: 73ae7c7a-8cb0-4015-9064-fae354f8cdf2)
+INFO 2026-01-23 18:58:45,772 views 26336 25376 Facilitator PIYUSH TAMOLI: Returning 3 class items to template
+INFO 2026-01-23 18:58:45,773 views 26336 25376   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-23 18:58:45,773 views 26336 25376   Item with 2 grouped classes: ['4A', '5A']
+INFO 2026-01-23 18:58:45,788 basehttp 26336 25376 "GET /facilitator/classes/ HTTP/1.1" 200 3107
+INFO 2026-01-23 18:58:52,886 basehttp 26336 21724 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+INFO 2026-01-23 18:58:56,571 session_management 26336 25376 Next pending session for Demo School - 1A (2026-2027): Day 4
+WARNING 2026-01-23 18:58:56,832 session_auth_fix 26336 21724 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 18:58:56,834 basehttp 26336 21724 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 18:58:57,193 views 26336 25376 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-23 18:59:04,579 session_management 26336 25376 Next pending session for Demo School - 1A (2026-2027): Day 4
+INFO 2026-01-23 18:59:04,579 session_management 26336 25376 Progress metrics for Demo School - 1A (2026-2027): 2.0% complete
+INFO 2026-01-23 18:59:05,829 basehttp 26336 25376 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 22168
+INFO 2026-01-23 18:59:11,034 curriculum_content_resolver 26336 25376 Successfully loaded static file for english, extracting Day 4 content
+INFO 2026-01-23 18:59:13,190 curriculum_content_resolver 26336 25376 Found 5251 rows in curriculum table
+INFO 2026-01-23 18:59:13,197 curriculum_content_resolver 26336 25376 Found Day 4 at row 106, cell text: 'Day 4'
+INFO 2026-01-23 18:59:13,201 curriculum_content_resolver 26336 25376 Found next day boundary at row 141, day 5
+INFO 2026-01-23 18:59:13,202 curriculum_content_resolver 26336 25376 Extracting 35 rows for Day 4 (from row 106 to 141)
+INFO 2026-01-23 18:59:13,209 curriculum_content_resolver 26336 25376 Fixed image and resource paths in curriculum content
+INFO 2026-01-23 18:59:13,210 curriculum_content_resolver 26336 25376 Loaded static fallback content for Day 4 english
+INFO 2026-01-23 18:59:13,455 basehttp 26336 25376 "GET /api/curriculum/content/?day=4&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3199
+INFO 2026-01-23 18:59:15,313 basehttp 26336 21724 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+WARNING 2026-01-23 18:59:18,615 session_auth_fix 26336 21724 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 18:59:18,616 basehttp 26336 21724 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 18:59:24,141 basehttp 26336 25376 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 128
+INFO 2026-01-23 18:59:25,164 basehttp 26336 21664 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-23 18:59:25,776 basehttp 26336 20060 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-23 18:59:25,776 basehttp 26336 2100 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+WARNING 2026-01-23 18:59:27,348 session_auth_fix 26336 25376 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 18:59:27,349 basehttp 26336 25376 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 18:59:30,794 basehttp 26336 37948 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 127
+INFO 2026-01-23 18:59:31,384 basehttp 26336 21664 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 114
+INFO 2026-01-23 18:59:37,965 basehttp 26336 21724 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+WARNING 2026-01-23 18:59:51,069 views 26336 21724 Student feedback POST data: {'csrfmiddlewaretoken': ['SQIrXo4dElUJF3dePmLmeBZwVxfzhGfAlRlBfWrxbwV4DQbHtquSDTFnLGhGhEPb'], 'actual_session_id': [''], 'anonymous_student_id': ['student_1769174976102_hcvvq347o'], 'session_rating': ['2'], 'topic_understanding': ['somewhat'], 'teacher_clarity': ['sometimes'], 'session_highlights': ['k'], 'improvement_suggestions': ['jn'], 'additional_suggestions': ['m ']}
+WARNING 2026-01-23 18:59:51,076 log 26336 21724 Bad Request: /api/save-student-feedback/
+WARNING 2026-01-23 18:59:51,077 basehttp 26336 21724 "POST /api/save-student-feedback/ HTTP/1.1" 400 56
+INFO 2026-01-23 19:00:01,626 basehttp 26336 21664 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+ERROR 2026-01-23 19:00:39,402 views 26336 21664 Error saving teacher feedback: ['“” is not a valid UUID.']
+ERROR 2026-01-23 19:00:39,404 log 26336 21664 Internal Server Error: /api/save-teacher-feedback/
+ERROR 2026-01-23 19:00:39,405 basehttp 26336 21664 "POST /api/save-teacher-feedback/ HTTP/1.1" 500 62
+INFO 2026-01-23 19:03:37,396 autoreload 26336 23352 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-23 19:03:38,837 autoreload 40292 28644 Watching for file changes with StatReloader
+INFO 2026-01-23 19:04:34,891 autoreload 40292 28644 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-23 19:04:36,450 autoreload 41192 39388 Watching for file changes with StatReloader
+INFO 2026-01-23 19:05:23,065 session_management 41192 16708 Next pending session for Demo School - 1A (2026-2027): Day 4
+INFO 2026-01-23 19:05:24,082 views 41192 16708 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-23 19:05:27,805 session_management 41192 16708 Next pending session for Demo School - 1A (2026-2027): Day 4
+INFO 2026-01-23 19:05:27,805 session_management 41192 16708 Progress metrics for Demo School - 1A (2026-2027): 2.0% complete
+INFO 2026-01-23 19:05:30,159 basehttp 41192 16708 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 22220
+WARNING 2026-01-23 19:05:33,115 session_auth_fix 41192 16708 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:05:33,117 basehttp 41192 16708 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:05:33,670 curriculum_content_resolver 41192 35536 Successfully loaded static file for english, extracting Day 4 content
+INFO 2026-01-23 19:05:35,221 curriculum_content_resolver 41192 35536 Found 5251 rows in curriculum table
+INFO 2026-01-23 19:05:35,227 curriculum_content_resolver 41192 35536 Found Day 4 at row 106, cell text: 'Day 4'
+INFO 2026-01-23 19:05:35,230 curriculum_content_resolver 41192 35536 Found next day boundary at row 141, day 5
+INFO 2026-01-23 19:05:35,231 curriculum_content_resolver 41192 35536 Extracting 35 rows for Day 4 (from row 106 to 141)
+INFO 2026-01-23 19:05:35,238 curriculum_content_resolver 41192 35536 Fixed image and resource paths in curriculum content
+INFO 2026-01-23 19:05:35,239 curriculum_content_resolver 41192 35536 Loaded static fallback content for Day 4 english
+INFO 2026-01-23 19:05:36,176 basehttp 41192 35536 "GET /api/curriculum/content/?day=4&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3199
+INFO 2026-01-23 19:05:51,837 basehttp 41192 16708 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+WARNING 2026-01-23 19:05:55,624 session_auth_fix 41192 35536 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:05:55,626 basehttp 41192 35536 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2026-01-23 19:06:04,028 views 41192 16708 Student feedback POST data: {'csrfmiddlewaretoken': ['lPEv3a2RH5PmNSvueoxFVhUx3vyuCPjiOQhFlIpbegQHLFtXSsgbkzAoTEABCNTT'], 'actual_session_id': [''], 'anonymous_student_id': ['student_1769175350231_j1psf8l2j'], 'session_rating': ['3'], 'topic_understanding': ['somewhat'], 'teacher_clarity': ['sometimes'], 'session_highlights': ['jb'], 'improvement_suggestions': ['n'], 'additional_suggestions': ['']}
+WARNING 2026-01-23 19:06:04,032 log 41192 16708 Bad Request: /api/save-student-feedback/
+WARNING 2026-01-23 19:06:04,033 basehttp 41192 16708 "POST /api/save-student-feedback/ HTTP/1.1" 400 56
+INFO 2026-01-23 19:06:18,013 basehttp 41192 35536 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+WARNING 2026-01-23 19:06:47,333 log 41192 35536 Bad Request: /api/save-teacher-feedback/
+WARNING 2026-01-23 19:06:47,334 basehttp 41192 35536 "POST /api/save-teacher-feedback/ HTTP/1.1" 400 56
+INFO 2026-01-23 19:10:20,856 basehttp 41192 41692 - Broken pipe from ('127.0.0.1', 57855)
+WARNING 2026-01-23 19:10:21,134 session_auth_fix 41192 35656 Unauthorized access attempt by piyush8123@gmail.com to /supervisor/dashboard/
+INFO 2026-01-23 19:10:21,136 basehttp 41192 35656 "GET /supervisor/dashboard/ HTTP/1.1" 302 0
+INFO 2026-01-23 19:10:21,915 views 41192 35536 Facilitator PIYUSH TAMOLI: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-23 19:10:24,024 views 41192 35536 Facilitator PIYUSH TAMOLI: Found 11 permanent groups with 33 total classes
+INFO 2026-01-23 19:10:24,024 views 41192 35536   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-23 19:10:24,024 views 41192 35536   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-23 19:10:24,025 views 41192 35536   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-23 19:10:24,025 views 41192 35536   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-23 19:10:24,025 views 41192 35536   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-23 19:10:24,026 views 41192 35536   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-23 19:10:24,026 views 41192 35536   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-23 19:10:24,026 views 41192 35536   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-23 19:10:24,026 views 41192 35536   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-23 19:10:24,027 views 41192 35536   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-23 19:10:24,027 views 41192 35536   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-23 19:10:24,278 views 41192 35536   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 19:10:24,279 views 41192 35536   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 19:10:24,279 views 41192 35536   Facilitator has access to class 5A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 19:10:24,279 views 41192 35536   Facilitator has access to class 4A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 19:10:24,525 views 41192 35536   Single class (no grouping): 1A
+INFO 2026-01-23 19:10:24,783 views 41192 35536   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-23 19:10:25,334 views 41192 35536   Adding calendar-based group 73ae7c7a-8cb0-4015-9064-fae354f8cdf2 with classes: ['4A', '5A']
+INFO 2026-01-23 19:10:25,936 views 41192 35536   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-23 19:10:26,312 views 41192 35536   Grouped item: ['4A', '5A'] (key: 73ae7c7a-8cb0-4015-9064-fae354f8cdf2)
+INFO 2026-01-23 19:10:26,312 views 41192 35536 Facilitator PIYUSH TAMOLI: Returning 3 class items to template
+INFO 2026-01-23 19:10:26,312 views 41192 35536   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-23 19:10:26,313 views 41192 35536   Item with 2 grouped classes: ['4A', '5A']
+INFO 2026-01-23 19:10:26,332 basehttp 41192 35536 - Broken pipe from ('127.0.0.1', 54748)
+INFO 2026-01-23 19:10:33,033 basehttp 41192 16708 - Broken pipe from ('127.0.0.1', 59989)
+INFO 2026-01-23 19:10:35,419 basehttp 41192 35656 - Broken pipe from ('127.0.0.1', 63619)
+WARNING 2026-01-23 19:10:41,553 session_auth_fix 41192 38356 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:10:41,555 basehttp 41192 38356 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:10:42,334 basehttp 41192 25228 - Broken pipe from ('127.0.0.1', 62053)
+INFO 2026-01-23 19:10:42,349 basehttp 41192 29036 - Broken pipe from ('127.0.0.1', 61606)
+INFO 2026-01-23 19:10:42,881 basehttp 41192 32556 - Broken pipe from ('127.0.0.1', 58500)
+INFO 2026-01-23 19:10:55,135 basehttp 41192 22092 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+INFO 2026-01-23 19:11:02,304 basehttp 41192 38356 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-23 19:11:08,001 views 41192 38356 Facilitator PIYUSH TAMOLI: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-23 19:11:11,541 basehttp 41192 22092 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+INFO 2026-01-23 19:11:12,941 views 41192 38356 Facilitator PIYUSH TAMOLI: Found 11 permanent groups with 33 total classes
+INFO 2026-01-23 19:11:12,942 views 41192 38356   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-23 19:11:12,943 views 41192 38356   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-23 19:11:12,943 views 41192 38356   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-23 19:11:12,943 views 41192 38356   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-23 19:11:12,944 views 41192 38356   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-23 19:11:12,944 views 41192 38356   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-23 19:11:12,944 views 41192 38356   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-23 19:11:12,944 views 41192 38356   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-23 19:11:12,945 views 41192 38356   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-23 19:11:12,945 views 41192 38356   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-23 19:11:12,945 views 41192 38356   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-23 19:11:13,240 views 41192 38356   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 19:11:13,241 views 41192 38356   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 19:11:13,241 views 41192 38356   Facilitator has access to class 5A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 19:11:13,242 views 41192 38356   Facilitator has access to class 4A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 19:11:13,649 views 41192 38356   Single class (no grouping): 1A
+INFO 2026-01-23 19:11:13,970 views 41192 38356   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+WARNING 2026-01-23 19:11:14,999 session_auth_fix 41192 22092 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:11:15,000 basehttp 41192 22092 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:11:15,314 views 41192 38356   Adding calendar-based group 73ae7c7a-8cb0-4015-9064-fae354f8cdf2 with classes: ['4A', '5A']
+INFO 2026-01-23 19:11:16,239 views 41192 38356   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-23 19:11:16,575 views 41192 38356   Grouped item: ['4A', '5A'] (key: 73ae7c7a-8cb0-4015-9064-fae354f8cdf2)
+INFO 2026-01-23 19:11:16,575 views 41192 38356 Facilitator PIYUSH TAMOLI: Returning 3 class items to template
+INFO 2026-01-23 19:11:16,575 views 41192 38356   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-23 19:11:16,576 views 41192 38356   Item with 2 grouped classes: ['4A', '5A']
+INFO 2026-01-23 19:11:16,589 basehttp 41192 38356 "GET /facilitator/classes/ HTTP/1.1" 200 3107
+INFO 2026-01-23 19:11:34,441 basehttp 41192 22092 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+INFO 2026-01-23 19:11:36,807 session_management 41192 38356 Next pending session for Demo School - 1A (2026-2027): Day 4
+INFO 2026-01-23 19:11:37,452 views 41192 38356 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+WARNING 2026-01-23 19:11:38,554 session_auth_fix 41192 22092 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:11:38,556 basehttp 41192 22092 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:11:40,765 session_management 41192 38356 Next pending session for Demo School - 1A (2026-2027): Day 4
+INFO 2026-01-23 19:11:40,765 session_management 41192 38356 Progress metrics for Demo School - 1A (2026-2027): 2.0% complete
+INFO 2026-01-23 19:11:41,963 basehttp 41192 38356 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 20840
+INFO 2026-01-23 19:11:47,307 basehttp 41192 38356 "GET /api/curriculum/content/?day=4&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3199
+INFO 2026-01-23 19:11:55,871 basehttp 41192 22092 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+WARNING 2026-01-23 19:11:58,191 session_auth_fix 41192 38356 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:11:58,192 basehttp 41192 38356 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2026-01-23 19:11:58,300 session_auth_fix 41192 22092 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:11:58,301 basehttp 41192 22092 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:12:16,951 basehttp 41192 38356 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+INFO 2026-01-23 19:12:41,839 basehttp 41192 22092 "GET /facilitator/dashboard/ HTTP/1.1" 200 4999
+INFO 2026-01-23 19:13:19,507 session_management 41192 22092 Session conducted: Demo School - 1A (2026-2027) - Day 4 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-23 19:13:20,937 basehttp 41192 22092 "POST /facilitator/session/start/908395ab-f8a5-4098-b483-694d3e2e0d4b/ HTTP/1.1" 302 0
+INFO 2026-01-23 19:13:28,327 basehttp 41192 22092 "GET /facilitator/session/ecac37d7-976b-42dc-b6ef-71d3b0f3dbbd/attendance/ HTTP/1.1" 200 4983
+WARNING 2026-01-23 19:13:32,159 session_auth_fix 41192 22092 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:13:32,160 basehttp 41192 22092 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:13:42,603 basehttp 41192 38356 "POST /facilitator/session/ecac37d7-976b-42dc-b6ef-71d3b0f3dbbd/attendance/ HTTP/1.1" 200 194
+WARNING 2026-01-23 19:13:44,570 session_auth_fix 41192 23928 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:13:44,572 basehttp 41192 23928 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 19:13:47,928 basehttp 41192 22092 "GET /facilitator/dashboard/ HTTP/1.1" 200 4998
+INFO 2026-01-23 19:13:49,977 session_management 41192 38356 Found today's session for Demo School - 1A (2026-2027): Day 4 (Status: 1)
+INFO 2026-01-23 19:13:50,843 views 41192 38356 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-23 19:13:54,309 session_management 41192 38356 Found today's session for Demo School - 1A (2026-2027): Day 4 (Status: 1)
+INFO 2026-01-23 19:13:54,310 session_management 41192 38356 Progress metrics for Demo School - 1A (2026-2027): 2.666666666666667% complete
+INFO 2026-01-23 19:14:04,479 basehttp 41192 38356 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/?refresh=1 HTTP/1.1" 200 21980
+WARNING 2026-01-23 19:14:07,117 session_auth_fix 41192 38356 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:14:07,119 basehttp 41192 38356 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:14:07,555 basehttp 41192 22092 "GET /api/curriculum/content/?day=4&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3199
+INFO 2026-01-23 19:14:07,838 basehttp 41192 30452 "GET /api/get-feedback-status/?session_id=ecac37d7-976b-42dc-b6ef-71d3b0f3dbbd HTTP/1.1" 200 111
+INFO 2026-01-23 19:14:11,221 basehttp 41192 23928 - Broken pipe from ('127.0.0.1', 56405)
+INFO 2026-01-23 19:14:11,547 basehttp 41192 22092 - Broken pipe from ('127.0.0.1', 52288)
+WARNING 2026-01-23 19:14:24,715 session_auth_fix 41192 30452 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:14:24,717 basehttp 41192 30452 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 19:14:26,435 basehttp 41192 38356 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+WARNING 2026-01-23 19:14:26,697 views 41192 29436 Student feedback POST data: {'csrfmiddlewaretoken': ['dTJb8F6KkcQDiX61Kb0H2oG0ddOSpTouGUmlqdt4RnRYgK4uofJdrGmR3mQZpRY5'], 'actual_session_id': ['ecac37d7-976b-42dc-b6ef-71d3b0f3dbbd'], 'anonymous_student_id': ['student_1769175853119_xsgcob84z'], 'session_rating': ['3'], 'topic_understanding': ['somewhat'], 'teacher_clarity': ['sometimes'], 'session_highlights': ['ghgh'], 'improvement_suggestions': ['ghgh'], 'additional_suggestions': ['']}
+INFO 2026-01-23 19:14:32,104 basehttp 41192 29436 "POST /api/save-student-feedback/ HTTP/1.1" 200 127
+INFO 2026-01-23 19:14:44,781 basehttp 41192 30452 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+INFO 2026-01-23 19:14:58,450 basehttp 41192 30452 "POST /api/save-teacher-feedback/ HTTP/1.1" 200 125
+INFO 2026-01-23 19:15:03,847 basehttp 41192 30452 - Broken pipe from ('127.0.0.1', 57223)
+INFO 2026-01-23 19:15:37,226 basehttp 41192 29436 "POST /api/save-teacher-feedback/ HTTP/1.1" 200 125
+INFO 2026-01-23 19:15:44,098 basehttp 41192 29436 - Broken pipe from ('127.0.0.1', 59970)
+INFO 2026-01-23 19:17:16,714 basehttp 41192 38356 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-23 19:17:22,448 views 41192 38356 Facilitator PIYUSH TAMOLI: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-23 19:17:26,115 views 41192 38356 Facilitator PIYUSH TAMOLI: Found 11 permanent groups with 33 total classes
+INFO 2026-01-23 19:17:26,116 views 41192 38356   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-23 19:17:26,116 views 41192 38356   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-23 19:17:26,117 views 41192 38356   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-23 19:17:26,117 views 41192 38356   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-23 19:17:26,118 views 41192 38356   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-23 19:17:26,118 views 41192 38356   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-23 19:17:26,119 views 41192 38356   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-23 19:17:26,119 views 41192 38356   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-23 19:17:26,120 views 41192 38356   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-23 19:17:26,121 views 41192 38356   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-23 19:17:26,122 views 41192 38356   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-23 19:17:26,762 views 41192 38356   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 19:17:26,763 views 41192 38356   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 19:17:26,763 views 41192 38356   Facilitator has access to class 5A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 19:17:26,764 views 41192 38356   Facilitator has access to class 4A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 19:17:27,765 views 41192 38356   Single class (no grouping): 1A
+INFO 2026-01-23 19:17:28,057 views 41192 38356   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-23 19:17:28,825 views 41192 38356   Adding calendar-based group 73ae7c7a-8cb0-4015-9064-fae354f8cdf2 with classes: ['4A', '5A']
+INFO 2026-01-23 19:17:29,383 views 41192 38356   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-23 19:17:29,684 views 41192 38356   Grouped item: ['4A', '5A'] (key: 73ae7c7a-8cb0-4015-9064-fae354f8cdf2)
+INFO 2026-01-23 19:17:29,685 views 41192 38356 Facilitator PIYUSH TAMOLI: Returning 3 class items to template
+INFO 2026-01-23 19:17:29,685 views 41192 38356   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-23 19:17:29,686 views 41192 38356   Item with 2 grouped classes: ['4A', '5A']
+INFO 2026-01-23 19:17:29,706 basehttp 41192 38356 "GET /facilitator/classes/ HTTP/1.1" 200 3107
+WARNING 2026-01-23 19:17:40,262 session_auth_fix 41192 38356 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:17:40,263 basehttp 41192 38356 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:17:45,030 session_management 41192 19932 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:17:45,934 views 41192 19932 Grouped session detected via grouped_session_id for class 3966cab5-3ce9-439b-b16f-be1e46ee0571: grouped_session_id=e93b6d06-b172-4101-80ba-c8689b69d64a, classes_in_group=2
+INFO 2026-01-23 19:17:57,647 session_management 41192 19932 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:17:57,647 session_management 41192 19932 Progress metrics for Demo School - 4A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-23 19:18:01,133 basehttp 41192 38356 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+ERROR 2026-01-23 19:18:02,616 log 41192 19932 Internal Server Error: /facilitator/class/3966cab5-3ce9-439b-b16f-be1e46ee0571/today/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 1433, in today_session
+    return render(request, "facilitator/Today_session.html", {
+        "class_section": class_section,
+    ...<30 lines>...
+        "actual_session_date": actual_session.date if actual_session else None,
+    })
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 3628: 'endblock', expected 'elif', 'else' or 'endif'. Did you forget to register or load this tag?
+ERROR 2026-01-23 19:18:02,652 basehttp 41192 19932 "GET /facilitator/class/3966cab5-3ce9-439b-b16f-be1e46ee0571/today/ HTTP/1.1" 500 25442
+WARNING 2026-01-23 19:18:07,133 session_auth_fix 41192 19932 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:18:07,134 basehttp 41192 19932 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-23 19:18:12,257 session_auth_fix 41192 38356 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:18:12,258 basehttp 41192 38356 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 19:18:29,055 basehttp 41192 19932 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+INFO 2026-01-23 19:18:44,904 basehttp 41192 38356 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+INFO 2026-01-23 19:23:17,993 session_management 41192 38356 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:23:18,592 views 41192 38356 Grouped session detected via grouped_session_id for class 3966cab5-3ce9-439b-b16f-be1e46ee0571: grouped_session_id=e93b6d06-b172-4101-80ba-c8689b69d64a, classes_in_group=2
+INFO 2026-01-23 19:23:20,905 session_management 41192 38356 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:23:20,905 session_management 41192 38356 Progress metrics for Demo School - 4A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-23 19:23:22,557 basehttp 41192 38356 "GET /facilitator/class/3966cab5-3ce9-439b-b16f-be1e46ee0571/today/ HTTP/1.1" 200 20506
+INFO 2026-01-23 19:23:27,191 curriculum_content_resolver 41192 38356 Successfully loaded static file for english, extracting Day 2 content
+INFO 2026-01-23 19:23:28,605 curriculum_content_resolver 41192 38356 Found 5251 rows in curriculum table
+INFO 2026-01-23 19:23:28,607 curriculum_content_resolver 41192 38356 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-23 19:23:28,609 curriculum_content_resolver 41192 38356 Found next day boundary at row 71, day 3
+INFO 2026-01-23 19:23:28,609 curriculum_content_resolver 41192 38356 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-23 19:23:28,616 curriculum_content_resolver 41192 38356 Fixed image and resource paths in curriculum content
+INFO 2026-01-23 19:23:28,617 curriculum_content_resolver 41192 38356 Loaded static fallback content for Day 2 english
+INFO 2026-01-23 19:23:28,937 basehttp 41192 38356 "GET /api/curriculum/content/?day=2&language=english&class_section_id=3966cab5-3ce9-439b-b16f-be1e46ee0571 HTTP/1.1" 200 3185
+WARNING 2026-01-23 19:23:35,263 session_auth_fix 41192 38356 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:23:35,265 basehttp 41192 38356 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 19:23:50,151 basehttp 41192 38356 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+INFO 2026-01-23 19:26:49,826 session_management 41192 38356 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:26:50,573 views 41192 38356 Grouped session detected via grouped_session_id for class 3966cab5-3ce9-439b-b16f-be1e46ee0571: grouped_session_id=e93b6d06-b172-4101-80ba-c8689b69d64a, classes_in_group=2
+INFO 2026-01-23 19:26:53,057 session_management 41192 38356 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:26:53,057 session_management 41192 38356 Progress metrics for Demo School - 4A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-23 19:26:55,726 basehttp 41192 38356 "GET /facilitator/class/3966cab5-3ce9-439b-b16f-be1e46ee0571/today/ HTTP/1.1" 200 20545
+INFO 2026-01-23 19:26:59,318 basehttp 41192 38356 "GET /api/curriculum/content/?day=2&language=english&class_section_id=3966cab5-3ce9-439b-b16f-be1e46ee0571 HTTP/1.1" 200 3185
+WARNING 2026-01-23 19:27:11,352 session_auth_fix 41192 38356 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:27:11,354 basehttp 41192 38356 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 19:27:26,497 basehttp 41192 38356 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+INFO 2026-01-23 19:29:20,686 session_management 41192 38356 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:29:21,400 views 41192 38356 Grouped session detected via grouped_session_id for class 3966cab5-3ce9-439b-b16f-be1e46ee0571: grouped_session_id=e93b6d06-b172-4101-80ba-c8689b69d64a, classes_in_group=2
+INFO 2026-01-23 19:29:24,056 session_management 41192 38356 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:29:24,056 session_management 41192 38356 Progress metrics for Demo School - 4A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-23 19:29:26,535 basehttp 41192 38356 "GET /facilitator/class/3966cab5-3ce9-439b-b16f-be1e46ee0571/today/ HTTP/1.1" 200 20659
+WARNING 2026-01-23 19:29:30,295 session_auth_fix 41192 38356 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:29:30,296 basehttp 41192 38356 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:29:31,786 basehttp 41192 23408 "GET /api/curriculum/content/?day=2&language=english&class_section_id=3966cab5-3ce9-439b-b16f-be1e46ee0571 HTTP/1.1" 200 3185
+INFO 2026-01-23 19:29:42,005 basehttp 41192 23408 "POST /api/save-preparation-checklist/ HTTP/1.1" 200 128
+INFO 2026-01-23 19:29:45,562 basehttp 41192 38356 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+WARNING 2026-01-23 19:29:49,750 session_auth_fix 41192 38356 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:29:49,752 basehttp 41192 38356 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 19:30:06,860 basehttp 41192 38356 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+INFO 2026-01-23 19:32:24,531 session_management 41192 38356 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:32:25,176 views 41192 38356 Grouped session detected via grouped_session_id for class 3966cab5-3ce9-439b-b16f-be1e46ee0571: grouped_session_id=e93b6d06-b172-4101-80ba-c8689b69d64a, classes_in_group=2
+INFO 2026-01-23 19:32:27,492 session_management 41192 38356 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:32:27,494 session_management 41192 38356 Progress metrics for Demo School - 4A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-23 19:32:29,007 basehttp 41192 38356 "GET /facilitator/class/3966cab5-3ce9-439b-b16f-be1e46ee0571/today/ HTTP/1.1" 200 20511
+WARNING 2026-01-23 19:32:31,674 session_auth_fix 41192 38356 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:32:31,676 basehttp 41192 38356 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:32:32,199 basehttp 41192 23408 "GET /api/curriculum/content/?day=2&language=english&class_section_id=3966cab5-3ce9-439b-b16f-be1e46ee0571 HTTP/1.1" 200 3185
+INFO 2026-01-23 19:32:45,866 basehttp 41192 38356 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+WARNING 2026-01-23 19:32:46,800 session_auth_fix 41192 23408 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:32:46,803 basehttp 41192 23408 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 19:33:04,297 basehttp 41192 23408 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+INFO 2026-01-23 19:37:10,960 session_management 41192 23408 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:37:11,617 views 41192 23408 Grouped session detected via grouped_session_id for class 3966cab5-3ce9-439b-b16f-be1e46ee0571: grouped_session_id=e93b6d06-b172-4101-80ba-c8689b69d64a, classes_in_group=2
+INFO 2026-01-23 19:37:14,768 session_management 41192 23408 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:37:14,769 session_management 41192 23408 Progress metrics for Demo School - 4A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-23 19:37:17,011 basehttp 41192 23408 "GET /facilitator/class/3966cab5-3ce9-439b-b16f-be1e46ee0571/today/ HTTP/1.1" 200 20539
+WARNING 2026-01-23 19:37:19,697 session_auth_fix 41192 23408 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:37:19,698 basehttp 41192 23408 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:37:20,607 basehttp 41192 38356 "GET /api/curriculum/content/?day=2&language=english&class_section_id=3966cab5-3ce9-439b-b16f-be1e46ee0571 HTTP/1.1" 200 3185
+INFO 2026-01-23 19:37:35,150 basehttp 41192 23408 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+WARNING 2026-01-23 19:37:40,556 session_auth_fix 41192 23408 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:37:40,557 basehttp 41192 23408 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 19:37:58,278 basehttp 41192 23408 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+INFO 2026-01-23 19:47:54,404 session_management 41192 2516 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:47:54,968 views 41192 2516 Grouped session detected via grouped_session_id for class 3966cab5-3ce9-439b-b16f-be1e46ee0571: grouped_session_id=e93b6d06-b172-4101-80ba-c8689b69d64a, classes_in_group=2
+INFO 2026-01-23 19:47:57,406 session_management 41192 2516 Next pending session for Demo School - 4A (2024-2025): Day 2
+INFO 2026-01-23 19:47:57,407 session_management 41192 2516 Progress metrics for Demo School - 4A (2024-2025): 0.6666666666666667% complete
+INFO 2026-01-23 19:47:58,979 basehttp 41192 2516 "GET /facilitator/class/3966cab5-3ce9-439b-b16f-be1e46ee0571/today/ HTTP/1.1" 200 20437
+WARNING 2026-01-23 19:48:01,707 session_auth_fix 41192 2516 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:48:01,708 basehttp 41192 2516 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:48:02,279 basehttp 41192 33956 "GET /api/curriculum/content/?day=2&language=english&class_section_id=3966cab5-3ce9-439b-b16f-be1e46ee0571 HTTP/1.1" 200 3185
+WARNING 2026-01-23 19:48:03,755 session_auth_fix 41192 7084 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:48:03,756 basehttp 41192 7084 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 19:48:15,135 basehttp 41192 2516 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+INFO 2026-01-23 19:48:28,514 basehttp 41192 7084 "GET /facilitator/dashboard/ HTTP/1.1" 200 5006
+INFO 2026-01-23 19:50:28,685 session_management 41192 7084 Session conducted: Demo School - 4A (2024-2025) - Day 2 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-23 19:50:31,161 session_management 41192 7084 Session conducted: Demo School - 5A (2024-2025) - Day 2 by piyush8123@gmail.com (Facilitator)
+INFO 2026-01-23 19:50:32,238 basehttp 41192 7084 "POST /facilitator/session/start/ad75ba85-1a7f-4990-860c-488f5d7597cf/ HTTP/1.1" 302 0
+INFO 2026-01-23 19:50:37,496 basehttp 41192 7084 "GET /facilitator/session/3467287b-13ae-4b23-b91b-8d08ea92cc66/attendance/ HTTP/1.1" 200 5205
+WARNING 2026-01-23 19:50:41,431 session_auth_fix 41192 2516 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:50:41,432 basehttp 41192 2516 "GET /favicon.ico HTTP/1.1" 302 0
+WARNING 2026-01-23 19:50:41,709 session_auth_fix 41192 7084 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:50:41,710 basehttp 41192 7084 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 19:50:45,432 basehttp 41192 33956 "POST /facilitator/session/3467287b-13ae-4b23-b91b-8d08ea92cc66/attendance/ HTTP/1.1" 200 218
+INFO 2026-01-23 19:50:53,281 session_management 41192 33956 Found today's session for Demo School - 4A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-23 19:50:53,872 views 41192 33956 Grouped session detected via grouped_session_id for class 3966cab5-3ce9-439b-b16f-be1e46ee0571: grouped_session_id=e93b6d06-b172-4101-80ba-c8689b69d64a, classes_in_group=2
+INFO 2026-01-23 19:50:55,875 basehttp 41192 2516 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+INFO 2026-01-23 19:50:56,066 session_management 41192 33956 Found today's session for Demo School - 4A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-23 19:50:56,066 session_management 41192 33956 Progress metrics for Demo School - 4A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-23 19:50:59,034 basehttp 41192 33956 "GET /facilitator/class/3966cab5-3ce9-439b-b16f-be1e46ee0571/today/?refresh=1 HTTP/1.1" 200 22780
+INFO 2026-01-23 19:51:02,896 basehttp 41192 2516 "GET /api/get-feedback-status/?session_id=3467287b-13ae-4b23-b91b-8d08ea92cc66 HTTP/1.1" 200 111
+INFO 2026-01-23 19:51:02,968 basehttp 41192 33956 "GET /api/curriculum/content/?day=2&language=english&class_section_id=3966cab5-3ce9-439b-b16f-be1e46ee0571 HTTP/1.1" 200 3185
+WARNING 2026-01-23 19:51:05,107 session_auth_fix 41192 40360 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 19:51:05,109 basehttp 41192 40360 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 19:51:06,385 basehttp 41192 2516 - Broken pipe from ('127.0.0.1', 57006)
+INFO 2026-01-23 19:51:09,287 basehttp 41192 7084 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+WARNING 2026-01-23 19:51:12,056 session_auth_fix 41192 7084 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 19:51:12,057 basehttp 41192 7084 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-23 19:51:17,234 views 41192 7084 Student feedback POST data: {'csrfmiddlewaretoken': ['3u8pfoa95JidEySP87vuY30vLSjyw5AJwvLzxWxtCUjyClQiMbe0nlGmB1lFw3ak'], 'actual_session_id': ['3467287b-13ae-4b23-b91b-8d08ea92cc66'], 'anonymous_student_id': ['student_1769178065410_sbvuxxh6e'], 'session_rating': ['2'], 'topic_understanding': ['somewhat'], 'teacher_clarity': ['sometimes'], 'session_highlights': ['hv'], 'improvement_suggestions': ['jh'], 'additional_suggestions': ['jn']}
+INFO 2026-01-23 19:51:21,810 basehttp 41192 7084 "POST /api/save-student-feedback/ HTTP/1.1" 200 127
+INFO 2026-01-23 19:51:24,772 basehttp 41192 40360 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+INFO 2026-01-23 19:51:38,583 basehttp 41192 7084 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+INFO 2026-01-23 19:51:44,009 basehttp 41192 40360 "POST /api/save-teacher-feedback/ HTTP/1.1" 200 125
+INFO 2026-01-23 19:51:48,254 basehttp 41192 7084 "GET /api/get-feedback-status/?session_id=3467287b-13ae-4b23-b91b-8d08ea92cc66 HTTP/1.1" 200 276
+INFO 2026-01-23 19:51:51,093 basehttp 41192 40360 "POST /api/save-teacher-feedback/ HTTP/1.1" 200 125
+INFO 2026-01-23 19:51:55,362 basehttp 41192 40360 "GET /api/get-feedback-status/?session_id=3467287b-13ae-4b23-b91b-8d08ea92cc66 HTTP/1.1" 200 276

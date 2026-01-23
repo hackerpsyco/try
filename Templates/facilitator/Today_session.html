@@ -584,6 +584,13 @@ body.modal-open {
     opacity: 0.6;
 }
 
+/* Disabled nav-link styling */
+.nav-link:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 /* Rating buttons fix */
 .btn-group .btn.rating-btn.active {
     z-index: 3;
@@ -740,7 +747,7 @@ body.modal-open {
               <i class="fas fa-play me-2"></i>📝 Conduct
             </button>
             <button class="nav-link" id="feedback-tab" data-bs-toggle="pill" 
-                    data-bs-target="#feedback" type="button" role="tab">
+                    data-bs-target="#feedback" type="button" role="tab" aria-controls="feedback" title="Session Feedback">
               <i class="fas fa-comment me-2"></i>💭 Feedback
             </button>
           </div>
@@ -1564,9 +1571,10 @@ body.modal-open {
           </div>
 
           <!-- FEEDBACK TAB -->
-          <div class="tab-pane fade" id="feedback" role="tabpanel">
+          <div class="tab-pane fade" id="feedback" role="tabpanel" aria-labelledby="feedback-tab">
             <h6><i class="fas fa-comment me-2"></i>Session Feedback & Completion</h6>
             
+            {% if actual_session %}
             <!-- Feedback Collection Status -->
             <div class="row mb-4">
               <div class="col-md-6">
@@ -1596,7 +1604,14 @@ body.modal-open {
                 </div>
               </div>
             </div>
+            {% else %}
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle me-2"></i>
+              <strong>Session not started yet.</strong> Please conduct the session first to collect feedback.
+            </div>
+            {% endif %}
 
+            {% if actual_session %}
             <!-- Teacher Feedback Form -->
             <div id="teacherFeedbackForm" style="display: none;">
               <div class="card border-success mb-4">
@@ -1790,9 +1805,11 @@ body.modal-open {
                 <i class="fas fa-check-circle me-2"></i>Complete Session & Mark Attendance
               </button>
             </div>
+            {% endif %}
           </div>
 
           <!-- Student Feedback Inline Form (NOT A MODAL) -->
+          {% if actual_session %}
           <div id="studentFeedbackFormContainer" style="display: none;" class="card border-primary mt-4">
             <div class="card-header bg-primary text-white">
               <div class="d-flex justify-content-between align-items-center">
@@ -1890,6 +1907,7 @@ body.modal-open {
               </form>
             </div>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -1964,6 +1982,13 @@ function showMobileNotification(message, type = 'success') {
 
 // SIMPLE TOGGLE FOR STUDENT FEEDBACK FORM (NO MODAL)
 function toggleStudentFeedbackForm() {
+    // Check if actual session exists
+    const actualSessionId = '{{ actual_session.id|default:"" }}';
+    if (!actualSessionId) {
+        alert('Please conduct the session first before collecting student feedback.');
+        return;
+    }
+    
     const container = document.getElementById('studentFeedbackFormContainer');
     if (container) {
         if (container.style.display === 'none') {
@@ -1984,6 +2009,13 @@ function toggleStudentFeedbackForm() {
 
 // TEACHER FEEDBACK FORM FUNCTIONS
 function showTeacherFeedbackForm() {
+    // Check if actual session exists
+    const actualSessionId = '{{ actual_session.id|default:"" }}';
+    if (!actualSessionId) {
+        alert('Please conduct the session first before providing teacher feedback.');
+        return;
+    }
+    
     const form = document.getElementById('teacherFeedbackForm');
     if (form) {
         form.style.display = 'block';
