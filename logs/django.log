@@ -25454,3 +25454,1289 @@ INFO 2026-01-23 20:26:50,466 basehttp 15540 19320 "GET /facilitator/dashboard/ H
 WARNING 2026-01-23 20:28:32,721 session_auth_fix 15540 19320 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
 INFO 2026-01-23 20:28:32,722 basehttp 15540 19320 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
 INFO 2026-01-23 20:28:47,972 basehttp 15540 19320 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+INFO 2026-01-23 20:29:09,508 autoreload 31304 34508 Watching for file changes with StatReloader
+INFO 2026-01-23 20:31:05,163 basehttp 31304 5148 "GET /facilitator/attendance/ HTTP/1.1" 200 6264
+WARNING 2026-01-23 20:31:07,986 session_auth_fix 31304 5148 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 20:31:07,987 basehttp 31304 5148 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-23 20:31:11,021 session_auth_fix 31304 27956 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 20:31:11,024 basehttp 31304 27956 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 20:31:23,301 basehttp 31304 5148 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+INFO 2026-01-23 20:31:40,465 basehttp 31304 27956 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+INFO 2026-01-23 22:08:38,517 autoreload 2252 21940 Watching for file changes with StatReloader
+WARNING 2026-01-23 22:08:53,050 session_auth_fix 2252 20324 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-23 22:08:53,120 basehttp 2252 20324 "GET / HTTP/1.1" 302 0
+INFO 2026-01-23 22:09:14,564 basehttp 2252 20324 "GET /facilitator/dashboard/ HTTP/1.1" 200 5458
+INFO 2026-01-23 22:09:14,693 basehttp 2252 14660 "GET /static/offline-sync.js HTTP/1.1" 200 7923
+INFO 2026-01-23 22:09:14,702 basehttp 2252 14660 "GET /static/resource-prioritization.js HTTP/1.1" 200 5525
+WARNING 2026-01-23 22:09:14,987 basehttp 2252 14660 "GET /static/css/tailwind.css HTTP/1.1" 404 1862
+WARNING 2026-01-23 22:09:14,989 basehttp 2252 23784 "GET /static/js/main.js HTTP/1.1" 404 1844
+INFO 2026-01-23 22:09:14,992 basehttp 2252 29580 "GET /static/images/icon-192.png HTTP/1.1" 200 763
+INFO 2026-01-23 22:09:14,992 basehttp 2252 7096 "GET /static/images/icon-512.png HTTP/1.1" 200 2449
+INFO 2026-01-23 22:09:16,316 basehttp 2252 7096 "GET /static/service-worker.js HTTP/1.1" 200 7760
+WARNING 2026-01-23 22:09:16,348 basehttp 2252 5444 "GET /static/css/tailwind.css HTTP/1.1" 404 1862
+WARNING 2026-01-23 22:09:18,999 session_auth_fix 2252 20324 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 22:09:19,000 basehttp 2252 20324 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+WARNING 2026-01-23 22:09:19,295 session_auth_fix 2252 7096 Unauthorized access attempt by piyush8123@gmail.com to /
+INFO 2026-01-23 22:09:19,301 basehttp 2252 7096 - Broken pipe from ('127.0.0.1', 49973)
+WARNING 2026-01-23 22:09:19,378 session_auth_fix 2252 29580 Unauthorized access attempt by piyush8123@gmail.com to /offline/
+INFO 2026-01-23 22:09:19,381 basehttp 2252 29580 - Broken pipe from ('127.0.0.1', 55637)
+WARNING 2026-01-23 22:09:19,877 session_auth_fix 2252 22552 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 22:09:19,879 basehttp 2252 22552 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 22:09:20,907 basehttp 2252 22276 "GET /manifest.json HTTP/1.1" 302 0
+INFO 2026-01-23 22:09:23,100 basehttp 2252 22276 "GET /login/ HTTP/1.1" 200 986
+INFO 2026-01-23 22:09:36,872 basehttp 2252 20324 "GET /facilitator/dashboard/ HTTP/1.1" 200 5458
+INFO 2026-01-23 22:09:52,237 basehttp 2252 22552 "GET /facilitator/dashboard/ HTTP/1.1" 200 5458
+INFO 2026-01-23 22:10:16,893 basehttp 2252 22552 "GET /static/service-worker.js HTTP/1.1" 304 0
+INFO 2026-01-23 22:11:16,897 basehttp 2252 22552 "GET /static/service-worker.js HTTP/1.1" 304 0
+INFO 2026-01-23 22:12:16,903 basehttp 2252 22552 "GET /static/service-worker.js HTTP/1.1" 304 0
+INFO 2026-01-23 22:13:16,590 basehttp 2252 20324 "GET /static/service-worker.js HTTP/1.1" 304 0
+INFO 2026-01-23 22:13:26,669 basehttp 2252 20324 "GET /facilitator/my-schools/ HTTP/1.1" 200 4549
+INFO 2026-01-23 22:13:26,729 basehttp 2252 41608 "GET /static/offline-sync.js HTTP/1.1" 304 0
+INFO 2026-01-23 22:13:26,736 basehttp 2252 41608 "GET /static/resource-prioritization.js HTTP/1.1" 304 0
+WARNING 2026-01-23 22:13:26,858 basehttp 2252 41608 "GET /static/css/tailwind.css HTTP/1.1" 404 1862
+INFO 2026-01-23 22:13:26,869 basehttp 2252 14888 "GET /static/images/icon-192.png HTTP/1.1" 304 0
+WARNING 2026-01-23 22:13:26,869 basehttp 2252 41544 "GET /static/js/main.js HTTP/1.1" 404 1844
+INFO 2026-01-23 22:13:26,871 basehttp 2252 14688 "GET /static/images/icon-512.png HTTP/1.1" 304 0
+WARNING 2026-01-23 22:13:29,926 session_auth_fix 2252 20324 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 22:13:29,927 basehttp 2252 20324 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 22:13:30,212 basehttp 2252 22552 - Broken pipe from ('127.0.0.1', 53362)
+INFO 2026-01-23 22:13:30,851 basehttp 2252 22276 "GET /login/ HTTP/1.1" 200 983
+WARNING 2026-01-23 22:13:31,404 session_auth_fix 2252 14688 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 22:13:31,406 basehttp 2252 14688 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 22:13:35,994 basehttp 2252 14688 "GET /facilitator/my-schools/ HTTP/1.1" 200 4549
+WARNING 2026-01-23 22:13:36,297 basehttp 2252 14888 "GET /static/js/main.js HTTP/1.1" 404 1844
+WARNING 2026-01-23 22:13:36,297 basehttp 2252 14688 "GET /static/css/tailwind.css HTTP/1.1" 404 1862
+INFO 2026-01-23 22:13:40,430 basehttp 2252 22276 "GET /login/ HTTP/1.1" 200 981
+WARNING 2026-01-23 22:13:40,438 session_auth_fix 2252 7200 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 22:13:40,440 basehttp 2252 7200 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 22:13:48,871 basehttp 2252 20324 "GET /facilitator/dashboard/ HTTP/1.1" 200 5458
+WARNING 2026-01-23 22:13:52,750 session_auth_fix 2252 20324 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 22:13:52,752 basehttp 2252 20324 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 22:14:07,816 basehttp 2252 7200 "GET /facilitator/dashboard/ HTTP/1.1" 200 5458
+INFO 2026-01-23 22:14:28,464 basehttp 2252 20324 "GET /facilitator/dashboard/ HTTP/1.1" 200 5458
+INFO 2026-01-23 22:14:37,892 basehttp 2252 20324 "GET /static/service-worker.js HTTP/1.1" 304 0
+ERROR 2026-01-23 22:15:34,784 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:34,816 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:34,833 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:34,848 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:34,867 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:34,884 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:34,904 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:34,920 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+INFO 2026-01-23 22:15:37,890 basehttp 2252 20324 "GET /static/service-worker.js HTTP/1.1" 304 0
+ERROR 2026-01-23 22:15:40,478 log 13448 21316 Internal Server Error: /offline/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:40,493 log 13448 21316 Internal Server Error: /offline/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:40,514 log 13448 21316 Internal Server Error: /offline/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:40,530 log 13448 21316 Internal Server Error: /offline/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:43,724 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:43,746 log 13448 21316 Internal Server Error: /offline/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:47,035 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:47,051 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:47,067 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed
+ERROR 2026-01-23 22:15:47,089 log 13448 21316 Internal Server Error: /manifest.json
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+psycopg2.InterfaceError: connection already closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 89, in save
+    super().save(must_create)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\cached_db.py", line 78, in exists
+    or super().exists(session_key)
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1290, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1572, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 319, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 296, in _cursor
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\base\base.py", line 297, in _cursor
+    return self._prepare_cursor(self.create_cursor(name))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\backends\postgresql\base.py", line 429, in create_cursor
+    cursor = self.connection.cursor()
+django.db.utils.InterfaceError: connection already closed

@@ -3,6 +3,10 @@ from .views_auth import (
     # Auth views
     login_view, logout_view, session_check_view, clear_session_view,
 )
+from .pwa_views import (
+    # PWA views
+    manifest, offline,
+)
 from .views import (
     # Auth
     dashboard, no_permission, admin_settings, heartbeat,
@@ -176,6 +180,12 @@ from .admin_session_views import (
 )
 
 urlpatterns = [
+
+    # ======================
+    # PWA (Progressive Web App)
+    # ======================
+    path("manifest.json", manifest, name="manifest"),
+    path("offline/", offline, name="offline"),
 
     # ======================
     # Heartbeat (Keep-Alive)

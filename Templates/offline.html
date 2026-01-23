@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - CLAS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpg" href="{% static 'images/wes-logo.jpg' %}">
+    <style>
+        html, body {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="antialiased font-inter bg-gray-50 h-full flex items-center justify-center">
+    <div class="max-w-md w-full mx-auto px-4">
+        <div class="text-center">
+            <!-- Offline Icon -->
+            <div class="mb-6 flex justify-center">
+                <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <span class="material-symbols-outlined text-4xl text-yellow-600">cloud_off</span>
+                </div>
+            </div>
+            
+            <!-- Offline Message -->
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">You're Offline</h1>
+            <p class="text-gray-600 mb-6">
+                It looks like you've lost your internet connection. Some features may not be available.
+            </p>
+            
+            <!-- Status Info -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <p class="text-sm text-blue-800">
+                    <span class="font-semibold">Good news:</span> You can still access pages you've visited before. They're saved on your device.
+                </p>
+            </div>
+            
+            <!-- Available Pages -->
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-3">Available Pages</h2>
+                <div class="space-y-2">
+                    <a href="/" class="block p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                        <span class="material-symbols-outlined text-sm align-middle mr-2">home</span>
+                        <span class="text-gray-700">Home</span>
+                    </a>
+                    <a href="/dashboard/" class="block p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                        <span class="material-symbols-outlined text-sm align-middle mr-2">dashboard</span>
+                        <span class="text-gray-700">Dashboard</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Reconnection Instructions -->
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                <p class="text-sm text-green-800">
+                    <span class="font-semibold">To reconnect:</span> Check your internet connection and refresh the page.
+                </p>
+            </div>
+            
+            <!-- Refresh Button -->
+            <button onclick="location.reload()" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+                <span class="material-symbols-outlined text-sm align-middle mr-2">refresh</span>
+                Refresh Page
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // Check for network restoration
+        window.addEventListener('online', function() {
+            // Show notification that connection is restored
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg';
+            notification.textContent = 'Connection restored! Refreshing...';
+            document.body.appendChild(notification);
+            
+            // Refresh after 2 seconds
+            setTimeout(() => location.reload(), 2000);
+        });
+    </script>
+</body>
+</html>

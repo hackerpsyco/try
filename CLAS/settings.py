@@ -64,6 +64,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    # ✅ PWA Headers Middleware
+    'class.pwa_middleware.PWAHeadersMiddleware',
     # ✅ DATABASE CONNECTION HANDLING (FIRST - before other middleware)
     'class.db_connection_middleware.DatabaseConnectionMiddleware',
     # ✅ SESSION MANAGEMENT (NO TIMEOUT - USERS STAY LOGGED IN)

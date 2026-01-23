@@ -18,6 +18,21 @@
     <!-- Favicon -->
     <link rel="icon" type="image/jpg" href="{% static 'images/wes-logo.jpg' %}">
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{% url 'manifest' %}">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CLAS">
+    
+    <!-- Offline Sync Script -->
+    <script src="{% static 'offline-sync.js' %}"></script>
+    
+    <!-- Resource Prioritization Script -->
+    <script src="{% static 'resource-prioritization.js' %}"></script>
+    
     <!-- Critical CSS inline for proper layout -->
     <style>
         /* Reset and base styles */
@@ -305,6 +320,29 @@
 <script>
 (function() {
     'use strict';
+    
+    // Register Service Worker for PWA support
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('{% static "service-worker.js" %}')
+                .then(function(registration) {
+                    console.log('[PWA] Service Worker registered successfully:', registration);
+                    
+                    // Check for updates periodically
+                    setInterval(function() {
+                        registration.update();
+                    }, 60000); // Check every minute
+                })
+                .catch(function(error) {
+                    console.error('[PWA] Service Worker registration failed:', error);
+                });
+        });
+        
+        // Handle Service Worker updates
+        navigator.serviceWorker.addEventListener('controllerchange', function() {
+            console.log('[PWA] Service Worker updated');
+        });
+    }
     
     // Cache DOM elements
     const toggleBtn = document.getElementById("sidebarToggle");
