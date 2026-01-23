@@ -119,6 +119,45 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Pagination Controls -->
+    {% if paginator.num_pages > 1 %}
+    <div class="mt-6 flex items-center justify-between">
+        <div class="text-sm text-gray-600">
+            Showing page <span class="font-semibold">{{ sessions.number }}</span> of <span class="font-semibold">{{ paginator.num_pages }}</span>
+            ({{ paginator.count }} total sessions)
+        </div>
+        <div class="flex gap-2">
+            {% if sessions.has_previous %}
+            <a href="?page=1{% if selected_school %}&school_id={{ selected_school }}{% endif %}{% if selected_class %}&class_id={{ selected_class }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                ⬅️ First
+            </a>
+            <a href="?page={{ sessions.previous_page_number }}{% if selected_school %}&school_id={{ selected_school }}{% endif %}{% if selected_class %}&class_id={{ selected_class }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                ← Previous
+            </a>
+            {% endif %}
+
+            {% for num in paginator.page_range %}
+                {% if sessions.number == num %}
+                <span class="px-3 py-2 bg-blue-600 text-white rounded font-semibold">{{ num }}</span>
+                {% elif num > sessions.number|add:'-3' and num < sessions.number|add:'3' %}
+                <a href="?page={{ num }}{% if selected_school %}&school_id={{ selected_school }}{% endif %}{% if selected_class %}&class_id={{ selected_class }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                    {{ num }}
+                </a>
+                {% endif %}
+            {% endfor %}
+
+            {% if sessions.has_next %}
+            <a href="?page={{ sessions.next_page_number }}{% if selected_school %}&school_id={{ selected_school }}{% endif %}{% if selected_class %}&class_id={{ selected_class }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                Next →
+            </a>
+            <a href="?page={{ paginator.num_pages }}{% if selected_school %}&school_id={{ selected_school }}{% endif %}{% if selected_class %}&class_id={{ selected_class }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}" class="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                Last ⬅️
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
 </div>
 
 <script>

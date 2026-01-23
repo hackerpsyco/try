@@ -25232,3 +25232,225 @@ INFO 2026-01-23 19:51:44,009 basehttp 41192 40360 "POST /api/save-teacher-feedba
 INFO 2026-01-23 19:51:48,254 basehttp 41192 7084 "GET /api/get-feedback-status/?session_id=3467287b-13ae-4b23-b91b-8d08ea92cc66 HTTP/1.1" 200 276
 INFO 2026-01-23 19:51:51,093 basehttp 41192 40360 "POST /api/save-teacher-feedback/ HTTP/1.1" 200 125
 INFO 2026-01-23 19:51:55,362 basehttp 41192 40360 "GET /api/get-feedback-status/?session_id=3467287b-13ae-4b23-b91b-8d08ea92cc66 HTTP/1.1" 200 276
+INFO 2026-01-23 20:02:31,136 session_management 41192 11676 Found today's session for Demo School - 4A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-23 20:02:31,717 views 41192 11676 Grouped session detected via grouped_session_id for class 3966cab5-3ce9-439b-b16f-be1e46ee0571: grouped_session_id=e93b6d06-b172-4101-80ba-c8689b69d64a, classes_in_group=2
+INFO 2026-01-23 20:02:33,837 session_management 41192 11676 Found today's session for Demo School - 4A (2024-2025): Day 2 (Status: 1)
+INFO 2026-01-23 20:02:33,837 session_management 41192 11676 Progress metrics for Demo School - 4A (2024-2025): 1.3333333333333335% complete
+INFO 2026-01-23 20:02:36,718 basehttp 41192 11676 "GET /facilitator/class/3966cab5-3ce9-439b-b16f-be1e46ee0571/today/?refresh=1 HTTP/1.1" 200 22784
+WARNING 2026-01-23 20:02:39,706 session_auth_fix 41192 11676 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 20:02:39,707 basehttp 41192 11676 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 20:02:40,305 curriculum_content_resolver 41192 17340 Successfully loaded static file for english, extracting Day 2 content
+WARNING 2026-01-23 20:02:40,774 session_auth_fix 41192 13704 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 20:02:40,863 basehttp 41192 13704 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 20:02:41,261 basehttp 41192 38796 "GET /api/get-feedback-status/?session_id=3467287b-13ae-4b23-b91b-8d08ea92cc66 HTTP/1.1" 200 276
+INFO 2026-01-23 20:02:41,693 curriculum_content_resolver 41192 17340 Found 5251 rows in curriculum table
+INFO 2026-01-23 20:02:41,696 curriculum_content_resolver 41192 17340 Found Day 2 at row 36, cell text: 'Day 2'
+INFO 2026-01-23 20:02:41,698 curriculum_content_resolver 41192 17340 Found next day boundary at row 71, day 3
+INFO 2026-01-23 20:02:41,699 curriculum_content_resolver 41192 17340 Extracting 35 rows for Day 2 (from row 36 to 71)
+INFO 2026-01-23 20:02:41,707 curriculum_content_resolver 41192 17340 Fixed image and resource paths in curriculum content
+INFO 2026-01-23 20:02:41,708 curriculum_content_resolver 41192 17340 Loaded static fallback content for Day 2 english
+INFO 2026-01-23 20:02:42,054 basehttp 41192 17340 "GET /api/curriculum/content/?day=2&language=english&class_section_id=3966cab5-3ce9-439b-b16f-be1e46ee0571 HTTP/1.1" 200 3185
+INFO 2026-01-23 20:02:46,259 basehttp 41192 13704 - Broken pipe from ('127.0.0.1', 55616)
+INFO 2026-01-23 20:02:46,953 session_auth_fix 41192 17340 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-23 20:02:46,953 views_auth 41192 17340 User piyush8123@gmail.com logged out successfully
+INFO 2026-01-23 20:02:46,953 session_auth_fix 41192 17340 Logout detected for anonymous
+INFO 2026-01-23 20:02:48,374 basehttp 41192 17340 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-23 20:02:50,425 basehttp 41192 17340 "GET /login/ HTTP/1.1" 200 1198
+INFO 2026-01-23 20:02:56,100 basehttp 41192 11676 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+INFO 2026-01-23 20:02:59,788 basehttp 41192 11676 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 20:03:01,812 basehttp 41192 11676 "GET /login/ HTTP/1.1" 200 1275
+WARNING 2026-01-23 20:03:24,232 views_auth 41192 11676 Failed login attempt for piyush81@gmail.com
+INFO 2026-01-23 20:03:24,234 basehttp 41192 11676 "POST /login/ HTTP/1.1" 200 1206
+INFO 2026-01-23 20:03:27,307 basehttp 41192 11676 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 20:03:29,936 basehttp 41192 11676 "GET /login/ HTTP/1.1" 200 1273
+WARNING 2026-01-23 20:06:48,693 views_auth 41192 18696 Failed login attempt for piyush812@gmail.com
+INFO 2026-01-23 20:06:48,695 basehttp 41192 18696 "POST /login/ HTTP/1.1" 200 1207
+INFO 2026-01-23 20:06:51,766 basehttp 41192 18696 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 20:06:54,146 basehttp 41192 18696 "GET /login/ HTTP/1.1" 200 1275
+WARNING 2026-01-23 20:08:51,669 views_auth 41192 18696 Failed login attempt for piyush812@gmail.com
+INFO 2026-01-23 20:08:51,672 basehttp 41192 18696 "POST /login/ HTTP/1.1" 200 1206
+INFO 2026-01-23 20:08:54,768 basehttp 41192 18696 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 20:08:56,941 basehttp 41192 18696 "GET /login/ HTTP/1.1" 200 1277
+INFO 2026-01-23 20:09:07,687 views_auth 41192 18696 User piyush812@gmail.com logged in successfully
+INFO 2026-01-23 20:09:08,905 basehttp 41192 18696 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-23 20:09:14,996 basehttp 41192 18696 "GET /admin/dashboard/ HTTP/1.1" 200 8349
+WARNING 2026-01-23 20:09:17,683 session_auth_fix 41192 18696 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 20:09:17,684 basehttp 41192 18696 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 20:09:23,572 basehttp 41192 18696 "GET /admin/dashboard/ HTTP/1.1" 200 8364
+WARNING 2026-01-23 20:13:22,851 mixins 41192 18696 Slow function: schools took 7.27s
+INFO 2026-01-23 20:13:22,855 basehttp 41192 18696 "GET /admin/schools/ HTTP/1.1" 200 7909
+WARNING 2026-01-23 20:13:25,726 session_auth_fix 41192 18696 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 20:13:25,730 basehttp 41192 18696 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 20:13:32,413 basehttp 41192 18696 "GET /admin/dashboard/ HTTP/1.1" 200 8364
+INFO 2026-01-23 20:15:35,691 autoreload 41192 39388 C:\Users\piyus\CLAS\CLAS\class\supervisor_views.py changed, reloading.
+INFO 2026-01-23 20:15:37,321 autoreload 27220 13872 Watching for file changes with StatReloader
+INFO 2026-01-23 20:22:14,489 autoreload 31724 23488 Watching for file changes with StatReloader
+INFO 2026-01-23 20:22:52,803 autoreload 31724 23488 C:\Users\piyus\CLAS\CLAS\CLAS\settings.py changed, reloading.
+INFO 2026-01-23 20:22:54,027 autoreload 33280 26700 Watching for file changes with StatReloader
+INFO 2026-01-23 20:23:07,854 autoreload 33280 26700 C:\Users\piyus\CLAS\CLAS\CLAS\settings.py changed, reloading.
+INFO 2026-01-23 20:23:09,401 autoreload 21580 3180 Watching for file changes with StatReloader
+WARNING 2026-01-23 20:23:40,601 mixins 21580 40224 Slow function: schools took 7.08s
+INFO 2026-01-23 20:23:40,607 basehttp 21580 40224 - Broken pipe from ('127.0.0.1', 51967)
+INFO 2026-01-23 20:23:41,748 basehttp 21580 8672 "GET /admin/feedback/ HTTP/1.1" 200 5345
+WARNING 2026-01-23 20:23:45,874 session_auth_fix 21580 8672 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 20:23:45,876 basehttp 21580 8672 - Broken pipe from ('127.0.0.1', 50171)
+WARNING 2026-01-23 20:23:47,619 session_auth_fix 21580 35256 Unauthorized access attempt by piyush812@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 20:23:47,622 basehttp 21580 35256 - Broken pipe from ('127.0.0.1', 63587)
+INFO 2026-01-23 20:23:56,215 session_auth_fix 21580 19252 User piyush812@gmail.com logged out successfully
+INFO 2026-01-23 20:23:56,216 views_auth 21580 19252 User piyush812@gmail.com logged out successfully
+INFO 2026-01-23 20:23:56,216 session_auth_fix 21580 19252 Logout detected for anonymous
+INFO 2026-01-23 20:23:57,507 basehttp 21580 19252 "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-01-23 20:23:59,854 basehttp 21580 19252 "GET /login/ HTTP/1.1" 200 1199
+INFO 2026-01-23 20:23:59,922 basehttp 21580 19252 "GET /static/images/wes-logo.jpg HTTP/1.1" 304 0
+INFO 2026-01-23 20:24:11,493 views_auth 21580 19252 User piyush8123@gmail.com logged in successfully
+INFO 2026-01-23 20:24:12,776 basehttp 21580 19252 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-01-23 20:24:26,296 basehttp 21580 19252 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+WARNING 2026-01-23 20:24:31,211 session_auth_fix 21580 19252 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 20:24:31,213 basehttp 21580 19252 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 20:24:36,126 basehttp 21580 14348 "GET /facilitator/today-session/ HTTP/1.1" 302 0
+INFO 2026-01-23 20:24:40,830 views 21580 14348 Facilitator PIYUSH TAMOLI: Found 4950 PlannedSession records with grouped_session_id
+INFO 2026-01-23 20:24:43,970 views 21580 14348 Facilitator PIYUSH TAMOLI: Found 11 permanent groups with 33 total classes
+INFO 2026-01-23 20:24:43,970 views 21580 14348   Permanent group 39305fac-bfb1-4494-8a8f-493a5fe0fa07: ['5A', '3A', '1A', '4A', '2A']
+INFO 2026-01-23 20:24:43,971 views 21580 14348   Permanent group 9218758a-e2e3-41c2-81b8-7c51aadf73fd: ['4A', '5A']
+INFO 2026-01-23 20:24:43,971 views 21580 14348   Permanent group a6335cae-f403-44a2-ad3c-11695b5a32bb: ['3A', '2A', '1A']
+INFO 2026-01-23 20:24:43,972 views 21580 14348   Permanent group c6f26c4a-43cf-4d46-aea8-a95707e504f6: ['1A', '2A', '3A']
+INFO 2026-01-23 20:24:43,972 views 21580 14348   Permanent group a8cd645d-9c7b-46de-8d7f-72e654ea48de: ['5A', '4A', '2A', '1A', '3A']
+INFO 2026-01-23 20:24:43,972 views 21580 14348   Permanent group c7988b43-797b-4251-b012-5083728b52a4: ['7A', '8A', '6A']
+INFO 2026-01-23 20:24:43,973 views 21580 14348   Permanent group 54ca253d-1c27-49a2-a213-29ef2842469b: ['3A', '2A']
+INFO 2026-01-23 20:24:43,973 views 21580 14348   Permanent group 3337b7aa-d59c-4f40-8812-5dd960305b14: ['5A', '4A']
+INFO 2026-01-23 20:24:43,973 views 21580 14348   Permanent group c4baf421-aa7b-4cd6-bb9b-196434471978: ['1A', '2A', '3A']
+INFO 2026-01-23 20:24:43,973 views 21580 14348   Permanent group 6ea42f97-1305-44d4-b509-1edf6f9d608a: ['7A', '8A', '6A']
+INFO 2026-01-23 20:24:43,974 views 21580 14348   Permanent group e93b6d06-b172-4101-80ba-c8689b69d64a: ['5A', '4A']
+INFO 2026-01-23 20:24:44,277 views 21580 14348   Facilitator has access to class 3A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 20:24:44,278 views 21580 14348   Facilitator has access to class 2A in permanent group 54ca253d-1c27-49a2-a213-29ef2842469b
+INFO 2026-01-23 20:24:44,278 views 21580 14348   Facilitator has access to class 5A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 20:24:44,279 views 21580 14348   Facilitator has access to class 4A in permanent group e93b6d06-b172-4101-80ba-c8689b69d64a
+INFO 2026-01-23 20:24:44,579 views 21580 14348   Single class (no grouping): 1A
+INFO 2026-01-23 20:24:44,883 views 21580 14348   Adding calendar-based group e0402e4a-96ed-48e3-9b39-15c7621e989f with classes: ['2A', '3A']
+INFO 2026-01-23 20:24:45,494 views 21580 14348   Adding calendar-based group 73ae7c7a-8cb0-4015-9064-fae354f8cdf2 with classes: ['4A', '5A']
+INFO 2026-01-23 20:24:46,111 views 21580 14348   Grouped item: ['2A', '3A'] (key: e0402e4a-96ed-48e3-9b39-15c7621e989f)
+INFO 2026-01-23 20:24:46,427 views 21580 14348   Grouped item: ['4A', '5A'] (key: 73ae7c7a-8cb0-4015-9064-fae354f8cdf2)
+INFO 2026-01-23 20:24:46,428 views 21580 14348 Facilitator PIYUSH TAMOLI: Returning 3 class items to template
+INFO 2026-01-23 20:24:46,428 views 21580 14348   Item with 2 grouped classes: ['2A', '3A']
+INFO 2026-01-23 20:24:46,429 views 21580 14348   Item with 2 grouped classes: ['4A', '5A']
+INFO 2026-01-23 20:24:46,451 basehttp 21580 14348 "GET /facilitator/classes/ HTTP/1.1" 200 3107
+INFO 2026-01-23 20:24:47,520 basehttp 21580 19252 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+INFO 2026-01-23 20:24:55,047 session_management 21580 19252 Found today's session for Demo School - 1A (2026-2027): Day 4 (Status: 1)
+INFO 2026-01-23 20:24:55,744 views 21580 19252 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-23 20:24:58,166 session_management 21580 19252 Found today's session for Demo School - 1A (2026-2027): Day 4 (Status: 1)
+INFO 2026-01-23 20:24:58,167 session_management 21580 19252 Progress metrics for Demo School - 1A (2026-2027): 2.666666666666667% complete
+ERROR 2026-01-23 20:25:04,218 log 21580 19252 Internal Server Error: /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/
+Traceback (most recent call last):
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\piyus\CLAS\CLAS\class\views.py", line 1448, in today_session
+    return render(request, "facilitator/Today_session.html", {
+        "class_section": class_section,
+    ...<30 lines>...
+        "actual_session_date": actual_session.date if actual_session else None,
+    })
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\template\defaulttags.py", line 199, in render
+    len_values = len(values)
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 384, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1935, in _fetch_all
+    self._prefetch_related_objects()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 1322, in _prefetch_related_objects
+    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\piyus\CLAS\CLAS\venv\Lib\site-packages\django\db\models\query.py", line 2360, in prefetch_related_objects
+    raise AttributeError(
+    ...<7 lines>...
+    )
+AttributeError: Cannot find 'feedback_given' on Student object, 'student__feedback_given' is an invalid parameter to prefetch_related()
+ERROR 2026-01-23 20:25:04,247 basehttp 21580 19252 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 500 23909
+WARNING 2026-01-23 20:25:08,435 session_auth_fix 21580 19252 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 20:25:08,438 basehttp 21580 19252 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 20:25:23,100 basehttp 21580 19252 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+INFO 2026-01-23 20:26:12,220 autoreload 21580 3180 C:\Users\piyus\CLAS\CLAS\class\views.py changed, reloading.
+INFO 2026-01-23 20:26:13,684 autoreload 15540 37076 Watching for file changes with StatReloader
+INFO 2026-01-23 20:26:26,327 session_management 15540 4028 Found today's session for Demo School - 1A (2026-2027): Day 4 (Status: 1)
+INFO 2026-01-23 20:26:26,959 views 15540 4028 Single session for class 695e11ec-e452-4c63-a3b0-e38f5b1e8900: no grouped_session_id and not in grouped CalendarDate
+INFO 2026-01-23 20:26:29,135 session_management 15540 4028 Found today's session for Demo School - 1A (2026-2027): Day 4 (Status: 1)
+INFO 2026-01-23 20:26:29,135 session_management 15540 4028 Progress metrics for Demo School - 1A (2026-2027): 2.666666666666667% complete
+INFO 2026-01-23 20:26:31,325 basehttp 15540 4028 "GET /facilitator/class/695e11ec-e452-4c63-a3b0-e38f5b1e8900/today/ HTTP/1.1" 200 22042
+INFO 2026-01-23 20:26:34,874 curriculum_content_resolver 15540 4028 Successfully loaded static file for english, extracting Day 4 content
+INFO 2026-01-23 20:26:35,881 basehttp 15540 36380 "GET /api/get-feedback-status/?session_id=ecac37d7-976b-42dc-b6ef-71d3b0f3dbbd HTTP/1.1" 200 275
+WARNING 2026-01-23 20:26:36,055 session_auth_fix 15540 19320 Unauthorized access attempt by piyush8123@gmail.com to /favicon.ico
+INFO 2026-01-23 20:26:36,134 basehttp 15540 19320 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2026-01-23 20:26:36,724 curriculum_content_resolver 15540 4028 Found 5251 rows in curriculum table
+INFO 2026-01-23 20:26:36,731 curriculum_content_resolver 15540 4028 Found Day 4 at row 106, cell text: 'Day 4'
+INFO 2026-01-23 20:26:36,733 curriculum_content_resolver 15540 4028 Found next day boundary at row 141, day 5
+INFO 2026-01-23 20:26:36,734 curriculum_content_resolver 15540 4028 Extracting 35 rows for Day 4 (from row 106 to 141)
+INFO 2026-01-23 20:26:36,739 curriculum_content_resolver 15540 4028 Fixed image and resource paths in curriculum content
+INFO 2026-01-23 20:26:36,740 curriculum_content_resolver 15540 4028 Loaded static fallback content for Day 4 english
+INFO 2026-01-23 20:26:37,067 basehttp 15540 4028 "GET /api/curriculum/content/?day=4&language=english&class_section_id=695e11ec-e452-4c63-a3b0-e38f5b1e8900 HTTP/1.1" 200 3199
+INFO 2026-01-23 20:26:40,090 basehttp 15540 38280 - Broken pipe from ('127.0.0.1', 56770)
+INFO 2026-01-23 20:26:50,466 basehttp 15540 19320 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008
+WARNING 2026-01-23 20:28:32,721 session_auth_fix 15540 19320 Unauthorized access attempt by piyush8123@gmail.com to /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-01-23 20:28:32,722 basehttp 15540 19320 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 302 0
+INFO 2026-01-23 20:28:47,972 basehttp 15540 19320 "GET /facilitator/dashboard/ HTTP/1.1" 200 5008

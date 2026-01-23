@@ -36,26 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'class',
     'widget_tweaks',
-     "tailwind",
-    "theme",
-    "django_browser_reload",
     'django.contrib.humanize',  # For better number formatting
 ]
-# Tailwind CSS Configuration
-TAILWIND_APP_NAME = "theme"
-
-# Tailwind CSS optimization settings
-TAILWIND_CSS_DEV_MODE = DEBUG  # Use development mode only when DEBUG is True
-
-# Additional Tailwind settings for performance
-if not DEBUG:
-    # Production optimizations
-    TAILWIND_CSS_PURGE = True
-    TAILWIND_CSS_MINIFY = True
-else:
-    # Development optimizations
-    TAILWIND_CSS_PURGE = False
-    TAILWIND_CSS_MINIFY = False
 
 # Static files optimization
 STATICFILES_FINDERS = [

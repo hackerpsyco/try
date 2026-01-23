@@ -1420,7 +1420,7 @@ def today_session(request, class_section_id):
             logger.error(f"Error checking attendance: {e}")
             attendance_saved = False
 
-    # Get enrollments for student feedback form
+    # Get enrollments for student feedback form with optimized queries
     try:
         enrollments = Enrollment.objects.filter(
             class_section=class_section,
@@ -1429,6 +1429,19 @@ def today_session(request, class_section_id):
     except Exception as e:
         logger.error(f"Error getting enrollments: {e}")
         enrollments = []
+
+    # Get attendance records for this session (if exists) with optimized queries
+    attendance_records = []
+    if actual_session:
+        try:
+            attendance_records = Attendance.objects.filter(
+                actual_session=actual_session
+            ).select_related('enrollment__student').values_list(
+                'enrollment__student__id', 'status'
+            )
+        except Exception as e:
+            logger.error(f"Error getting attendance records: {e}")
+            attendance_records = []
 
     return render(request, "facilitator/Today_session.html", {
         "class_section": class_section,

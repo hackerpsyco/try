@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.db.models import Count, Q, Prefetch
+from django.db.models import Count, Q, Prefetch, Exists, OuterRef
 from django.core.cache import cache
 from django.db import transaction
 from .models import User, Role, School, ClassSection, FacilitatorSchool, PlannedSession, DateType, Cluster
@@ -347,14 +347,31 @@ def supervisor_school_delete(request, school_id):
 def supervisor_classes_list(request):
     """List all classes"""
     
-    classes = ClassSection.objects.select_related('school').order_by("school__name", "class_level", "section")
+    # Get school filter
+    school_filter = request.GET.get('school')
+    
+    # Build cache key based on school filter
+    cache_key = f"supervisor_classes_list_{school_filter or 'all'}"
+    classes = cache.get(cache_key)
+    
+    if classes is None:
+        classes = ClassSection.objects.select_related('school').prefetch_related(
+            Prefetch(
+                'enrollments',
+                queryset=Enrollment.objects.filter(is_active=True)
+            )
+        ).order_by("school__name", "class_level", "section")
+        
+        cache.set(cache_key, classes, 300)  # Cache for 5 minutes
     
     # Filter by school
-    school_filter = request.GET.get('school')
     if school_filter:
         classes = classes.filter(school__id=school_filter)
     
-    schools = School.objects.all()
+    schools = cache.get("supervisor_schools_all")
+    if schools is None:
+        schools = School.objects.all().order_by('name')
+        cache.set("supervisor_schools_all", schools, 300)
     
     context = {
         'classes': classes,
@@ -792,6 +809,9 @@ def supervisor_class_create(request):
         form = ClassSectionForm(request.POST)
         if form.is_valid():
             class_section = form.save()
+            # Invalidate cache
+            cache.delete("supervisor_classes_list_all")
+            cache.delete(f"supervisor_classes_list_{class_section.school_id}")
             messages.success(request, f"Class '{class_section.class_level} {class_section.section}' created successfully!")
             return redirect("supervisor_classes_list")
     else:
@@ -876,6 +896,9 @@ def supervisor_class_edit(request, class_id):
         form = ClassSectionForm(request.POST, instance=class_section)
         if form.is_valid():
             class_section = form.save()
+            # Invalidate cache
+            cache.delete("supervisor_classes_list_all")
+            cache.delete(f"supervisor_classes_list_{class_section.school_id}")
             messages.success(request, f"Class '{class_section.class_level} {class_section.section}' updated successfully!")
             return redirect("supervisor_classes_list")
     else:
@@ -896,10 +919,14 @@ def supervisor_class_delete(request, class_id):
     """Delete class - Supervisor can delete classes"""
     
     class_section = get_object_or_404(ClassSection, id=class_id)
+    school_id = class_section.school_id
     
     if request.method == "POST":
         class_name = f"{class_section.class_level} {class_section.section}"
         class_section.delete()
+        # Invalidate cache
+        cache.delete("supervisor_classes_list_all")
+        cache.delete(f"supervisor_classes_list_{school_id}")
         messages.success(request, f"Class '{class_name}' deleted successfully!")
         return redirect("supervisor_classes_list")
     
@@ -1632,6 +1659,7 @@ def supervisor_sessions_list(request):
     """List all sessions for supervisor's schools with filters"""
     from .models import ActualSession, Attendance, AttendanceStatus, SessionStatus
     from django.db.models import Count, Q, Avg
+    from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
     import json
     
     # Get all schools managed by this supervisor
@@ -1641,10 +1669,12 @@ def supervisor_sessions_list(request):
     school_id = request.GET.get('school_id')
     class_id = request.GET.get('class_id')
     status_filter = request.GET.get('status')
+    page = request.GET.get('page', 1)
     
     # Start with all actual sessions (not planned sessions)
     actual_sessions = ActualSession.objects.select_related(
-        'planned_session__class_section__school'
+        'planned_session__class_section__school',
+        'facilitator'
     ).prefetch_related(
         'planned_session__class_section__enrollments'
     )
@@ -1669,7 +1699,16 @@ def supervisor_sessions_list(request):
             actual_sessions = actual_sessions.filter(status=status_map[status_filter])
     
     # Order by date
-    actual_sessions = actual_sessions.order_by('-date')[:100]
+    actual_sessions = actual_sessions.order_by('-date')
+    
+    # Paginate: 20 sessions per page
+    paginator = Paginator(actual_sessions, 20)
+    try:
+        sessions_page = paginator.page(page)
+    except PageNotAnInteger:
+        sessions_page = paginator.page(1)
+    except EmptyPage:
+        sessions_page = paginator.page(paginator.num_pages)
     
     # Get schools for filter dropdown
     schools = supervisor_schools.order_by('name')
@@ -1682,32 +1721,51 @@ def supervisor_sessions_list(request):
     if school_id:
         selected_school_classes = ClassSection.objects.filter(school_id=school_id).order_by('class_level', 'section')
     
-    # Build class data with grouping info for JavaScript
+    # Build class data with grouping info for JavaScript - optimized with database aggregation
     class_data = {}
-    for cls in all_classes:
+    
+    # Get all classes with grouped session info in one query
+    classes_with_grouping = ClassSection.objects.filter(
+        school__in=supervisor_schools
+    ).select_related('school').annotate(
+        has_grouped_session=Exists(
+            PlannedSession.objects.filter(
+                class_section=OuterRef('pk'),
+                grouped_session_id__isnull=False
+            )
+        )
+    ).order_by('school__name', 'class_level')
+    
+    for cls in classes_with_grouping:
         school_key = str(cls.school_id)
         if school_key not in class_data:
             class_data[school_key] = []
         
-        # Check if class is part of a grouped session
-        grouped_sessions = PlannedSession.objects.filter(
-            class_section=cls,
-            grouped_session_id__isnull=False
-        ).values_list('grouped_session_id', flat=True).distinct()
-        
-        is_grouped = grouped_sessions.exists()
+        # If class has grouped sessions, count how many classes are in the group
+        grouped_count = 0
+        if cls.has_grouped_session:
+            # Get the grouped_session_id for this class
+            grouped_session_id = PlannedSession.objects.filter(
+                class_section=cls,
+                grouped_session_id__isnull=False
+            ).values_list('grouped_session_id', flat=True).first()
+            
+            if grouped_session_id:
+                # Count distinct classes in this group
+                grouped_count = PlannedSession.objects.filter(
+                    grouped_session_id=grouped_session_id
+                ).values('class_section').distinct().count()
         
         class_data[school_key].append({
             'id': str(cls.id),
             'name': cls.display_name,
-            'is_grouped': is_grouped,
-            'grouped_count': PlannedSession.objects.filter(
-                grouped_session_id__in=grouped_sessions
-            ).values('class_section').distinct().count() if is_grouped else 0
+            'is_grouped': cls.has_grouped_session,
+            'grouped_count': grouped_count
         })
     
     return render(request, 'supervisor/sessions/list.html', {
-        'sessions': actual_sessions,
+        'sessions': sessions_page,
+        'paginator': paginator,
         'schools': schools,
         'classes': all_classes,
         'selected_school_classes': selected_school_classes,
