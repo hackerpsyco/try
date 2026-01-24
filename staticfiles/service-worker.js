@@ -16,9 +16,7 @@ const CACHE_NAMES = {
 // Critical assets to cache on install
 const CRITICAL_ASSETS = [
   '/',
-  '/offline/',
-  '/static/css/tailwind.css',
-  '/static/js/main.js'
+  '/offline/'
 ];
 
 // Asset patterns for routing
@@ -27,6 +25,7 @@ const ASSET_PATTERNS = {
   pages: /\.html$|\/$/,
   api: /\/api\//
 };
+
 
 /**
  * Install Event - Cache critical assets
