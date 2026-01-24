@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet"/>
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/static/manifest.json">
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#3b82f6">
@@ -402,7 +402,7 @@
 // Register Service Worker for PWA support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/service-worker.js')
+        navigator.serviceWorker.register('/static/service-worker.js')
             .then(function(registration) {
                 console.log('[PWA] Service Worker registered successfully:', registration);
                 

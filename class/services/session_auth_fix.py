@@ -32,8 +32,6 @@ class ImprovedSessionTimeoutMiddleware(MiddlewareMixin):
             '/static/',
             '/media/',
             '/offline/',
-            '/service-worker.js',
-            '/manifest.json',
             '/api/auth/',
         ]
     
@@ -110,7 +108,7 @@ class URLAccessControlMiddleware(MiddlewareMixin):
     PUBLIC_URLS = ['/login/', '/logout/', '/static/', '/media/', '/offline/']
     
     # PWA files (must be accessible without authentication)
-    PWA_URLS = ['/service-worker.js', '/manifest.json']
+    PWA_URLS = ['/static/service-worker.js', '/static/manifest.json']
     
     # API endpoints that handle their own authentication (return JSON errors instead of redirects)
     API_URLS = ['/api/']
