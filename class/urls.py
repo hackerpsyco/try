@@ -5,7 +5,7 @@ from .views_auth import (
 )
 from .pwa_views import (
     # PWA views
-    manifest, offline,
+    offline,
 )
 from .views import (
     # Auth
@@ -188,7 +188,7 @@ urlpatterns = [
     # ======================
     # PWA (Progressive Web App)
     # ======================
-    path("manifest.json", manifest, name="manifest"),
+    # Manifest is now served as static file (static/manifest.json) via Nginx
     path("offline/", offline, name="offline"),
 
     # ======================
