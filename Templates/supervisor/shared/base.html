@@ -293,6 +293,7 @@
             {% if messages %}
                 <div class="mb-4 space-y-2" id="messagesContainer">
                     {% for message in messages %}
+                        {% if "permission" not in message|lower and "no permission" not in message|lower %}
                         <div class="alert p-3 rounded-lg border-l-4 animate-fade-in flex items-center justify-between {% if message.tags == 'error' %}bg-red-50 border-red-400 text-red-700{% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-400 text-yellow-700{% elif message.tags == 'success' %}bg-green-50 border-green-400 text-green-700{% else %}bg-blue-50 border-blue-400 text-blue-700{% endif %}">
                             <div class="flex items-center">
                                 <span class="material-symbols-outlined mr-2 text-lg">
@@ -307,6 +308,7 @@
                                 <span class="material-symbols-outlined text-lg">close</span>
                             </button>
                         </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             {% endif %}

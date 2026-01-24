@@ -23,9 +23,9 @@ def initialize_grouped_session_plans(classes, grouped_session_id):
     """
     Initialize 150-day session plans for grouped classes.
     
-    - Creates 150-day sessions for each class that doesn't have them yet
+    - Creates 150 sessions TOTAL (not per class) for grouped classes
+    - All classes in the group share the same 150 sessions
     - Links all sessions with the same grouped_session_id
-    - Preserves existing sessions for classes that already have them
     """
     if not classes:
         return {'success': False, 'error': 'No classes provided'}
@@ -34,38 +34,58 @@ def initialize_grouped_session_plans(classes, grouped_session_id):
         with transaction.atomic():
             sessions_created = 0
             
-            # For each class, create sessions if they don't exist
-            for class_section in classes:
-                # Check if this class already has sessions
-                existing_sessions = PlannedSession.objects.filter(
-                    class_section=class_section
+            # For grouped sessions: create 150 sessions for the FIRST class only
+            # All other classes will reference the same sessions via grouped_session_id
+            first_class = classes[0]
+            
+            # Check if first class already has sessions
+            existing_sessions = PlannedSession.objects.filter(
+                class_section=first_class,
+                grouped_session_id=grouped_session_id
+            ).exists()
+            
+            if not existing_sessions:
+                # Create 150 sessions for the first class
+                sessions_to_create = []
+                for day_number in range(1, 151):
+                    session = PlannedSession(
+                        class_section=first_class,
+                        day_number=day_number,
+                        title=f"Day {day_number} Session",
+                        description=f"Grouped session for {', '.join([c.display_name for c in classes])}",
+                        sequence_position=day_number,
+                        is_required=True,
+                        is_active=True,
+                        grouped_session_id=grouped_session_id
+                    )
+                    sessions_to_create.append(session)
+                
+                # Bulk create all sessions for the first class
+                PlannedSession.objects.bulk_create(sessions_to_create)
+                sessions_created = 150
+            
+            # For other classes in the group: create placeholder sessions that reference the same grouped_session_id
+            # These are minimal records just to mark the class as part of the group
+            for other_class in classes[1:]:
+                # Check if this class already has sessions in this group
+                existing = PlannedSession.objects.filter(
+                    class_section=other_class,
+                    grouped_session_id=grouped_session_id
                 ).exists()
                 
-                if not existing_sessions:
-                    # Create 150 sessions for this class
-                    sessions_to_create = []
-                    for day_number in range(1, 151):
-                        session = PlannedSession(
-                            class_section=class_section,
-                            day_number=day_number,
-                            title=f"Day {day_number} Session",
-                            description=f"Grouped session for {', '.join([c.display_name for c in classes])}",
-                            sequence_position=day_number,
-                            is_required=True,
-                            is_active=True,
-                            grouped_session_id=grouped_session_id
-                        )
-                        sessions_to_create.append(session)
-                    
-                    # Bulk create all sessions for this class
-                    PlannedSession.objects.bulk_create(sessions_to_create)
-                    sessions_created += 150
-                else:
-                    # Class already has sessions - just update grouped_session_id if not set
-                    PlannedSession.objects.filter(
-                        class_section=class_section,
-                        grouped_session_id__isnull=True
-                    ).update(grouped_session_id=grouped_session_id)
+                if not existing:
+                    # Create a single placeholder session for this class
+                    # This marks the class as part of the grouped session
+                    PlannedSession.objects.create(
+                        class_section=other_class,
+                        day_number=1,
+                        title="Grouped Session",
+                        description=f"Grouped session for {', '.join([c.display_name for c in classes])}",
+                        sequence_position=1,
+                        is_required=True,
+                        is_active=True,
+                        grouped_session_id=grouped_session_id
+                    )
             
             return {
                 'success': True,
@@ -96,26 +116,36 @@ def supervisor_required(view_func):
 def supervisor_dashboard(request):
     """Supervisor Dashboard - Overview of all managed resources"""
     
-    # Get statistics
-    total_users = User.objects.count()
-    total_schools = School.objects.count()
-    total_classes = ClassSection.objects.count()
-    active_facilitators = User.objects.filter(
-        role__name__iexact="FACILITATOR",
-        is_active=True
-    ).count()
+    from django.db.models import Count, Q
     
-    # Recent users
-    recent_users = User.objects.all().order_by("-created_at")[:5]
+    # Use aggregation instead of count() for better performance
+    stats = User.objects.aggregate(
+        active_facilitators=Count('id', filter=Q(role__name__iexact="FACILITATOR", is_active=True))
+    )
     
-    # Recent schools
-    recent_schools = School.objects.all().order_by("-created_at")[:5]
+    # Batch queries for counts
+    school_stats = School.objects.aggregate(
+        total_schools=Count('id'),
+        active_schools=Count('id', filter=Q(status=1))
+    )
+    
+    class_stats = ClassSection.objects.aggregate(
+        total_classes=Count('id'),
+        active_classes=Count('id', filter=Q(is_active=True))
+    )
+    
+    # Batch query: Get recent users and schools with select_related
+    recent_users = list(User.objects.all().select_related('role').order_by("-created_at")[:5])
+    recent_schools = list(School.objects.all().order_by("-created_at")[:5])
+    
+    logger.info(f"Dashboard - Active Facilitators: {stats['active_facilitators']}, Total Schools: {school_stats['total_schools']}, Total Classes: {class_stats['total_classes']}")
     
     context = {
-        'total_users': total_users,
-        'total_schools': total_schools,
-        'total_classes': total_classes,
-        'active_facilitators': active_facilitators,
+        'total_schools': school_stats['total_schools'],
+        'active_schools': school_stats['active_schools'],
+        'total_classes': class_stats['total_classes'],
+        'active_classes': class_stats['active_classes'],
+        'active_facilitators': stats['active_facilitators'],
         'recent_users': recent_users,
         'recent_schools': recent_schools,
     }
@@ -144,6 +174,7 @@ def supervisor_users_list(request):
     elif status_filter == 'inactive':
         users = users.filter(is_active=False)
     
+    # Batch query: Get all roles at once
     roles = Role.objects.all()
     
     context = {
@@ -221,19 +252,17 @@ def supervisor_schools_list(request):
     schools = cache.get(cache_key)
     
     if schools is None:
-        schools = School.objects.select_related().prefetch_related(
+        schools = School.objects.prefetch_related(
             Prefetch(
                 'class_sections',
-                queryset=ClassSection.objects.select_related().annotate(
-                    student_count=Count('enrollments', filter=Q(enrollments__is_active=True))
-                )
+                queryset=ClassSection.objects.filter(is_active=True)
             ),
             Prefetch(
                 'facilitators',
                 queryset=FacilitatorSchool.objects.select_related('facilitator').filter(is_active=True)
             )
         ).annotate(
-            total_classes=Count('class_sections', distinct=True),
+            total_classes=Count('class_sections', filter=Q(class_sections__is_active=True), distinct=True),
             total_students=Count('class_sections__enrollments', 
                                filter=Q(class_sections__enrollments__is_active=True),
                                distinct=True),
@@ -368,6 +397,7 @@ def supervisor_classes_list(request):
     if school_filter:
         classes = classes.filter(school__id=school_filter)
     
+    # Batch query: Get all schools at once
     schools = cache.get("supervisor_schools_all")
     if schools is None:
         schools = School.objects.all().order_by('name')
@@ -389,19 +419,24 @@ def supervisor_classes_list(request):
 def supervisor_reports_dashboard(request):
     """Reports and analytics dashboard"""
     
-    # Get statistics
-    total_users = User.objects.count()
+    from django.db.models import Count, Q
+    
+    # Use aggregation for all statistics
+    stats = User.objects.aggregate(
+        total_users=Count('id')
+    )
+    
     total_schools = School.objects.count()
     total_classes = ClassSection.objects.count()
     
-    # User breakdown by role
+    # Batch query: Get user breakdown by role
     user_by_role = User.objects.values('role__name').annotate(count=Count('id'))
     
-    # Schools by status
+    # Batch query: Get schools by status
     schools_by_status = School.objects.values('status').annotate(count=Count('id'))
     
     context = {
-        'total_users': total_users,
+        'total_users': stats['total_users'],
         'total_schools': total_schools,
         'total_classes': total_classes,
         'user_by_role': user_by_role,
@@ -581,29 +616,37 @@ def supervisor_facilitators_list(request):
         school_count=Count('assigned_schools', filter=Q(assigned_schools__is_active=True), distinct=True)
     ).order_by("-created_at")
     
-    # Enrich facilitators with session and attendance data
+    # Batch query: Get all stats for all facilitators in one query
+    facilitator_ids = [f.id for f in facilitators]
+    
+    # Get session counts per facilitator
+    session_counts = ActualSession.objects.filter(
+        facilitator_id__in=facilitator_ids,
+        status=1
+    ).values('facilitator_id').annotate(count=Count('id'))
+    sessions_by_facilitator = {item['facilitator_id']: item['count'] for item in session_counts}
+    
+    # Get unique student counts per facilitator
+    strength_counts = Attendance.objects.filter(
+        actual_session__facilitator_id__in=facilitator_ids,
+        actual_session__status=1
+    ).values('actual_session__facilitator_id').annotate(
+        unique_students=Count('enrollment__student', distinct=True)
+    )
+    strength_by_facilitator = {item['actual_session__facilitator_id']: item['unique_students'] for item in strength_counts}
+    
+    # Get feedback counts per facilitator
+    feedback_counts = SessionFeedback.objects.filter(
+        facilitator_id__in=facilitator_ids
+    ).values('facilitator_id').annotate(count=Count('id'))
+    feedback_by_facilitator = {item['facilitator_id']: item['count'] for item in feedback_counts}
+    
+    # Enrich facilitators with batch-queried data
     facilitator_list = []
     for facilitator in facilitators:
-        # Get total sessions conducted by this facilitator
-        total_sessions = ActualSession.objects.filter(
-            facilitator=facilitator,
-            status=1  # SessionStatus.CONDUCTED
-        ).count()
-        
-        # Get total strength (sum of students across all sessions)
-        total_strength = Attendance.objects.filter(
-            actual_session__facilitator=facilitator,
-            actual_session__status=1  # SessionStatus.CONDUCTED
-        ).values('enrollment__student').distinct().count()
-        
-        # Get feedback count
-        feedback_count = SessionFeedback.objects.filter(
-            facilitator=facilitator
-        ).count()
-        
-        facilitator.total_sessions = total_sessions
-        facilitator.total_strength = total_strength
-        facilitator.feedback_count = feedback_count
+        facilitator.total_sessions = sessions_by_facilitator.get(facilitator.id, 0)
+        facilitator.total_strength = strength_by_facilitator.get(facilitator.id, 0)
+        facilitator.feedback_count = feedback_by_facilitator.get(facilitator.id, 0)
         facilitator_list.append(facilitator)
     
     # Filter by status
@@ -705,6 +748,26 @@ def supervisor_facilitator_detail(request, facilitator_id):
         feedback_date__lte=end_date
     ).select_related('actual_session', 'actual_session__planned_session', 'actual_session__planned_session__class_section').order_by('-feedback_date')[:10]
     
+    # Get facilitator attendance stats - FILTERED BY DATE
+    from django.db.models import Count, Q
+    from .models import ActualSession
+    
+    facilitator_sessions = ActualSession.objects.filter(
+        facilitator=facilitator,
+        date__gte=start_date,
+        date__lte=end_date
+    )
+    
+    total_sessions = facilitator_sessions.count()
+    present_sessions = facilitator_sessions.filter(facilitator_attendance='present').count()
+    absent_sessions = facilitator_sessions.filter(facilitator_attendance='absent').count()
+    leave_sessions = facilitator_sessions.filter(facilitator_attendance='leave').count()
+    
+    # Calculate attendance rate
+    facilitator_attendance_rate = 0
+    if total_sessions > 0:
+        facilitator_attendance_rate = round((present_sessions / total_sessions) * 100, 2)
+    
     context = {
         'facilitator': facilitator,
         'schools': facilitator_schools,
@@ -723,6 +786,11 @@ def supervisor_facilitator_detail(request, facilitator_id):
         'task_dates': task_dates_list,
         'selected_class_id': selected_class_id,
         'selected_task_date': selected_task_date,
+        'total_sessions': total_sessions,
+        'present_sessions': present_sessions,
+        'absent_sessions': absent_sessions,
+        'leave_sessions': leave_sessions,
+        'facilitator_attendance_rate': facilitator_attendance_rate,
     }
     
     return render(request, "supervisor/facilitators/detail.html", context)

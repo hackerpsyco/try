@@ -141,82 +141,7 @@
 
  
 
-<!-- Recent Activity with lazy loading -->
-<div class="bg-white border border-gray-200 rounded-xl shadow-sm">
-  <div class="px-6 py-4 border-b border-gray-200">
-    <h5 class="text-lg font-semibold text-gray-900">Recent Session Activity</h5>
-  </div>
-  <div class="p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      
-      <!-- Recent Class Sessions -->
-      <div>
-        <h6 class="font-medium text-gray-900 mb-3 flex items-center justify-between">
-          Recent Class Sessions
-          <button onclick="refreshRecentSessions()" class="text-gray-400 hover:text-gray-600" title="Refresh">
-            <span class="material-symbols-outlined text-sm">refresh</span>
-          </button>
-        </h6>
-        <div id="recentClassSessions">
-          <!-- Loading skeleton -->
-          <div class="space-y-2" id="sessionsLoadingSkeleton">
-            <div class="animate-pulse">
-              <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-              <div class="h-3 bg-gray-200 rounded w-1/2"></div>
-            </div>
-            <div class="animate-pulse">
-              <div class="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
-              <div class="h-3 bg-gray-200 rounded w-1/3"></div>
-            </div>
-          </div>
-          <!-- Content will be loaded here -->
-          <div id="sessionsContent" class="hidden"></div>
-          <!-- Error state -->
-          <div id="sessionsError" class="hidden text-center py-4">
-            <span class="material-symbols-outlined text-red-300 text-2xl mb-2">error</span>
-            <p class="text-sm text-red-600 mb-2">Failed to load recent sessions</p>
-            <button onclick="refreshRecentSessions()" class="text-sm text-red-600 hover:text-red-800 underline">
-              Try again
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <!-- Recent Curriculum Updates -->
-      <div>
-        <h6 class="font-medium text-gray-900 mb-3 flex items-center justify-between">
-          Recent Curriculum Updates
-          <button onclick="refreshCurriculumUpdates()" class="text-gray-400 hover:text-gray-600" title="Refresh">
-            <span class="material-symbols-outlined text-sm">refresh</span>
-          </button>
-        </h6>
-        <div id="recentCurriculumUpdates">
-          <!-- Loading skeleton -->
-          <div class="space-y-2" id="curriculumLoadingSkeleton">
-            <div class="animate-pulse">
-              <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-              <div class="h-3 bg-gray-200 rounded w-1/2"></div>
-            </div>
-            <div class="animate-pulse">
-              <div class="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
-              <div class="h-3 bg-gray-200 rounded w-1/3"></div>
-            </div>
-          </div>
-          <!-- Content will be loaded here -->
-          <div id="curriculumContent" class="hidden"></div>
-          <!-- Error state -->
-          <div id="curriculumError" class="hidden text-center py-4">
-            <span class="material-symbols-outlined text-red-300 text-2xl mb-2">error</span>
-            <p class="text-sm text-red-600 mb-2">Failed to load curriculum updates</p>
-            <button onclick="refreshCurriculumUpdates()" class="text-sm text-red-600 hover:text-red-800 underline">
-              Try again
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
 // Performance optimized JavaScript
@@ -334,10 +259,6 @@ document.addEventListener('DOMContentLoaded', function() {
     loadClasses(schoolSelect.value);
   }
   
-  // Disable API calls that are causing 500 errors and delays
-  // Show static content instead
-  showStaticRecentActivity();
-  
   // Add keyboard shortcuts
   document.addEventListener('keydown', function(e) {
     // Alt + C for curriculum sessions
@@ -372,43 +293,7 @@ function preloadResources() {
 }
 
 function showStaticRecentActivity() {
-  // Show static content instead of API calls to avoid delays
-  const sessionsContent = document.getElementById('sessionsContent');
-  const sessionsLoading = document.getElementById('sessionsLoadingSkeleton');
-  const curriculumContent = document.getElementById('curriculumContent');
-  const curriculumLoading = document.getElementById('curriculumLoadingSkeleton');
-  
-  if (sessionsLoading) sessionsLoading.classList.add('hidden');
-  if (curriculumLoading) curriculumLoading.classList.add('hidden');
-  
-  if (sessionsContent) {
-    sessionsContent.innerHTML = `
-      <div class="text-center py-4">
-        <span class="material-symbols-outlined text-gray-300 text-2xl mb-2">schedule</span>
-        <p class="text-sm text-gray-500">Recent sessions will appear here</p>
-      </div>
-    `;
-    sessionsContent.classList.remove('hidden');
-  }
-  
-  if (curriculumContent) {
-    curriculumContent.innerHTML = `
-      <div class="text-center py-4">
-        <span class="material-symbols-outlined text-gray-300 text-2xl mb-2">menu_book</span>
-        <p class="text-sm text-gray-500">Recent curriculum updates will appear here</p>
-      </div>
-    `;
-    curriculumContent.classList.remove('hidden');
-  }
-}
-
-// Refresh functions - now just show static content
-function refreshRecentSessions() {
-  showStaticRecentActivity();
-}
-
-function refreshCurriculumUpdates() {
-  showStaticRecentActivity();
+  // Function removed - Recent Session Activity section has been deleted
 }
 
 // Add smooth transitions

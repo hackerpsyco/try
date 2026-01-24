@@ -16,9 +16,11 @@ const CACHE_NAMES = {
 // Critical assets to cache on install
 const CRITICAL_ASSETS = [
   '/',
-  '/offline/',
-  '/static/css/tailwind.css',
-  '/static/js/main.js'
+  '/offline/'
+  // Removed non-existent files:
+  // '/static/css/tailwind.css' - not generated
+  // '/static/js/main.js' - not generated
+];
 ];
 
 // Asset patterns for routing

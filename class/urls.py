@@ -10,6 +10,9 @@ from .pwa_views import (
 from .views import (
     # Auth
     dashboard, no_permission, admin_settings, heartbeat,
+    
+    # Optimized views (performance)
+    admin_dashboard_optimized, facilitator_dashboard_optimized, supervisor_dashboard_optimized,
 
     # Admin – users & setup
     users_view, add_user, edit_user, delete_user, create_user_ajax,
@@ -102,6 +105,7 @@ from .views import (
     today_session,          # facilitator today session
     start_session,          # facilitator start session
     mark_attendance,        # facilitator mark attendance
+    mark_facilitator_attendance,  # facilitator mark own attendance
     facilitator_classes,    # facilitator classes list
     facilitator_attendance, # facilitator attendance filtering
     admin_attendance_filter,
@@ -202,11 +206,11 @@ urlpatterns = [
     path("api/session/clear/", clear_session_view, name="session_clear"),
 
     # ======================
-    # Dashboards (role based)
+    # Dashboards (role based) - OPTIMIZED FOR PERFORMANCE
     # ======================
-    path("admin/dashboard/", dashboard, name="admin_dashboard"),
-    path("supervisor/dashboard/", supervisor_dashboard, name="supervisor_dashboard"),
-    path("facilitator/dashboard/", facilitator_views.facilitator_dashboard, name="facilitator_dashboard"),
+    path("admin/dashboard/", admin_dashboard_optimized, name="admin_dashboard"),
+    path("supervisor/dashboard/", supervisor_dashboard_optimized, name="supervisor_dashboard"),
+    path("facilitator/dashboard/", facilitator_dashboard_optimized, name="facilitator_dashboard"),
     
     # ======================
     # Supervisor URLs
@@ -433,6 +437,11 @@ path(
         "facilitator/session/<uuid:actual_session_id>/attendance/",
         mark_attendance,
         name="mark_attendance"
+    ),
+    path(
+        "facilitator/session/<uuid:actual_session_id>/facilitator-attendance/",
+        mark_facilitator_attendance,
+        name="mark_facilitator_attendance"
     ),
     path(
         "facilitator/attendance/",

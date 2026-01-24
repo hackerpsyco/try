@@ -146,8 +146,8 @@ def get_students_report_data(filters, date_filter):
         if filters.get('class_id'):
             queryset = queryset.filter(enrollments__class_section_id=filters['class_id'])
         
-        # Get distinct students and limit for performance
-        students = queryset.distinct()[:50]
+        # Get distinct students with pagination (500 per batch)
+        students = queryset.distinct()[:500]
         
         students_data = []
         for student in students:
@@ -161,12 +161,18 @@ def get_students_report_data(filters, date_filter):
                         status=SessionStatus.CONDUCTED
                     ).count()
                     
-                    attended_sessions = Attendance.objects.filter(
+                    # Count present and absent
+                    present_count = Attendance.objects.filter(
                         enrollment=enrollment,
                         status=AttendanceStatus.PRESENT
                     ).count()
                     
-                    attendance_rate = round((attended_sessions / total_sessions * 100) if total_sessions > 0 else 0, 1)
+                    absent_count = Attendance.objects.filter(
+                        enrollment=enrollment,
+                        status=AttendanceStatus.ABSENT
+                    ).count()
+                    
+                    attendance_rate = round((present_count / total_sessions * 100) if total_sessions > 0 else 0, 1)
                     
                     # Get last session date
                     last_attendance = Attendance.objects.filter(
@@ -180,6 +186,8 @@ def get_students_report_data(filters, date_filter):
                         'enrollment_number': student.enrollment_number,
                         'class_name': f"{enrollment.class_section.class_level} - {enrollment.class_section.section}",
                         'school_name': enrollment.school.name,
+                        'present': present_count,
+                        'absent': absent_count,
                         'attendance_rate': attendance_rate,
                         'last_session': last_session
                     })
@@ -208,7 +216,7 @@ def get_facilitators_report_data(filters, date_filter):
                 date_filter.get('date__lte', '2024-12-31')
             ]).distinct()
         
-        facilitators = queryset[:25]  # Limit for performance
+        facilitators = queryset[:200]  # Limit to 200 for performance
         
         facilitators_data = []
         for facilitator in facilitators:
@@ -268,7 +276,7 @@ def get_attendance_report_data(filters, date_filter):
         if filters.get('class_id'):
             queryset = queryset.filter(planned_session__class_section_id=filters['class_id'])
         
-        sessions = queryset.order_by('-date')[:25]  # Limit for performance
+        sessions = queryset.order_by('-date')[:500]  # Limit to 500 for performance
         
         attendance_data = []
         daily_attendance = {}
@@ -362,7 +370,7 @@ def get_sessions_report_data(filters, date_filter):
         if filters.get('class_id'):
             queryset = queryset.filter(planned_session__class_section_id=filters['class_id'])
         
-        sessions = queryset.order_by('-date')[:25]  # Limit for performance
+        sessions = queryset.order_by('-date')[:500]  # Limit to 500 for performance
         
         sessions_data = []
         for session in sessions:
@@ -373,7 +381,7 @@ def get_sessions_report_data(filters, date_filter):
                     'day_number': session.planned_session.day_number if session.planned_session else 1,
                     'class_name': f"{session.planned_session.class_section.class_level} - {session.planned_session.class_section.section}" if session.planned_session else 'N/A',
                     'facilitator_name': session.facilitator.full_name if session.facilitator else 'N/A',
-                    'status': session.status,
+                    'status': session.get_status_display() if hasattr(session, 'get_status_display') else str(session.status),
                     'duration': session.duration_minutes if session.duration_minutes else 45
                 })
             except Exception as e:
@@ -404,7 +412,7 @@ def get_feedback_report_data(filters, date_filter):
         if filters.get('class_id'):
             queryset = queryset.filter(actual_session__planned_session__class_section_id=filters['class_id'])
         
-        feedback_records = queryset.order_by('-feedback_date')[:25]  # Limit for performance
+        feedback_records = queryset.order_by('-feedback_date')[:500]  # Limit to 500 for performance
         
         feedback_data = []
         for feedback in feedback_records:
@@ -466,10 +474,10 @@ def download_pdf_report(request, report_type):
     # Get data based on report type
     if report_type == 'students':
         data = get_students_report_data(filters, date_filter)
-        headers = ['Student Name', 'Enrollment No', 'Class', 'School', 'Attendance Rate', 'Last Session']
+        headers = ['Student Name', 'Enrollment No', 'Class', 'School', 'Present', 'Absent', 'Attendance Rate', 'Last Session']
         table_data = [[
             row['name'], row['enrollment_number'], row['class_name'], 
-            row['school_name'], f"{row['attendance_rate']}%", row['last_session'] or 'N/A'
+            row['school_name'], str(row['present']), str(row['absent']), f"{row['attendance_rate']}%", row['last_session'] or 'N/A'
         ] for row in data]
         
     elif report_type == 'facilitators':

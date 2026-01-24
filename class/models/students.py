@@ -302,6 +302,19 @@ class ActualSession(models.Model):
         help_text="Whether attendance was completed"
     )
     
+    facilitator_attendance = models.CharField(
+        max_length=10,
+        choices=[
+            ('present', 'Present'),
+            ('absent', 'Absent'),
+            ('leave', 'Leave'),
+            ('', 'Not Marked')
+        ],
+        default='',
+        blank=True,
+        help_text="Facilitator attendance status"
+    )
+    
     status_changed_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
