@@ -17,10 +17,6 @@ const CACHE_NAMES = {
 const CRITICAL_ASSETS = [
   '/',
   '/offline/'
-  // Removed non-existent files:
-  // '/static/css/tailwind.css' - not generated
-  // '/static/js/main.js' - not generated
-];
 ];
 
 // Asset patterns for routing
@@ -29,6 +25,7 @@ const ASSET_PATTERNS = {
   pages: /\.html$|\/$/,
   api: /\/api\//
 };
+
 
 /**
  * Install Event - Cache critical assets
