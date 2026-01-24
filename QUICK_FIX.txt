@@ -1,0 +1,130 @@
+================================================================================
+                    QUICK FIX FOR 403 STATIC FILES
+================================================================================
+
+PROBLEM: Static files returning 403 Forbidden
+- /static/service-worker.js - 403
+- /static/offline-sync.js - 403
+- /static/resource-prioritization.js - 403
+- /static/images/wes-logo.jpg - 403
+
+ROOT CAUSE: Nginx not configured to serve static files
+
+SOLUTION: Add location block to Nginx config
+
+================================================================================
+                              STEP-BY-STEP FIX
+================================================================================
+
+1. SSH into AWS server:
+   ssh ubuntu@your-aws-server
+
+2. Edit Nginx config:
+   sudo nano /etc/nginx/sites-available/default
+
+3. Find the "location /" block (usually near the end)
+
+4. ADD THIS BLOCK BEFORE "location /" block:
+
+   location /static/ {
+       alias /home/ubuntu/try/static/;
+       expires 30d;
+       add_header Cache-Control "public, immutable";
+       access_log off;
+   }
+
+5. Save and exit (Ctrl+X, then Y, then Enter)
+
+6. Test Nginx config:
+   sudo nginx -t
+
+7. Restart Nginx:
+   sudo systemctl restart nginx
+
+8. Verify it works:
+   curl -I https://clas.wazireducationsociety.org/static/service-worker.js
+
+   Should return: HTTP/2 200 (not 403)
+
+================================================================================
+                            VERIFICATION CHECKLIST
+================================================================================
+
+After applying the fix, verify:
+
+[ ] Service Worker loads:
+    curl -I https://clas.wazireducationsociety.org/static/service-worker.js
+    Expected: HTTP/2 200
+
+[ ] Offline sync loads:
+    curl -I https://clas.wazireducationsociety.org/static/offline-sync.js
+    Expected: HTTP/2 200
+
+[ ] Resource prioritization loads:
+    curl -I https://clas.wazireducationsociety.org/static/resource-prioritization.js
+    Expected: HTTP/2 200
+
+[ ] Images load:
+    curl -I https://clas.wazireducationsociety.org/static/images/wes-logo.jpg
+    Expected: HTTP/2 200
+
+[ ] Manifest loads:
+    curl -I https://clas.wazireducationsociety.org/manifest.json
+    Expected: HTTP/2 200
+
+[ ] Browser console (F12) shows NO 403 errors
+
+[ ] Application tab shows Service Worker as "registered"
+
+[ ] Cache Storage shows cached files
+
+================================================================================
+                          IF SOMETHING GOES WRONG
+================================================================================
+
+Check Nginx error log:
+  sudo tail -50 /var/log/nginx/error.log
+
+Verify Nginx config syntax:
+  sudo nginx -t
+
+Check file permissions:
+  ls -la /home/ubuntu/try/static/service-worker.js
+  Expected: -rw-r--r-- 1 www-data www-data
+
+Check directory permissions:
+  ls -la /home/ubuntu/try/static/
+  Expected: drwxr-xr-x
+
+Restart Nginx:
+  sudo systemctl restart nginx
+
+Check Nginx status:
+  sudo systemctl status nginx
+
+================================================================================
+                              COMPLETE NGINX CONFIG
+================================================================================
+
+For a complete, production-ready Nginx config, see: nginx_config_fix.conf
+
+Key sections:
+- Static files location block
+- Manifest endpoint configuration
+- Offline page routing
+- Django proxy configuration
+- SSL/TLS setup
+- Security headers
+- PWA headers
+
+================================================================================
+                                TIME ESTIMATE
+================================================================================
+
+Fix application: 5 minutes
+Verification: 2 minutes
+Testing PWA: 5 minutes
+
+Total: ~12 minutes to fully working PWA
+
+================================================================================
