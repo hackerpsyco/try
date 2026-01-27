@@ -1,10 +1,86 @@
 {% extends "facilitator/shared/base.html" %}
+{% load static %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/today_session.css' %}">
 <style>
 /* Mobile-First Responsive Design for Today Session */
 .session-container {
     padding: 15px;
+}
+
+/* STEP FLOW BAR - TOP OF PAGE */
+.step-flow-bar {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.step-flow-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 8px 0;
+    -webkit-overflow-scrolling: touch;
+    background: transparent;
+}
+
+.step-item {
+    flex-shrink: 0;
+    min-width: 85px;
+}
+
+.step-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 38px;
+    border: 2px solid #dee2e6;
+    background: #fff;
+    color: #495057;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.step-btn:hover {
+    border-color: #0d6efd;
+    background: #f0f7ff;
+    color: #0d6efd;
+}
+
+.step-btn.active {
+    background: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+.step-btn.completed {
+    background: #198754;
+    color: white;
+    border-color: #198754;
+}
+
+.step-arrow {
+    color: #ccc;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    padding: 0 2px;
+    line-height: 1;
+}
+
+.step-progress-bar {
+    width: 100%;
 }
 
 /* Curriculum Content Mobile Optimization */
@@ -80,6 +156,88 @@
     height: auto !important;
     border-radius: 8px !important;
     margin: 10px 0 !important;
+}
+
+/* STEP FLOW BAR - RESPONSIVE STYLES */
+/* Desktop - Larger */
+@media (min-width: 768px) {
+    .step-item {
+        min-width: 95px;
+    }
+
+    .step-btn {
+        font-size: 0.85rem;
+        padding: 10px 12px;
+        height: 40px;
+    }
+
+    .step-arrow {
+        font-size: 1.2rem;
+        padding: 0 4px;
+    }
+}
+
+/* Tablet - Medium */
+@media (max-width: 767px) {
+    .step-flow-container {
+        gap: 4px;
+        padding: 6px 0;
+    }
+
+    .step-item {
+        min-width: 75px;
+    }
+
+    .step-btn {
+        font-size: 0.75rem;
+        padding: 6px 8px;
+        height: 36px;
+    }
+
+    .step-arrow {
+        font-size: 1rem;
+        padding: 0 1px;
+    }
+}
+
+/* Mobile - Compact */
+@media (max-width: 480px) {
+    .step-flow-container {
+        gap: 2px;
+        padding: 4px 0;
+    }
+
+    .step-item {
+        min-width: 65px;
+    }
+
+    .step-btn {
+        font-size: 0.7rem;
+        padding: 5px 6px;
+        height: 34px;
+    }
+
+    .step-arrow {
+        font-size: 0.9rem;
+        padding: 0;
+    }
+}
+
+/* Extra small - Very compact */
+@media (max-width: 360px) {
+    .step-item {
+        min-width: 60px;
+    }
+
+    .step-btn {
+        font-size: 0.65rem;
+        padding: 4px 4px;
+        height: 32px;
+    }
+
+    .step-arrow {
+        font-size: 0.8rem;
+    }
 }
 
 /* Desktop layout - keep workflow steps on left */
@@ -623,28 +781,7 @@ body.modal-open {
 </div>
 {% endif %}
 
-<div class="d-flex justify-content-between align-items-start mb-3">
-  <div>
-    <h5 class="fw-bold mb-2">
-      {% if is_grouped_session %}
-        🔗 Grouped Session — Today's Session
-        <br>
-        <small class="text-muted">
-          {% for grouped_class in grouped_classes %}
-            <span class="badge bg-info me-2 mb-1">{{ grouped_class.school.name }} — {{ grouped_class.class_level }}-{{ grouped_class.section }}</span>
-          {% endfor %}
-        </small>
-      {% else %}
-        {{ class_section.school.name }} — {{ class_section.class_level }}-{{ class_section.section }} — Today's Session
-      {% endif %}
-    </h5>
-  </div>
-  <div>
-    <span class="badge bg-success" title="Attendance can be marked anytime">
-      <i class="fas fa-clock me-1"></i>Anytime
-    </span>
-  </div>
-</div>
+
 
 <!-- Language Selector -->
 <div class="row mb-3">
@@ -669,10 +806,68 @@ body.modal-open {
   </div>
 </div>
 
+<!-- Language Selector Handler Script - OPTIMIZED -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const languageSelector = document.getElementById('languageSelector');
+    if (!languageSelector) return;
+    
+    languageSelector.addEventListener('change', function(e) {
+        const language = e.target.value;
+        const contentDiv = document.getElementById('curriculumContent');
+        if (!contentDiv) return;
+        
+        if (language === 'hindi') {
+            contentDiv.innerHTML = '<div class="text-center p-4"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">लोड हो रहा है...</p></div>';
+            
+            fetch('/static/hindi_curriculum.html')
+                .then(r => r.text())
+                .then(html => {
+                    const doc = new DOMParser().parseFromString(html, 'text/html');
+                    const rows = doc.querySelectorAll('table.waffle tbody tr');
+                    const currentDay = {{ current_day }};
+                    let dayRow = null;
+                    
+                    for (let row of rows) {
+                        const firstCell = row.querySelector('td, th');
+                        if (firstCell && (firstCell.textContent.trim() === `दिन ${currentDay}` || firstCell.textContent.trim() === `Day ${currentDay}`)) {
+                            dayRow = row.cloneNode(true);
+                            break;
+                        }
+                    }
+                    
+                    if (dayRow) {
+                        const table = document.createElement('table');
+                        table.className = 'table table-bordered table-sm';
+                        table.style.fontSize = '13px';
+                        const tbody = document.createElement('tbody');
+                        tbody.appendChild(dayRow);
+                        table.appendChild(tbody);
+                        contentDiv.innerHTML = '';
+                        contentDiv.appendChild(table);
+                        
+                        contentDiv.querySelectorAll('a').forEach(link => {
+                            link.target = '_blank';
+                            link.rel = 'noopener noreferrer';
+                        });
+                    } else {
+                        contentDiv.innerHTML = '<div class="alert alert-warning">सामग्री नहीं मिली</div>';
+                    }
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                    contentDiv.innerHTML = '<div class="alert alert-danger">त्रुटि: सामग्री लोड नहीं हो सकी</div>';
+                });
+        } else if (language === 'english') {
+            location.reload();
+        }
+    });
+});
+</script>
+
 {% if planned_session %}
-<div class="row session-layout">
-  <!-- Session Control Panel (Left Side) -->
-  <div class="col-md-4">
+<!-- Session Control Panel - Below Steps (Full Width) -->
+<div class="session-control-panel mb-4">
     <div class="card shadow-sm">
       <div class="card-body">
         <!-- HEADER -->
@@ -703,7 +898,7 @@ body.modal-open {
             <small class="text-muted">Progress</small>
             <small class="text-muted">{{ progress_metrics.completion_percentage|floatformat:1 }}%</small>
           </div>
-          <div class="progress" style="height: 6px;">
+          <div class="progress" style="height: 4px;">
             <div class="progress-bar bg-success" role="progressbar" 
                  data-width="{{ progress_metrics.completion_percentage|floatformat:1 }}"></div>
           </div>
@@ -714,79 +909,238 @@ body.modal-open {
           </small>
         </div>
         <script>
-          document.querySelectorAll('[data-width]').forEach(el => {
-            el.style.width = el.getAttribute('data-width') + '%';
+          requestAnimationFrame(() => {
+            document.querySelectorAll('[data-width]').forEach(el => {
+              el.style.width = el.getAttribute('data-width') + '%';
+            });
           });
         </script>
         {% endif %}
 
-        <!-- TOPIC -->
-        <h6 class="fw-semibold mt-2">
-          {{ planned_session.title|default:"Day Session" }}
-        </h6>
+        <!-- STEP FLOW BAR - INSIDE DAY PROGRESS CARD -->
+        <div class="step-flow-bar mb-3 mt-3">
+          <!-- Step Flow Container -->
+          <div class="step-flow-container">
+            <!-- Step 1: Lesson Plan -->
+            <div class="step-item">
+              <button class="step-btn step-btn-1" data-step="1" onclick="goToStep(1)" title="Lesson Plan">
+                📋 Lesson
+              </button>
+            </div>
 
-        <!-- WORKFLOW NAVIGATION -->
-        <div class="workflow-nav mb-3">
-          <h6 class="d-md-none text-center mb-3">
-            <i class="fas fa-tasks me-2"></i>Session Steps
-          </h6>
-          <div class="nav nav-pills flex-column" id="workflowTabs" role="tablist">
-            <button class="nav-link active" id="lesson-plan-tab" data-bs-toggle="pill" 
-                    data-bs-target="#lesson-plan" type="button" role="tab">
-              <i class="fas fa-file-pdf me-2"></i>📋 Lesson Plan
-            </button>
-            <button class="nav-link" id="preparation-tab" data-bs-toggle="pill" 
-                    data-bs-target="#preparation" type="button" role="tab">
-              <i class="fas fa-check-circle me-2"></i>✅ Preparation
-            </button>
-            <button class="nav-link" id="facilitator-task-tab" data-bs-toggle="pill" 
-                    data-bs-target="#facilitator-task" type="button" role="tab">
-              <i class="fas fa-camera me-2"></i>📸 Task
-            </button>
-            <button class="nav-link" id="rewards-tab" data-bs-toggle="pill" 
-                    data-bs-target="#rewards" type="button" role="tab">
-              <i class="fas fa-gift me-2"></i>🎁 Rewards
-            </button>
-            <button class="nav-link" id="conduct-tab" data-bs-toggle="pill" 
-                    data-bs-target="#conduct" type="button" role="tab">
-              <i class="fas fa-play me-2"></i>📝 Conduct
-            </button>
-            <button class="nav-link" id="feedback-tab" data-bs-toggle="pill" 
-                    data-bs-target="#feedback" type="button" role="tab" aria-controls="feedback" title="Session Feedback">
-              <i class="fas fa-comment me-2"></i>💭 Feedback
-            </button>
+            <!-- Arrow -->
+            <div class="step-arrow">→</div>
+
+            <!-- Step 2: Preparation -->
+            <div class="step-item">
+              <button class="step-btn step-btn-2" data-step="2" onclick="goToStep(2)" title="Preparation">
+                ✅ Prep
+              </button>
+            </div>
+
+            <!-- Arrow -->
+            <div class="step-arrow">→</div>
+
+            <!-- Step 3: Conduct -->
+            <div class="step-item">
+              <button class="step-btn step-btn-3" data-step="3" onclick="goToStep(3)" title="Conduct">
+                📝 Conduct
+              </button>
+            </div>
+
+            <!-- Arrow -->
+            <div class="step-arrow">→</div>
+
+            <!-- Step 4: Task -->
+            <div class="step-item">
+              <button class="step-btn step-btn-4" data-step="4" onclick="goToStep(4)" title="Task">
+                📸 Task
+              </button>
+            </div>
+
+            <!-- Arrow -->
+            <div class="step-arrow">→</div>
+
+            <!-- Step 5: Feedback (Optional) -->
+            <div class="step-item">
+              <button class="step-btn step-btn-5" data-step="5" onclick="goToStep(5)" title="Feedback">
+                💭 Feedback
+              </button>
+            </div>
+
+            <!-- Arrow -->
+            <div class="step-arrow">→</div>
+
+            <!-- Step 6: Reward (Optional) -->
+            <div class="step-item">
+              <button class="step-btn step-btn-6" data-step="6" onclick="goToStep(6)" title="Reward">
+                🎁 Reward
+              </button>
+            </div>
+          </div>
+
+          <!-- Progress Bar Below Steps -->
+          <div class="step-progress-bar mt-2">
+            <div class="progress" style="height: 4px;">
+              <div class="progress-bar bg-success" id="stepProgressBar" role="progressbar" style="width: 16.67%"></div>
+            </div>
           </div>
         </div>
 
-        <!-- WORKFLOW PROGRESS -->
-        <div class="workflow-progress mb-3">
-          <div class="progress" style="height: 8px;">
-            <div class="progress-bar bg-info" role="progressbar" style="width: 20%" id="workflowProgressBar"></div>
-          </div>
-          <small class="text-muted">Workflow Progress: <span id="workflowProgressText">20%</span></small>
-        </div>
-
-        <!-- SESSION STEPS -->
+        <!-- SESSION STEPS DETAILS (BELOW FLOW) -->
         {% if planned_session.steps.exists %}
-          <div class="alert alert-light border mt-2">
-            <strong>📋 Session Activities:</strong><br>
-            <div class="mt-1" style="font-size: 12px;">
+          <div class="alert alert-info border-2 mb-3">
+            <div class="d-flex align-items-center mb-2">
+              <strong class="me-2">📋 Session Activities ({{ planned_session.steps.count }} steps):</strong>
+              <span class="badge bg-info">Required</span>
+            </div>
+            <div class="mt-2" style="font-size: 0.9rem;">
               {% for step in planned_session.steps.all %}
-                <div class="mb-1">
-                  <strong>{{ step.order }}.</strong> {{ step.title }}
-                  {% if step.duration_minutes %}
-                    <span class="badge bg-secondary ms-1">{{ step.duration_minutes }}min</span>
-                  {% endif %}
-                  {% if step.youtube_url %}
-                    <a href="{{ step.youtube_url }}" target="_blank" class="ms-1">
-                      <i class="fas fa-play-circle text-danger"></i>
-                    </a>
-                  {% endif %}
+                <div class="mb-2 d-flex align-items-start">
+                  <span class="badge bg-primary me-2 mt-1">{{ step.order }}</span>
+                  <div class="flex-grow-1">
+                    <strong>{{ step.title }}</strong>
+                    {% if step.duration_minutes %}
+                      <span class="badge bg-secondary ms-2">⏱️ {{ step.duration_minutes }}min</span>
+                    {% endif %}
+                    {% if step.youtube_url %}
+                      <a href="{{ step.youtube_url }}" target="_blank" class="ms-2 text-danger" title="Watch video">
+                        <i class="fas fa-play-circle"></i> Video
+                      </a>
+                    {% endif %}
+                  </div>
                 </div>
               {% endfor %}
             </div>
           </div>
         {% endif %}
+
+        <!-- WORKFLOW NAVIGATION (HIDDEN - KEPT FOR COMPATIBILITY) -->
+        <div class="workflow-nav mb-3" style="display:none;">
+          <div class="nav nav-pills flex-column" id="workflowTabs" role="tablist">
+            <button class="nav-link active" id="lesson-plan-tab" data-bs-toggle="pill" 
+                    data-bs-target="#lesson-plan" type="button" role="tab">
+              📋 Lesson Plan
+            </button>
+            <button class="nav-link" id="preparation-tab" data-bs-toggle="pill" 
+                    data-bs-target="#preparation" type="button" role="tab">
+              ✅ Preparation
+            </button>
+            <button class="nav-link" id="conduct-tab" data-bs-toggle="pill" 
+                    data-bs-target="#conduct" type="button" role="tab">
+              📝 Conduct
+            </button>
+            <button class="nav-link" id="facilitator-task-tab" data-bs-toggle="pill" 
+                    data-bs-target="#facilitator-task" type="button" role="tab">
+              📸 Task
+            </button>
+            <button class="nav-link" id="feedback-tab" data-bs-toggle="pill" 
+                    data-bs-target="#feedback" type="button" role="tab">
+              💭 Feedback
+            </button>
+            <button class="nav-link" id="rewards-tab" data-bs-toggle="pill" 
+                    data-bs-target="#rewards" type="button" role="tab">
+              🎁 Rewards
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP FLOW JAVASCRIPT -->
+        <script>
+          let currentStep = 1;
+          const totalSteps = 6;
+          const stepMap = {
+            1: 'lesson-plan',
+            2: 'preparation',
+            3: 'conduct',
+            4: 'facilitator-task',
+            5: 'feedback',
+            6: 'rewards'
+          };
+
+          function goToStep(step) {
+            if (step >= 1 && step <= totalSteps) {
+              currentStep = step;
+              updateStepUI();
+              
+              // Show the corresponding tab pane
+              const tabPaneId = stepMap[step];
+              const tabPane = document.getElementById(tabPaneId);
+              
+              if (tabPane) {
+                // Hide all tab panes
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                  pane.classList.remove('show', 'active');
+                });
+                // Show the selected tab pane
+                tabPane.classList.add('show', 'active');
+                
+                // Scroll to content
+                const contentArea = document.querySelector('.tab-content');
+                if (contentArea) {
+                  contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }
+              
+              // Show/hide Conduct button based on current step
+              updateConductButtonVisibility();
+            }
+          }
+          
+          function updateConductButtonVisibility() {
+            const conductForm = document.getElementById('conductForm');
+            
+            // Only show Conduct button if on step 3 (Conduct)
+            if (currentStep === 3) {
+              if (conductForm) conductForm.style.display = 'inline-block';
+            } else {
+              if (conductForm) conductForm.style.display = 'none';
+            }
+          }
+
+          function nextStep() {
+            if (currentStep < totalSteps) {
+              goToStep(currentStep + 1);
+            }
+          }
+
+          function previousStep() {
+            if (currentStep > 1) {
+              goToStep(currentStep - 1);
+            }
+          }
+
+          function completeSession() {
+            alert('Session completed! Redirecting...');
+            // You can add actual completion logic here
+          }
+
+          function updateStepUI() {
+            // Update step buttons
+            document.querySelectorAll('.step-btn').forEach(btn => {
+              const step = parseInt(btn.dataset.step);
+              btn.classList.remove('active', 'completed');
+              
+              if (step === currentStep) {
+                btn.classList.add('active');
+              } else if (step < currentStep) {
+                btn.classList.add('completed');
+              }
+            });
+
+            // Update progress bar
+            const progress = (currentStep / totalSteps) * 100;
+            const progressBar = document.getElementById('stepProgressBar');
+            if (progressBar) {
+              progressBar.style.width = progress + '%';
+            }
+          }
+
+          // Initialize on page load
+          document.addEventListener('DOMContentLoaded', function() {
+            updateStepUI();
+          });
+        </script>
 
         <!-- DESCRIPTION / NOTES -->
         {% if planned_session.description %}
@@ -798,98 +1152,25 @@ body.modal-open {
           </div>
         {% endif %}
 
-        <!-- QUICK ATTENDANCE SUMMARY (When session completed) -->
-        {% if session_status == "conducted" and actual_session %}
-          <div class="alert alert-light border mt-2">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <strong class="text-success">
-                <i class="fas fa-users me-1"></i>Attendance Summary
-              </strong>
-              <a href="{% url 'mark_attendance' actual_session.id %}" 
-                 class="btn btn-outline-primary btn-sm">
-                <i class="fas fa-edit me-1"></i>Edit
-              </a>
-            </div>
-            <div class="attendance-quick-stats">
-              {% if attendance_summary %}
-                <div class="row text-center">
-                  <div class="col-3">
-                    <div class="text-success fw-bold">{{ attendance_summary.present|default:0 }}</div>
-                    <small class="text-muted">Present</small>
-                  </div>
-                  <div class="col-3">
-                    <div class="text-danger fw-bold">{{ attendance_summary.absent|default:0 }}</div>
-                    <small class="text-muted">Absent</small>
-                  </div>
-                  <div class="col-3">
-                    <div class="text-warning fw-bold">{{ attendance_summary.leave|default:0 }}</div>
-                    <small class="text-muted">Leave</small>
-                  </div>
-                  <div class="col-3">
-                    <div class="text-info fw-bold">{{ attendance_summary.total|default:0 }}</div>
-                    <small class="text-muted">Total</small>
-                  </div>
-                </div>
-              {% else %}
-                <div class="text-center">
-                  <small class="text-muted">
-                    <i class="fas fa-exclamation-circle me-1"></i>
-                    Attendance not marked yet
-                  </small>
-                </div>
-              {% endif %}
-            </div>
-          </div>
-        {% endif %}
 
-        <!-- FINAL ACTIONS (Always show for current day) -->
-        <div class="final-actions mt-3" id="finalActions">
+
+        <!-- SESSION ACTION BUTTONS (Small buttons) -->
+        <div class="session-action-buttons mt-3 mb-3" id="sessionActionButtons">
           {% if session_status == "pending" or session_status == "holiday" and not is_today %}
-            <!-- SIMPLIFIED CONDUCT BUTTON -->
-            <form method="post" action="{% url 'start_session' planned_session.id %}" onsubmit="disableButton(this)">
-              {% csrf_token %}
-              <button class="btn btn-success btn-lg w-100 mb-3 py-3" type="submit" name="status" value="conducted">
-                <i class="fas fa-play-circle me-2"></i>
-                {% if is_grouped_session %}
-                  CONDUCT GROUPED SESSION ({{ grouped_classes|length }} Classes)
-                {% else %}
-                  CONDUCT TODAY'S SESSION
-                {% endif %}
-              </button>
-            </form>
-            
-            {% if is_grouped_session %}
-            <div class="alert alert-info mb-2" style="font-size: 0.85rem; padding: 0.5rem 0.75rem;">
-              <strong>📌 Grouped Session:</strong> Conducting this session will mark ALL grouped classes as completed:
-              <div class="mt-2">
-                {% for grouped_class in grouped_classes %}
-                  <span class="badge bg-info me-1 mb-1">{{ grouped_class.display_name }}</span>
-                {% endfor %}
-              </div>
-            </div>
-            {% endif %}
 
-            <form method="post" action="{% url 'start_session' planned_session.id %}">
+            <form method="post" action="{% url 'start_session' planned_session.id %}" class="d-inline-block me-2">
               {% csrf_token %}
               <input type="hidden" name="status" value="holiday">
-              <button class="btn btn-outline-warning btn-sm w-100 mb-2">
-                {% if is_grouped_session %}
-                  🌤️ Mark Holiday (All {{ grouped_classes|length }} Classes)
-                {% else %}
-                  🌤️ Mark Holiday
-                {% endif %}
+              <button class="btn btn-outline-warning btn-sm">
+                🌤️ Holiday
               </button>
             </form>
 
             <!-- CANCEL SESSION WITH REASON -->
-            <div class="dropdown">
-              <button class="btn btn-outline-secondary btn-sm dropdown-toggle w-100" type="button" 
+            <div class="dropdown d-inline-block">
+              <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" 
                       data-bs-toggle="dropdown" aria-expanded="false">
-                {% if is_grouped_session %}
-                  ❌ Cancel Session (All {{ grouped_classes|length }} Classes)
-                {% else %}
-                  ❌ Cancel Session
-                {% endif %}
+                ❌ Cancel
               </button>
               <div class="dropdown-menu p-3" style="min-width: 300px;">
                 <form method="post" action="{% url 'start_session' planned_session.id %}">
@@ -933,64 +1214,18 @@ body.modal-open {
                 ✅ <strong>Session completed today!</strong><br>
                 <small>Attendance has been saved. Next session will be available tomorrow.</small>
               </div>
-              <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-primary btn-sm w-100">
+              <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-primary btn-sm">
                 <i class="fas fa-users"></i> View/Edit Student Attendance
               </a>
             {% else %}
               <!-- STUDENT ATTENDANCE NOT SAVED -->
               <div class="alert alert-warning mt-2 w-100">
-                ⚠️ <strong>Mark student attendance</strong><br>
-                <small>Complete the session by marking student attendance.</small>
+                 <strong>Session Completed</strong><br>
+              
               </div>
-              <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-success btn-sm w-100 mb-2">
-                <i class="fas fa-users"></i> Mark Student Attendance
+              <a href="{% url 'mark_attendance' actual_session.id %}" class="btn btn-success btn-sm">
+                <i class="fas fa-users"></i> Mark missing Student Attendance
               </a>
-              
-              <!-- Still allow other actions if attendance not saved -->
-              <form method="post" action="{% url 'start_session' planned_session.id %}">
-                {% csrf_token %}
-                <input type="hidden" name="status" value="holiday">
-                <button class="btn btn-outline-warning btn-sm w-100 mb-2">
-                  🌤️ Mark Holiday Instead
-                </button>
-              </form>
-              
-              <div class="dropdown">
-                <button class="btn btn-outline-secondary btn-sm dropdown-toggle w-100" type="button" 
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                  ❌ Cancel Session
-                </button>
-                <div class="dropdown-menu p-3" style="min-width: 300px;">
-                  <form method="post" action="{% url 'start_session' planned_session.id %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="status" value="cancelled">
-                    
-                    <div class="mb-3">
-                      <label class="form-label"><strong>Cancellation Reason:</strong></label>
-                      <select name="cancellation_reason" class="form-select form-select-sm" required>
-                        <option value="">Select reason...</option>
-                        {% for reason_code, reason_text in cancellation_reasons %}
-                          <option value="{{ reason_code }}">{{ reason_text }}</option>
-                        {% endfor %}
-                      </select>
-                    </div>
-                    
-                    <div class="mb-3">
-                      <label class="form-label">Additional Notes:</label>
-                      <textarea name="remarks" class="form-control form-control-sm" rows="2" 
-                                placeholder="Optional additional details..."></textarea>
-                    </div>
-                    
-                    <div class="alert alert-warning py-2">
-                      <small><strong>⚠️ Warning:</strong> This session will be permanently removed from the sequence.</small>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-danger btn-sm">
-                      Confirm Cancellation
-                    </button>
-                  </form>
-                </div>
-              </div>
             {% endif %}
 
           {% elif session_status == "holiday" and is_today %}
@@ -1051,12 +1286,24 @@ body.modal-open {
             </form>
           {% endif %}
         </div>
+
+        <!-- FINAL ACTIONS (Only show on feedback tab) -->
+        <div class="final-actions mt-3" id="finalActions" style="display: none;">
+          <!-- Complete Session Button (shown only on feedback tab) -->
+          {% if session_status == "conducted" and is_today and actual_session %}
+            <div class="text-center">
+              <button type="button" class="btn btn-success btn-lg" id="completeSessionBtn" disabled onclick="completeSession()">
+                <i class="fas fa-check-circle me-2"></i>Complete Session & Mark Attendance
+              </button>
+            </div>
+          {% endif %}
+        </div>
       </div>
     </div>
-  </div>
+</div>
 
-  <!-- Main Workflow Content Area -->
-  <div class="col-md-8">
+<!-- Main Workflow Content Area - Full Width -->
+<div class="session-content-full-width">
     
     <!-- FACILITATOR ATTENDANCE CARD (Top Right) -->
     {% if session_status == "conducted" and is_today %}
@@ -1241,9 +1488,9 @@ body.modal-open {
             </div>
             {% endif %}
 
-            <div class="text-center">
-              <button class="btn btn-primary" onclick="nextWorkflowStep('preparation')">
-                Next: Preparation Checklist <i class="fas fa-arrow-right ms-1"></i>
+            <div class="text-center mt-4">
+              <button class="btn btn-primary btn-lg" onclick="nextStep()">
+                Next: Preparation <i class="fas fa-arrow-right ms-1"></i>
               </button>
             </div>
           </div>
@@ -1332,9 +1579,9 @@ body.modal-open {
               </div>
             </form>
 
-            <div class="text-center">
-              <button class="btn btn-primary" onclick="nextWorkflowStep('facilitator-task')" id="preparationNextBtn" disabled>
-                Next: Task <i class="fas fa-arrow-right ms-1"></i>
+            <div class="text-center mt-4">
+              <button class="btn btn-primary btn-lg" onclick="nextStep()" id="preparationNextBtn" disabled>
+                Next: Conduct <i class="fas fa-arrow-right ms-1"></i>
               </button>
             </div>
           </div>
@@ -1454,15 +1701,15 @@ body.modal-open {
             </div>
             {% endif %}
 
-            <div class="text-center">
-              <button class="btn btn-primary" onclick="validateAndNextWorkflowStep('rewards')" id="taskNextBtn" disabled>
-                Next: Student Rewards <i class="fas fa-arrow-right ms-1"></i>
+            <div class="text-center mt-4">
+              <button class="btn btn-primary btn-lg" onclick="nextStep()" id="taskNextBtn" disabled>
+                Next: Feedback <i class="fas fa-arrow-right ms-1"></i>
               </button>
-              <button class="btn btn-outline-secondary ms-2" onclick="nextWorkflowStep('rewards')">
+              <button class="btn btn-outline-secondary btn-lg ms-2" onclick="nextStep()">
                 Skip <i class="fas fa-forward ms-1"></i>
               </button>
              
-              <div id="taskValidationMessage" class="alert alert-info mt-2" style="display: block;">
+              <div id="taskValidationMessage" class="alert alert-info mt-3" style="display: block;">
                 <i class="fas fa-info-circle me-2"></i>
                 <strong>Optional:</strong> Upload at least one media item (photo, video, or Facebook link) to enable the Next button. Or click Skip to proceed without media.
               </div>
@@ -1534,11 +1781,7 @@ body.modal-open {
             </div>
             {% endif %}
 
-            <div class="text-center mt-3">
-              <button class="btn btn-primary" onclick="nextWorkflowStep('conduct')">
-                Next: Conduct Session <i class="fas fa-arrow-right ms-1"></i>
-              </button>
-            </div>
+           
           </div>
 
           <!-- CONDUCT TAB -->
@@ -1663,9 +1906,24 @@ body.modal-open {
             </div>
             {% endif %}
 
-            <div class="text-center">
-              <button class="btn btn-primary" onclick="nextWorkflowStep('feedback')">
-                Next: Session Feedback <i class="fas fa-arrow-right ms-1"></i>
+            <!-- CONDUCT BUTTON - Only visible in Conduct tab -->
+            <div class="text-center mt-4 mb-3">
+              <form method="post" action="{% url 'start_session' planned_session.id %}" onsubmit="disableButton(this)" class="d-inline-block me-2">
+                {% csrf_token %}
+                <button class="btn btn-success btn-lg" type="submit" name="status" value="conducted">
+                  <i class="fas fa-play-circle me-1"></i>
+                  {% if is_grouped_session %}
+                    Conduct ({{ grouped_classes|length }})
+                  {% else %}
+                    Conduct Session
+                  {% endif %}
+                </button>
+              </form>
+            </div>
+
+            <div class="text-center mt-4">
+              <button class="btn btn-primary btn-lg" onclick="nextStep()">
+                Next: Task <i class="fas fa-arrow-right ms-1"></i>
               </button>
             </div>
           </div>
@@ -2040,6 +2298,9 @@ body.modal-open {
 </div>
 {% endif %}
 {% endif %}
+
+</div>
+<!-- End of Main Content -->
 
 <!-- Quick Attendance Access Button (Floating) -->
 {% if session_status == "conducted" and actual_session %}
@@ -2550,6 +2811,9 @@ document.addEventListener('DOMContentLoaded', function() {
             nextBtn.disabled = true;
             workflowState.preparation = false;
         }
+        
+        // Update Conduct button visibility
+        updateConductButtonVisibility();
     }
     
     async function saveCheckpointProgress() {

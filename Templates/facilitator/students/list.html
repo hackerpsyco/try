@@ -422,17 +422,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-lg-2 col-md-6">
-                <label for="grade" class="form-label fw-medium">Grade</label>
-                <select name="grade" id="grade" class="form-select filter-select">
-                    <option value="">All Grades</option>
-                    {% for grade in grade_levels %}
-                        <option value="{{ grade }}" {% if filters.grade == grade %}selected{% endif %}>
-                            Grade {{ grade }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
+            
             <div class="col-lg-3 col-md-6">
                 <label for="search" class="form-label fw-medium">Search</label>
                 <input type="text" name="search" id="search" class="form-control search-input" 

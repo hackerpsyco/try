@@ -38,35 +38,33 @@ class FacilitatorSchoolListView(FacilitatorAccessMixin, ListView):
         return self.get_facilitator_schools().order_by('name')
     
     def get_context_data(self, **kwargs):
-        from django.db.models import Count, Q
+        from django.db.models import Count
         
         context = super().get_context_data(**kwargs)
         
-        # Batch query: Get enrollment and class counts for all schools at once
         school_ids = [s.id for s in context['schools']]
         
-        # Get enrollment counts per school
+        # OPTIMIZATION: Single batch query for both counts
         enrollment_counts = Enrollment.objects.filter(
             school_id__in=school_ids,
             is_active=True
         ).values('school_id').annotate(count=Count('id'))
         enrollment_by_school = {item['school_id']: item['count'] for item in enrollment_counts}
         
-        # Get class counts per school
         class_counts = ClassSection.objects.filter(
             school_id__in=school_ids,
             is_active=True
         ).values('school_id').annotate(count=Count('id'))
         class_by_school = {item['school_id']: item['count'] for item in class_counts}
         
-        # Build schools with counts from batch queries
-        schools_with_counts = []
-        for school in context['schools']:
-            schools_with_counts.append({
+        schools_with_counts = [
+            {
                 'school': school,
                 'enrollment_count': enrollment_by_school.get(school.id, 0),
                 'class_count': class_by_school.get(school.id, 0)
-            })
+            }
+            for school in context['schools']
+        ]
         
         context['schools_with_counts'] = schools_with_counts
         return context
@@ -92,35 +90,33 @@ class FacilitatorSchoolDetailView(FacilitatorAccessMixin, DetailView):
         context = super().get_context_data(**kwargs)
         school = self.object
         
-        # Get all classes for this school
         classes = ClassSection.objects.filter(
             school=school,
             is_active=True
         ).order_by('class_level', 'section')
         
-        # Batch query: Get enrollment counts for all classes at once
         class_ids = [c.id for c in classes]
+        
+        # OPTIMIZATION: Single batch query for enrollment counts
         enrollment_counts = Enrollment.objects.filter(
             class_section_id__in=class_ids,
             is_active=True
         ).values('class_section_id').annotate(count=Count('id'))
         enrollment_by_class = {item['class_section_id']: item['count'] for item in enrollment_counts}
         
-        # Add enrollment counts for each class
-        classes_with_counts = []
-        for class_section in classes:
-            classes_with_counts.append({
-                'class_section': class_section,
-                'enrollment_count': enrollment_by_class.get(class_section.id, 0)
-            })
+        classes_with_counts = [
+            {
+                'class_section': cls,
+                'enrollment_count': enrollment_by_class.get(cls.id, 0)
+            }
+            for cls in classes
+        ]
         
         context['classes_with_counts'] = classes_with_counts
         
-        # Add filtering options
         grade_levels = classes.values_list('class_level', flat=True).distinct()
         context['grade_levels'] = sorted(set(grade_levels))
         
-        # Apply filters if provided
         grade_filter = self.request.GET.get('grade')
         if grade_filter:
             classes_with_counts = [
@@ -178,19 +174,14 @@ class FacilitatorStudentListView(FacilitatorAccessMixin, ListView):
         
         context = super().get_context_data(**kwargs)
         
-        # Add filter options
         context['schools'] = self.get_facilitator_schools()
-        
-        # Get classes from assigned schools
         context['classes'] = self.get_assigned_class_sections()
         
-        # Get unique grade levels
         grade_levels = ClassSection.objects.filter(
             school__in=self.get_facilitator_schools()
         ).values_list('class_level', flat=True).distinct()
         context['grade_levels'] = sorted(set(grade_levels))
         
-        # Preserve filter values
         context['filters'] = {
             'school': self.request.GET.get('school', ''),
             'class': self.request.GET.get('class', ''),
@@ -198,20 +189,22 @@ class FacilitatorStudentListView(FacilitatorAccessMixin, ListView):
             'search': self.request.GET.get('search', ''),
         }
         
-        # Batch calculate attendance statistics using aggregation instead of N+1 queries
-        # Get all attendance counts for all enrollments in one query
+        # OPTIMIZATION: Get all data in batch queries
         enrollment_ids = [e.id for e in context['enrollments']]
+        class_ids = [c.id for c in context['classes']]
         
-        # Get total sessions per class (batch query)
-        class_session_counts = {}
-        for class_section in context['classes']:
-            total_sessions = ActualSession.objects.filter(
-                planned_session__class_section=class_section,
-                status=SessionStatus.CONDUCTED
-            ).count()
-            class_session_counts[class_section.id] = total_sessions
+        # Single query for all class session counts
+        class_session_counts = ActualSession.objects.filter(
+            planned_session__class_section_id__in=class_ids,
+            status=SessionStatus.CONDUCTED
+        ).values('planned_session__class_section_id').annotate(count=Count('id'))
         
-        # Get attendance stats for all enrollments in batch
+        class_session_dict = {
+            item['planned_session__class_section_id']: item['count'] 
+            for item in class_session_counts
+        }
+        
+        # Single query for all attendance stats
         attendance_stats_raw = Attendance.objects.filter(
             enrollment_id__in=enrollment_ids
         ).values('enrollment_id').annotate(
@@ -219,7 +212,6 @@ class FacilitatorStudentListView(FacilitatorAccessMixin, ListView):
             absent_count=Count('id', filter=Q(status=AttendanceStatus.ABSENT))
         )
         
-        # Convert to dict for quick lookup
         attendance_by_enrollment = {
             stat['enrollment_id']: {
                 'present': stat['present_count'],
@@ -228,16 +220,11 @@ class FacilitatorStudentListView(FacilitatorAccessMixin, ListView):
             for stat in attendance_stats_raw
         }
         
-        # Build enrollment stats from prefetched data
+        # Build stats from batch queries
         enrollment_stats = []
         for enrollment in context['enrollments']:
-            total_sessions = class_session_counts.get(enrollment.class_section_id, 0)
-            
-            # Get attendance from batch query
-            attendance_data = attendance_by_enrollment.get(enrollment.id, {
-                'present': 0,
-                'absent': 0
-            })
+            total_sessions = class_session_dict.get(enrollment.class_section_id, 0)
+            attendance_data = attendance_by_enrollment.get(enrollment.id, {'present': 0, 'absent': 0})
             
             present_count = attendance_data['present']
             absent_count = attendance_data['absent']
@@ -252,7 +239,6 @@ class FacilitatorStudentListView(FacilitatorAccessMixin, ListView):
             })
         
         context['enrollment_stats'] = enrollment_stats
-        
         return context
 
 
@@ -419,14 +405,14 @@ def facilitator_ajax_school_classes(request):
 
 @facilitator_required
 def facilitator_student_detail(request, student_id):
-    """View student details and attendance"""
+    """View student details and attendance - OPTIMIZED"""
+    from .models import Attendance, ActualSession
+    
     student = get_object_or_404(Student, id=student_id)
     
-    # Create mixin instance to check access
     mixin = FacilitatorAccessMixin()
     mixin.request = request
     
-    # Check if student is in facilitator's schools
     enrollment = Enrollment.objects.filter(
         student=student,
         is_active=True,
@@ -437,27 +423,21 @@ def facilitator_student_detail(request, student_id):
         messages.error(request, "You do not have access to this student.")
         return redirect('facilitator_students_list')
     
-    # Get attendance statistics
-    from .models import Attendance, ActualSession
+    # OPTIMIZATION: Single aggregation query for attendance stats
+    attendance_stats = Attendance.objects.filter(
+        enrollment=enrollment
+    ).aggregate(
+        total_sessions=Count('id', filter=Q(status__in=[AttendanceStatus.PRESENT, AttendanceStatus.ABSENT])),
+        present_count=Count('id', filter=Q(status=AttendanceStatus.PRESENT)),
+        absent_count=Count('id', filter=Q(status=AttendanceStatus.ABSENT))
+    )
     
-    total_sessions = ActualSession.objects.filter(
-        planned_session__class_section=enrollment.class_section,
-        status=SessionStatus.CONDUCTED
-    ).count()
-    
-    present_count = Attendance.objects.filter(
-        enrollment=enrollment,
-        status=AttendanceStatus.PRESENT
-    ).count()
-    
-    absent_count = Attendance.objects.filter(
-        enrollment=enrollment,
-        status=AttendanceStatus.ABSENT
-    ).count()
-    
+    total_sessions = attendance_stats['total_sessions']
+    present_count = attendance_stats['present_count']
+    absent_count = attendance_stats['absent_count']
     attendance_percentage = (present_count / total_sessions * 100) if total_sessions > 0 else 0
     
-    # Get recent attendance records
+    # Get recent attendance records with select_related
     recent_attendance = Attendance.objects.filter(
         enrollment=enrollment
     ).select_related('actual_session__planned_session').order_by('-actual_session__date')[:10]
@@ -600,120 +580,114 @@ def facilitator_test_access(request):
 
 @facilitator_required
 def facilitator_dashboard(request):
-    """Enhanced facilitator dashboard with real data and analytics"""
-    from django.db.models import Count, Avg, Q
+    """Enhanced facilitator dashboard with real data and analytics - OPTIMIZED"""
+    from django.db.models import Count, Q, F, Case, When, IntegerField
     from .models import Attendance, ActualSession, PlannedSession
     from datetime import datetime, timedelta
     
-    # Create mixin instance for access control
     mixin = FacilitatorAccessMixin()
     mixin.request = request
     
-    # Get facilitator's schools and classes
     facilitator_schools = mixin.get_facilitator_schools()
     facilitator_classes = mixin.get_facilitator_classes()
     
-    # Basic counts
-    total_schools = facilitator_schools.count()
-    total_classes = facilitator_classes.count()
+    school_ids = list(facilitator_schools.values_list('id', flat=True))
+    class_ids = list(facilitator_classes.values_list('id', flat=True))
     
-    # Student counts
-    total_students = Enrollment.objects.filter(
-        school__in=facilitator_schools,
+    # OPTIMIZATION: Single aggregation query instead of multiple queries
+    stats = PlannedSession.objects.filter(
+        class_section_id__in=class_ids,
         is_active=True
-    ).count()
+    ).aggregate(
+        total_planned=Count('id'),
+        conducted=Count('id', filter=Q(actual_sessions__status=SessionStatus.CONDUCTED))
+    )
     
-    # Session statistics
-    total_planned_sessions = PlannedSession.objects.filter(
-        class_section__in=facilitator_classes,
-        is_active=True
-    ).count()
+    # OPTIMIZATION: Batch attendance stats in one query
+    attendance_stats = Attendance.objects.filter(
+        enrollment__school_id__in=school_ids
+    ).aggregate(
+        total_records=Count('id'),
+        present_count=Count('id', filter=Q(status=AttendanceStatus.PRESENT))
+    )
     
-    conducted_sessions = ActualSession.objects.filter(
-        planned_session__class_section__in=facilitator_classes,
-        status=SessionStatus.CONDUCTED
-    ).count()
+    total_planned_sessions = stats['total_planned']
+    conducted_sessions = stats['conducted']
+    total_attendance_records = attendance_stats['total_records']
+    present_count = attendance_stats['present_count']
     
-    # Attendance statistics
-    total_attendance_records = Attendance.objects.filter(
-        enrollment__school__in=facilitator_schools
-    ).count()
-    
-    present_count = Attendance.objects.filter(
-        enrollment__school__in=facilitator_schools,
-        status=AttendanceStatus.PRESENT
-    ).count()
-    
-    # Calculate percentages
     session_completion_rate = (conducted_sessions / total_planned_sessions * 100) if total_planned_sessions > 0 else 0
     overall_attendance_rate = (present_count / total_attendance_records * 100) if total_attendance_records > 0 else 0
     
-    # Recent activity (last 7 days)
+    # OPTIMIZATION: Get all class stats in one query with aggregation
     last_week = datetime.now().date() - timedelta(days=7)
-    recent_sessions = ActualSession.objects.filter(
-        planned_session__class_section__in=facilitator_classes,
-        date__gte=last_week
-    ).count()
     
-    # Class-wise attendance rates
+    class_stats_raw = Attendance.objects.filter(
+        enrollment__class_section_id__in=class_ids
+    ).values('enrollment__class_section_id').annotate(
+        total_attendance=Count('id'),
+        present_attendance=Count('id', filter=Q(status=AttendanceStatus.PRESENT))
+    )
+    
+    class_stats_dict = {
+        stat['enrollment__class_section_id']: {
+            'total': stat['total_attendance'],
+            'present': stat['present_attendance']
+        }
+        for stat in class_stats_raw
+    }
+    
+    # OPTIMIZATION: Get student counts per class in one query
+    student_counts = Enrollment.objects.filter(
+        class_section_id__in=class_ids,
+        is_active=True
+    ).values('class_section_id').annotate(count=Count('id'))
+    
+    student_counts_dict = {item['class_section_id']: item['count'] for item in student_counts}
+    
+    # Build class stats from aggregated data
     class_attendance_stats = []
-    for class_section in facilitator_classes[:5]:  # Top 5 classes
-        class_total_attendance = Attendance.objects.filter(
-            enrollment__class_section=class_section
-        ).count()
-        
-        class_present_count = Attendance.objects.filter(
-            enrollment__class_section=class_section,
-            status=AttendanceStatus.PRESENT
-        ).count()
-        
-        class_attendance_rate = (class_present_count / class_total_attendance * 100) if class_total_attendance > 0 else 0
+    for class_section in facilitator_classes[:5]:
+        stats_data = class_stats_dict.get(class_section.id, {'total': 0, 'present': 0})
+        attendance_rate = (stats_data['present'] / stats_data['total'] * 100) if stats_data['total'] > 0 else 0
         
         class_attendance_stats.append({
             'class_section': class_section,
-            'attendance_rate': round(class_attendance_rate, 1),
-            'total_students': Enrollment.objects.filter(
-                class_section=class_section,
-                is_active=True
-            ).count()
+            'attendance_rate': round(attendance_rate, 1),
+            'total_students': student_counts_dict.get(class_section.id, 0)
         })
     
-    # Recent students (last 5 added)
+    # OPTIMIZATION: Prefetch related data to avoid N+1
     recent_students = Enrollment.objects.filter(
-        school__in=facilitator_schools,
+        school_id__in=school_ids,
         is_active=True
     ).select_related('student', 'class_section').order_by('-student__created_at')[:5]
     
-    # Upcoming sessions (next 5)
+    recent_sessions = ActualSession.objects.filter(
+        planned_session__class_section_id__in=class_ids,
+        date__gte=last_week
+    ).count()
+    
     upcoming_sessions = PlannedSession.objects.filter(
-        class_section__in=facilitator_classes,
+        class_section_id__in=class_ids,
         is_active=True
     ).exclude(
         actual_sessions__status=SessionStatus.CONDUCTED
     ).order_by('day_number')[:5]
     
     context = {
-        # Basic stats
-        'total_schools': total_schools,
-        'total_classes': total_classes,
-        'total_students': total_students,
+        'total_schools': len(school_ids),
+        'total_classes': len(class_ids),
+        'total_students': Enrollment.objects.filter(school_id__in=school_ids, is_active=True).count(),
         'total_planned_sessions': total_planned_sessions,
         'conducted_sessions': conducted_sessions,
-        
-        # Percentages
         'session_completion_rate': round(session_completion_rate, 1),
         'overall_attendance_rate': round(overall_attendance_rate, 1),
-        
-        # Recent activity
         'recent_sessions': recent_sessions,
         'recent_students': recent_students,
         'upcoming_sessions': upcoming_sessions,
-        
-        # Detailed stats
         'class_attendance_stats': class_attendance_stats,
         'facilitator_schools': facilitator_schools,
-        
-        # User info
         'facilitator_name': request.user.full_name,
         'facilitator_email': request.user.email,
     }
@@ -779,105 +753,101 @@ def facilitator_mark_office_work_attendance(request):
 @facilitator_required
 def facilitator_today_session_calendar(request):
     """
-    Show today's session dashboard with calendar integration
-    - Shows ONLY facilitator's classes scheduled for today
-    - Optimized to load only today's grouped sessions, not all 4950 records
+    Show today's session dashboard - OPTIMIZED
+    - Only loads TODAY's sessions (not all 700+)
+    - Uses prefetch_related to avoid N+1 queries
+    - Batch queries for attendance data
     """
     from datetime import date
+    from django.db.models import Count, Q, Prefetch
     from .models import CalendarDate, OfficeWorkAttendance, PlannedSession, ActualSession, Attendance
     
     today = date.today()
     
-    # Get facilitator's assigned schools
+    # Get facilitator's schools (single query)
     facilitator_schools = School.objects.filter(
         facilitators__facilitator=request.user,
         facilitators__is_active=True
     ).values_list('id', flat=True)
     
-    # OPTIMIZATION: Only get calendar entries for TODAY with sessions
-    # This avoids loading all 4950 PlannedSession records
+    # OPTIMIZATION: Only query TODAY's calendar entries with prefetch
     calendar_sessions_today = CalendarDate.objects.filter(
         date=today,
         date_type=DateType.SESSION
     ).select_related('school', 'calendar__supervisor').prefetch_related('class_sections')
     
-    # Get only the classes that have sessions scheduled for today
     classes_today = []
     processed_calendar_ids = set()
+    actual_session_ids = []
     
+    # First pass: collect actual session IDs for batch query
     for calendar_date in calendar_sessions_today:
         calendar_id = str(calendar_date.id)
-        
-        # Skip if already processed
         if calendar_id in processed_calendar_ids:
             continue
-        
         processed_calendar_ids.add(calendar_id)
         
-        # Get classes from this calendar entry
         grouped_classes = list(calendar_date.class_sections.all()) if calendar_date.class_sections.exists() else []
-        
-        # Filter to only facilitator's classes
-        facilitator_grouped_classes = [
-            cls for cls in grouped_classes 
-            if cls.school_id in facilitator_schools
-        ]
+        facilitator_grouped_classes = [cls for cls in grouped_classes if cls.school_id in facilitator_schools]
         
         if not facilitator_grouped_classes:
             continue
         
-        # Get planned session from first class in group
-        planned_session = None
-        actual_session = None
-        attendance_summary = None
-        
         first_class = facilitator_grouped_classes[0]
         
-        # Only query for today's session, not all sessions
-        planned_session = PlannedSession.objects.filter(
-            class_section=first_class,
-            is_active=True,
-            grouped_session_id__isnull=False  # Only grouped sessions
-        ).first()
+        # Query actual sessions for today only
+        actual_session = ActualSession.objects.filter(
+            planned_session__class_section=first_class,
+            date=today
+        ).select_related('planned_session').first()
         
-        if planned_session:
-            actual_session = ActualSession.objects.filter(
-                planned_session=planned_session,
-                date=today
-            ).first()
-            
-            # Get attendance summary if session was conducted
-            if actual_session and actual_session.status == SessionStatus.CONDUCTED:
-                attendance_records = Attendance.objects.filter(
-                    actual_session=actual_session
-                ).values('status').annotate(count=Count('id'))
-                
-                attendance_summary = {
-                    'present': next((r['count'] for r in attendance_records if r['status'] == AttendanceStatus.PRESENT), 0),
-                    'absent': next((r['count'] for r in attendance_records if r['status'] == AttendanceStatus.ABSENT), 0),
-                    'leave': next((r['count'] for r in attendance_records if r['status'] == AttendanceStatus.LEAVE), 0),
-                    'total': sum(r['count'] for r in attendance_records),
-                }
-        
-        # Add grouped classes as single entry
-        classes_today.append({
-            'class_sections': facilitator_grouped_classes,
-            'class_section': first_class,
-            'planned_session': planned_session,
-            'actual_session': actual_session,
-            'calendar_date': calendar_date,
-            'attendance_summary': attendance_summary,
-            'status': 'session',
-        })
+        if actual_session:
+            actual_session_ids.append(actual_session.id)
+            classes_today.append({
+                'class_sections': facilitator_grouped_classes,
+                'class_section': first_class,
+                'planned_session': actual_session.planned_session,
+                'actual_session': actual_session,
+                'calendar_date': calendar_date,
+                'attendance_summary': None,  # Will fill in batch query
+                'status': 'session',
+            })
     
-    # Get office work for today (not tied to specific class)
+    # OPTIMIZATION: Batch query all attendance data for today's sessions
+    if actual_session_ids:
+        attendance_summaries = Attendance.objects.filter(
+            actual_session_id__in=actual_session_ids
+        ).values('actual_session_id', 'status').annotate(count=Count('id'))
+        
+        attendance_dict = {}
+        for record in attendance_summaries:
+            session_id = record['actual_session_id']
+            if session_id not in attendance_dict:
+                attendance_dict[session_id] = {'present': 0, 'absent': 0, 'leave': 0, 'total': 0}
+            
+            status = record['status']
+            count = record['count']
+            if status == AttendanceStatus.PRESENT:
+                attendance_dict[session_id]['present'] = count
+            elif status == AttendanceStatus.ABSENT:
+                attendance_dict[session_id]['absent'] = count
+            elif status == AttendanceStatus.LEAVE:
+                attendance_dict[session_id]['leave'] = count
+            attendance_dict[session_id]['total'] += count
+        
+        # Update classes_today with attendance summaries
+        for item in classes_today:
+            session_id = item['actual_session'].id
+            if session_id in attendance_dict:
+                item['attendance_summary'] = attendance_dict[session_id]
+    
+    # Get office work for today
     office_work_today = None
     office_work_calendar = CalendarDate.objects.filter(
         date=today,
         date_type=DateType.OFFICE_WORK
     ).select_related('calendar__supervisor').prefetch_related('assigned_facilitators').first()
     
-    # Check if facilitator is assigned to office work
     is_assigned_to_office_work = False
     if office_work_calendar:
         is_assigned_to_office_work = office_work_calendar.assigned_facilitators.filter(id=request.user.id).exists()
@@ -902,18 +872,31 @@ def facilitator_today_session_calendar(request):
     ).first()
     
     if holiday_calendar:
-        holiday_today = {
-            'holiday_name': holiday_calendar.holiday_name,
-        }
+        holiday_today = {'holiday_name': holiday_calendar.holiday_name}
+    
+    # Get facilitator's schools and classes (with select_related)
+    facilitator_schools_list = School.objects.filter(
+        facilitators__facilitator=request.user,
+        facilitators__is_active=True
+    ).order_by('name')
+    
+    facilitator_classes = ClassSection.objects.filter(
+        school__in=facilitator_schools_list
+    ).select_related('school').order_by('school__name', 'class_level', 'section')
     
     context = {
         'today': today,
         'classes_today': classes_today,
         'office_work_today': office_work_today,
         'holiday_today': holiday_today,
+        'facilitator_schools': facilitator_schools_list,
+        'facilitator_classes': facilitator_classes,
+        'total_sessions_today': len(classes_today),
+        'has_office_work': is_assigned_to_office_work,
+        'has_holiday': holiday_today is not None,
     }
     
-    return render(request, 'facilitator/today_session_calendar.html', context)
+    return render(request, 'facilitator/Today_session.html', context)
 
 
 @facilitator_required

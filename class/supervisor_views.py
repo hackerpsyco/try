@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count, Q, Prefetch, Exists, OuterRef
 from django.core.cache import cache
 from django.db import transaction
-from .models import User, Role, School, ClassSection, FacilitatorSchool, PlannedSession, DateType, Cluster
+from .models import User, Role, School, ClassSection, FacilitatorSchool, PlannedSession, DateType, Cluster, Enrollment
 from .forms import AddUserForm, EditUserForm, AddSchoolForm, EditSchoolForm, ClassSectionForm, AssignFacilitatorForm, ClusterForm
 
 User = get_user_model()
@@ -246,37 +246,37 @@ def supervisor_user_delete(request, user_id):
 @login_required
 @supervisor_required
 def supervisor_schools_list(request):
-    """List all schools"""
+    """List all schools - OPTIMIZED with database-level filtering"""
     
-    cache_key = f"supervisor_schools_list_{request.user.id}"
-    schools = cache.get(cache_key)
-    
-    if schools is None:
-        schools = School.objects.prefetch_related(
-            Prefetch(
-                'class_sections',
-                queryset=ClassSection.objects.filter(is_active=True)
-            ),
-            Prefetch(
-                'facilitators',
-                queryset=FacilitatorSchool.objects.select_related('facilitator').filter(is_active=True)
-            )
-        ).annotate(
-            total_classes=Count('class_sections', filter=Q(class_sections__is_active=True), distinct=True),
-            total_students=Count('class_sections__enrollments', 
-                               filter=Q(class_sections__enrollments__is_active=True),
-                               distinct=True),
-            active_facilitators=Count('facilitators', 
-                                    filter=Q(facilitators__is_active=True),
-                                    distinct=True)
-        ).order_by("-created_at")
-        
-        cache.set(cache_key, schools, 300)
-    
-    # Filter by status
+    # Get status filter
     status_filter = request.GET.get('status')
+    
+    # Build query with prefetch
+    query = School.objects.prefetch_related(
+        Prefetch(
+            'class_sections',
+            queryset=ClassSection.objects.filter(is_active=True)
+        ),
+        Prefetch(
+            'facilitators',
+            queryset=FacilitatorSchool.objects.select_related('facilitator').filter(is_active=True)
+        )
+    ).annotate(
+        total_classes=Count('class_sections', filter=Q(class_sections__is_active=True), distinct=True),
+        total_students=Count('class_sections__enrollments', 
+                           filter=Q(class_sections__enrollments__is_active=True),
+                           distinct=True),
+        active_facilitators=Count('facilitators', 
+                                filter=Q(facilitators__is_active=True),
+                                distinct=True)
+    )
+    
+    # Apply status filter at database level (not in Python)
     if status_filter:
-        schools = schools.filter(status=int(status_filter))
+        query = query.filter(status=int(status_filter))
+    
+    # Order and execute query
+    schools = query.order_by("-created_at")
     
     context = {
         'schools': schools,
@@ -374,28 +374,38 @@ def supervisor_school_delete(request, school_id):
 @login_required
 @supervisor_required
 def supervisor_classes_list(request):
-    """List all classes"""
+    """List classes - OPTIMIZED: Only load classes when school is selected"""
+    from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
     
     # Get school filter
     school_filter = request.GET.get('school')
+    page = request.GET.get('page', 1)
     
-    # Build cache key based on school filter
-    cache_key = f"supervisor_classes_list_{school_filter or 'all'}"
-    classes = cache.get(cache_key)
+    # Only load classes if school is selected
+    classes_page = None
+    paginator = None
     
-    if classes is None:
-        classes = ClassSection.objects.select_related('school').prefetch_related(
+    if school_filter:
+        # Build query with school filter at database level
+        query = ClassSection.objects.select_related('school').prefetch_related(
             Prefetch(
                 'enrollments',
                 queryset=Enrollment.objects.filter(is_active=True)
+            ),
+            Prefetch(
+                'planned_sessions',
+                queryset=PlannedSession.objects.filter(is_active=True)
             )
-        ).order_by("school__name", "class_level", "section")
+        ).filter(school__id=school_filter).order_by("class_level", "section")
         
-        cache.set(cache_key, classes, 300)  # Cache for 5 minutes
-    
-    # Filter by school
-    if school_filter:
-        classes = classes.filter(school__id=school_filter)
+        # Paginate: 50 classes per page
+        paginator = Paginator(query, 50)
+        try:
+            classes_page = paginator.page(page)
+        except PageNotAnInteger:
+            classes_page = paginator.page(1)
+        except EmptyPage:
+            classes_page = paginator.page(paginator.num_pages)
     
     # Batch query: Get all schools at once
     schools = cache.get("supervisor_schools_all")
@@ -404,7 +414,8 @@ def supervisor_classes_list(request):
         cache.set("supervisor_schools_all", schools, 300)
     
     context = {
-        'classes': classes,
+        'classes': classes_page,
+        'paginator': paginator,
         'schools': schools,
         'selected_school': school_filter,
     }
@@ -600,11 +611,12 @@ def supervisor_create_user_ajax(request):
 @login_required
 @supervisor_required
 def supervisor_facilitators_list(request):
-    """List all facilitators with their details"""
+    """List all facilitators with their details - OPTIMIZED"""
     
-    from .models import ActualSession, Attendance, SessionFeedback
-    from django.db.models import Count, Sum, Q
+    from .query_optimizations import OptimizedQueries
+    from django.db.models import Count, Q
     
+    # Get facilitators with prefetched schools (1 query)
     facilitators = User.objects.filter(
         role__name__iexact="FACILITATOR"
     ).select_related('role').prefetch_related(
@@ -616,37 +628,19 @@ def supervisor_facilitators_list(request):
         school_count=Count('assigned_schools', filter=Q(assigned_schools__is_active=True), distinct=True)
     ).order_by("-created_at")
     
-    # Batch query: Get all stats for all facilitators in one query
     facilitator_ids = [f.id for f in facilitators]
     
-    # Get session counts per facilitator
-    session_counts = ActualSession.objects.filter(
-        facilitator_id__in=facilitator_ids,
-        status=1
-    ).values('facilitator_id').annotate(count=Count('id'))
-    sessions_by_facilitator = {item['facilitator_id']: item['count'] for item in session_counts}
+    # Get all stats in ONE query using optimized utility
+    stats = OptimizedQueries.get_facilitator_stats(facilitator_ids)
     
-    # Get unique student counts per facilitator
-    strength_counts = Attendance.objects.filter(
-        actual_session__facilitator_id__in=facilitator_ids,
-        actual_session__status=1
-    ).values('actual_session__facilitator_id').annotate(
-        unique_students=Count('enrollment__student', distinct=True)
-    )
-    strength_by_facilitator = {item['actual_session__facilitator_id']: item['unique_students'] for item in strength_counts}
-    
-    # Get feedback counts per facilitator
-    feedback_counts = SessionFeedback.objects.filter(
-        facilitator_id__in=facilitator_ids
-    ).values('facilitator_id').annotate(count=Count('id'))
-    feedback_by_facilitator = {item['facilitator_id']: item['count'] for item in feedback_counts}
-    
-    # Enrich facilitators with batch-queried data
+    # Enrich facilitators with stats
     facilitator_list = []
     for facilitator in facilitators:
-        facilitator.total_sessions = sessions_by_facilitator.get(facilitator.id, 0)
-        facilitator.total_strength = strength_by_facilitator.get(facilitator.id, 0)
-        facilitator.feedback_count = feedback_by_facilitator.get(facilitator.id, 0)
+        facilitator.total_sessions = stats['sessions'].get(facilitator.id, 0)
+        facilitator.total_strength = stats['students'].get(facilitator.id, 0)
+        feedback_data = stats['feedback'].get(facilitator.id, {})
+        facilitator.feedback_count = feedback_data.get('count', 0)
+        facilitator.avg_rating = feedback_data.get('avg_rating', 0)
         facilitator_list.append(facilitator)
     
     # Filter by status
@@ -1724,124 +1718,222 @@ def cluster_delete(request, cluster_id):
 @login_required
 @supervisor_required
 def supervisor_sessions_list(request):
-    """List all sessions for supervisor's schools with filters"""
-    from .models import ActualSession, Attendance, AttendanceStatus, SessionStatus
-    from django.db.models import Count, Q, Avg
+    """List sessions - OPTIMIZED: Only load sessions when school AND class are selected"""
+    from .models import ActualSession, PlannedSession, Attendance, AttendanceStatus, SessionStatus
+    from django.db.models import Count, Q, Exists, OuterRef
     from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+    from django.utils import timezone
     import json
-    
-    # Get all schools managed by this supervisor
-    supervisor_schools = School.objects.all()
+    from datetime import datetime, timedelta
     
     # Get filter parameters
     school_id = request.GET.get('school_id')
     class_id = request.GET.get('class_id')
-    status_filter = request.GET.get('status')
+    status_filter = request.GET.get('status', '')
+    date_filter = request.GET.get('date_filter', 'all')
     page = request.GET.get('page', 1)
     
-    # Start with all actual sessions (not planned sessions)
-    actual_sessions = ActualSession.objects.select_related(
-        'planned_session__class_section__school',
-        'facilitator'
-    ).prefetch_related(
-        'planned_session__class_section__enrollments'
-    )
+    # Only load sessions if BOTH school and class are selected
+    sessions_page = None
+    paginator = None
+    total_count = 0
     
-    # Filter by school if specified
-    if school_id:
-        actual_sessions = actual_sessions.filter(planned_session__class_section__school_id=school_id)
+    if school_id and class_id:
+        # Build base query for PlannedSession - OPTIMIZED with minimal joins
+        planned_sessions = PlannedSession.objects.filter(
+            class_section__school_id=school_id,
+            class_section_id=class_id,
+            is_active=True
+        )
+        
+        # Apply status filter - check ActualSession for conducted/holiday/cancelled
+        if status_filter:
+            if status_filter == 'conducted':
+                # Sessions that have been conducted (status = 1)
+                planned_sessions = planned_sessions.filter(
+                    actual_sessions__status=SessionStatus.CONDUCTED
+                )
+            elif status_filter == 'holiday':
+                # Sessions marked as holiday (status = 2)
+                planned_sessions = planned_sessions.filter(
+                    actual_sessions__status=SessionStatus.HOLIDAY
+                )
+            elif status_filter == 'cancelled':
+                # Sessions marked as cancelled (status = 3)
+                planned_sessions = planned_sessions.filter(
+                    actual_sessions__status=SessionStatus.CANCELLED
+                )
+        
+        # Apply date filter
+        today = timezone.now().date()
+        if date_filter == 'today':
+            # Sessions for today only
+            planned_sessions = planned_sessions.filter(
+                actual_sessions__date=today
+            )
+        elif date_filter == 'past':
+            # Sessions before today
+            planned_sessions = planned_sessions.filter(
+                actual_sessions__date__lt=today
+            )
+        elif date_filter == 'future':
+            # Sessions after today
+            planned_sessions = planned_sessions.filter(
+                actual_sessions__date__gt=today
+            )
+        elif date_filter == 'week':
+            # Sessions in current week
+            week_start = today - timedelta(days=today.weekday())
+            week_end = week_start + timedelta(days=6)
+            planned_sessions = planned_sessions.filter(
+                actual_sessions__date__gte=week_start,
+                actual_sessions__date__lte=week_end
+            )
+        elif date_filter == 'month':
+            # Sessions in current month
+            month_start = today.replace(day=1)
+            if today.month == 12:
+                month_end = month_start.replace(year=today.year + 1, month=1) - timedelta(days=1)
+            else:
+                month_end = month_start.replace(month=today.month + 1) - timedelta(days=1)
+            planned_sessions = planned_sessions.filter(
+                actual_sessions__date__gte=month_start,
+                actual_sessions__date__lte=month_end
+            )
+        # else: 'all' - no date filter
+        
+        # Remove duplicates and order by day number
+        planned_sessions = planned_sessions.distinct().order_by('day_number')
+        
+        # Get total count before pagination
+        total_count = planned_sessions.count()
+        
+        # Paginate: 5 sessions per page for faster initial load
+        paginator = Paginator(planned_sessions, 5)
+        try:
+            sessions_page = paginator.page(page)
+        except PageNotAnInteger:
+            sessions_page = paginator.page(1)
+        except EmptyPage:
+            sessions_page = paginator.page(paginator.num_pages)
+        
+        # Prefetch related data only for current page sessions
+        session_ids = [s.id for s in sessions_page.object_list]
+        actual_sessions_map = {}
+        if session_ids:
+            actual_sessions = ActualSession.objects.filter(
+                planned_session_id__in=session_ids
+            ).select_related('facilitator').values('planned_session_id', 'status', 'date', 'facilitator__full_name')
+            
+            for actual in actual_sessions:
+                actual_sessions_map[actual['planned_session_id']] = actual
+        
+        # Attach actual session data to planned sessions
+        for session in sessions_page.object_list:
+            session.actual_session_data = actual_sessions_map.get(session.id)
     
-    # Filter by class if specified
-    if class_id:
-        actual_sessions = actual_sessions.filter(planned_session__class_section_id=class_id)
-    
-    # Filter by status if specified
-    if status_filter:
-        # Convert status string to integer
-        status_map = {
-            'conducted': SessionStatus.CONDUCTED,
-            'holiday': SessionStatus.HOLIDAY,
-            'cancelled': SessionStatus.CANCELLED
-        }
-        if status_filter in status_map:
-            actual_sessions = actual_sessions.filter(status=status_map[status_filter])
-    
-    # Order by date
-    actual_sessions = actual_sessions.order_by('-date')
-    
-    # Paginate: 20 sessions per page
-    paginator = Paginator(actual_sessions, 20)
-    try:
-        sessions_page = paginator.page(page)
-    except PageNotAnInteger:
-        sessions_page = paginator.page(1)
-    except EmptyPage:
-        sessions_page = paginator.page(paginator.num_pages)
-    
-    # Get schools for filter dropdown
-    schools = supervisor_schools.order_by('name')
-    
-    # Get classes for filter dropdown - all classes
-    all_classes = ClassSection.objects.filter(school__in=supervisor_schools).select_related('school').order_by('school__name', 'class_level')
+    # Get all schools for filter dropdown
+    supervisor_schools = School.objects.all().order_by('name')
     
     # Get classes for selected school only (for cascading filter)
     selected_school_classes = []
     if school_id:
         selected_school_classes = ClassSection.objects.filter(school_id=school_id).order_by('class_level', 'section')
     
-    # Build class data with grouping info for JavaScript - optimized with database aggregation
+    # Build class data for JavaScript - ONLY for selected school (not all schools)
     class_data = {}
+    if school_id:
+        classes_with_grouping = ClassSection.objects.filter(
+            school_id=school_id
+        ).annotate(
+            has_grouped_session=Exists(
+                PlannedSession.objects.filter(
+                    class_section=OuterRef('pk'),
+                    grouped_session_id__isnull=False
+                )
+            )
+        ).order_by('class_level')
+        
+        # Organize by school ID for JavaScript
+        class_data[str(school_id)] = []
+        
+        for cls in classes_with_grouping:
+            grouped_count = 0
+            if cls.has_grouped_session:
+                grouped_session_id = PlannedSession.objects.filter(
+                    class_section=cls,
+                    grouped_session_id__isnull=False
+                ).values_list('grouped_session_id', flat=True).first()
+                
+                if grouped_session_id:
+                    grouped_count = PlannedSession.objects.filter(
+                        grouped_session_id=grouped_session_id
+                    ).values('class_section').distinct().count()
+            
+            class_data[str(school_id)].append({
+                'id': str(cls.id),
+                'name': cls.display_name,
+                'is_grouped': cls.has_grouped_session,
+                'grouped_count': grouped_count
+            })
     
-    # Get all classes with grouped session info in one query
-    classes_with_grouping = ClassSection.objects.filter(
-        school__in=supervisor_schools
-    ).select_related('school').annotate(
+    return render(request, 'supervisor/sessions/list.html', {
+        'sessions': sessions_page,
+        'paginator': paginator,
+        'schools': supervisor_schools,
+        'selected_school_classes': selected_school_classes,
+        'class_data_json': json.dumps(class_data),
+        'selected_school': school_id,
+        'selected_class': class_id,
+        'selected_status': status_filter,
+        'selected_date_filter': date_filter,
+        'total_count': total_count,
+    })
+
+
+@csrf_exempt
+@login_required
+@supervisor_required
+def get_classes_by_school(request):
+    """AJAX endpoint to get classes for a school"""
+    school_id = request.GET.get('school_id')
+    
+    if not school_id:
+        return JsonResponse({'classes': []})
+    
+    classes = ClassSection.objects.filter(
+        school_id=school_id
+    ).annotate(
         has_grouped_session=Exists(
             PlannedSession.objects.filter(
                 class_section=OuterRef('pk'),
                 grouped_session_id__isnull=False
             )
         )
-    ).order_by('school__name', 'class_level')
+    ).order_by('class_level').values('id', 'display_name', 'has_grouped_session')
     
-    for cls in classes_with_grouping:
-        school_key = str(cls.school_id)
-        if school_key not in class_data:
-            class_data[school_key] = []
-        
-        # If class has grouped sessions, count how many classes are in the group
+    classes_list = []
+    for cls in classes:
         grouped_count = 0
-        if cls.has_grouped_session:
-            # Get the grouped_session_id for this class
+        if cls['has_grouped_session']:
             grouped_session_id = PlannedSession.objects.filter(
-                class_section=cls,
+                class_section_id=cls['id'],
                 grouped_session_id__isnull=False
             ).values_list('grouped_session_id', flat=True).first()
             
             if grouped_session_id:
-                # Count distinct classes in this group
                 grouped_count = PlannedSession.objects.filter(
                     grouped_session_id=grouped_session_id
                 ).values('class_section').distinct().count()
         
-        class_data[school_key].append({
-            'id': str(cls.id),
-            'name': cls.display_name,
-            'is_grouped': cls.has_grouped_session,
+        classes_list.append({
+            'id': str(cls['id']),
+            'name': cls['display_name'],
+            'is_grouped': cls['has_grouped_session'],
             'grouped_count': grouped_count
         })
     
-    return render(request, 'supervisor/sessions/list.html', {
-        'sessions': sessions_page,
-        'paginator': paginator,
-        'schools': schools,
-        'classes': all_classes,
-        'selected_school_classes': selected_school_classes,
-        'class_data_json': json.dumps(class_data),
-        'selected_school': school_id,
-        'selected_class': class_id,
-        'selected_status': status_filter
-    })
+    return JsonResponse({'classes': classes_list})
 
 
 @login_required

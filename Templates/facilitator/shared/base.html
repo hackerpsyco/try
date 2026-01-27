@@ -318,7 +318,8 @@
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-user">
-            <div class="sidebar-user-avatar" style="background-image: url('https://via.placeholder.com/48');"></div>
+             <div class="sidebar-user-avatar" style="background-image: url('{% static "images/wes-logo.jpg" %}');"></div>
+
             <div class="sidebar-user-info">
                 <h6>Facilitator</h6>
                 <small>{{ request.user.email }}</small>
@@ -330,10 +331,6 @@
             <a class="nav-item {% if request.resolver_match.url_name == 'facilitator_dashboard' %}active{% endif %}" href="{% url 'facilitator_dashboard' %}">
                 <i class="bi bi-speedometer2"></i>
                 <span>Dashboard</span>
-            </a>
-            <a class="nav-item {% if 'facilitator_schools_list' in request.resolver_match.url_name or 'facilitator_school_detail' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'facilitator_schools_list' %}">
-                <i class="bi bi-book"></i>
-                <span>My Classes</span>
             </a>
             <a class="nav-item {% if 'facilitator_schools' in request.resolver_match.url_name and 'facilitator_schools_list' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'facilitator_schools_list' %}">
                 <i class="bi bi-building"></i>
@@ -387,7 +384,7 @@
                 </div>
             </div>
             <div class="topbar-right">
-                <div class="profile-avatar" style="background-image: url('https://via.placeholder.com/48');"></div>
+               <div class="profile-avatar" style="background-image: url('{% static "images/wes-logo.jpg" %}');"></div>
             </div>
         </header>
         

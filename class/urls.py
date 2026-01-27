@@ -90,6 +90,7 @@ from .supervisor_views import (
     supervisor_session_detail,
     supervisor_class_sessions,
     supervisor_school_sessions_analytics,
+    get_classes_by_school,
 )
 from .views import (
 
@@ -270,6 +271,7 @@ urlpatterns = [
     path("supervisor/sessions/<uuid:session_id>/", supervisor_session_detail, name="supervisor_session_detail"),
     path("supervisor/class/<uuid:class_id>/sessions/", supervisor_class_sessions, name="supervisor_class_sessions"),
     path("supervisor/school/<uuid:school_id>/sessions-analytics/", supervisor_school_sessions_analytics, name="supervisor_school_sessions_analytics"),
+    path("supervisor/get-classes-by-school/", get_classes_by_school, name="get_classes_by_school"),
     
     # Feedback & Analytics
     # ======================

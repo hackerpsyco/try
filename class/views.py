@@ -230,33 +230,9 @@ def schools(request):
         return redirect("no_permission")
 
     # Optimized query with related data and statistics
-    cache_key = f"schools_list_{request.user.id}"
-    schools_queryset = cache.get(cache_key)
+    from .query_optimizations import CachedQueries
     
-    if schools_queryset is None:
-        schools_queryset = School.objects.select_related().prefetch_related(
-            Prefetch(
-                'class_sections',
-                queryset=ClassSection.objects.select_related().annotate(
-                    student_count=Count('enrollments', filter=Q(enrollments__is_active=True))
-                )
-            ),
-            Prefetch(
-                'facilitators',
-                queryset=FacilitatorSchool.objects.select_related('facilitator').filter(is_active=True)
-            )
-        ).annotate(
-            total_classes=Count('class_sections', distinct=True),
-            total_students=Count('class_sections__enrollments', 
-                               filter=Q(class_sections__enrollments__is_active=True),
-                               distinct=True),
-            active_facilitators=Count('facilitators', 
-                                    filter=Q(facilitators__is_active=True),
-                                    distinct=True)
-        ).order_by("-created_at")
-        
-        # Cache for 5 minutes
-        cache.set(cache_key, schools_queryset, 300)
+    schools_queryset = CachedQueries.get_schools_with_stats(request.user.id, cache_timeout=300)
     
     # Add pagination: 20 schools per page
     paginator = Paginator(schools_queryset, 20)
@@ -283,8 +259,8 @@ def add_school(request):
             school = form.save()
             
             # Clear schools cache to refresh data
-            cache_key = f"schools_list_{request.user.id}"
-            cache.delete(cache_key)
+            from .query_optimizations import CachedQueries
+            CachedQueries.invalidate_schools_cache(request.user.id)
             
             messages.success(request, f"School '{school.name}' added successfully!")
             return redirect("schools")
@@ -308,8 +284,8 @@ def edit_school(request, school_id):
             updated_school = form.save()
             
             # Clear schools cache to refresh data
-            cache_key = f"schools_list_{request.user.id}"
-            cache.delete(cache_key)
+            from .query_optimizations import CachedQueries
+            CachedQueries.invalidate_schools_cache(request.user.id)
             
             messages.success(request, f"School '{updated_school.name}' updated successfully!")
             return redirect("schools")
@@ -2086,9 +2062,14 @@ def facilitator_classes(request):
         if cal_date.date_type in [DateType.HOLIDAY, DateType.OFFICE_WORK] and cal_date.school:
             calendar_by_school_today[str(cal_date.school.id)] = cal_date
     
-    # Get ALL calendar entries (not just today) to find grouped sessions created on any date
+    # OPTIMIZATION: Only load calendar entries for facilitator's schools
+    # Don't load all calendar entries - filter by facilitator's school IDs first
+    facilitator_school_ids = [fs.school_id for fs in assigned_schools]
+    
+    # Get calendar entries only for facilitator's schools (not all schools)
     all_calendar_dates = CalendarDate.objects.filter(
-        date_type=DateType.SESSION
+        date_type=DateType.SESSION,
+        school_id__in=facilitator_school_ids
     ).select_related('school').prefetch_related('class_sections')
     
     # Create dicts for grouping (all dates)
@@ -2107,35 +2088,25 @@ def facilitator_classes(request):
     # Don't load all 4950 records - filter by facilitator's school IDs first
     facilitator_school_ids = [fs.school_id for fs in assigned_schools]
     
-    all_planned_sessions = PlannedSession.objects.filter(
-        class_section__school_id__in=facilitator_school_ids,  # Only facilitator's schools
-        grouped_session_id__isnull=False,  # Only get sessions that have a grouped_session_id
-        is_active=True  # Only active sessions
-    ).select_related('class_section')
+    # CRITICAL FIX: Only load grouped sessions for TODAY
+    # Don't load all 300 unique grouped sessions - only load what's needed for today
+    today_sessions = ActualSession.objects.filter(
+        date=today,
+        planned_session__class_section__school_id__in=facilitator_school_ids
+    ).values_list('planned_session__grouped_session_id', flat=True).distinct()
     
-    logger.info(f"Facilitator {request.user.full_name}: Found {all_planned_sessions.count()} PlannedSession records with grouped_session_id")
-    
-    # Build a map of grouped_session_id to classes
-    permanent_groups = {}  # key: grouped_session_id, value: list of classes
-    for session in all_planned_sessions:
-        if session.grouped_session_id:
-            group_id = str(session.grouped_session_id)
-            if group_id not in permanent_groups:
-                permanent_groups[group_id] = []
-            if session.class_section not in permanent_groups[group_id]:
-                permanent_groups[group_id].append(session.class_section)
-    
-    # Debug logging
-    logger.info(f"Facilitator {request.user.full_name}: Found {len(permanent_groups)} permanent groups with {sum(len(v) for v in permanent_groups.values())} total classes")
-    for group_id, classes in permanent_groups.items():
-        logger.info(f"  Permanent group {group_id}: {[c.display_name for c in classes]}")
-    
-    # Also log which classes from facilitator's schools are in permanent groups
-    facilitator_class_ids = set(str(c.id) for c in class_sections)
-    for group_id, classes in permanent_groups.items():
-        for cls in classes:
-            if str(cls.id) in facilitator_class_ids:
-                logger.info(f"  Facilitator has access to class {cls.display_name} in permanent group {group_id}")
+    # Build a map of ONLY today's grouped sessions
+    permanent_groups = {}
+    for grouped_id in today_sessions:
+        if grouped_id:  # Only if grouped_session_id is not None
+            # Get classes in this group
+            sessions_in_group = PlannedSession.objects.filter(
+                grouped_session_id=grouped_id,
+                is_active=True
+            ).values_list('class_section_id', flat=True).distinct()
+            
+            classes_in_group = ClassSection.objects.filter(id__in=sessions_in_group)
+            permanent_groups[str(grouped_id)] = list(classes_in_group)
     
     # Group classes that share the same calendar entry (same group created by supervisor)
     classes_with_calendar = []
@@ -2164,7 +2135,6 @@ def facilitator_classes(request):
                 group_key = str(calendar_entry.id)
                 if group_key not in calendar_groups:
                     grouped_classes_list = list(calendar_entry.class_sections.all())
-                    logger.info(f"  Adding calendar-based group {group_key} with classes: {[c.display_name for c in grouped_classes_list]}")
                     calendar_groups[group_key] = {
                         'classes': grouped_classes_list,
                         'calendar_entry': calendar_entry,
@@ -2182,7 +2152,6 @@ def facilitator_classes(request):
                             if other_calendar and other_calendar.date == calendar_entry.date and other_calendar.date_type == calendar_entry.date_type:
                                 legacy_classes.append(other_class)
                     
-                    logger.info(f"  Adding legacy calendar group {group_key} with classes: {[c.display_name for c in legacy_classes]}")
                     calendar_groups[group_key] = {
                         'classes': legacy_classes,
                         'calendar_entry': calendar_entry,
@@ -2195,7 +2164,6 @@ def facilitator_classes(request):
                     # This class is part of a permanent group
                     group_key = f"permanent_group_{group_id}"
                     if group_key not in calendar_groups:
-                        logger.info(f"  Adding permanent group {group_id} with classes: {[c.display_name for c in grouped_classes]}")
                         calendar_groups[group_key] = {
                             'classes': grouped_classes,
                             'calendar_entry': None,
@@ -2205,7 +2173,6 @@ def facilitator_classes(request):
             
             if not grouped_via_session:
                 # No calendar entry and no permanent grouping
-                logger.info(f"  Single class (no grouping): {class_section.display_name}")
                 calendar_groups[f"no_entry_{class_id_str}"] = {
                     'classes': [class_section],
                     'calendar_entry': None,
@@ -2240,21 +2207,12 @@ def facilitator_classes(request):
             elif today_calendar_entry.date_type == DateType.SESSION:
                 today_status = 'session'
         
-        # Debug logging
-        if len(grouped_classes) > 1:
-            logger.info(f"  Grouped item: {[c.display_name for c in grouped_classes]} (key: {group_key})")
-        
         classes_with_calendar.append({
             'class_sections': grouped_classes,  # List of grouped classes
             'class_section': primary_class,  # Primary class for display (always safe now)
             'today_status': today_status,
             'calendar_entry': calendar_entry,
         })
-
-    logger.info(f"Facilitator {request.user.full_name}: Returning {len(classes_with_calendar)} class items to template")
-    for item in classes_with_calendar:
-        if len(item['class_sections']) > 1:
-            logger.info(f"  Item with {len(item['class_sections'])} grouped classes: {[c.display_name for c in item['class_sections']]}")
 
     return render(request, "facilitator/classes/list.html", {
         "class_sections": classes_with_calendar
